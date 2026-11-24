@@ -1,0 +1,530 @@
+
+/* ==========================================
+   TRIP PLANNER - MAIN PAGE
+========================================== */
+
+#planner-page,
+#tours-page {
+    display: block;
+    width: 100%;
+    min-height: 70vh;
+    background: #f8f9fa;
+    color: #333;
+}
+
+/* ==========================================
+   HERO SECTION
+========================================== */
+
+#planner-page .subpage-hero,
+#tours-page .subpage-hero {
+    width: 100%;
+    padding: 75px 20px;
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(135deg, #064b3e, #08745f);
+}
+
+#planner-page .eyebrow,
+#tours-page .eyebrow {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #f4c542;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+#planner-page .subpage-hero h1,
+#tours-page .subpage-hero h1 {
+    margin-bottom: 15px;
+    font-size: clamp(27px, 4vw, 42px);
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+#planner-page .subpage-hero p,
+#tours-page .subpage-hero p {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #e8f3ef;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* ==========================================
+   SECTION CONTAINER
+========================================== */
+
+#planner-page .section,
+#tours-page .section {
+    width: 100%;
+    padding: 65px 20px;
+}
+
+#planner-page .section-inner,
+#tours-page .section-inner {
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+/* ==========================================
+   CHOICE CARDS
+========================================== */
+
+#planner-page .choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+#planner-page .choice-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 38px 30px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#planner-page .choice-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+#planner-page .choice-icon {
+    margin-bottom: 20px;
+    font-size: 48px;
+}
+
+#planner-page .choice-card h2 {
+    margin-bottom: 15px;
+    color: #064b3e;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+#planner-page .choice-card p {
+    min-height: 80px;
+    margin-bottom: 25px;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+#planner-page .primary-btn,
+#tours-page .secondary-btn {
+    display: inline-block;
+    padding: 13px 23px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#planner-page .primary-btn {
+    background: #08745f;
+    color: #fff;
+}
+
+#planner-page .primary-btn:hover {
+    background: #064b3e;
+    transform: translateY(-2px);
+}
+
+#planner-page .gold-btn {
+    background: #e5ad28;
+    color: #222;
+}
+
+#planner-page .gold-btn:hover {
+    background: #cc9414;
+}
+
+/* ==========================================
+   TOUR PACKAGE GENERATOR LINK
+========================================== */
+
+#planner-page .choice-note {
+    margin-top: 35px;
+    color: #666;
+    text-align: center;
+    font-size: 15px;
+}
+
+#planner-page .link-btn {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #08745f;
+    font-weight: 800;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#planner-page .link-btn:hover {
+    color: #e5ad28;
+}
+
+/* ==========================================
+   TOUR CATALOG FILTER
+========================================== */
+
+#tours-page .tours-filter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+#tours-page .tours-filter label {
+    color: #064b3e;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+#tours-page .tours-filter select {
+    min-width: 190px;
+    padding: 11px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    color: #333;
+    outline: none;
+}
+
+#tours-page .tours-filter select:focus {
+    border-color: #08745f;
+    box-shadow: 0 0 0 3px rgba(8, 116, 95, 0.12);
+}
+
+/* ==========================================
+   TOUR CARDS
+========================================== */
+
+#tours-page .tour-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+#tours-page .tour-card,
+#tours-page .tour-tile {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+    transition: 0.3s ease;
+}
+
+#tours-page .tour-card:hover,
+#tours-page .tour-tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+#tours-page .tour-card img,
+#tours-page .tour-tile img {
+    display: block;
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+#tours-page .tour-card h3,
+#tours-page .tour-tile h3 {
+    margin: 18px 18px 10px;
+    color: #064b3e;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+#tours-page .tour-card p,
+#tours-page .tour-tile p {
+    margin: 0 18px 15px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#tours-page .tour-card button,
+#tours-page .tour-tile button {
+    margin: 0 18px 20px;
+}
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+#tours-page .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+#tours-page .secondary-btn {
+    background: #064b3e;
+    color: #fff;
+}
+
+#tours-page .secondary-btn:hover {
+    background: #08745f;
+    transform: translateY(-2px);
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+body > footer {
+    width: 100%;
+    padding: 30px 20px;
+    background: #063d35;
+    color: #fff;
+    text-align: center;
+}
+
+body > footer .footer-brand {
+    margin-bottom: 8px;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+body > footer p {
+    margin-bottom: 8px;
+}
+
+body > footer .copyright {
+    margin-top: 15px;
+    color: #cbd8d3;
+    font-size: 13px;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 900px) {
+    #tours-page .tour-tiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #planner-page .choice-grid {
+        gap: 20px;
+    }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+    #planner-page .subpage-hero,
+    #tours-page .subpage-hero {
+        padding: 55px 18px;
+    }
+
+    #planner-page .section,
+    #tours-page .section {
+        padding: 40px 15px;
+    }
+
+    #planner-page .choice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #planner-page .choice-card {
+        padding: 30px 22px;
+    }
+
+    #planner-page .choice-card p {
+        min-height: auto;
+    }
+
+    #tours-page .tour-tiles {
+        grid-template-columns: 1fr;
+    }
+
+    #tours-page .tours-filter {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #tours-page .tours-filter select {
+        width: 100%;
+    }
+
+    #tours-page .form-actions {
+        flex-direction: column;
+    }
+
+    #tours-page .secondary-btn {
+        width: 100%;
+    }
+}
+
+
+
+
+/* DESTINATION SELECTION */
+
+#destination-page .destination-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+#destination-page .destination-selection-card {
+    overflow: hidden;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    transition: .3s ease;
+}
+
+#destination-page .destination-selection-card:hover {
+    transform: translateY(-5px);
+}
+
+#destination-page .destination-selection-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+#destination-page .destination-selection-content {
+    padding: 22px;
+    text-align: center;
+}
+
+#destination-page .destination-selection-content h2 {
+    color: #064b3e;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+#destination-page .destination-selection-content p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 65px;
+}
+
+#destination-page .destination-selection-content button {
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    border-radius: 7px;
+    background: #08745f;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#destination-page .destination-selection-content button:hover {
+    background: #e5ad28;
+    color: #222;
+}
+
+/* TOUR CARDS */
+
+#tours-page .tour-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+#tours-page .tour-card {
+    overflow: hidden;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+
+#tours-page .tour-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+#tours-page .tour-card-content {
+    padding: 20px;
+}
+
+#tours-page .tour-location {
+    color: #08745f;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+#tours-page .tour-card h3 {
+    min-height: 55px;
+    margin: 12px 0;
+    color: #064b3e;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+#tours-page .tour-price {
+    margin: 15px 0;
+    color: #08745f;
+    font-size: 23px;
+    font-weight: 800;
+}
+
+#tours-page .tour-price small {
+    color: #777;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+#tours-page .tour-book-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 7px;
+    background: #08745f;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#tours-page .tour-book-btn:hover {
+    background: #e5ad28;
+    color: #222;
+}
+
+@media(max-width: 850px) {
+    #destination-page .destination-selection-grid,
+    #tours-page .tour-tiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media(max-width: 550px) {
+    #destination-page .destination-selection-grid,
+    #tours-page .tour-tiles {
+        grid-template-columns: 1fr;
+    }
+}

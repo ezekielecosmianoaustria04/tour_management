@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Puerto Princesa of Wonder</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="contact.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+<header aria-label="Website header" class="navbar">
+   <div class="brand-container">
+    <div class="company-logo">
+     <img alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false" src="logo_travel_and_tour.jpg"/>
+     <span aria-label="Company logo placeholder" class="logo-fallback" hidden="">
+      PW
+     </span>
+    </div>
+    <div class="brand">
+     Puerto Princesa of Wonder Services Cooperative Travel and Tours
+    </div>
+   </div>
+   <nav aria-label="Main navigation" class="nav-links">
+    <form class="home-search" id="headerSearchForm" role="search">
+     <span aria-hidden="true">
+      ⌕
+     </span>
+     <input aria-label="Search destinations" id="home-location-search" placeholder="Search Vietnam or Japan..." type="search"/>
+     <button type="submit">
+      Search
+     </button>
+    </form>
+    <a href="index.html">
+     Home
+    </a>
+    <a href="tripplanner.html">
+     Trip Planner
+    </a>
+    <a href="local-destinations.html">
+     Local Destinations
+    </a>
+    <a href="beyond-philippines.html">
+     Beyond Philippines
+    </a>
+    <a href="about.html">
+     About
+    </a>
+    <a href="contact.html">
+     Contact
+    </a>
+    <button aria-label="Open shopping cart" class="cart-nav-btn" onclick="if(typeof openCart==='function')openCart()" type="button">
+     🛒
+     <span id="cart-count">
+      0
+     </span>
+    </button>
+    <button class="login-nav-btn" onclick="if(typeof showLoginNotice==='function')showLoginNotice()" type="button">
+     Login
+    </button>
+   </nav>
+  </header>
+<main id="contact-page">
+<section class="contact-hero">
+<div class="glass hero-panel"><span class="eyebrow">LET'S CONNECT</span><h1>Let's plan your next adventure.</h1><p>Our travel team is here to help you explore Palawan and beyond.</p><a class="contact-btn" href="#inquiry">Send an inquiry <i class="bi bi-arrow-down"></i></a></div>
+</section>
+<section class="contact-grid" aria-label="Contact information">
+<article class="glass contact-card"><i class="bi bi-geo-alt contact-icon"></i><h2>Our Location</h2><p>41-A Pineda, San Pedro, Puerto Princesa City, Palawan, Philippines 5300</p><a href="https://www.google.com/maps/search/?api=1&amp;query=41-A+Pineda+San+Pedro+Puerto+Princesa+City+Palawan" target="_blank" rel="noopener noreferrer">View on Google Maps <i class="bi bi-arrow-up-right"></i></a></article>
+<article class="glass contact-card"><i class="bi bi-facebook contact-icon"></i><h2>Facebook Page</h2><p>Puerto Princesa of Wonder Travel and Tours</p><a href="https://www.facebook.com/puertoprincesaislandsofwonderTours" target="_blank" rel="noopener noreferrer">Visit Facebook <i class="bi bi-arrow-up-right"></i></a></article>
+<article class="glass contact-card"><i class="bi bi-telephone contact-icon"></i><h2>Contact Number</h2><p>GLOBE: <a href="tel:+639064560426">0906-456-0426</a></p><p>SMART: <a href="tel:+639192726174">0919-272-6174</a></p></article>
+<article class="glass contact-card"><i class="bi bi-envelope contact-icon"></i><h2>Gmail</h2><p>jeannyveve.cusi@gmail.com</p><a href="mailto:jeannyveve.cusi@gmail.com">Send Email <i class="bi bi-envelope"></i></a></article>
+</section>
+<section class="glass inquiry-panel" id="inquiry">
+<span class="eyebrow">START YOUR JOURNEY</span><h2>Send Us an Inquiry</h2><p>Tell us about your preferred trip and travel arrangements.</p>
+<form id="inquiryForm" action="#inquiry" method="post" onsubmit="event.preventDefault(); document.getElementById('inquiryStatus').textContent='Your form is valid. Online submission is not connected yet.';" >
+<div class="form-grid">
+<label>Full Name<input name="full_name" autocomplete="name" placeholder="Enter your full name" required></label>
+<label>Email Address<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></label>
+<label>Contact Number<input type="tel" name="contact_number" autocomplete="tel" placeholder="09XXXXXXXXX" required></label>
+<label>Preferred Destination<select name="destination" required><option value="">Select destination</option><option>Puerto Princesa</option><option>El Nido</option><option>Coron</option><option>Vietnam</option><option>Japan</option><option>Other</option></select></label>
+<label>Travel Date<input type="date" name="travel_date" required></label>
+<label>Number of Travelers<input type="number" name="travelers" min="1" placeholder="2" required></label>
+<label>Trip Option<select name="trip_option" required><option value="">Select trip option</option><option>Tour Only</option><option>Customized Trip</option></select></label>
+<label>Tour Type<select name="tour_type" required><option value="">Select tour type</option><option>Joiners</option><option>Exclusive</option></select></label>
+<label class="full-field">Your Message<textarea name="message" rows="5" placeholder="Tell us about your travel plans..." required></textarea></label>
+</div>
+<button class="contact-btn" type="submit">Send Inquiry <i class="bi bi-send"></i></button>
+<p class="form-note">Demo form only — online submission is not connected yet.</p><p id="inquiryStatus" role="status"></p>
+</form></section>
+</main>
+<footer>
+   <div class="footer-brand">
+    Puerto Princesa of Wonder Travel and Tours
+   </div>
+   <p>
+    Services Cooperative Travel and Tours
+   </p>
+   <p class="copyright">
+    © 2026 Puerto Princesa of Wonder. All Rights Reserved.
+   </p>
+  </footer>
+<script src="script.js" defer></script>
+</body></html>

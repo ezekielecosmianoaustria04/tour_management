@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+<script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puerto Princesa of Wonder | Travel and Tours</title>
+    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="tripplanner.css">
+</head>
+
+<body>
+<header class="navbar">
+  <div class="brand-container"><div class="company-logo"><img src="logo_travel_and_tour.jpg" alt="Company Logo"></div><div class="brand">Puerto Princesa of Wonder Services Cooperative Travel and Tours</div></div>
+    <br>
+  <nav class="nav-links" aria-label="Main navigation">
+    <div class="home-search"><span>⌕</span><input id="home-location-search" type="search" placeholder="Search a location (e.g. El Nido, Baguio, Cebu)..." oninput="searchHomeLocations()"><button onclick="searchHomeLocations(true)">Search</button></div>
+    <div id="home-search-results" class="search-results" aria-live="polite"></div>
+    <button type="button" onclick="window.location.href='index.html'">Home</button>
+    <button type="button" onclick="window.location.href='tripplanner.html'">Trip Planner</button>
+    <button type="button" onclick="window.location.href='local-destinations.html'">Local Destinations</button>
+    <button type="button" onclick="window.location.href='beyond-philippines.html'">Beyond Philippines</button>
+    <button type="button" onclick="window.location.href='about.html'">About</button>
+    <button type="button" onclick="window.location.href='contact.html'">Contact</button>
+    <button type="button" class="cart-nav-btn" onclick="openCart()">🛒<span id="cart-count">0</span></button>
+    <button class="login-nav-btn" onclick="showLoginNotice()">Login</button>
+
+  </nav>
+</header>
+
+
+
+<body>
+
+    
+<!-- ======================================
+     TRIP PLANNER PAGE
+====================================== -->
+
+<main id="planner-page" class="app-page">
+
+    <!-- SUBPAGE HERO WITH BACKGROUND IMAGE -->
+    <section class="subpage-hero planner-hero">
+
+        <div class="planner-hero-content">
+
+            <span class="eyebrow">
+                TRIP PLANNER
+            </span>
+
+            <h1>
+                How Would You Like to Plan Your Trip?
+            </h1>
+
+            <p>
+                Book a single tour, or customize your trip
+                and create unforgettable travel experiences.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- KEEP YOUR EXISTING TOUR ONLY AND
+         CUSTOMIZE YOUR TRIP SECTIONS BELOW -->
+
+
+
+        <section class="section">
+
+            <div class="section-inner">
+
+                <div class="choice-grid">
+
+                    <!-- TOUR ONLY -->
+
+                    <article class="choice-card">
+
+                        <div class="choice-icon" aria-hidden="true">
+                            🏝️
+                        </div>
+
+                        <h2>Tour Only</h2>
+
+                        <p>
+                            Browse ready-made tours, 
+                            then book the ones you like.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="primary-btn"
+                            onclick="openTourOnly()">
+
+                            Choose Tour Only
+
+                        </button>
+
+                    </article>
+
+
+                    
+                        <!-- ======================================
+                            CUSTOMIZE YOUR TRIP
+                        ======================================= -->
+
+                        <article class="choice-card">
+
+                            <div class="choice-icon" aria-hidden="true">
+                                🗓️
+                            </div>
+
+                            <h2>Customize Your Trip</h2>
+
+                            <p> Drag and drop your tours to build your own
+                                itinerary with a live price.
+                            </p>
+
+                            <button type="button" class="primary-btn" onclick="window.location.href='tripplanner-customized.html'">
+                                Customize Your Trip
+                            </button>
+                        </article>
+                </div>
+
+
+                <!-- TOUR PACKAGE GENERATOR -->
+
+                <p class="choice-note">
+                    Not sure yet? Try the
+                    <button
+                        type="button"
+                        class="link-btn"
+                        onclick="window.location.href='index.html#generator'">
+                        Tour Package Generator
+                    </button>
+                    for suggestions.
+                </p>              
+            </div>
+        </section>
+    </main>
+
+
+
+    <!-- ======================================
+         2. DESTINATION SELECTION PAGE
+    ======================================= -->
+
+    <main
+        id="destination-page"
+        class="app-page"
+        style="display: none;">
+
+        <section class="subpage-hero">
+
+            <span class="eyebrow">TRIP PLANNER · TOUR ONLY</span>
+
+            <h1>Choose Your Destination</h1>
+
+            <p>
+                Select your preferred destination to view available
+                tour packages.
+            </p>
+
+        </section>
+
+
+        <section class="section">
+            <div class="section-inner">
+                <div class="destination-selection-grid">
+
+                    <article class="destination-selection-card">
+
+                        <img
+                            src="puerto-princesa.jpg"
+                            alt="Puerto Princesa">
+
+                        <div class="destination-selection-content">
+
+                            <h2>Puerto Princesa</h2>
+
+                            <p>
+                                Discover the beauty of Puerto Princesa.
+                            </p>
+
+                            <button
+                                type="button"
+                                onclick="chooseTourDestination('Puerto Princesa')">
+
+                                View Tours → 
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- EL NIDO -->
+
+                    <article class="destination-selection-card">
+
+                        <img
+                            src="elnido.jpg"
+                            alt="El Nido">
+
+                        <div class="destination-selection-content">
+
+                            <h2>El Nido</h2>
+
+                            <p>
+                                Explore beautiful islands and lagoons of El Nido.
+                            </p>
+
+                            <button
+                                type="button"
+                                onclick="chooseTourDestination('El Nido')">
+
+                                View Tours →
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CORON -->
+
+                    <article class="destination-selection-card">
+
+                        <img
+                            src="coron.jpg"
+                            alt="Coron">
+
+                        <div class="destination-selection-content">
+
+                            <h2>Coron</h2>
+
+                            <p>
+                                Experience the natural beauty of Coron.
+                            </p>
+
+                            <button
+                                type="button"
+                                onclick="chooseTourDestination('Coron')">
+
+                                View Tours →
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="destination-selection-card">
+
+                        <img
+                            src="portbarton.jpg"
+                            alt="Port Barton">
+
+                        <div class="destination-selection-content">
+
+                            <h2>Port Barton</h2>
+
+                            <p>
+                                Experience the natural beauty of port Barton.
+                            </p>
+
+                            <button
+                                type="button"
+                                onclick="chooseTourDestination('Port Barton')">
+
+                                View Tours →
+
+                            </button>
+
+
+                          
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+
+                <!-- BACK BUTTON -->
+
+                <div class="text-center mt-5">
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        onclick="showTripPlannerPage('planner-page')">
+
+                        ← Back to Trip Planner
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ======================================
+         3. TOUR CATALOG PAGE
+    ======================================= -->
+
+    <main
+        id="tours-page"
+        class="app-page"
+        style="display: none;">
+
+        <section class="subpage-hero">
+
+            <span class="eyebrow">TRIP PLANNER · TOUR ONLY</span>
+
+            <h1 id="selected-destination-title">
+                Available Tour Packages
+            </h1>
+
+            <p id="selected-destination-description">
+                Choose from our available tour packages.
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-inner">
+
+
+                <!-- BACK TO DESTINATIONS -->
+
+                <div class="mb-4">
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        onclick="showTripPlannerPage('destination-page')">
+
+                        ← Back to Destinations
+
+                    </button>
+
+                </div>
+
+
+                
+
+
+<!-- ==========================================
+     TOUR ONLY - TOUR PACKAGES
+     Paste inside your existing #tours-page.
+     Keep this dialog OUTSIDE #tour-tiles.
+========================================== -->
+<div class="tour-tiles" id="tour-tiles">
+    <!-- 1. UNDERGROUND RIVER TOUR -->
+    <article class="tour-card" data-destination="Puerto Princesa" data-tour-id="1" data-price="2800">
+      <img src="puerto-princesa-underground-river.jpg" alt="Underground River Tour" loading="lazy">
+      <div class="tour-card-content">
+        <h3>Underground River Tour</h3>
+        <p class="tour-price">₱2,800 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(1)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. HONDA BAY ISLAND HOPPING -->
+    <article class="tour-card" data-destination="Puerto Princesa" data-tour-id="2" data-price="2300">
+      <img src="puerto-princesa-honda-bay.jpg" alt="Honda Bay Island Hopping" loading="lazy">
+      <div class="tour-card-content">
+        <h3>Honda Bay Island Hopping</h3>
+        <p class="tour-price">₱2,300 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(2)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. JUNGLE FIREFLY WATCHING -->
+    <article class="tour-card" data-destination="Puerto Princesa" data-tour-id="3" data-price="2200">
+      <img src="puerto-princesa-firefly.jpg" alt="Jungle Firefly Watching" loading="lazy">
+      <div class="tour-card-content">
+        <h3>Jungle Firefly Watching</h3>
+        <p class="tour-price">₱2,200 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(3)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4. HALFDAY CITY TOUR -->
+    <article class="tour-card" data-destination="Puerto Princesa" data-tour-id="4" data-price="990">
+      <img src="puerto-princesa-city-tour.jpg" alt="Halfday City Tour" loading="lazy">
+      <div class="tour-card-content">
+        <h3>Halfday City Tour</h3>
+        <p class="tour-price">₱990 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(4)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 6. DOLPHIN WATCHING TOUR PACKAGE -->
+    <article class="tour-card" data-destination="Puerto Princesa" data-tour-id="6" data-price="1500">
+      <img src="puerto-princesa-dolphin-watching.jpg" alt="Dolphin Watching Tour Package" loading="lazy">
+      <div class="tour-card-content">
+        <h3>Dolphin Watching Tour Package</h3>
+        <p class="tour-price">₱1,500 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(6)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 7. EL NIDO ISLAND HOPPING TOUR A PACKAGE -->
+    <article class="tour-card" data-destination="El Nido" data-tour-id="7" data-price="1600">
+      <img src="el-nido-tour-a.png" alt="El Nido Island Hopping Tour A Package" loading="lazy">
+      <div class="tour-card-content">
+        <h3>El Nido Island Hopping Tour A Package</h3>
+        <p class="tour-price">₱1,600 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(7)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 8. EL NIDO ISLAND HOPPING TOUR B PACKAGE -->
+    <article class="tour-card" data-destination="El Nido" data-tour-id="8" data-price="1700">
+      <img src="el-nido-tour-b.png" alt="El Nido Island Hopping Tour B Package" loading="lazy">
+      <div class="tour-card-content">
+        <h3>El Nido Island Hopping Tour B Package</h3>
+        <p class="tour-price">₱1,700 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(8)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 9. EL NIDO ISLAND HOPPING TOUR C PACKAGE -->
+    <article class="tour-card" data-destination="El Nido" data-tour-id="9" data-price="1800">
+      <img src="el-nido-tour-c.png" alt="El Nido Island Hopping Tour C Package" loading="lazy">
+      <div class="tour-card-content">
+        <h3>El Nido Island Hopping Tour C Package</h3>
+        <p class="tour-price">₱1,800 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(9)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 10. EL NIDO ISLAND HOPPING TOUR D PACKAGE -->
+    <article class="tour-card" data-destination="El Nido" data-tour-id="10" data-price="1900">
+      <img src="el-nido-tour-d.png" alt="El Nido Island Hopping Tour D Package" loading="lazy">
+      <div class="tour-card-content">
+        <h3>El Nido Island Hopping Tour D Package</h3>
+        <p class="tour-price">₱1,900 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(10)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 11. CORON: ISLAND HOPPING TOUR A -->
+    <article class="tour-card" data-destination="Coron" data-tour-id="11" data-price="1300">
+      <img src="coron.jpg" alt="Coron: Island Hopping Tour A" loading="lazy">
+      <div class="tour-card-content">
+        <h3>Coron: Island Hopping Tour A</h3>
+        <p class="tour-price">₱1,300 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(11)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 12. CORON: TOWN TOUR -->
+    <article class="tour-card" data-destination="Coron" data-tour-id="12" data-price="1200">
+      <img src="coron.jpg" alt="Coron: Town Tour" loading="lazy">
+      <div class="tour-card-content">
+        <h3>Coron: Town Tour</h3>
+        <p class="tour-price">₱1,200 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(12)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 13. CORON: ISLAND ESCAPADE TOUR -->
+    <article class="tour-card" data-destination="Coron" data-tour-id="13" data-price="1800">
+      <img src="coron.jpg" alt="Coron: Island Escapade Tour" loading="lazy">
+      <div class="tour-card-content">
+        <h3>Coron: Island Escapade Tour</h3>
+        <p class="tour-price">₱1,800 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(13)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- 14. CORON: ISLAND HOPPING TOUR B -->
+    <article class="tour-card" data-destination="Coron" data-tour-id="14" data-price="1800">
+      <img src="coron.jpg" alt="Coron: Island Hopping Tour B" loading="lazy">
+      <div class="tour-card-content">
+        <h3>Coron: Island Hopping Tour B</h3>
+        <p class="tour-price">₱1,800 / person</p>
+        <div class="tour-card-actions">
+          <button type="button" class="tour-details-btn" onclick="openTourDetails(14)" aria-haspopup="dialog">Details →</button>
+        </div>
+      </div>
+    </article>
+</div>
+
+<!-- One fullscreen dialog for all tour packages -->
+<dialog id="tourDetailsDrawer" class="tour-details-drawer" aria-labelledby="tourDetailsDrawerLabel">
+  <div class="tour-drawer-header">
+    <div>
+      <span>PUERTO PRINCESA OF WONDER</span>
+      <h2 id="tourDetailsDrawerLabel">Tour Package Details</h2>
+    </div>
+    <button type="button" class="tour-drawer-close" onclick="closeTourDetails()" aria-label="Close tour details">&times;</button>
+  </div>
+  <div class="tour-drawer-body">
+      <!-- TOUR 1: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="1" hidden>
+        <img src="puerto-princesa-underground-river.jpg" alt="Underground River Tour">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">PUERTO PRINCESA, PALAWAN</span>
+          <h2>Underground River Tour</h2>
+          <p class="tour-detail-price">₱2,800 / person</p>
+          <h3>About This Tour</h3>
+          <p>Explore the famous Puerto Princesa Underground River and its remarkable limestone cave formations.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Underground river boat experience</li>
+            <li>Limestone cave scenery</li>
+            <li>Nature sightseeing</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(1)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 2: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="2" hidden>
+        <img src="puerto-princesa-honda-bay.jpg" alt="Honda Bay Island Hopping">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">PUERTO PRINCESA, PALAWAN</span>
+          <h2>Honda Bay Island Hopping</h2>
+          <p class="tour-detail-price">₱2,300 / person</p>
+          <h3>About This Tour</h3>
+          <p>Discover the beaches and island scenery of Honda Bay on a relaxing island-hopping experience.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Island hopping</li>
+            <li>Beach relaxation</li>
+            <li>Coastal sightseeing</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(2)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 3: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="3" hidden>
+        <img src="puerto-princesa-firefly.jpg" alt="Jungle Firefly Watching">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">PUERTO PRINCESA, PALAWAN</span>
+          <h2>Jungle Firefly Watching</h2>
+          <p class="tour-detail-price">₱2,200 / person</p>
+          <h3>About This Tour</h3>
+          <p>Experience a peaceful evening nature excursion and watch fireflies illuminate the mangrove surroundings.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Evening nature excursion</li>
+            <li>Firefly viewing</li>
+            <li>Mangrove scenery</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(3)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 4: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="4" hidden>
+        <img src="puerto-princesa-city-tour.jpg" alt="Halfday City Tour">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">PUERTO PRINCESA, PALAWAN</span>
+          <h2>Halfday City Tour</h2>
+          <p class="tour-detail-price">₱990 / person</p>
+          <h3>About This Tour</h3>
+          <p>Explore notable landmarks and local attractions around Puerto Princesa on a convenient half-day trip.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>City sightseeing</li>
+            <li>Local landmarks</li>
+            <li>Photo stops</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(4)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 6: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="6" hidden>
+        <img src="puerto-princesa-dolphin-watching.jpg" alt="Dolphin Watching Tour Package">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">PUERTO PRINCESA, PALAWAN</span>
+          <h2>Dolphin Watching Tour Package</h2>
+          <p class="tour-detail-price">₱1,500 / person</p>
+          <h3>About This Tour</h3>
+          <p>Enjoy a coastal wildlife-viewing excursion with opportunities to spot dolphins in their natural habitat. Sightings depend on weather and wildlife conditions.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Coastal boat experience</li>
+            <li>Wildlife viewing opportunities</li>
+            <li>Ocean scenery</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(6)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 7: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="7" hidden>
+        <img src="el-nido-tour-a.png" alt="El Nido Island Hopping Tour A Package">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">EL NIDO, PALAWAN</span>
+          <h2>El Nido Island Hopping Tour A Package</h2>
+          <p class="tour-detail-price">₱1,600 / person</p>
+          <h3>About This Tour</h3>
+          <p>Experience El Nido’s dramatic limestone cliffs, clear lagoons and island scenery on an island-hopping adventure.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Lagoon scenery</li>
+            <li>Island hopping</li>
+            <li>Swimming opportunities</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(7)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 8: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="8" hidden>
+        <img src="el-nido-tour-b.png" alt="El Nido Island Hopping Tour B Package">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">EL NIDO, PALAWAN</span>
+          <h2>El Nido Island Hopping Tour B Package</h2>
+          <p class="tour-detail-price">₱1,700 / person</p>
+          <h3>About This Tour</h3>
+          <p>Discover beautiful islands, caves and white-sand beaches on an El Nido island-hopping experience.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Snake Island</li>
+            <li>Cudugnon Cave</li>
+            <li>Cathedral Cave</li>
+            <li>Beach sightseeing</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(8)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 9: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="9" hidden>
+        <img src="el-nido-tour-c.png" alt="El Nido Island Hopping Tour C Package">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">EL NIDO, PALAWAN</span>
+          <h2>El Nido Island Hopping Tour C Package</h2>
+          <p class="tour-detail-price">₱1,800 / person</p>
+          <h3>About This Tour</h3>
+          <p>Explore spectacular coastal scenery, hidden beaches and dramatic limestone cliffs.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Helicopter Island</li>
+            <li>Hidden Beach</li>
+            <li>Secret Beach</li>
+            <li>Coastal sightseeing</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(9)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 10: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="10" hidden>
+        <img src="el-nido-tour-d.png" alt="El Nido Island Hopping Tour D Package">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">EL NIDO, PALAWAN</span>
+          <h2>El Nido Island Hopping Tour D Package</h2>
+          <p class="tour-detail-price">₱1,900 / person</p>
+          <h3>About This Tour</h3>
+          <p>Enjoy peaceful island landscapes, beautiful beaches and scenic lagoons around El Nido.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Cadlao Lagoon</li>
+            <li>Paradise Beach</li>
+            <li>Island scenery</li>
+            <li>Relaxation</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(10)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 11: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="11" hidden>
+        <img src="coron.jpg" alt="Coron: Island Hopping Tour A">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">CORON, PALAWAN</span>
+          <h2>Coron: Island Hopping Tour A</h2>
+          <p class="tour-detail-price">₱1,300 / person</p>
+          <h3>About This Tour</h3>
+          <p>Discover Coron’s beautiful island landscapes, clear waters and scenic limestone formations.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Island hopping</li>
+            <li>Swimming opportunities</li>
+            <li>Limestone scenery</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(11)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 12: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="12" hidden>
+        <img src="coron.jpg" alt="Coron: Town Tour">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">CORON, PALAWAN</span>
+          <h2>Coron: Town Tour</h2>
+          <p class="tour-detail-price">₱1,200 / person</p>
+          <h3>About This Tour</h3>
+          <p>Explore local attractions, scenic viewpoints and landmarks around Coron town.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Town sightseeing</li>
+            <li>Scenic viewpoints</li>
+            <li>Local attractions</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(12)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 13: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="13" hidden>
+        <img src="coron.jpg" alt="Coron: Island Escapade Tour">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">CORON, PALAWAN</span>
+          <h2>Coron: Island Escapade Tour</h2>
+          <p class="tour-detail-price">₱1,800 / person</p>
+          <h3>About This Tour</h3>
+          <p>Relax among tropical islands, white-sand beaches and clear blue waters on an island escapade.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>White-sand beaches</li>
+            <li>Swimming opportunities</li>
+            <li>Island scenery</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(13)">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- TOUR 14: edit description and highlights directly here -->
+      <section class="tour-detail-content" data-tour-id="14" hidden>
+        <img src="coron.jpg" alt="Coron: Island Hopping Tour B">
+        <div class="tour-detail-info">
+          <span class="tour-detail-location">CORON, PALAWAN</span>
+          <h2>Coron: Island Hopping Tour B</h2>
+          <p class="tour-detail-price">₱1,800 / person</p>
+          <h3>About This Tour</h3>
+          <p>Discover more of Coron’s coastal landscapes and island scenery through a memorable boat excursion.</p>
+          <h3>Tour Highlights</h3>
+          <ul>
+            <li>Island hopping</li>
+            <li>Coastal sightseeing</li>
+            <li>Swimming opportunities</li>
+          </ul>
+          <p class="tour-detail-note">Tour routes, inclusions and availability are subject to confirmation by the travel agency.</p>
+          <button type="button" class="tour-drawer-cart" onclick="addDrawerTourToCart(14)">Add to Cart</button>
+        </div>
+      </section>
+  </div>
+</dialog>
+
+
+
+                <!-- ACTION BUTTONS -->
+
+                <div
+                    class="form-actions mt-5"
+                    style="justify-content: center;">
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        onclick="showTripPlannerPage('planner-page')">
+
+                        Back to Trip Planner
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="secondary-btn"
+                        onclick="openCustomizeChoice()">
+
+                        Customize Your Trip Instead
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    
+
+    <!-- ======================================
+         FOOTER
+    ======================================= -->
+
+    <footer>
+
+        <div class="footer-brand">
+            Puerto Princesa of Wonder
+        </div>
+
+        <p>
+            Services Cooperative Travel and Tours
+        </p>
+
+        <p class="copyright">
+            © 2026 Puerto Princesa of Wonder. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+
+    <!-- ======================================
+         JAVASCRIPT FILES
+    ======================================= -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Main Website JavaScript -->
+    <script src="script.js"></script>
+
+    <!-- Trip Planner JavaScript -->
+    <script src="tripplanner.js"></script>
+
+   
+<script>
+/* ==========================================
+   TRIP PLANNER - MAIN NAVIGATION
+========================================== */
+
+function showTripPlannerPage(pageId) {
+
+    const selectedPage = document.getElementById(pageId);
+
+    if (!selectedPage) {
+        console.warn("Page not found:", pageId);
+        return;
+    }
+
+    document.querySelectorAll(".app-page").forEach(page => {
+        page.style.display = "none";
+    });
+
+    selectedPage.style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* ==========================================
+   TOUR ONLY - DESTINATION SELECTION
+========================================== */
+
+function openTourOnly() {
+    showTripPlannerPage("destination-page");
+}
+
+
+/* ==========================================
+   TOUR ONLY - FILTER HTML TOUR CARDS
+========================================== */
+
+function chooseTourDestination(destination) {
+
+    const title = document.getElementById(
+        "selected-destination-title"
+    );
+
+    const description = document.getElementById(
+        "selected-destination-description"
+    );
+
+    const grid = document.getElementById("tour-tiles");
+
+    if (!grid) {
+        console.error("Tour container #tour-tiles not found.");
+        return;
+    }
+
+    const cards = grid.querySelectorAll(
+        ".tour-card[data-destination]"
+    );
+
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+
+        const cardDestination =
+            card.dataset.destination.trim().toLowerCase();
+
+        const selectedDestination =
+            destination.trim().toLowerCase();
+
+        const matches =
+            cardDestination === selectedDestination;
+
+        card.style.display = matches ? "flex" : "none";
+
+        if (matches) {
+            visibleCount++;
+        }
+
+    });
+
+    // Remove previous empty-state message
+    const oldMessage = document.getElementById(
+        "no-tour-message"
+    );
+
+    if (oldMessage) {
+        oldMessage.remove();
+    }
+
+    // Display message if no tours are available
+    if (visibleCount === 0) {
+
+        const message = document.createElement("p");
+
+        message.id = "no-tour-message";
+
+        message.textContent =
+            "Tour packages for " + destination +
+            " will be added soon.";
+
+        message.style.cssText = `
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 35px;
+            color: #71828b;
+        `;
+
+        grid.appendChild(message);
+    }
+
+    if (title) {
+        title.textContent = destination + " Tour Packages";
+    }
+
+    if (description) {
+        description.textContent =
+            "Choose from our available tour packages.";
+    }
+
+    showTripPlannerPage("tours-page");
+}
+
+
+/* ==========================================
+   TOUR ONLY - SELECT TOUR
+========================================== */
+
+function selectTour(tourId) {
+
+    const tour = document.querySelector(
+        `#tour-tiles .tour-card button[onclick="selectTour(${tourId})"]`
+    );
+
+    if (!tour) {
+        console.warn("Tour not found:", tourId);
+        return;
+    }
+
+    const card = tour.closest(".tour-card");
+
+    const tourName = card.querySelector("h3")?.textContent
+        || "Selected Tour";
+
+    const destination = card.dataset.destination;
+
+    const price = card.querySelector(
+        ".tour-price"
+    )?.textContent || "";
+
+    alert(
+        "Selected Tour: " + tourName +
+        "\nDestination: " + destination +
+        "\nPrice: " + price +
+        "\n\nBooking integration is not yet connected."
+    );
+}
+
+
+/* ==========================================
+   CUSTOMIZE YOUR TRIP - NAVIGATION
+========================================== */
+
+let customizePreviousPage = "planner-page";
+
+function openCustomizeChoice() {
+
+    const visiblePage = Array.from(
+        document.querySelectorAll(".app-page")
+    ).find(page => {
+        return getComputedStyle(page).display !== "none";
+    });
+
+    if (
+        visiblePage &&
+        visiblePage.id !== "customize-choice-page"
+    ) {
+        customizePreviousPage = visiblePage.id;
+    }
+
+    showTripPlannerPage("customize-choice-page");
+}
+
+
+/* ==========================================
+   BACK TO PREVIOUS PAGE
+========================================== */
+
+function showCustomizePreviousPage() {
+
+    const previousPage = document.getElementById(
+        customizePreviousPage
+    );
+
+    if (previousPage) {
+        showTripPlannerPage(customizePreviousPage);
+    } else {
+        showTripPlannerPage("planner-page");
+    }
+}
+
+
+/* ==========================================
+   CUSTOMIZE YOUR TRIP - LUZON
+========================================== */
+
+function openLuzonRegions() {
+
+    showTripPlannerPage("luzon-regions-page");
+
+    renderRegions(1);
+}
+
+
+/* ==========================================
+   BACK TO CUSTOMIZE CHOICES
+========================================== */
+
+function backToCustomizeChoices() {
+
+    showTripPlannerPage("customize-choice-page");
+}
+
+
+/* ==========================================
+   VISAYAS AND MINDANAO NAVIGATION
+========================================== */
+
+function selectTripLocation(location) {
+
+    if (location === "luzon") {
+
+        openLuzonRegions();
+
+    } else if (location === "visayas") {
+
+        window.location.href = "customize-visayas.html";
+
+    } else if (location === "mindanao") {
+
+        window.location.href = "customize-mindanao.html";
+
+    }
+}
+
+
+/* ==========================================
+   LUZON REGION DATA
+========================================== */
+
+const regions = [
+
+    {
+        name: "Ilocos Region",
+        description:
+            "Explore destinations in the Ilocos Region.",
+        slug: "ilocos-region"
+    },
+
+    {
+        name: "Central Luzon",
+        description:
+            "Explore destinations in Central Luzon.",
+        slug: "central-luzon"
+    },
+
+    {
+        name: "CALABARZON",
+        description:
+            "Explore destinations in CALABARZON.",
+        slug: "calabarzon"
+    },
+
+    {
+        name: "MIMAROPA",
+        description:
+            "Explore destinations in MIMAROPA.",
+        slug: "mimaropa"
+    },
+
+    {
+        name: "National Capital Region (NCR)",
+        description:
+            "Explore destinations in Metro Manila.",
+        slug: "ncr"
+    }
+
+];
+
+
+/* ==========================================
+   LUZON REGION PAGINATION
+========================================== */
+
+const perPage = 3;
+
+const totalPages = Math.ceil(
+    regions.length / perPage
+);
+
+let currentPage = 1;
+
+
+/* ==========================================
+   DISPLAY LUZON REGION CARDS
+========================================== */
+
+function renderRegions(page) {
+
+    const grid = document.getElementById(
+        "region-cards"
+    );
+
+    const nav = document.getElementById(
+        "region-pagination"
+    );
+
+    const pageInfo = document.getElementById(
+        "region-page-info"
+    );
+
+    if (!grid || !nav) {
+        return;
+    }
+
+    currentPage = Math.min(
+        Math.max(page, 1),
+        totalPages
+    );
+
+    grid.replaceChildren();
+
+    const startIndex = (currentPage - 1) * perPage;
+
+    const displayedRegions = regions.slice(
+        startIndex,
+        startIndex + perPage
+    );
+
+    displayedRegions.forEach(region => {
+
+        const card = document.createElement("article");
+
+        card.className = "region-card";
+
+        const title = document.createElement("h2");
+
+        title.textContent = region.name;
+
+        const description = document.createElement("p");
+
+        description.textContent = region.description;
+
+        const link = document.createElement("a");
+
+        link.className = "primary-btn";
+
+        link.href =
+            "customize-region.html?region=" +
+            encodeURIComponent(region.slug);
+
+        link.textContent = "Explore Region →";
+
+        card.append(
+            title,
+            description,
+            link
+        );
+
+        grid.appendChild(card);
+
+    });
+
+
+    /* PAGINATION BUTTONS */
+
+    nav.replaceChildren();
+
+    function addButton(label, target, disabled, active) {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+
+        button.textContent = label;
+
+        button.disabled = disabled;
+
+        if (active) {
+            button.setAttribute(
+                "aria-current",
+                "page"
+            );
+        }
+
+        button.addEventListener("click", () => {
+            renderRegions(target);
+        });
+
+        nav.appendChild(button);
+    }
+
+
+    addButton(
+        "← Previous",
+        currentPage - 1,
+        currentPage === 1,
+        false
+    );
+
+    for (let i = 1; i <= totalPages; i++) {
+
+        addButton(
+            String(i),
+            i,
+            false,
+            i === currentPage
+        );
+
+    }
+
+    addButton(
+        "Next →",
+        currentPage + 1,
+        currentPage === totalPages,
+        false
+    );
+
+
+    /* PAGE INFORMATION */
+
+    if (pageInfo) {
+
+        pageInfo.textContent =
+            `Page ${currentPage} of ${totalPages} · ${regions.length} regions`;
+
+    }
+}
+
+
+/* ==========================================
+   INITIALIZE
+========================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    renderRegions(1);
+
+});
+
+</script>
+
+
+</body>
+
+</html>

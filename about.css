@@ -1,0 +1,55 @@
+/* All styles are scoped to About Us; shared header/footer remain unchanged. */
+#about-page{--teal:#62d5c4;--muted:#c5dfe3;color:#fff;background:radial-gradient(ellipse at 10% 35%,#18535b 0,transparent 40%),radial-gradient(ellipse at 90% 70%,#164453 0,transparent 40%),#071b25;padding-bottom:65px;min-height:100vh;overflow:hidden}
+#about-page *{box-sizing:border-box}
+#about-page h1,#about-page h2,#about-page h3{color:#fff;line-height:1.2}
+#about-page p{color:var(--muted);line-height:1.8}
+#about-page .kicker{color:var(--teal);font-size:12px;font-weight:800;letter-spacing:3px}
+#about-page .glass,#about-page .hero-glass,#about-page .team-card{background:linear-gradient(135deg,#ffffff18,#ffffff06);border:1px solid #ffffff30;border-radius:26px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 20px 50px #0003,inset 0 1px 0 #ffffff18}
+#about-page .about-hero{min-height:420px;display:grid;place-items:center;padding:40px 20px;background:linear-gradient(120deg,#071b25d9,#0d344155),url('palawan.jpg') center/cover}
+#about-page .hero-glass{text-align:center;width:min(850px,100%);padding:55px 25px}
+#about-page h1{font-size:clamp(36px,6vw,68px);margin:18px 0}
+#about-page h2{font-size:clamp(26px,4vw,40px);margin:15px 0 25px}
+#about-page .company-section{width:min(1100px,92%);margin:65px auto;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
+#about-page .company-image{position:relative}
+#about-page .company-image img{display:block;width:100%;height:320px;object-fit:cover;border-radius:20px}
+#about-page .year{position:absolute;bottom:16px;left:16px;padding:15px 24px;background:#071b2599}
+#about-page .year strong{font-size:32px;color:var(--teal)}
+#about-page .owner-section,#about-page .team-section{text-align:center;width:min(1100px,92%);margin:65px auto}
+#about-page .owner-card{width:min(420px,100%);margin:auto;padding:35px 20px;border-color:#62d5c477}
+#about-page .owner-photo,#about-page .team-photo{border-radius:50%;overflow:hidden;background:linear-gradient(145deg,#ffffff20,#ffffff05);border:2px solid #62d5c477;box-shadow:0 0 0 7px #62d5c40b;margin:0 auto 20px}
+#about-page .owner-photo{width:165px;height:165px}
+#about-page .team-photo{width:110px;height:110px}
+#about-page .owner-photo img,#about-page .team-photo img{width:100%;height:100%;object-fit:cover;display:block}
+#about-page .position,#about-page .team-card span{display:inline-block;color:#a6f3e7;background:#62d5c412;border:1px solid #62d5c433;border-radius:30px;padding:8px 14px;font-size:13px;font-weight:700}
+#about-page .team-group{margin:35px auto;padding:25px 12px;border-top:1px solid #ffffff20}
+#about-page .team-group h3{color:var(--teal);margin:0 0 24px;font-size:20px}
+#about-page .team-grid{display:flex;justify-content:center;flex-wrap:wrap;gap:20px}
+#about-page .team-card{width:min(235px,100%);padding:28px 14px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+#about-page .team-card h4{min-height:18px;margin:10px 0}
+#about-page .team-card:hover{transform:translateY(-7px);border-color:var(--teal);box-shadow:0 15px 35px #0004,0 0 25px #62d5c422}
+#about-page .team-card::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#ffffff14 50%,transparent 65%);transform:translateX(-110%);transition:transform .65s;pointer-events:none}
+#about-page .team-card:hover::before{transform:translateX(110%)}
+#about-page .about-contact{text-align:center;width:min(1000px,92%);margin:40px auto 0;padding:35px 20px}
+#about-page .about-contact a{display:inline-block;background:var(--teal);color:#071b25;border-radius:30px;padding:13px 30px;text-decoration:none;font-weight:800}
+#about-page .about-contact a:hover{background:white}
+@media(max-width:750px){#about-page .company-section{grid-template-columns:1fr;padding:22px}#about-page .company-image img{height:240px}#about-page .team-card{width:min(210px,100%)}#about-page .about-hero{min-height:340px}}
+@media(prefers-reduced-motion:reduce){#about-page *,#about-page *::before{transition:none!important}}
+
+
+
+
+
+/* ==========================================
+   SAME HEADER AS BEYOND THE PHILIPPINES
+========================================== */
+
+body > header.navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+body > header.navbar .nav-links {
+    justify-content: flex-start;
+    width: 100%;
+}

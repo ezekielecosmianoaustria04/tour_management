@@ -1,0 +1,239 @@
+/* =========================================================
+   PUERTO PRINCESA OF WONDER — CUSTOM TRIP PLANNER
+   Companion to Bootstrap 5.3.3 and Tailwind utilities
+   ========================================================= */
+:root{--ocean:#082431;--ocean-2:#103747;--teal:#0d9488;--teal-light:#4fd6cb;--ink:#0f2942;--muted:#64748b;--page:#f1f7fa;--line:#dcebf1;--radius:18px}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body.custom-trip-planner-page{margin:0;min-height:100vh;background:var(--page);color:var(--ink);overflow-x:hidden}
+.custom-trip-planner-page img{max-width:100%}
+/* Header and footer are styled exclusively by style.css from index.html. */
+/* MAIN HERO */
+.custom-trip-planner-page>.hero-banner{background:linear-gradient(115deg,#072b3b 0%,#0b6074 57%,#0b9a98 100%);color:#fff;position:relative;isolation:isolate}
+.custom-trip-planner-page>.hero-banner::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 90% 0%,rgba(255,255,255,.13),transparent 38%);pointer-events:none;z-index:-1}
+.custom-trip-planner-page>.hero-banner h1{color:#fff}
+.custom-trip-planner-page>.hero-banner .text-sky-100\/95{color:#e0f5f8}
+/* WORKSPACE */
+.custom-trip-planner-page>main{min-height:440px}
+.custom-trip-planner-page>main>div>section,.custom-trip-planner-page>main>div>aside{min-width:0}
+.custom-trip-planner-page #availableToursList{scrollbar-width:thin;scrollbar-color:#8dc6ce #eef6f8}
+.custom-trip-planner-page #availableToursList::-webkit-scrollbar{width:7px}
+.custom-trip-planner-page #availableToursList::-webkit-scrollbar-thumb{background:#8dc6ce;border-radius:99px}
+.custom-trip-planner-page #tourSearchInput:focus{outline:2px solid rgba(13,148,136,.3);outline-offset:1px}
+.custom-trip-planner-page .filter-pill{cursor:pointer}
+.custom-trip-planner-page #itineraryDaysContainer>*{min-width:0}
+.custom-trip-planner-page .tour-card,.custom-trip-planner-page [draggable="true"]{cursor:grab}
+.custom-trip-planner-page [draggable="true"]:active{cursor:grabbing}
+.custom-trip-planner-page .drop-zone{transition:background .2s,border-color .2s}
+.custom-trip-planner-page .drop-zone.drag-over{background:#e7fbf6;border-color:var(--teal)}
+/* MODALS */
+.custom-trip-planner-page #tourDetailModal,.custom-trip-planner-page #summaryModal{z-index:3000}
+.custom-trip-planner-page #tourDetailModal:not(.hidden),.custom-trip-planner-page #summaryModal:not(.hidden){display:flex}
+.custom-trip-planner-page #tourDetailModal img{display:block}
+.custom-trip-planner-page #toastContainer{z-index:3500}
+/* Footer inherited from style.css */
+/* RESPONSIVE */
+@media(prefers-reduced-motion:reduce){.custom-trip-planner-page *, .custom-trip-planner-page *::before,.custom-trip-planner-page *::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* =========================================================
+   DRAG & DROP PLANNER — NEW INTRO & FEATURES
+   Header and footer styling above is intentionally unchanged.
+   ========================================================= */
+.custom-trip-planner-page .planner-dnd-intro{background:radial-gradient(circle at 85% 10%,#136273 0%,transparent 42%),linear-gradient(135deg,#071f2b,#103f4b);color:#fff;padding:58px 22px 52px}
+.custom-trip-planner-page .planner-dnd-intro-inner{max-width:1300px;margin:auto}
+.custom-trip-planner-page .planner-back-link{display:inline-flex;color:#8ce7db;font-size:13px;font-weight:700;margin-bottom:30px;border:1px solid #72cfc580;border-radius:999px;padding:9px 18px}
+.custom-trip-planner-page .planner-back-link:hover{color:white;background:#0d9488}
+.custom-trip-planner-page .planner-kicker{display:block;color:#6ee7d9;letter-spacing:2.5px;font-size:12px;font-weight:800;margin-bottom:12px}
+.custom-trip-planner-page .planner-dnd-intro h1{font-size:clamp(32px,4.4vw,60px);line-height:1.12;letter-spacing:-1px;font-weight:850;margin:0 0 16px;color:#fff}
+.custom-trip-planner-page .planner-dnd-intro p{font-size:clamp(14px,1.5vw,17px);line-height:1.8;max-width:750px;color:#d2e9e9;margin:0 0 25px}
+.custom-trip-planner-page .planner-feature-chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.custom-trip-planner-page .planner-feature-chips span{display:inline-flex;align-items:center;border:1px solid #ffffff38;border-radius:999px;padding:9px 14px;background:#ffffff12;color:#ecfffc;font-size:12px;font-weight:700}
+.custom-trip-planner-page .planner-progress-box{max-width:560px;background:#ffffff0c;border:1px solid #ffffff29;padding:18px 20px;border-radius:18px;backdrop-filter:blur(12px)}
+.custom-trip-planner-page .planner-progress-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;color:white;font-size:13px;margin-bottom:11px}
+.custom-trip-planner-page .planner-progress-heading span{color:#b6e8e1}
+.custom-trip-planner-page .planner-progress-track{height:9px;background:#ffffff2c;border-radius:20px;overflow:hidden}
+.custom-trip-planner-page .planner-progress-bar{height:100%;border-radius:20px;background:linear-gradient(90deg,#0d9488,#73efcf);transition:width .25s ease}
+.custom-trip-planner-page .planner-save-hint{display:block;margin-top:10px;color:#b7d9db;font-size:11px}
+.custom-trip-planner-page .planner-legacy-bindings[hidden]{display:none!important}
+.custom-trip-planner-page #itineraryDaysContainer .drop-zone{border-radius:15px;border-width:2px}
+.custom-trip-planner-page #itineraryDaysContainer .drop-zone.drag-over{background:#dbfaf0!important;border-color:#0d9488!important;box-shadow:0 0 0 4px #0d948822}
+.custom-trip-planner-page #availableToursList [draggable="true"]{transition:transform .18s ease,box-shadow .18s ease}
+.custom-trip-planner-page #availableToursList [draggable="true"]:hover{transform:translateY(-2px);box-shadow:0 8px 22px #092e3b19}
+@media(max-width:650px){.custom-trip-planner-page .planner-dnd-intro{padding:38px 17px}.custom-trip-planner-page .planner-progress-heading{flex-wrap:wrap}.custom-trip-planner-page .planner-feature-chips span{font-size:11px}}
+
+/* =====================================================
+   SOFT GLASSMORPHISM — PLANNER ONLY
+   Header and footer are deliberately untouched.
+   ===================================================== */
+.custom-trip-planner-page {
+  --glass-edge: rgba(255,255,255,.62);
+  --glass-shadow: 0 18px 48px rgba(6,47,65,.13);
+  background: linear-gradient(145deg,#e6f6f7 0%,#f0f8fb 48%,#d9eeef 100%);
+  background-attachment: fixed;
+}
+/* Subtle glass hero and feature chips */
+.custom-trip-planner-page .planner-dnd-intro {
+  background: radial-gradient(circle at 85% 0%,rgba(87,218,204,.27),transparent 42%),linear-gradient(125deg,#082735,#0c4d5a);
+}
+.custom-trip-planner-page .planner-feature-chips span,
+.custom-trip-planner-page .planner-progress-box {
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.29);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.16),0 8px 25px rgba(0,0,0,.07);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+/* Three main panels: Available Tours, Itinerary, Inclusions / Exclusions */
+.custom-trip-planner-page > main > div > section,
+.custom-trip-planner-page > main > div > aside {
+  background: rgba(255,255,255,.72) !important;
+  border: 1px solid var(--glass-edge) !important;
+  border-radius: 22px !important;
+  box-shadow: var(--glass-shadow),inset 0 1px 0 rgba(255,255,255,.9) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  backdrop-filter: blur(18px) saturate(135%);
+}
+/* Slightly translucent nested tour and itinerary cards */
+.custom-trip-planner-page #availableToursList > *,
+.custom-trip-planner-page #itineraryDaysContainer .itinerary-card {
+  background: rgba(255,255,255,.78) !important;
+  border: 1px solid rgba(173,213,218,.65) !important;
+  border-radius: 15px !important;
+  box-shadow: 0 5px 16px rgba(8,49,64,.06);
+  transition: transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.custom-trip-planner-page #availableToursList > *:hover,
+.custom-trip-planner-page #itineraryDaysContainer .itinerary-card:hover {
+  box-shadow: 0 10px 25px rgba(8,49,64,.12);
+  border-color: rgba(13,148,136,.42) !important;
+}
+/* Drop zones stay obvious and usable */
+.custom-trip-planner-page #itineraryDaysContainer .drop-zone {
+  background: rgba(224,246,244,.42) !important;
+  border: 2px dashed rgba(13,148,136,.43) !important;
+  border-radius: 17px !important;
+  transition: background .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.custom-trip-planner-page #itineraryDaysContainer .drop-zone.drag-over {
+  background: rgba(121,233,205,.37) !important;
+  border-color: #0d9488 !important;
+  box-shadow: inset 0 0 0 1px rgba(13,148,136,.22),0 0 0 4px rgba(13,148,136,.14) !important;
+}
+/* Search, helper bar, and information tab header */
+.custom-trip-planner-page #tourSearchInput {
+  background: rgba(255,255,255,.72) !important;
+  border: 1px solid rgba(133,189,196,.5) !important;
+}
+.custom-trip-planner-page > main > div > section > div.bg-slate-50,
+.custom-trip-planner-page > main > div > aside > div:first-child {
+  background: rgba(224,242,245,.55) !important;
+}
+/* Preserve readable text and functional tab colors */
+.custom-trip-planner-page #panelInclusions,
+.custom-trip-planner-page #panelExclusions {
+  color: #17384a;
+}
+@media(max-width:767px) {
+  .custom-trip-planner-page > main > div > section,
+  .custom-trip-planner-page > main > div > aside {border-radius:18px !important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+}
+@media(prefers-reduced-transparency:reduce) {
+  .custom-trip-planner-page > main > div > section,
+  .custom-trip-planner-page > main > div > aside {background:#f7fbfc !important;backdrop-filter:none;-webkit-backdrop-filter:none}
+}
+
+/* Editable itinerary days controls — scoped to planner only */
+.custom-trip-planner-page .planner-days-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.custom-trip-planner-page .planner-days-controls label{font-size:12px;font-weight:800;color:#0f2942}
+.custom-trip-planner-page .planner-days-controls input{width:76px;padding:9px 10px;border:1px solid rgba(13,148,136,.35);border-radius:10px;background:rgba(255,255,255,.8);color:#0f2942;font-weight:800;text-align:center}
+.custom-trip-planner-page .planner-days-controls .planner-generate-days{padding:10px 14px;border:1px solid rgba(255,255,255,.45);border-radius:10px;background:#0d9488;color:#fff;font-size:12px;font-weight:800;transition:background .2s}
+.custom-trip-planner-page .planner-days-controls .planner-generate-days:hover{background:#08786f}
+@media(max-width:640px){.custom-trip-planner-page .planner-days-controls{width:100%;justify-content:flex-start}}
+
+
+/* =========================================================
+   HERO DISPLAY REPAIR — APPEND LAST
+   No header/footer selectors are changed below.
+   ========================================================= */
+body.custom-trip-planner-page > section.planner-dnd-intro {
+  display:block !important;
+  width:100%;
+  padding:64px clamp(20px,6vw,90px) 72px !important;
+  background:radial-gradient(circle at 85% 0%,rgba(64,210,193,.22),transparent 42%),linear-gradient(125deg,#082735,#0c4d5a) !important;
+  color:#fff;
+}
+body.custom-trip-planner-page .planner-dnd-intro-inner {
+  width:100%; max-width:1280px; margin:0 auto;
+  display:flex; flex-direction:column; align-items:flex-start;
+}
+body.custom-trip-planner-page .planner-back-link {
+  display:inline-flex !important; align-items:center; gap:8px;
+  width:max-content; margin:0 0 30px !important;
+  padding:10px 19px !important; border-radius:999px;
+  border:1px solid rgba(124,236,222,.55);
+  background:rgba(255,255,255,.08); color:#b4fff0;
+  font-size:14px; font-weight:700; text-decoration:none;
+}
+body.custom-trip-planner-page .planner-kicker {
+  display:block !important; margin:0 0 14px !important;
+  color:#76f1df; font-size:12px; font-weight:800;
+  letter-spacing:2.5px; text-transform:uppercase;
+}
+body.custom-trip-planner-page .planner-dnd-intro h1 {
+  display:block; margin:0 0 18px !important;
+  max-width:980px; color:white !important;
+  font-size:clamp(34px,5vw,64px) !important;
+  font-weight:850; line-height:1.1 !important;
+  letter-spacing:-.03em;
+}
+body.custom-trip-planner-page .planner-dnd-intro p {
+  display:block; max-width:810px; margin:0 0 27px !important;
+  color:#d8f1f1 !important; font-size:clamp(15px,1.4vw,18px) !important;
+  line-height:1.75 !important;
+}
+body.custom-trip-planner-page .planner-feature-chips {
+  display:flex !important; align-items:center; flex-wrap:wrap;
+  gap:11px !important; margin:0 0 28px !important;
+}
+body.custom-trip-planner-page .planner-feature-chips span {
+  display:inline-flex !important; align-items:center;
+  padding:10px 15px !important; margin:0 !important;
+  border:1px solid rgba(255,255,255,.28); border-radius:999px;
+  background:rgba(255,255,255,.10); color:#f0fffc;
+  font-size:13px; font-weight:700; line-height:1.4;
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+}
+body.custom-trip-planner-page .planner-progress-box {
+  display:block !important; width:min(100%,590px); max-width:590px;
+  padding:22px 24px !important; border-radius:20px;
+  border:1px solid rgba(255,255,255,.30);
+  background:rgba(255,255,255,.12);
+  box-shadow:0 16px 40px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.2);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+}
+body.custom-trip-planner-page .planner-progress-heading {
+  display:flex !important; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:8px; margin:0 0 13px !important;
+  font-size:14px; color:white;
+}
+body.custom-trip-planner-page .planner-progress-heading strong {font-weight:800}
+body.custom-trip-planner-page .planner-progress-heading span {color:#c4f5ee}
+body.custom-trip-planner-page .planner-progress-track {
+  display:block !important; width:100%; height:10px !important;
+  overflow:hidden; border-radius:999px; background:rgba(255,255,255,.24);
+}
+body.custom-trip-planner-page .planner-progress-bar {
+  display:block; height:100%; border-radius:999px;
+  background:linear-gradient(90deg,#0d9488,#79f4dc);
+}
+body.custom-trip-planner-page .planner-save-hint {
+  display:block !important; margin:12px 0 0 !important;
+  font-size:12px; color:#cce8e8;
+}
+@media(max-width:650px) {
+  body.custom-trip-planner-page > section.planner-dnd-intro {padding:38px 18px 45px !important}
+  body.custom-trip-planner-page .planner-back-link {margin-bottom:23px !important}
+  body.custom-trip-planner-page .planner-feature-chips {gap:8px !important}
+  body.custom-trip-planner-page .planner-feature-chips span {font-size:11px;padding:8px 11px !important}
+  body.custom-trip-planner-page .planner-progress-box {padding:17px !important}
+}

@@ -1,0 +1,637 @@
+/* ============================================================
+   PUERTO PRINCESA OF WONDER — CUSTOMIZED TRIP PAGE
+   Replace the ENTIRE contents of tripplaner-customized.css.
+   Compatible with both travel-slider HTML class variants.
+   Load this file AFTER style.css and tripplanner.css.
+   ============================================================ */
+
+:root {
+  --pc-navy: #071b25;
+  --pc-deep: #0a2936;
+  --pc-teal: #0d9488;
+  --pc-aqua: #62d5c4;
+  --pc-text: #e9f7f7;
+  --pc-muted: #bed8dc;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.palawan-customized-page {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--pc-navy);
+  color: var(--pc-text);
+  overflow-x: hidden;
+}
+
+/* SITE HEADER — retain the shared style.css navigation layout */
+.palawan-customized-page .custom-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--pc-navy);
+}
+.palawan-customized-page .custom-header .home-search { margin: 0; }
+
+/* HERO */
+.palawan-customized-page .palawan-custom-main {
+  display: block !important;
+  width: 100%;
+  min-height: 0;
+}
+.palawan-customized-page .custom-hero {
+  text-align: center;
+  padding: 72px 20px 52px;
+  background: linear-gradient(135deg, #083443, #075c59 65%, #0c7b76);
+  color: white;
+}
+.palawan-customized-page .custom-hero .eyebrow {
+  display: block;
+  color: #8df4e3;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+.palawan-customized-page .custom-hero h1 {
+  margin: 0 0 12px;
+  font-size: clamp(30px, 4vw, 52px);
+  font-weight: 800;
+  color: white;
+}
+.palawan-customized-page .custom-hero p {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #d9f1ef;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* PALAWAN ILLUSTRATED MAP */
+.palawan-customized-page .palawan-map-section {
+  width: 100%;
+  padding: 52px 5% 60px;
+  background: radial-gradient(circle at 50% 0%, #174a59, #0a2734 58%, #071b25);
+}
+.palawan-customized-page .palawan-map-container {
+  max-width: 1480px;
+  margin: 0 auto;
+}
+.palawan-customized-page .palawan-map-heading {
+  text-align: center;
+  margin-bottom: 25px;
+}
+.palawan-customized-page .palawan-map-heading h2 {
+  color: white;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+}
+.palawan-customized-page .palawan-map-heading p {
+  color: var(--pc-muted);
+}
+.palawan-customized-page .glassy-map-frame {
+  position: relative;
+  overflow: hidden;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, .48);
+  border-radius: 26px;
+  background: linear-gradient(135deg, rgba(255,255,255,.25), rgba(255,255,255,.05) 48%, rgba(98,213,196,.17));
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 24px 65px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.55), 0 0 28px rgba(82,230,218,.12);
+}
+.palawan-customized-page .glassy-map-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, rgba(255,255,255,.17), transparent 26%, transparent 82%, rgba(255,255,255,.07));
+  pointer-events: none;
+}
+.palawan-customized-page .palawan-map-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: contain;
+}
+.palawan-customized-page .map-hint,
+.palawan-customized-page .map-note {
+  text-align: center;
+  font-size: 13px;
+  color: var(--pc-muted);
+  margin: 16px auto 0;
+  line-height: 1.6;
+}
+.palawan-customized-page .back-actions {
+  display: flex;
+  justify-content: center;
+  margin: 30px auto 0;
+}
+.palawan-customized-page .back-actions .secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: 1px solid var(--pc-aqua);
+  border-radius: 24px;
+  background: transparent;
+  color: var(--pc-aqua);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+.palawan-customized-page .back-actions .secondary-btn:hover {
+  background: var(--pc-aqua);
+  color: var(--pc-navy);
+}
+
+/* DESTINATION SLIDER — BOTH HTML CLASS NAMING VARIANTS */
+.palawan-customized-page .travel-showcase {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 78px 5%;
+  color: white;
+  background: radial-gradient(circle at 12% 45%, rgba(13,148,136,.22), transparent 44%),
+              linear-gradient(120deg, #071b25 0%, #0a2936 52%, #0b474a 100%);
+  overflow: hidden;
+}
+.palawan-customized-page .travel-showcase-inner {
+  display: grid;
+  grid-template-columns: minmax(260px, .82fr) minmax(0, 1.8fr);
+  align-items: center;
+  gap: clamp(30px, 4vw, 65px);
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+.palawan-customized-page .travel-intro,
+.palawan-customized-page .travel-showcase-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+}
+.palawan-customized-page .travel-eyebrow {
+  display: inline-block;
+  color: var(--pc-aqua);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 18px;
+}
+.palawan-customized-page .travel-intro h1,
+.palawan-customized-page .travel-intro h2,
+.palawan-customized-page .travel-showcase-copy h1,
+.palawan-customized-page .travel-showcase-copy h2 {
+  margin: 0 0 24px;
+  max-width: 470px;
+  color: white;
+  font-size: clamp(40px, 4.2vw, 66px);
+  line-height: 1.06;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+.palawan-customized-page .travel-intro p,
+.palawan-customized-page .travel-showcase-copy p {
+  margin: 0 0 28px;
+  max-width: 410px;
+  color: var(--pc-muted);
+  font-size: 15px;
+  line-height: 1.75;
+}
+.palawan-customized-page .travel-explore,
+.palawan-customized-page .travel-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 12px 28px;
+  border: 0;
+  border-radius: 30px;
+  background: var(--pc-teal);
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(13,148,136,.23);
+  transition: transform .2s, background .2s;
+}
+.palawan-customized-page .travel-explore:hover,
+.palawan-customized-page .travel-explore-btn:hover {
+  background: var(--pc-aqua);
+  color: var(--pc-navy);
+  transform: translateY(-3px);
+}
+.palawan-customized-page .travel-social {
+  display: flex;
+  gap: 18px;
+  margin-top: 38px;
+}
+.palawan-customized-page .travel-slider-area,
+.palawan-customized-page .travel-showcase-slider {
+  width: 100%;
+  min-width: 0;
+}
+.palawan-customized-page .travel-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  min-height: 380px;
+}
+.palawan-customized-page .travel-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  height: 430px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.26);
+  background: #123b46;
+  box-shadow: 0 14px 35px rgba(0,0,0,.26);
+  transition: transform .25s;
+}
+.palawan-customized-page .travel-card:hover { transform: translateY(-7px); }
+.palawan-customized-page .travel-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .35s;
+}
+.palawan-customized-page .travel-card:hover img { transform: scale(1.05); }
+.palawan-customized-page .travel-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0,0,0,.82), transparent 65%);
+}
+.palawan-customized-page .travel-card-info {
+  position: absolute;
+  z-index: 1;
+  left: 18px;
+  right: 18px;
+  bottom: 20px;
+  color: white;
+}
+.palawan-customized-page .travel-card-info h2,
+.palawan-customized-page .travel-card-info h3 {
+  color: white;
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: 1.15;
+  font-weight: 800;
+  margin: 0 0 6px;
+  letter-spacing: 0;
+}
+.palawan-customized-page .travel-card-info p {
+  color: #aaf5e7;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  margin: 0;
+}
+.palawan-customized-page .travel-bottom,
+.palawan-customized-page .travel-slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+  padding: 0;
+  color: var(--pc-muted);
+}
+.palawan-customized-page .travel-bottom > :first-child:not(.travel-counter):not(.travel-controls) {
+  margin-right: auto;
+}
+.palawan-customized-page .travel-counter {
+  color: var(--pc-muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin: 0 auto 0 0;
+}
+.palawan-customized-page .travel-controls {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+}
+.palawan-customized-page .travel-controls button,
+.palawan-customized-page .travel-arrow {
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(98,213,196,.7);
+  border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.palawan-customized-page .travel-controls button:hover,
+.palawan-customized-page .travel-arrow:hover { background: var(--pc-teal); }
+
+/* FOOTER */
+.palawan-customized-page .custom-footer {
+  text-align: center;
+  padding: 42px 6%;
+  background: #05151d;
+}
+.palawan-customized-page .custom-footer .footer-brand {
+  color: var(--pc-aqua);
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.palawan-customized-page .custom-footer p {
+  color: #b8ccd2;
+  font-size: 13px;
+  margin: 0 0 7px;
+}
+.palawan-customized-page .custom-footer .copyright { margin-top: 15px; font-size: 12px; }
+
+/* RESPONSIVE */
+@media (max-width: 1050px) {
+  .palawan-customized-page .travel-showcase-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .palawan-customized-page .travel-intro h1,
+  .palawan-customized-page .travel-intro h2,
+  .palawan-customized-page .travel-showcase-copy h1,
+  .palawan-customized-page .travel-showcase-copy h2 { max-width: 700px; }
+  .palawan-customized-page .travel-card { height: 380px; }
+}
+@media (max-width: 650px) {
+  .palawan-customized-page .custom-hero { padding: 52px 18px 40px; }
+  .palawan-customized-page .palawan-map-section { padding: 32px 12px 45px; }
+  .palawan-customized-page .glassy-map-frame { padding: 6px; border-radius: 16px; }
+  .palawan-customized-page .palawan-map-image { border-radius: 11px; }
+  .palawan-customized-page .travel-showcase { padding: 55px 5%; }
+  .palawan-customized-page .travel-intro h1,
+  .palawan-customized-page .travel-intro h2,
+  .palawan-customized-page .travel-showcase-copy h1,
+  .palawan-customized-page .travel-showcase-copy h2 { font-size: 40px; letter-spacing: -1px; }
+  .palawan-customized-page .travel-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-height: 290px;
+    gap: 12px;
+  }
+  .palawan-customized-page .travel-card { height: 300px; }
+  .palawan-customized-page .travel-card-info { left: 12px; right: 12px; bottom: 14px; }
+  .palawan-customized-page .travel-card-info h2,
+  .palawan-customized-page .travel-card-info h3 { font-size: 18px; }
+  .palawan-customized-page .travel-bottom,
+  .palawan-customized-page .travel-slider-controls { flex-wrap: wrap; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   EXPLORE LOCAL DESTINATIONS
+========================================== */
+
+.local-adventure-section {
+    width: 100%;
+    padding: 70px 6%;
+
+    background: #071f2a;
+    color: #ffffff;
+}
+
+/* MAIN CONTAINER */
+
+.local-adventure-container {
+    width: 100%;
+    max-width: 1380px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+
+    gap: 75px;
+}
+
+/* ==========================================
+   LEFT SIDE IMAGE
+========================================== */
+
+.local-adventure-image {
+    width: 100%;
+    height: 525px;
+
+    overflow: hidden;
+    border-radius: 22px;
+}
+
+.local-adventure-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+.local-adventure-image:hover img {
+    transform: scale(1.04);
+}
+
+/* ==========================================
+   RIGHT SIDE CONTENT
+========================================== */
+
+.local-adventure-content {
+    width: 100%;
+    min-width: 0;
+}
+
+/* SMALL LABEL */
+
+.local-adventure-label {
+    display: block;
+
+    margin-bottom: 25px;
+
+    color: #00e6d2;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+/* HEADING */
+
+.local-adventure-content h2 {
+    margin: 0 0 28px;
+
+    color: #ffffff;
+
+    font-size: clamp(36px, 3.5vw, 58px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1px;
+}
+
+/* DESCRIPTION */
+
+.local-adventure-content p {
+    max-width: 650px;
+
+    margin: 0 0 38px;
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 2;
+}
+
+/* ==========================================
+   EXPLORE BUTTON
+========================================== */
+
+.local-adventure-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 255px;
+    padding: 18px 30px;
+
+    background: #0d9488;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 50px;
+
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+}
+
+.local-adventure-btn:hover {
+    background: #12b5a8;
+    color: #ffffff;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 10px 25px
+        rgba(13, 148, 136, 0.3);
+}
+
+/* ==========================================
+   TABLET RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+
+    .local-adventure-container {
+        gap: 40px;
+    }
+
+    .local-adventure-image {
+        height: 450px;
+    }
+
+    .local-adventure-content h2 {
+        font-size: 40px;
+    }
+
+    .local-adventure-content p {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .local-adventure-section {
+        padding: 50px 5%;
+    }
+
+    .local-adventure-container {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .local-adventure-image {
+        height: 350px;
+        border-radius: 18px;
+    }
+
+    .local-adventure-label {
+        font-size: 12px;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+    }
+
+    .local-adventure-content h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    .local-adventure-content p {
+        font-size: 15px;
+        line-height: 1.8;
+        margin-bottom: 28px;
+    }
+
+    .local-adventure-btn {
+        min-width: 220px;
+        padding: 15px 25px;
+        font-size: 15px;
+    }
+}
+
+/* ==========================================
+   SMALL MOBILE DEVICES
+========================================== */
+
+@media (max-width: 480px) {
+
+    .local-adventure-image {
+        height: 260px;
+    }
+
+    .local-adventure-content h2 {
+        font-size: 30px;
+    }
+
+    .local-adventure-btn {
+        width: 100%;
+    }
+}

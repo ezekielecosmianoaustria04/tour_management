@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Discover Palawan | Puerto Princesa of Wonder</title><link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="discover-palawan.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer>
+  </script>
+  <script src="discover-palawan.js" defer></script></head>
+<body>
+<header class="navbar" aria-label="Website header">
+  <div class="brand-container">
+    <div class="company-logo"
+    ><img src="logo_travel_and_tour.jpg" alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+    <span class="logo-fallback" hidden aria-label="Company logo placeholder">PW</span></div>
+    <div class="brand">Puerto Princesa of Wonder Services Cooperative Travel and Tours</div>
+  </div>
+  <nav class="nav-links" aria-label="Main navigation">
+    <form class="home-search" id="headerSearchForm" role="search">
+      <span aria-hidden="true">⌕</span>
+      <input id="home-location-search" type="search" placeholder="Search a location (e.g. El Nido, Baguio, Cebu)..." aria-label="Search destinations">
+      <button type="submit">Search</button>
+    </form>
+    <a href="index.html">Home</a>
+    <a href="tripplanner.html">Trip Planner</a>
+    <a href="local-destinations.html">Local Destinations</a>
+    <a href="beyond-philippines.html">Beyond Philippines</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <button type="button" class="cart-nav-btn" onclick="if(typeof openCart==='function')openCart()" aria-label="Open shopping cart">🛒 <span id="cart-count">0</span></button>
+    <button type="button" class="login-nav-btn" onclick="if(typeof showLoginNotice==='function')showLoginNotice()">Login</button>
+  </nav>
+</header>
+
+
+<main id="terrain-planner"><section class="terrain-hero"><span class="terrain-kicker">TRIP PLANNER · EXPLORE PALAWAN</span><h1>Discover Palawan</h1><p>Explore the realistic terrain of Palawan. Explore the cities and municipalities of Palawan. Hover over a destination marker for a yellow glow, then click to explore its terrain.</p></section><section class="terrain-workspace"><div class="terrain-map-panel"><span class="terrain-kicker">INTERACTIVE TERRAIN MAP</span><h2>Choose Your Destination</h2><div class="terrain-search-row"><input id="destinationSearch" type="search" placeholder="Search Palawan destinations..." aria-label="Search destinations"><span id="destinationCount" aria-live="polite"></span></div><div id="philippinesTerrainMap" aria-label="Interactive Palawan terrain map"></div><div class="terrain-selection" id="terrainSelection" aria-live="polite">Select a destination on the map or from the list.</div><div class="terrain-buttons" id="terrainButtons" aria-label="Palawan destinations">
+    <button type="button" data-destination="Puerto Princesa" aria-pressed="false">Puerto Princesa</button>
+    <button type="button" data-destination="El Nido" aria-pressed="false">El Nido</button>
+    <button type="button" data-destination="Coron" aria-pressed="false">Coron</button>
+    <button type="button" data-destination="Aborlan" aria-pressed="false">Aborlan</button>
+    <button type="button" data-destination="Agutaya" aria-pressed="false">Agutaya</button>
+    <button type="button" data-destination="Araceli" aria-pressed="false">Araceli</button>
+    <button type="button" data-destination="Balabac" aria-pressed="false">Balabac</button>
+    <button type="button" data-destination="Bataraza" aria-pressed="false">Bataraza</button>
+    <button type="button" data-destination="Brooke&#x27;s Point" aria-pressed="false">Brooke&#x27;s Point</button>
+    <button type="button" data-destination="Busuanga" aria-pressed="false">Busuanga</button>
+    <button type="button" data-destination="Cagayancillo" aria-pressed="false">Cagayancillo</button>
+    <button type="button" data-destination="Culion" aria-pressed="false">Culion</button>
+    <button type="button" data-destination="Cuyo" aria-pressed="false">Cuyo</button>
+    <button type="button" data-destination="Dumaran" aria-pressed="false">Dumaran</button>
+    <button type="button" data-destination="Kalayaan" aria-pressed="false">Kalayaan</button>
+    <button type="button" data-destination="Linapacan" aria-pressed="false">Linapacan</button>
+    <button type="button" data-destination="Magsaysay" aria-pressed="false">Magsaysay</button>
+    <button type="button" data-destination="Narra" aria-pressed="false">Narra</button>
+    <button type="button" data-destination="Quezon" aria-pressed="false">Quezon</button>
+    <button type="button" data-destination="Rizal" aria-pressed="false">Rizal</button>
+    <button type="button" data-destination="Roxas" aria-pressed="false">Roxas</button>
+    <button type="button" data-destination="San Vicente" aria-pressed="false">San Vicente</button>
+    <button type="button" data-destination="Sofronio Española" aria-pressed="false">Sofronio Española</button>
+    <button type="button" data-destination="Taytay" aria-pressed="false">Taytay</button>
+</div><p class="terrain-note">Hover over a destination marker to see it glow yellow. Terrain tiles require internet access. Markers indicate approximate town or island locations, not municipal boundaries.</p></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Puerto Princesa" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Puerto Princesa</h2><p>Explore attractions and experiences around Puerto Princesa. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Puerto Princesa Underground River)" loading="lazy">
+  <div class="attraction-card-content"><h3>Puerto Princesa Underground River</h3><p>Explore the UNESCO-listed subterranean river and limestone cave system in Sabang.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Honda Bay Island Hopping)" loading="lazy">
+  <div class="attraction-card-content"><h3>Honda Bay Island Hopping</h3><p>Enjoy beaches and snorkeling around the islands of Honda Bay.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Iwahig Firefly Watching)" loading="lazy">
+  <div class="attraction-card-content"><h3>Iwahig Firefly Watching</h3><p>Take an evening river cruise to observe fireflies in mangrove habitat.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Baker’s Hill)" loading="lazy">
+  <div class="attraction-card-content"><h3>Baker’s Hill</h3><p>Visit a popular garden stop known for pastries and landscaped grounds.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="El Nido" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in El Nido</h2><p>Explore attractions and experiences around El Nido. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Big Lagoon)" loading="lazy">
+  <div class="attraction-card-content"><h3>Big Lagoon</h3><p>Paddle through turquoise water enclosed by towering limestone cliffs.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Small Lagoon)" loading="lazy">
+  <div class="attraction-card-content"><h3>Small Lagoon</h3><p>Explore a sheltered lagoon by kayak among dramatic rock formations.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Nacpan Beach)" loading="lazy">
+  <div class="attraction-card-content"><h3>Nacpan Beach</h3><p>Relax on a long sandy beach north of El Nido town.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Seven Commandos Beach)" loading="lazy">
+  <div class="attraction-card-content"><h3>Seven Commandos Beach</h3><p>Enjoy white sand and swimming on a popular island-hopping stop.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Coron" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Coron</h2><p>Explore attractions and experiences around Coron. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Kayangan Lake)" loading="lazy">
+  <div class="attraction-card-content"><h3>Kayangan Lake</h3><p>Climb to the viewpoint and swim in clear waters surrounded by limestone.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Twin Lagoon)" loading="lazy">
+  <div class="attraction-card-content"><h3>Twin Lagoon</h3><p>Discover two scenic lagoons separated by a limestone wall.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Barracuda Lake)" loading="lazy">
+  <div class="attraction-card-content"><h3>Barracuda Lake</h3><p>Visit a remarkable lake known for dramatic underwater rock formations.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Malcapuya Island)" loading="lazy">
+  <div class="attraction-card-content"><h3>Malcapuya Island</h3><p>Enjoy a white-sand beach on a popular island excursion.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Aborlan" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Aborlan</h2><p>Explore attractions and experiences around Aborlan. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Estrella Falls)" loading="lazy">
+  <div class="attraction-card-content"><h3>Estrella Falls</h3><p>Visit a forested waterfall and natural swimming area.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Aborlan Coastal Villages)" loading="lazy">
+  <div class="attraction-card-content"><h3>Aborlan Coastal Villages</h3><p>Discover local fishing communities and coastal scenery.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Agutaya" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Agutaya</h2><p>Explore attractions and experiences around Agutaya. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Agutaya Island Coast)" loading="lazy">
+  <div class="attraction-card-content"><h3>Agutaya Island Coast</h3><p>Explore quiet island shorelines and village life.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Nearby Island Waters)" loading="lazy">
+  <div class="attraction-card-content"><h3>Nearby Island Waters</h3><p>Discover small-island scenery and traditional coastal landscapes.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Araceli" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Araceli</h2><p>Explore attractions and experiences around Araceli. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Dumaran Channel Coast)" loading="lazy">
+  <div class="attraction-card-content"><h3>Dumaran Channel Coast</h3><p>Explore coastal waters and quiet island scenery around Araceli.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Araceli Island Communities)" loading="lazy">
+  <div class="attraction-card-content"><h3>Araceli Island Communities</h3><p>Experience the municipality’s island settlements and local culture.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Balabac" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Balabac</h2><p>Explore attractions and experiences around Balabac. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Onok Island)" loading="lazy">
+  <div class="attraction-card-content"><h3>Onok Island</h3><p>Discover a remote island known for clear shallow water and sandbars.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Punta Sebaring)" loading="lazy">
+  <div class="attraction-card-content"><h3>Punta Sebaring</h3><p>Enjoy an expansive white-sand shoreline on Bugsuk Island.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Bataraza" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Bataraza</h2><p>Explore attractions and experiences around Bataraza. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Rio Tuba Coast)" loading="lazy">
+  <div class="attraction-card-content"><h3>Rio Tuba Coast</h3><p>Explore coastal scenery and communities in southern Palawan.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Southern Palawan Mangroves)" loading="lazy">
+  <div class="attraction-card-content"><h3>Southern Palawan Mangroves</h3><p>Discover mangrove habitats and local coastal ecosystems.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Brooke&#x27;s Point" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Brooke&#x27;s Point</h2><p>Explore attractions and experiences around Brooke&#x27;s Point. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Mount Mantalingahan Foothills)" loading="lazy">
+  <div class="attraction-card-content"><h3>Mount Mantalingahan Foothills</h3><p>Appreciate the mountain landscapes of southern Palawan.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Brooke’s Point Coast)" loading="lazy">
+  <div class="attraction-card-content"><h3>Brooke’s Point Coast</h3><p>Enjoy views of the municipality’s shoreline and coastal communities.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Busuanga" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Busuanga</h2><p>Explore attractions and experiences around Busuanga. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Calauit Safari Park)" loading="lazy">
+  <div class="attraction-card-content"><h3>Calauit Safari Park</h3><p>See wildlife on Calauit Island, subject to current visitor arrangements.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Ocam Ocam Beach)" loading="lazy">
+  <div class="attraction-card-content"><h3>Ocam Ocam Beach</h3><p>Relax along a sandy beach on Busuanga Island.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Cagayancillo" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Cagayancillo</h2><p>Explore attractions and experiences around Cagayancillo. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Tubbataha Reefs Natural Park)" loading="lazy">
+  <div class="attraction-card-content"><h3>Tubbataha Reefs Natural Park</h3><p>World-renowned marine protected area accessed by regulated liveaboard trips.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Cagayancillo Island)" loading="lazy">
+  <div class="attraction-card-content"><h3>Cagayancillo Island</h3><p>Explore remote island scenery and local coastal life.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Culion" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Culion</h2><p>Explore attractions and experiences around Culion. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Culion Museum and Archives)" loading="lazy">
+  <div class="attraction-card-content"><h3>Culion Museum and Archives</h3><p>Learn about Culion’s important public-health history.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Culion Church)" loading="lazy">
+  <div class="attraction-card-content"><h3>Culion Church</h3><p>Visit the historic church overlooking the town and bay.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Cuyo" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Cuyo</h2><p>Explore attractions and experiences around Cuyo. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Cuyo Fort and Church)" loading="lazy">
+  <div class="attraction-card-content"><h3>Cuyo Fort and Church</h3><p>Explore a historic Spanish-era fortified church.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Cuyo Island Beaches)" loading="lazy">
+  <div class="attraction-card-content"><h3>Cuyo Island Beaches</h3><p>Discover breezy shores and traditional island culture.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Dumaran" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Dumaran</h2><p>Explore attractions and experiences around Dumaran. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Dumaran Island Coast)" loading="lazy">
+  <div class="attraction-card-content"><h3>Dumaran Island Coast</h3><p>Explore quiet island beaches and coastal scenery.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Dumaran Mangrove Areas)" loading="lazy">
+  <div class="attraction-card-content"><h3>Dumaran Mangrove Areas</h3><p>Discover coastal mangroves and local wildlife habitats.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Kalayaan" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Kalayaan</h2><p>Explore attractions and experiences around Kalayaan. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Pag-asa Island)" loading="lazy">
+  <div class="attraction-card-content"><h3>Pag-asa Island</h3><p>Learn about the remote island community; access is highly restricted.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of West Philippine Sea Seascape)" loading="lazy">
+  <div class="attraction-card-content"><h3>West Philippine Sea Seascape</h3><p>Discover the geography of the distant island group through educational resources.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Linapacan" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Linapacan</h2><p>Explore attractions and experiences around Linapacan. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Linapacan Island Waters)" loading="lazy">
+  <div class="attraction-card-content"><h3>Linapacan Island Waters</h3><p>Discover clear waters and islands between El Nido and Coron.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Island-Hopping Scenery)" loading="lazy">
+  <div class="attraction-card-content"><h3>Island-Hopping Scenery</h3><p>Enjoy views of limestone islets, coves and fishing villages.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Magsaysay" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Magsaysay</h2><p>Explore attractions and experiences around Magsaysay. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Cuyo Archipelago Seascape)" loading="lazy">
+  <div class="attraction-card-content"><h3>Cuyo Archipelago Seascape</h3><p>Explore island views and coastal communities.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Magsaysay Shoreline)" loading="lazy">
+  <div class="attraction-card-content"><h3>Magsaysay Shoreline</h3><p>Enjoy quiet coastal scenery and local island life.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Narra" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Narra</h2><p>Explore attractions and experiences around Narra. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Estrella Falls Area)" loading="lazy">
+  <div class="attraction-card-content"><h3>Estrella Falls Area</h3><p>Explore waterfalls and green inland landscapes near Narra.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Narra Rice Fields)" loading="lazy">
+  <div class="attraction-card-content"><h3>Narra Rice Fields</h3><p>Discover agricultural scenery framed by Palawan mountains.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Quezon" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Quezon</h2><p>Explore attractions and experiences around Quezon. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Tabon Caves Complex)" loading="lazy">
+  <div class="attraction-card-content"><h3>Tabon Caves Complex</h3><p>Visit archaeological caves associated with early human history in the Philippines.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Quezon Coastal Scenery)" loading="lazy">
+  <div class="attraction-card-content"><h3>Quezon Coastal Scenery</h3><p>Explore the coastline and nearby island views.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Rizal" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Rizal</h2><p>Explore attractions and experiences around Rizal. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Mount Mantalingahan Landscape)" loading="lazy">
+  <div class="attraction-card-content"><h3>Mount Mantalingahan Landscape</h3><p>Admire the forested mountain range and surrounding foothills.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Rizal Coastal Villages)" loading="lazy">
+  <div class="attraction-card-content"><h3>Rizal Coastal Villages</h3><p>Discover the coastal communities of southern Palawan.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Roxas" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Roxas</h2><p>Explore attractions and experiences around Roxas. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Roxas Coastal Views)" loading="lazy">
+  <div class="attraction-card-content"><h3>Roxas Coastal Views</h3><p>Enjoy scenic shores and local fishing communities.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Roxas Countryside)" loading="lazy">
+  <div class="attraction-card-content"><h3>Roxas Countryside</h3><p>Discover rural landscapes and green Palawan scenery.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="San Vicente" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in San Vicente</h2><p>Explore attractions and experiences around San Vicente. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Long Beach)" loading="lazy">
+  <div class="attraction-card-content"><h3>Long Beach</h3><p>Walk along one of the Philippines’ notably long white-sand beaches.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Port Barton Island Hopping)" loading="lazy">
+  <div class="attraction-card-content"><h3>Port Barton Island Hopping</h3><p>Explore reefs, beaches and islands around Port Barton.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Sofronio Española" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Sofronio Española</h2><p>Explore attractions and experiences around Sofronio Española. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Sofronio Española Countryside)" loading="lazy">
+  <div class="attraction-card-content"><h3>Sofronio Española Countryside</h3><p>Discover green rural landscapes in southern Palawan.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Southern Palawan Coast)" loading="lazy">
+  <div class="attraction-card-content"><h3>Southern Palawan Coast</h3><p>Explore quiet coastal areas and local communities.</p></div>
+</article></div></section>
+<section class="attractions-section destination-attractions" data-attractions-for="Taytay" hidden>
+<div class="attractions-heading"><span class="terrain-kicker">DISCOVER LOCAL ATTRACTIONS</span><h2>Places to Visit in Taytay</h2><p>Explore attractions and experiences around Taytay. Photos are illustrative and may not show the named attraction.</p></div>
+<div class="attractions-grid"><article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Fort Santa Isabel)" loading="lazy">
+  <div class="attraction-card-content"><h3>Fort Santa Isabel</h3><p>Explore a historic Spanish-era coastal fort.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Lake Manguao)" loading="lazy">
+  <div class="attraction-card-content"><h3>Lake Manguao</h3><p>Discover a freshwater lake and surrounding natural scenery.</p></div>
+</article>
+<article class="attraction-card">
+  <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Illustrative travel scenery (not a verified photograph of Taytay Bay Islands)" loading="lazy">
+  <div class="attraction-card-content"><h3>Taytay Bay Islands</h3><p>Enjoy island views and scenic coastal landscapes.</p></div>
+</article></div></section>
+</main>
+<footer><div class="footer-brand">Puerto Princesa of Wonder Travel and Tours</div><p>Services Cooperative Travel and Tours</p><p class="copyright">© 2026 Puerto Princesa of Wonder. All Rights Reserved.</p></footer>
+<script src="script.js" defer></script>
+</body></html>

@@ -1,0 +1,934 @@
+
+/* ==========================================
+   HEADER - SAME AS BEYOND PHILIPPINES
+========================================== */
+
+body > header.navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+body > header.navbar .nav-links {
+    justify-content: flex-start;
+    width: 100%;
+}
+
+
+/* ==========================================
+   ACCOUNT GLOBAL
+========================================== */
+
+#customer-account-page {
+    background: #071b25;
+    color: white;
+    min-height: 100vh;
+}
+
+#customer-account-page * {
+    box-sizing: border-box;
+}
+
+#customer-account-page [hidden],
+.company-logo [hidden] {
+    display: none !important;
+}
+
+
+/* ==========================================
+   ACCOUNT HERO
+========================================== */
+
+.account-hero {
+    min-height: 270px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 50px 20px;
+
+    background:
+        linear-gradient(
+            rgba(7, 27, 37, .70),
+            rgba(7, 27, 37, .95)
+        ),
+        url("palawan.jpg") center / cover no-repeat;
+
+    text-align: center;
+}
+
+.account-hero-content span,
+.account-kicker {
+    color: #62d5c4;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.account-hero h1 {
+    font-size: clamp(30px, 5vw, 48px);
+    color: white;
+    margin: 15px 0;
+}
+
+.account-hero p {
+    color: #b6c9cf;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.account-demo-notice {
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #b6c9cf;
+    background: #102d38;
+}
+
+
+/* ==========================================
+   DASHBOARD LAYOUT
+========================================== */
+
+.account-dashboard {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    align-items: start;
+    gap: 25px;
+
+    max-width: 1450px;
+    margin: auto;
+    padding: 40px 5% 80px;
+}
+
+.account-glass {
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, .10),
+        rgba(255, 255, 255, .025)
+    );
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255, 255, 255, .13);
+    border-radius: 22px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .18);
+}
+
+
+/* ==========================================
+   SIDEBAR
+========================================== */
+
+.account-sidebar {
+    padding: 20px;
+    position: sticky;
+    top: 160px;
+}
+
+.customer-profile {
+    text-align: center;
+    padding: 15px 0 25px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, .10);
+}
+
+.profile-avatar {
+    width: 95px;
+    height: 95px;
+
+    display: grid;
+    place-items: center;
+
+    margin: 0 auto 15px;
+
+    background: rgba(98, 213, 196, .10);
+    border: 2px solid #62d5c4;
+    border-radius: 50%;
+
+    color: #62d5c4;
+    font-size: 45px;
+
+    overflow: hidden;
+
+    box-shadow: 0 0 25px rgba(98, 213, 196, .12);
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.customer-profile h3 {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
+}
+
+.customer-profile p {
+    color: #9db6bf;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.account-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.account-menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    width: 100%;
+    padding: 14px;
+
+    text-align: left;
+    font-size: 14px;
+    color: #bfd0d6;
+
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: transparent;
+
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.account-menu-btn i {
+    font-size: 18px;
+}
+
+.account-menu-btn:hover,
+.account-menu-btn.active {
+    color: #62d5c4;
+    background: rgba(98, 213, 196, .10);
+    border-color: rgba(98, 213, 196, .20);
+}
+
+.account-menu-btn.logout-btn {
+    color: #ff9191;
+    margin-top: 15px;
+}
+
+.account-menu-btn.logout-btn:hover {
+    background: rgba(255, 90, 90, .10);
+    border-color: rgba(255, 90, 90, .20);
+}
+
+
+/* ==========================================
+   MAIN CONTENT
+========================================== */
+
+.account-main {
+    min-width: 0;
+}
+
+.account-panel {
+    animation: accountFade .35s ease;
+}
+
+@keyframes accountFade {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.welcome-panel {
+    padding: 35px;
+    margin-bottom: 25px;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(98, 213, 196, .18),
+            transparent 50%
+        ),
+        rgba(255, 255, 255, .04);
+}
+
+.welcome-panel > span {
+    color: #62d5c4;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.welcome-panel h2 {
+    color: white;
+    font-size: clamp(25px, 4vw, 36px);
+    margin: 15px 0;
+}
+
+.welcome-panel h2 span {
+    color: #62d5c4;
+}
+
+.welcome-panel p,
+.account-content > p {
+    color: #b6c9cf;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.account-content {
+    padding: 30px;
+    margin-bottom: 25px;
+}
+
+.account-content > h2 {
+    color: white;
+    font-size: 25px;
+    margin: 10px 0 15px;
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.account-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 12px 22px;
+
+    background: linear-gradient(
+        135deg,
+        #0d9488,
+        #08796e
+    );
+
+    border: 1px solid #0d9488;
+    border-radius: 30px;
+
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.account-btn:hover {
+    transform: translateY(-3px);
+    background: #62d5c4;
+    color: #071b25;
+}
+
+.account-btn.outline {
+    background: transparent;
+    color: #62d5c4;
+    border-color: #62d5c4;
+}
+
+.account-btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* ==========================================
+   STATISTICS CARDS
+========================================== */
+
+.account-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    padding: 22px 15px;
+    text-align: center;
+    transition: .3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: #62d5c4;
+}
+
+.stat-card i {
+    color: #62d5c4;
+    font-size: 27px;
+}
+
+.stat-card h2 {
+    color: white;
+    font-size: 30px;
+    margin: 12px 0 8px;
+}
+
+.stat-card p {
+    color: #9db6bf;
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   ACCOUNT FORMS
+========================================== */
+
+.account-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.account-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+    color: #dce9ed;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.account-form input:not([type="checkbox"]),
+.account-form select,
+.account-form textarea {
+    width: 100%;
+    padding: 13px 15px;
+
+    color: white;
+    background: rgba(255, 255, 255, .06);
+
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 12px;
+
+    font-size: 14px;
+    outline: none;
+}
+
+.account-form input:focus,
+.account-form select:focus,
+.account-form textarea:focus {
+    border-color: #62d5c4;
+    box-shadow: 0 0 12px rgba(98, 213, 196, .12);
+}
+
+.account-form select option {
+    color: white;
+    background: #102d38;
+}
+
+.account-form input[type="date"] {
+    color-scheme: dark;
+}
+
+.account-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.account-form small {
+    color: #9db6bf;
+    font-size: 11px;
+}
+
+.form-status {
+    color: #62d5c4;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.form-status.error {
+    color: #ff9191;
+}
+
+
+/* ==========================================
+   PROFILE UPLOAD
+========================================== */
+
+.profile-upload {
+    padding: 20px;
+
+    background: rgba(98, 213, 196, .04);
+    border: 1px dashed rgba(98, 213, 196, .4);
+    border-radius: 15px;
+}
+
+.profile-upload label {
+    color: #62d5c4;
+    margin-bottom: 12px;
+}
+
+.profile-upload input {
+    margin-bottom: 10px;
+}
+
+
+/* ==========================================
+   BOOKING FILTERS
+========================================== */
+
+.booking-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 25px 0;
+}
+
+.filter-btn {
+    padding: 9px 16px;
+    border-radius: 25px;
+
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .15);
+
+    color: #b6c9cf;
+    font-size: 12px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    color: #071b25;
+    background: #62d5c4;
+    border-color: #62d5c4;
+}
+
+
+/* ==========================================
+   BOOKING CARDS
+========================================== */
+
+.booking-card {
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 20px;
+
+    padding: 18px;
+    margin-bottom: 15px;
+
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 18px;
+}
+
+.booking-card img {
+    width: 100%;
+    height: 135px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #153c47;
+}
+
+.booking-details h3 {
+    color: white;
+    font-size: 17px;
+    margin: 10px 0;
+}
+
+.booking-details p {
+    color: #b6c9cf;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.booking-details .account-btn {
+    margin-top: 12px;
+}
+
+
+/* ==========================================
+   STATUS LABELS
+========================================== */
+
+.account-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    color: #b6c9cf;
+    background: rgba(255, 255, 255, .08);
+
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.account-status.pending {
+    background: rgba(255, 193, 7, .12);
+    color: #ffc857;
+}
+
+.account-status.completed,
+.account-status.approved,
+.account-status.confirmed {
+    background: rgba(98, 213, 196, .12);
+    color: #62d5c4;
+}
+
+.account-status.rejected,
+.account-status.cancelled {
+    background: rgba(255, 90, 90, .12);
+    color: #ff9191;
+}
+
+
+/* ==========================================
+   STAR RATING
+========================================== */
+
+.star-rating {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.star-rating button {
+    padding: 0;
+    background: transparent;
+    border: none;
+
+    color: #45616b;
+    font-size: 38px;
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.star-rating button.selected,
+.star-rating button.hovered {
+    color: #ffc857;
+    text-shadow: 0 0 15px rgba(255, 200, 87, .3);
+}
+
+.star-rating button:hover {
+    transform: scale(1.2);
+}
+
+#ratingText {
+    color: #ffc857;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   MEDIA UPLOAD
+========================================== */
+
+.account-form .media-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    min-height: 180px;
+    padding: 25px;
+    margin-top: 12px;
+
+    background: rgba(98, 213, 196, .035);
+
+    border: 2px dashed rgba(98, 213, 196, .35);
+    border-radius: 18px;
+
+    text-align: center;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.media-upload:hover {
+    background: rgba(98, 213, 196, .09);
+    border-color: #62d5c4;
+}
+
+.media-upload i {
+    color: #62d5c4;
+    font-size: 45px;
+}
+
+.media-upload strong {
+    color: white;
+    font-size: 15px;
+}
+
+.media-upload span {
+    color: #9db6bf;
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   MEDIA PREVIEW
+========================================== */
+
+.media-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.media-preview-item {
+    position: relative;
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 14px;
+    background: #102d38;
+}
+
+.media-preview-item img,
+.media-preview-item video {
+    display: block;
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.media-preview-item video {
+    object-fit: contain;
+}
+
+.remove-media {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    width: 27px;
+    height: 27px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, .8);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.account-form .review-consent {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+
+    color: #b6c9cf;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.review-consent input {
+    margin-top: 4px;
+    accent-color: #0d9488;
+}
+
+
+/* ==========================================
+   SUBMITTED REVIEWS
+========================================== */
+
+.submitted-review {
+    padding: 22px;
+    margin-top: 18px;
+
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 18px;
+}
+
+.submitted-review h3 {
+    color: white;
+    font-size: 17px;
+    margin: 12px 0;
+}
+
+.submitted-review p {
+    color: #b6c9cf;
+    font-size: 14px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.submitted-stars {
+    color: #ffc857;
+    font-size: 20px;
+    letter-spacing: 3px;
+    margin: 10px 0;
+}
+
+.submitted-review small {
+    display: block;
+    color: #8ba5ae;
+    font-size: 11px;
+    margin-top: 15px;
+}
+
+.delete-review-btn {
+    padding: 8px 15px;
+    margin-top: 15px;
+
+    background: transparent;
+    color: #ff9191;
+
+    border: 1px solid rgba(255, 90, 90, .35);
+    border-radius: 20px;
+
+    font-size: 12px;
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   EMPTY STATES
+========================================== */
+
+.account-empty {
+    padding: 35px 20px;
+    text-align: center;
+
+    background: rgba(255, 255, 255, .025);
+    border: 1px dashed rgba(98, 213, 196, .25);
+    border-radius: 16px;
+}
+
+.account-empty i {
+    color: #62d5c4;
+    font-size: 35px;
+}
+
+.account-empty h3 {
+    color: white;
+    font-size: 17px;
+    margin: 15px 0 10px;
+}
+
+.account-empty p {
+    color: #9db6bf;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+
+/* ==========================================
+   SETTINGS
+========================================== */
+
+.settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .10);
+}
+
+.settings-row h3 {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.settings-row p {
+    color: #9db6bf;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 1100px) {
+
+    .account-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .account-dashboard {
+        grid-template-columns: 1fr;
+        padding: 25px 4% 60px;
+    }
+
+    .account-sidebar {
+        position: static;
+    }
+
+    .account-menu {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .account-menu-btn.logout-btn {
+        margin-top: 0;
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .account-form {
+        grid-template-columns: 1fr;
+    }
+
+    .account-content,
+    .welcome-panel {
+        padding: 20px;
+    }
+
+    .booking-card {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-card img {
+        height: 180px;
+    }
+
+    .media-preview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .star-rating button {
+        font-size: 32px;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    #customer-account-page * {
+        transition: none !important;
+        animation: none !important;
+    }
+
+}

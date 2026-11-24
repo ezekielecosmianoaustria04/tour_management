@@ -1,0 +1,1174 @@
+/* =============================================
+   TRIP PLANNER | PUERTO PRINCESA OF WONDER
+   Compatible with tripplanner_with_tour_photo_spaces.html
+   Keep style.css loaded before this file.
+============================================= */
+:root{--trip-teal:#078b83;--trip-dark:#ffffff;--trip-muted:#71828b;--trip-bg:#0a222d;--trip-border:#e4ecef}
+.app-page{width:100%;min-height:70vh;background:var(--trip-bg)}
+.app-page,.app-page *{box-sizing:border-box}
+.app-page .section{padding:55px 7%}
+.app-page .section-inner{max-width:1150px;margin:0 auto}
+
+/* Hero */
+.app-page .subpage-hero{position:relative;width:100%;min-height:280px;padding:65px 7%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(rgba(0,35,45,.72),rgba(0,35,45,.72)),url('puerto-princesa.jpg') center/cover no-repeat;color:#fff}
+.app-page .subpage-hero .eyebrow{color:#48d6c5;font-size:13px;font-weight:800;letter-spacing:2px;margin-bottom:15px}
+.app-page .subpage-hero h1{color:#fff;font-size:clamp(26px,3.5vw,40px);font-weight:800;line-height:1.2;margin:0 0 15px}
+.app-page .subpage-hero p{color:#edf5f5;font-size:16px;max-width:650px;line-height:1.7;margin:0}
+
+/* Planner choice cards and Luzon/Visayas/Mindanao choices */
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:1000px;margin:0 auto}
+.choice-card{background:#fff;padding:36px 28px;border:1px solid var(--trip-border);border-radius:18px;text-align:center;box-shadow:0 7px 25px rgba(20,55,75,.06);transition:transform .2s,box-shadow .2s,border-color .2s}
+.choice-card:hover{transform:translateY(-4px);box-shadow:0 13px 30px rgba(20,55,75,.12);border-color:#b9ded9}
+.choice-icon{width:80px;height:80px;display:flex;justify-content:center;align-items:center;margin:0 auto 20px;border-radius:50%;background:#e9f8f5;font-size:36px}
+.choice-card h2{color:var(--trip-dark);font-size:23px;font-weight:800;margin:0 0 14px}
+.choice-card p{color:var(--trip-muted);font-size:14px;line-height:1.7;min-height:65px;margin:0 0 22px}
+.app-page .primary-btn,.app-page .gold-btn{display:inline-block;padding:12px 24px;border:0;border-radius:9px;background:var(--trip-teal);color:#fff;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .2s,transform .2s}
+.app-page .primary-btn:hover,.app-page .gold-btn:hover{background:#056d67;color:#fff;transform:translateY(-2px)}
+.app-page .secondary-btn{display:inline-block;padding:12px 22px;border:1px solid var(--trip-teal);border-radius:8px;background:transparent;color:var(--trip-teal);font-size:14px;font-weight:700;cursor:pointer;transition:background .2s,color .2s}
+.app-page .secondary-btn:hover{background:var(--trip-teal);color:#fff}
+.app-page button:focus-visible,.app-page a:focus-visible{outline:3px solid #48d6c5;outline-offset:3px}
+.choice-note{text-align:center;margin:35px auto 0;color:#75858e;font-size:14px}
+.link-btn{border:0;background:transparent;color:var(--trip-teal);font-weight:800;text-decoration:underline;cursor:pointer}
+.link-btn:hover{color:#056d67}
+/* Tour Only destination selection */
+.destination-selection-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;max-width:1400px;width:100%;margin:0 auto;padding:20px 0}
+.destination-selection-card{min-width:0;background:#fff;border:1px solid var(--trip-border);border-radius:15px;overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,.07);transition:transform .2s,box-shadow .2s}
+.destination-selection-card:hover{transform:translateY(-4px);box-shadow:0 15px 30px rgba(0,0,0,.14)}
+.destination-selection-card>img{display:block;width:100%;height:190px;object-fit:cover;background:#e7eff0}
+.destination-selection-content{padding:22px 18px;text-align:center}
+.destination-selection-content h2{color:#123d46;font-size:21px;font-weight:800;margin:0 0 12px}
+.destination-selection-content p{color:#777;font-size:14px;line-height:1.6;min-height:46px;margin:0 0 20px}
+.destination-selection-content button{width:100%;padding:12px;border:0;border-radius:7px;background:#0d5962;color:#fff;font-weight:700;cursor:pointer}
+.destination-selection-content button:hover{background:#083e45}
+/* Tour Only catalog */
+.tour-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;width:100%;margin:0 0 35px}
+.tour-tile,.tour-card{display:flex;flex-direction:column;min-width:0;background:#fff;border:1px solid #e5ecef;border-radius:14px;overflow:hidden;box-shadow:0 5px 20px rgba(20,55,75,.06);transition:transform .2s,box-shadow .2s}
+.tour-tile:hover,.tour-card:hover{transform:translateY(-4px);box-shadow:0 12px 25px rgba(20,55,75,.12)}
+/* Space for custom tour pictures; also handles JS-generated image placeholders */
+.tour-card-image-slot{width:100%;height:185px;overflow:hidden;border-radius:10px;background:#f1f3f5;border:1px dashed #cbd0d5;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.tour-card-image-slot img{display:block;width:100%;height:100%;object-fit:cover}
+.tour-card-image-placeholder{color:#777;font-size:14px;text-align:center;padding:12px}
+.tour-tile>img,.tour-card>img{display:block;width:100%;height:210px;object-fit:cover}
+.tour-tile h3,.tour-card h3{color:var(--trip-dark);font-size:19px;font-weight:800;line-height:1.4;margin:12px 0}
+.tour-tile p,.tour-card p{color:var(--trip-muted);font-size:14px;line-height:1.7;margin:0 0 16px}
+.tour-tile>.primary-btn,.tour-card>.primary-btn{align-self:flex-start;margin-top:auto}
+.tour-card-content{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:20px}
+.tour-card-content h3{min-height:50px;margin:0 0 14px}
+.tour-location{display:inline-block;margin-bottom:10px;padding:6px 12px;background:#eaf4f2;border-radius:30px;color:#0d5962;font-size:12px;font-weight:700}
+.tour-price{margin-top:auto;margin-bottom:20px;color:#c18a24;font-size:23px;font-weight:800}
+.tour-price small{color:#777;font-size:12px;font-weight:400}
+.tour-book-btn{width:100%;padding:12px;border:0;border-radius:7px;background:#0d5962;color:#fff;font-weight:700;cursor:pointer}
+.tour-book-btn:hover{background:#083e45}
+.tours-filter{display:flex;align-items:center;justify-content:flex-end;gap:15px;margin-bottom:30px}
+.tours-filter label{color:#294957;font-size:13px;font-weight:800;letter-spacing:1px}
+.tours-filter select{min-width:210px;height:45px;padding:0 14px;border:1px solid #d8e3e8;border-radius:8px;background:#fff;color:#344b57;font-size:14px}
+.tours-filter select:focus{outline:2px solid #48d6c5}
+#tours-page .form-actions{display:flex;flex-wrap:wrap;align-items:center;gap:15px;margin-top:35px}
+/* Luzon region cards and pagination */
+.region-layout{max-width:1050px;margin:0 auto;padding:30px 20px 70px}
+.region-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.region-card{background:#fff;border:1px solid #dedede;border-radius:14px;padding:30px 24px;display:flex;flex-direction:column;align-items:flex-start;min-height:220px;box-shadow:0 5px 20px rgba(20,55,75,.05);transition:transform .2s,box-shadow .2s}
+.region-card:hover{transform:translateY(-4px);box-shadow:0 12px 25px rgba(20,55,75,.12)}
+.region-card h2{color:var(--trip-dark);font-size:21px;font-weight:800;margin:10px 0}
+.region-card p{color:#666;line-height:1.6;flex:1}
+.region-card .primary-btn{margin-top:12px}
+.region-actions{margin-bottom:20px}
+.region-pagination{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:30px;flex-wrap:wrap}
+.region-pagination button{border:1px solid #bbb;border-radius:7px;background:#fff;color:#222;padding:9px 14px;cursor:pointer}
+.region-pagination button:hover:not(:disabled){border-color:var(--trip-teal);color:var(--trip-teal)}
+.region-pagination button[aria-current='page']{background:var(--trip-teal);color:#fff;border-color:var(--trip-teal)}
+.region-pagination button:disabled{opacity:.4;cursor:not-allowed}
+.region-page-info{text-align:center;color:#666;margin-top:14px}
+/* Compatibility with earlier customized trip markup */
+.customize-hero{text-align:center;padding:65px 20px 35px}
+.customize-hero h1{font-size:36px;font-weight:700}
+.customize-hero p{color:#666}
+.destination-choice-grid{display:flex;justify-content:center;gap:25px;padding:20px 20px 80px;flex-wrap:wrap}
+.destination-choice-card{width:320px;padding:35px 25px;border:1px solid #ddd;border-radius:14px;text-align:center;background:#fff}
+.destination-choice-card button{background:#0d5962;color:#fff;border:0;border-radius:8px;padding:12px 24px;cursor:pointer}
+.destination-choice-card button:hover{background:#083e45}
+/* Footer matches original palette; header remains controlled by style.css */
+body>footer{width:100%;padding:35px 20px;background:#123746;color:#fff;text-align:center}
+body>footer .footer-brand{font-size:21px;font-weight:800;margin-bottom:8px}
+body>footer p{color:#d0e0e4;font-size:13px;margin-bottom:8px}
+body>footer .copyright{margin-top:18px;color:#a9c0c7;font-size:12px}
+/* Responsive */
+@media(max-width:1200px){.destination-selection-grid{grid-template-columns:repeat(2,minmax(0,350px));justify-content:center}}
+@media(max-width:900px){.tour-tiles,.region-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:768px){.app-page .section{padding:42px 5%}.app-page .subpage-hero{min-height:240px;padding:50px 5%}.app-page .subpage-hero p{font-size:14px}.choice-grid{grid-template-columns:1fr;max-width:460px}.choice-card{padding:30px 22px}.choice-card p{min-height:0}.tour-tiles{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto}.region-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}.destination-selection-grid{grid-template-columns:minmax(0,350px)}.tours-filter{justify-content:flex-start;flex-wrap:wrap}#tours-page .form-actions{flex-direction:column}#tours-page .form-actions button{width:100%}.destination-selection-card>img{height:210px}}
+@media(max-width:480px){.choice-card h2{font-size:21px}.choice-icon{width:70px;height:70px;font-size:32px}.tours-filter select{width:100%}.region-layout{padding:25px 14px 55px}.tour-card-image-slot{height:170px}}
+
+
+img {
+    max-width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   TRIP PLANNER PAGE
+   PUERTO PRINCESA OF WONDER
+========================================== */
+
+/* GENERAL */
+
+#planner-page,
+#tours-page {
+  width: 100%;
+  min-height: 70vh;
+  background: #0a222d;
+} 
+
+#planner-page *,
+#tours-page * {
+  box-sizing: border-box;
+}
+
+#planner-page .subpage-hero {
+    background: url("palawan.jpg") 
+}
+
+
+
+/* ==========================================
+   TRIP PLANNER HERO WITH HTML IMAGE
+========================================== */
+
+#planner-page .planner-hero {
+    position: relative;
+    width: 100%;
+    min-height: 380px;
+    padding: 70px 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    text-align: center;
+
+    /* Remove previous CSS background */
+    background: none;
+}
+
+/* BACKGROUND IMAGE */
+
+#planner-page .planner-hero-img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    z-index: 0;
+}
+
+/* DARK OVERLAY */
+
+#planner-page .planner-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: 0a222d;
+    z-index: 1;
+}
+
+/* HERO TEXT */
+
+#planner-page .planner-hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#planner-page .planner-hero .eyebrow {
+    display: block;
+    color: #62d5c4;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+#planner-page .planner-hero h1 {
+    color: #ffffff;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+#planner-page .planner-hero p {
+    color: #ffffff;
+    font-size: 17px;
+    line-height: 1.8;
+    margin: 0 auto;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    #planner-page .planner-hero {
+        min-height: 320px;
+        padding: 55px 6%;
+    }
+
+    #planner-page .planner-hero h1 {
+        font-size: 30px;
+    }
+
+    #planner-page .planner-hero p {
+        font-size: 14px;
+    }
+}
+
+
+/* ==========================================
+   SECTION
+========================================== */
+
+#planner-page .section,
+#tours-page .section {
+  padding: 65px 7%;
+}
+
+#planner-page .section-inner,
+#tours-page .section-inner {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   CHOICE CARDS
+========================================== */
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.choice-card {
+  background: #0a222d;
+  padding: 38px 30px;
+  border: 1px solid #e4ecef;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 7px 25px rgba(20, 55, 75, 0.06);
+  transition: 0.3s ease;
+}
+
+.choice-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 13px 30px rgba(20, 55, 75, 0.12);
+  border-color: #b9ded9;
+}
+
+.choice-icon {
+  width: 85px;
+  height: 85px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: #e9f8f5;
+  font-size: 38px;
+}
+
+.choice-card h2 {
+  color: #173b4f;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.choice-card p {
+  color: #71828b;
+  font-size: 14px;
+  line-height: 1.8;
+  min-height: 75px;
+  margin-bottom: 25px;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.choice-card .primary-btn {
+  display: inline-block;
+  padding: 13px 25px;
+  border: none;
+  border-radius: 9px;
+  background: #078b83;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.choice-card .primary-btn:hover {
+  background: #056d67;
+  transform: translateY(-2px);
+}
+
+.primary-btn .gold-btn {
+  display: inline-block;
+  padding: 13px 25px;
+  border: none;
+  border-radius: 9px;
+  background: #078b83;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.choice-card .gold-btn:hover {
+  background: #056d67;
+}
+
+/* ==========================================
+   CHOICE NOTE
+========================================== */
+
+.choice-note {
+  text-align: center;
+  margin: 35px auto 0;
+  color: #75858e;
+  font-size: 14px;
+}
+
+.link-btn {
+  border: none;
+  background: transparent;
+  color: #078b83;
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-btn:hover {
+  color: #056d67;
+}
+
+/* ==========================================
+   TOUR CATALOG
+========================================== */
+
+#tours-page .subpage-hero {
+  min-height: 260px;
+}
+
+.tours-filter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.tours-filter label {
+  color: #294957;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.tours-filter select {
+  min-width: 210px;
+  height: 45px;
+  padding: 0 14px;
+  border: 1px solid #d8e3e8;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+  color: #344b57;
+  font-size: 14px;
+}
+
+.tours-filter select:focus {
+  border-color: #078b83;
+  box-shadow: 0 0 0 3px rgba(7, 139, 131, 0.10);
+}
+
+/* TOUR TILES */
+
+.tour-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px;
+  margin-bottom: 35px;
+}
+
+/* Generic generated tour card styles */
+
+.tour-card,
+.tour-tile {
+  background: #ffffff;
+  border: 1px solid #e5ecef;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(20, 55, 75, 0.06);
+  transition: 0.3s ease;
+}
+
+.tour-card:hover,
+.tour-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(20, 55, 75, 0.12);
+}
+
+.tour-card img,
+.tour-tile img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.tour-card h3,
+.tour-tile h3 {
+  color: #173b4f;
+  font-size: 19px;
+  font-weight: 800;
+  margin: 18px 18px 8px;
+}
+
+.tour-card p,
+.tour-tile p {
+  color: #71828b;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0 18px 15px;
+}
+
+.tour-card button,
+.tour-tile button {
+  margin: 0 18px 20px;
+}
+
+/* ==========================================
+   FORM ACTIONS
+========================================== */
+
+#tours-page .form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+#tours-page .secondary-btn {
+  padding: 12px 22px;
+  border: 1px solid #078b83;
+  border-radius: 8px;
+  background: transparent;
+  color: #078b83;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+#tours-page .secondary-btn:hover {
+  background: #078b83;
+  color: #ffffff;
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+body > footer {
+  width: 100%;
+  padding: 35px 20px;
+  background: #123746;
+  color: #ffffff;
+  text-align: center;
+}
+
+body > footer .footer-brand {
+  font-size: 21px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+body > footer p {
+  color: #d0e0e4;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+body > footer .copyright {
+  margin-top: 18px;
+  color: #a9c0c7;
+  font-size: 12px;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 900px) {
+  .tour-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .subpage-hero h1 {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 768px) {
+  #planner-page .section,
+  #tours-page .section {
+    padding: 45px 5%;
+  }
+
+  .choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .choice-card {
+    padding: 30px 22px;
+  }
+
+  .choice-card p {
+    min-height: auto;
+  }
+
+  .subpage-hero {
+    min-height: 250px;
+    padding: 55px 5%;
+  }
+
+  .subpage-hero h1 {
+    font-size: 29px;
+  }
+
+  .subpage-hero p {
+    font-size: 14px;
+  }
+
+  .tours-filter {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .tour-tiles {
+    grid-template-columns: 1fr;
+  }
+
+  #tours-page .form-actions {
+    flex-direction: column;
+  }
+
+  #tours-page .form-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .subpage-hero h1 {
+    font-size: 25px;
+  }
+
+  .choice-card h2 {
+    font-size: 21px;
+  }
+
+  .choice-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 32px;
+  }
+
+  .tours-filter select {
+    width: 100%;
+  }
+}
+
+
+
+
+/* ==========================================
+   DESTINATION SELECTION
+========================================== */
+
+/* GRID CONTAINER */
+
+.destination-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* DESTINATION CARDS */
+
+.destination-selection-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.destination-selection-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.14);
+}
+
+/* DESTINATION IMAGE */
+
+.destination-selection-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* CARD CONTENT */
+
+.destination-selection-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding: 22px 20px;
+    text-align: center;
+}
+
+/* DESTINATION TITLE */
+
+.destination-selection-content h2 {
+    color: #123d46;
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.4;
+    margin: 0 0 10px;
+}
+
+/* DESTINATION DESCRIPTION */
+
+.destination-selection-content p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    flex: 1;
+}
+
+/* DESTINATION BUTTON */
+
+.destination-selection-content button {
+     width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.destination-selection-content button:hover {
+    background: #083e45;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+/* TABLET */
+
+@media (max-width: 900px) {
+    #customize-choice-page .destination-selection-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+/* MOBILE */
+
+@media (max-width: 600px) {
+    #customize-choice-page .destination-selection-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   TOUR TILES
+========================================== */
+
+.tour-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+.tour-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 15px;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.07);
+    transition: 0.3s ease;
+}
+
+.tour-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.13);
+}
+
+.tour-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+.tour-card-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+}
+
+.tour-location {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 6px 12px;
+    background: #eaf4f2;
+    border-radius: 30px;
+    color: #0d5962;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.tour-card-content h3 {
+    min-height: 55px;
+    margin-bottom: 15px;
+    color: #183d43;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.tour-price {
+    margin-top: auto;
+    margin-bottom: 20px;
+    color: #c18a24;
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.tour-price small {
+    color: #777;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.tour-book-btn {
+    width: 80%;
+    padding: 12px;
+    border: 0;
+    border-radius: 7px;
+    background: #0d5962;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tour-book-btn:hover {
+    background: #083e45;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 900px) {
+    .destination-selection-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+@media (max-width: 600px) {
+    .destination-selection-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .destination-selection-card img,
+    .tour-card img {
+        height: 220px;
+    }
+
+    .tour-card-content h3 {
+        min-height: auto;
+    }
+}
+
+
+
+.customize-hero {
+    text-align: center;
+    padding: 65px 20px 35px;
+}
+
+.customize-hero h1 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.customize-hero p {
+    color: #666;
+}
+
+.destination-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+.destination-choice-card {
+    width: 100%;
+    max-width: none;
+}
+
+.destination-choice-card button {
+    background: #111;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+}
+
+.destination-choice-card button:hover {
+    background: #444;
+}
+}
+
+
+
+
+
+
+/* ==========================================
+   FULL SCREEN TOUR DETAILS DRAWER
+========================================== */
+
+.tour-details-drawer {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 99999;
+
+    background: #f5f8fc;
+
+    display: flex;
+    flex-direction: column;
+
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.35s ease,
+                visibility 0.35s;
+}
+
+.tour-details-drawer.active {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+/* HEADER */
+
+.tour-drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: #0d5962;
+    color: white;
+}
+
+.tour-drawer-header span {
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.tour-drawer-header h2 {
+    color: white;
+    font-size: 23px;
+    margin: 6px 0 0;
+}
+
+.tour-drawer-close {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 34px;
+    cursor: pointer;
+}
+
+/* BODY */
+
+.tour-drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 45px 6%;
+}
+
+/* HIDE INACTIVE TOURS */
+
+.tour-detail-content[hidden] {
+    display: none !important;
+}
+
+/* TWO COLUMN LAYOUT */
+
+.tour-detail-content:not([hidden]) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 55px;
+    align-items: start;
+    max-width: 1350px;
+    margin: 0 auto;
+}
+
+/* IMAGE */
+
+.tour-detail-content > img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+/* DETAILS */
+
+.tour-detail-info > span {
+    color: #0d9488;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.tour-detail-info h2 {
+    color: #173b4f;
+    font-size: 34px;
+    margin: 15px 0;
+}
+
+.tour-detail-info h3 {
+    color: #0d9488;
+    font-size: 26px;
+    margin-bottom: 30px;
+}
+
+.tour-detail-info h4 {
+    color: #173b4f;
+    font-size: 18px;
+    margin: 25px 0 12px;
+}
+
+.tour-detail-info p,
+.tour-detail-info li {
+    color: #617681;
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.tour-detail-info ul {
+    padding-left: 22px;
+}
+
+/* ADD TO CART */
+
+.tour-drawer-cart {
+    margin-top: 25px;
+    padding: 15px 35px;
+    background: #0d9488;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.tour-drawer-cart:hover {
+    background: #08776f;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+    .tour-detail-content:not([hidden]) {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .tour-detail-content > img {
+        height: 260px;
+    }
+
+    .tour-detail-info h2 {
+        font-size: 26px;
+    }
+
+    .tour-drawer-body {
+        padding: 25px 5%;
+    }
+}
+
+
+
+
+
+
+/* TOUR ONLY - Add to tripplanner.css; drawer */
+.tour-card[hidden], .tour-detail-content[hidden] { display: none !important; }
+.tour-card-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.tour-card-actions button { cursor: pointer; padding: 11px 16px; border-radius: 8px; font: inherit; font-weight: 600; }
+.tour-book-btn, .tour-drawer-cart { background: #0d5962; border: 1px solid #0d5962; color: white; }
+.tour-details-btn { background: #0d5962; border: 1px solid #0d5962; color: #ffffff; }
+.tour-card-actions button:hover, .tour-drawer-cart:hover { filter: brightness(.93); }
+dialog.tour-details-drawer { position: fixed; inset: 0; width: 100vw; max-width: none; height: 100vh; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0; background: #f7f9fb; overflow: hidden; color: #203038; }
+dialog.tour-details-drawer[open] { display: flex; flex-direction: column; }
+dialog.tour-details-drawer::backdrop { background: rgba(0,0,0,.55); }
+.tour-drawer-header { flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 18px 5%; background: #0d5962; color: white; }
+.tour-drawer-header span { font-size: 12px; letter-spacing: .1em; }
+.tour-drawer-header h2 { margin: 4px 0 0; font-size: 24px; color: white; }
+.tour-drawer-close { border: 0; background: transparent; color: white; font-size: 38px; line-height: 1; cursor: pointer; }
+.tour-drawer-body { flex: 1; min-height: 0; overflow-y: auto; padding: 40px 6%; }
+.tour-detail-content:not([hidden]) { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 42px; align-items: start; }
+.tour-detail-content > img { width: 100%; max-height: 520px; object-fit: cover; border-radius: 16px; }
+.tour-detail-info h2 { margin: 10px 0; }
+.tour-detail-info h3 { margin: 22px 0 10px; }
+.tour-detail-price { color: #0d5962; font-size: 24px; font-weight: 700; }
+.tour-detail-location { color: #0d5962; font-size: 13px; font-weight: 700; letter-spacing: .06em; }
+.tour-detail-info li { margin-bottom: 8px; }
+.tour-detail-note { font-size: 13px; color: #60717a; }
+.tour-drawer-cart { border-radius: 8px; padding: 13px 24px; cursor: pointer; font: inherit; font-weight: 700; }
+@media(max-width: 768px) { .tour-detail-content:not([hidden]) { grid-template-columns: 1fr; gap: 22px; } .tour-drawer-body { padding: 24px 5%; } .tour-detail-content > img { max-height: 300px; } .tour-drawer-header h2 { font-size: 19px; } }
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   HEADER - TWO ROW LAYOUT
+========================================== */
+
+body > header.navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    width: 100%;
+    min-height: auto;
+    padding: 12px 4%;
+    gap: 12px;
+
+    background: #071b25;
+}
+
+/* FIRST ROW: LOGO AND COMPANY NAME */
+
+body > header.navbar .brand-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 8px;
+}
+
+body > header.navbar .company-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+body > header.navbar .brand {
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.3;
+    max-width: 330px;
+}
+
+/* SECOND ROW: SEARCH AND NAVIGATION */
+
+body > header.navbar .nav-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* SEARCH BAR */
+
+body > header.navbar .home-search {
+    width: 350px;
+    min-height: 48px;
+    flex-shrink: 0;
+}
+
+/* NAVIGATION BUTTONS */
+
+body > header.navbar .nav-links > button,
+body > header.navbar .nav-links > a {
+    font-size: 16px;
+    padding: 10px 11px;
+    white-space: nowrap;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    body > header.navbar .nav-links {
+        justify-content: flex-start;
+    }
+
+    body > header.navbar .home-search {
+        width: 100%;
+    }
+}

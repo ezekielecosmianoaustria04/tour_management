@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Beyond the Philippines
+  </title>
+  <link href="style.css" rel="stylesheet"/>
+  <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+  <link href="beyond-philippines.css" rel="stylesheet"/>
+  <script defer="" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+  <script defer="" src="beyond-philippines.js">
+  </script>
+ </head>
+ <body>
+  <header aria-label="Website header" class="navbar">
+   <div class="brand-container">
+    <div class="company-logo">
+     <img alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false" src="logo_travel_and_tour.jpg"/>
+     <span aria-label="Company logo placeholder" class="logo-fallback" hidden="">
+      PW
+     </span>
+    </div>
+    <div class="brand">
+     Puerto Princesa of Wonder Services Cooperative Travel and Tours
+    </div>
+   </div>
+   <nav aria-label="Main navigation" class="nav-links">
+    <form class="home-search" id="headerSearchForm" role="search">
+     <span aria-hidden="true">
+      ⌕
+     </span>
+     <input aria-label="Search destinations" id="home-location-search" placeholder="Search Vietnam or Japan..." type="search"/>
+     <button type="submit">
+      Search
+     </button>
+    </form>
+    <a href="index.html">
+     Home
+    </a>
+    <a href="tripplanner.html">
+     Trip Planner
+    </a>
+    <a href="local-destinations.html">
+     Local Destinations
+    </a>
+    <a href="beyond-philippines.html">
+     Beyond Philippines
+    </a>
+    <a href="about.html">
+     About
+    </a>
+    <a href="contact.html">
+     Contact
+    </a>
+    <button aria-label="Open shopping cart" class="cart-nav-btn" onclick="if(typeof openCart==='function')openCart()" type="button">
+     🛒
+     <span id="cart-count">
+      0
+     </span>
+    </button>
+    <button class="login-nav-btn" onclick="if(typeof showLoginNotice==='function')showLoginNotice()" type="button">
+     Login
+    </button>
+   </nav>
+  </header>
+  <main id="international">
+   <section class="intro">
+    <span>
+     EXPLORE THE WORLD
+    </span>
+    <h1>
+     Beyond the Philippines
+    </h1>
+    <p>
+     Discover unforgettable experiences in Vietnam and Japan.
+    </p>
+   </section>
+   <section class="workspace">
+    <h2>
+     Choose Your Destination
+    </h2>
+    <div class="search">
+     <input aria-label="Search countries" id="destinationSearch" placeholder="Search Vietnam or Japan" type="search"/>
+     <span id="destinationCount">
+     </span>
+    </div>
+    <div aria-label="Interactive terrain map" id="internationalMap">
+    </div>
+    <p aria-live="polite" id="terrainSelection">
+     Select a country on the map or below.
+    </p>
+    <div id="terrainButtons">
+     <button aria-pressed="false" data-destination="Vietnam" type="button">
+      Vietnam
+     </button>
+     <button aria-pressed="false" data-destination="Japan" type="button">
+      Japan
+     </button>
+    </div>
+   </section>
+   <section class="attractions" data-attractions-for="Vietnam" hidden="">
+    <h2>
+     Places to Visit in Vietnam
+    </h2>
+    <p class="note">
+     Travel images are illustrative; verify before publishing.
+    </p>
+    <div class="cards">
+     <article>
+      <img alt="Illustrative travel scenery" loading="lazy" src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div>
+       <h3>
+        Ha Long Bay
+       </h3>
+       <p>
+        Cruise among limestone islands.
+       </p>
+       <a href="contact.html">
+        Inquire Now
+       </a>
+      </div>
+     </article>
+     <article>
+      <img alt="Illustrative travel scenery" loading="lazy" src="https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div>
+       <h3>
+        Hanoi
+       </h3>
+       <p>
+        Explore the historic Old Quarter.
+       </p>
+       <a href="contact.html">
+        Inquire Now
+       </a>
+      </div>
+     </article>
+     <article>
+      <img alt="Illustrative travel scenery" loading="lazy" src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div>
+       <h3>
+        Hoi An
+       </h3>
+       <p>
+        Discover lantern-lit streets and heritage architecture.
+       </p>
+       <a href="contact.html">
+        Inquire Now
+       </a>
+      </div>
+     </article>
+    </div>
+   </section>
+   <section class="attractions tour-packages" data-attractions-for="Vietnam" hidden="">
+    <h2>
+     Vietnam Tour Packages
+    </h2>
+    <p class="note">
+     Sample packages, inclusions and rates only. Contact us to confirm availability and final pricing.
+    </p>
+    <div class="package-grid">
+     <article class="package-card">
+      <img alt="Illustrative travel scenery" loading="lazy" src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div class="package-content">
+       <span class="package-duration">
+        4 Days / 3 Nights
+       </span>
+       <h3>
+        Hanoi &amp; Ha Long Bay Tour
+       </h3>
+       <h4>
+        Package Inclusions
+       </h4>
+       <ul>
+        <li>
+         Hotel accommodation
+        </li>
+        <li>
+         Daily breakfast
+        </li>
+        <li>
+         Ha Long Bay cruise
+        </li>
+        <li>
+         Guided city tour
+        </li>
+        <li>
+         Airport transfers
+        </li>
+       </ul>
+       <p class="package-price">
+        <small>
+         Starting from
+        </small>
+        <strong>
+         ₱18,999
+        </strong>
+        <small>
+         / person
+        </small>
+       </p>
+       <a class="package-book" href="contact.html">
+        Inquire Now
+       </a>
+      </div>
+     </article>
+     <article class="package-card">
+      <img alt="Illustrative travel scenery" loading="lazy" src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div class="package-content">
+       <span class="package-duration">
+        5 Days / 4 Nights
+       </span>
+       <h3>
+        Da Nang &amp; Hoi An Tour
+       </h3>
+       <h4>
+        Package Inclusions
+       </h4>
+       <ul>
+        <li>
+         Hotel accommodation
+        </li>
+        <li>
+         Daily breakfast
+        </li>
+        <li>
+         Golden Bridge
+        </li>
+        <li>
+         Ba Na Hills and Hoi An tour
+        </li>
+        <li>
+         Airport transfers
+        </li>
+       </ul>
+       <p class="package-price">
+        <small>
+         Starting from
+        </small>
+        <strong>
+         ₱24,999
+        </strong>
+        <small>
+         / person
+        </small>
+       </p>
+       <a class="package-book" href="contact.html">
+        Inquire Now
+       </a>
+      </div>
+     </article>
+    </div>
+   </section>
+   <section class="attractions" data-attractions-for="Japan" hidden="">
+    <h2>
+     Places to Visit in Japan
+    </h2>
+    <p class="note">
+     Travel images are illustrative; verify before publishing.
+    </p>
+    <div class="cards">
+     <article>
+      <img alt="Illustrative travel scenery" loading="lazy" src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div>
+       <h3>
+        Mount Fuji
+       </h3>
+       <p>
+        Enjoy views of Japan’s iconic mountain.
+       </p>
+       <a href="contact.html">
+        Inquire Now
+       </a>
+      </div>
+     </article>
+     <article>
+      <img alt="Illustrative travel scenery" loading="lazy" src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div>
+       <h3>
+        Tokyo
+       </h3>
+       <p>
+        Explore lively urban neighborhoods.
+       </p>
+       <a href="contact.html">
+        Inquire Now
+       </a>
+      </div>
+     </article>
+     <article>
+      <img alt="Illustrative travel scenery" loading="lazy" src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div>
+       <h3>
+        Kyoto
+       </h3>
+       <p>
+        Discover traditional temples and historic streets.
+       </p>
+       <a href="contact.html">
+        Inquire Now
+       </a>
+      </div>
+     </article>
+    </div>
+   </section>
+   <section class="attractions tour-packages" data-attractions-for="Japan" hidden="">
+    <h2>
+     Japan Tour Packages
+    </h2>
+    <p class="note">
+     Sample packages, inclusions and rates only. Contact us to confirm availability and final pricing.
+    </p>
+    <div class="package-grid">
+     <article class="package-card">
+      <img alt="Illustrative travel scenery" loading="lazy" src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div class="package-content">
+       <span class="package-duration">
+        5 Days / 4 Nights
+       </span>
+       <h3>
+        Tokyo &amp; Mount Fuji Tour
+       </h3>
+       <h4>
+        Package Inclusions
+       </h4>
+       <ul>
+        <li>
+         Hotel accommodation
+        </li>
+        <li>
+         Daily breakfast
+        </li>
+        <li>
+         Tokyo city tour
+        </li>
+        <li>
+         Mount Fuji sightseeing
+        </li>
+        <li>
+         Airport transfers
+        </li>
+       </ul>
+       <p class="package-price">
+        <small>
+         Starting from
+        </small>
+        <strong>
+         ₱39,999
+        </strong>
+        <small>
+         / person
+        </small>
+       </p>
+       <a class="package-book" href="contact.html">
+        Inquire Now
+       </a>
+      </div>
+     </article>
+     <article class="package-card">
+      <img alt="Illustrative travel scenery" loading="lazy" src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div class="package-content">
+       <span class="package-duration">
+        5 Days / 4 Nights
+       </span>
+       <h3>
+        Osaka &amp; Kyoto Tour
+       </h3>
+       <h4>
+        Package Inclusions
+       </h4>
+       <ul>
+        <li>
+         Hotel accommodation
+        </li>
+        <li>
+         Daily breakfast
+        </li>
+        <li>
+         Osaka Castle tour
+        </li>
+        <li>
+         Kyoto temple tour
+        </li>
+        <li>
+         Guided sightseeing
+        </li>
+       </ul>
+       <p class="package-price">
+        <small>
+         Starting from
+        </small>
+        <strong>
+         ₱42,999
+        </strong>
+        <small>
+         / person
+        </small>
+       </p>
+       <a class="package-book" href="contact.html">
+        Inquire Now
+       </a>
+      </div>
+     </article>
+    </div>
+   </section>
+  </main>
+  <footer>
+   <div class="footer-brand">
+    Puerto Princesa of Wonder Travel and Tours
+   </div>
+   <p>
+    Services Cooperative Travel and Tours
+   </p>
+   <p class="copyright">
+    © 2026 Puerto Princesa of Wonder. All Rights Reserved.
+   </p>
+  </footer>
+  <script defer="" src="script.js">
+  </script>
+ </body>
+</html>

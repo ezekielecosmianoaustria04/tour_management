@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customize Your Trip | Puerto Princesa of Wonder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="tripplanner.css">
+  <link rel="stylesheet" href="tripplanner-customized.css">
+  <script src="tripplanner-customized.js" defer></script>
+</head>
+<body class="palawan-customized-page">
+  <!-- MATCHING WEBSITE HEADER -->
+  <header class="navbar custom-header">
+    <div class="brand-container">
+      <div class="company-logo"><img src="logo_travel_and_tour.jpg" alt="Company Logo"></div>
+      <div class="brand">Puerto Princesa of Wonder Services Cooperative Travel and Tours</div>
+    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <form class="home-search" id="custom-search-form" role="search">
+        <span aria-hidden="true">⌕</span>
+        <input id="home-location-search" type="search" placeholder="Search a location (e.g. El Nido, Baguio, Cebu)..." aria-label="Search a location">
+        <button type="submit" id="custom-search-button">Search</button>
+      </form>
+      <a href="index.html">Home</a>
+      <a href="tripplanner.html">Trip Planner</a>
+      <a href="local-destinations.html">Local Destinations</a>
+      <a href="beyond-philippines.html">Beyond Philippines</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <button type="button" class="cart-nav-btn" id="custom-cart-button" aria-label="Open shopping cart">🛒<span id="cart-count">0</span></button>
+      <button type="button" class="login-nav-btn" id="custom-login-button">Login</button>
+    </nav>
+  </header>
+
+  <!-- PALAWAN MAP REPLACES LUZON / VISAYAS / MINDANAO CARDS -->
+  <main id="customize-choice-page" class="app-page palawan-custom-main">
+    <section class="subpage-hero custom-hero">
+      <span class="eyebrow">TRIP PLANNER · CUSTOMIZE YOUR TRIP</span>
+      <h1>Explore Palawan, Your Way</h1>
+      <p>Discover the destinations of Palawan through our illustrated travel map.</p>
+    </section>
+
+    <section class="palawan-map-section" aria-labelledby="palawan-map-title">
+      <div class="palawan-map-container">
+        <div class="palawan-map-heading">
+          <h2 id="palawan-map-title">Palawan Travel Map</h2>
+        </div>
+        <div class="glassy-map-frame">
+          <img src="palawan-travel-map.png" alt="Illustrated Palawan travel map showing Coron, El Nido, Port Barton, Puerto Princesa, Balabac and nearby attractions" class="palawan-map-image">
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAL / NAVY TRAVEL DESTINATION SLIDER -->
+    <section class="travel-showcase" aria-labelledby="travel-title">
+      <div class="travel-showcase-inner">
+        <div class="travel-intro">
+          <span class="travel-eyebrow">DISCOVER PALAWAN</span>
+          <h2 id="travel-title">Your Next<br>Island<br>Adventure</h2>
+          <p>Explore Palawan's unforgettable beaches, lagoons, and cultural destinations. Find your next adventure and start planning.</p>
+          <a class="travel-explore" href="discover-palawan.html">Palawan Destinations</a>
+        </div>
+        <div class="travel-slider-area">
+          <div class="travel-cards" id="travelCards" aria-live="polite"></div>
+          <div class="travel-bottom">
+            <span>FEATURED DESTINATIONS</span>
+            <span class="travel-counter" id="travelCounter">01 / 05</span>
+            <div class="travel-controls">
+              <button id="travelPrev" type="button" aria-label="Previous destinations">&#8592;</button>
+              <button id="travelNext" type="button" aria-label="Next destinations">&#8594;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+        
+<!-- ==========================================
+     CUSTOMIZE YOUR PALAWAN TRIP
+========================================== -->
+
+<section class="local-adventure-section">
+
+    <div class="local-adventure-container">
+
+        <!-- LEFT SIDE: IMAGE -->
+        <div class="local-adventure-image">
+            <img
+                src="palawan-customized.PNG"
+                alt="Explore the beauty of Palawan"
+                loading="lazy"
+            >
+        </div>
+
+        <!-- RIGHT SIDE: CONTENT -->
+        <div class="local-adventure-content">
+
+            <span class="local-adventure-label">
+                CUSTOMIZE YOUR PALAWAN ADVENTURE
+            </span>
+
+            <h2>
+                Your Dream Trip,<br>
+                Your Way!
+            </h2>
+
+            <p>
+                Create your perfect Palawan getaway with our
+                Customized Trip Planner. Explore the breathtaking
+                destinations in Palawan, and design an itinerary that matches your
+                travel preferences. Choose your destinations,
+                select your preferred activities, arrange your
+                travel schedule, and personalize your adventure
+                based on your needs. Enjoy the freedom to plan
+                your own journey and create unforgettable
+                experiences in Palawan.
+            </p>
+
+            <a
+                href="customized-trip-planner.html"
+                class="local-adventure-btn"
+            >
+                Customize Your Trip
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+  </main>
+
+  <!-- MATCHING WEBSITE FOOTER -->
+  <footer class="custom-footer">
+    <div class="footer-brand">Puerto Princesa of Wonder Travel and Tours</div>
+    <p>Services Cooperative Travel and Tours</p>
+    <p class="copyright">© 2026 Puerto Princesa of Wonder. All Rights Reserved.</p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
