@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Puerto Princesa of Wonder</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <script src="admin.js" defer></script>
+  </head>
+  <body class="admin-page">
+    <header class="navbar">
+      <div class="brand-container">
+        <div class="company-logo">
+          <img
+            src="logo_travel_and_tour.jpg"
+            alt="Puerto Princesa of Wonder Logo"
+            onerror="this.style.display = 'none'"
+          />
+        </div>
+        <div class="brand">
+          Puerto Princesa of Wonder Services Cooperative Travel and Tours
+        </div>
+      </div>
+
+      <nav class="nav-links" aria-label="Admin navigation">
+        <a href="index.html">Home</a>
+        <a href="tripplanner.html">Trip Planner</a>
+        <a href="tripplanner-customized.html">Customized</a>
+        <a href="local-destinations.html">Local Destinations</a>
+        <a href="beyond-philippines.html">Beyond Philippines</a>
+        <a href="admin.html" class="admin-active-link">Admin</a>
+      </nav>
+    </header>
+
+    <main class="admin-main">
+      <!-- ADMIN ACCOUNT / LOGIN GATE -->
+      <section
+        id="adminAuthSection"
+        class="admin-auth-card"
+        aria-labelledby="adminAuthTitle"
+      >
+        <span class="admin-kicker">USER ADMIN ACCESS</span>
+        <h1 id="adminAuthTitle">Admin Account Sign-In</h1>
+        <p>
+          Sign in to manage Tour Only, Customized, Local Destination, and Beyond
+          the Philippines packages.
+        </p>
+
+        <form id="adminLoginForm" class="admin-login-form">
+          <div class="admin-field">
+            <label for="adminUsername">Admin Username</label>
+            <input id="adminUsername" type="text" value="admin" required />
+          </div>
+          <div class="admin-field">
+            <label for="adminPasscode">Passcode</label>
+            <input
+              id="adminPasscode"
+              type="password"
+              value="wonder2026"
+              required
+            />
+          </div>
+          <div class="admin-auth-actions">
+            <button type="submit" class="admin-btn-primary">
+              Sign In to Admin
+            </button>
+            <button
+              type="button"
+              id="quickUnlockBtn"
+              class="admin-btn-secondary"
+            >
+              Quick Demo Unlock
+            </button>
+          </div>
+        </form>
+        <p id="adminAuthError" class="admin-error" role="alert" hidden></p>
+      </section>
+
+      <!-- MAIN ADMIN WORKSPACE -->
+      <section id="adminDashboard" class="admin-dashboard" hidden>
+        <div class="admin-topbar">
+          <div>
+            <span class="admin-kicker">COOPERATIVE MANAGEMENT PANEL</span>
+            <h2>Tour Packages &amp; User Admin Account</h2>
+          </div>
+
+          <div class="admin-account-pill">
+            <div>
+              <strong id="activeAdminName">Cooperative Admin</strong>
+              <span id="activeAdminRole">Super Admin · Active</span>
+            </div>
+            <button type="button" id="adminLogoutBtn" class="admin-btn-ghost">
+              Lock / Sign Out
+            </button>
+          </div>
+        </div>
+
+        <!-- SUMMARY STATS -->
+        <div class="admin-stats-grid" id="adminStatsGrid">
+          <div class="admin-stat-card">
+            <span>Tour Only</span>
+            <strong id="countTourOnly">0</strong>
+          </div>
+          <div class="admin-stat-card">
+            <span>Customized</span>
+            <strong id="countCustomized">0</strong>
+          </div>
+          <div class="admin-stat-card">
+            <span>Local Destination</span>
+            <strong id="countLocal">0</strong>
+          </div>
+          <div class="admin-stat-card">
+            <span>Beyond the Philippines</span>
+            <strong id="countBeyond">0</strong>
+          </div>
+        </div>
+
+        <!-- USER ADMIN ACCOUNT SETTINGS -->
+        <details class="admin-account-box">
+          <summary>User Admin Account Settings</summary>
+          <form id="adminAccountForm" class="admin-account-form">
+            <div class="admin-field">
+              <label for="accountDisplayName">Admin Name</label>
+              <input id="accountDisplayName" type="text" required />
+            </div>
+            <div class="admin-field">
+              <label for="accountEmail">Admin Email</label>
+              <input id="accountEmail" type="email" required />
+            </div>
+            <div class="admin-field">
+              <label for="accountRole">Role</label>
+              <input
+                id="accountRole"
+                type="text"
+                value="Tour Operations Admin"
+                required
+              />
+            </div>
+            <div class="admin-field admin-field-align">
+              <button type="submit" class="admin-btn-primary">
+                Save Admin Account
+              </button>
+            </div>
+          </form>
+          <p id="accountSaveNotice" class="admin-notice" hidden></p>
+        </details>
+
+        <!-- CATEGORY TABS -->
+        <div
+          class="admin-category-tabs"
+          role="tablist"
+          aria-label="Package categories"
+        >
+          <button
+            type="button"
+            class="admin-tab active"
+            data-category="Tour Only"
+          >
+            Tour Only
+          </button>
+          <button type="button" class="admin-tab" data-category="Customized">
+            Customized
+          </button>
+          <button
+            type="button"
+            class="admin-tab"
+            data-category="Local Destination"
+          >
+            Local Destination
+          </button>
+          <button
+            type="button"
+            class="admin-tab"
+            data-category="Beyond the Philippines"
+          >
+            Beyond the Philippines
+          </button>
+        </div>
+
+        <div class="admin-workspace-grid">
+          <!-- ADD / EDIT PACKAGE FORM -->
+          <form id="packageForm" class="admin-form-card">
+            <div class="admin-form-header">
+              <h3 id="formModeTitle">Add New Tour Package</h3>
+              <button
+                type="button"
+                id="cancelEditBtn"
+                class="admin-btn-ghost"
+                hidden
+              >
+                Cancel Edit
+              </button>
+            </div>
+
+            <input type="hidden" id="editingPackageId" />
+
+            <div class="admin-field">
+              <label for="pkgCategory">Category</label>
+              <select id="pkgCategory" required>
+                <option value="Tour Only">Tour Only</option>
+                <option value="Customized">Customized</option>
+                <option value="Local Destination">Local Destination</option>
+                <option value="Beyond the Philippines">
+                  Beyond the Philippines
+                </option>
+              </select>
+            </div>
+
+            <div class="admin-field">
+              <label for="pkgName">Package Name</label>
+              <input
+                id="pkgName"
+                type="text"
+                placeholder="e.g. Underground River Tour"
+                required
+              />
+            </div>
+
+            <div class="admin-field">
+              <label for="pkgDestination">Destination / Location</label>
+              <input
+                id="pkgDestination"
+                type="text"
+                placeholder="e.g. Puerto Princesa or Japan"
+                required
+              />
+            </div>
+
+            <div class="admin-field">
+              <label for="pkgPrice">Price (₱)</label>
+              <input
+                id="pkgPrice"
+                type="number"
+                min="0"
+                step="50"
+                placeholder="e.g. 2800"
+                required
+              />
+            </div>
+
+            <div class="admin-field">
+              <label for="pkgImage">Image File Name (optional)</label>
+              <input
+                id="pkgImage"
+                type="text"
+                placeholder="e.g. puerto-princesa-underground-river.jpg"
+              />
+            </div>
+
+            <div class="admin-field">
+              <label for="pkgDescription">Description</label>
+              <textarea
+                id="pkgDescription"
+                rows="3"
+                placeholder="Short description of the tour package..."
+                required
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              id="savePackageBtn"
+              class="admin-btn-primary admin-full-btn"
+            >
+              + Add Package
+            </button>
+          </form>
+
+          <!-- PACKAGES TABLE / LIST -->
+          <div class="admin-list-card">
+            <div class="admin-list-header">
+              <div>
+                <h3 id="currentCategoryHeading">Tour Only Packages</h3>
+                <p id="currentCategoryCount">0 packages</p>
+              </div>
+              <div class="admin-list-controls">
+                <input
+                  id="adminSearchInput"
+                  type="search"
+                  placeholder="Search package or destination..."
+                />
+                <button
+                  type="button"
+                  id="resetDefaultsBtn"
+                  class="admin-btn-secondary"
+                >
+                  Reset Defaults
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Package</th>
+                    <th>Destination</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminPackagesTbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-brand">Puerto Princesa of Wonder</div>
+      <p>Services Cooperative Travel and Tours · Admin Panel</p>
+      <p class="copyright">
+        © 2026 Puerto Princesa of Wonder. All Rights Reserved.
+      </p>
+    </footer>
+  </body>
+</html>
