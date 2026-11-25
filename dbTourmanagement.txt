@@ -1,0 +1,129 @@
+CREATE TABLE tblRole(
+id SERIAL PRIMARY KEY,
+Customer VARCHAR(100),
+Admin VARCHAR(100) NOT NULL
+)
+CREATE TABLE tblCustomer(
+id SERIAL PRIMARY KEY,
+Username VARCHAR(100),
+Password VARCHAR(100),
+Fullname VARCHAR(100),
+Birthdate DATE,
+Contact_no VARCHAR(100),
+Email VARCHAR(100),
+Status VARCHAR(100),
+Updated_at DATE,
+Created_at DATE NOT NULL
+)
+CREATE TABLE Admin(
+Id SERIAL PRIMARY KEY,
+Username VARCHAR(100),
+Password VARCHAR(100),
+Payment_id INT,
+Bookinginformation_id INT,
+Guestinformation_id INT,
+tblinquiry_id INT NOT NULL
+)
+CREATE TABLE tblTourtype(
+Id SERIAL PRIMARY KEY,
+Tourtype VARCHAR(100) NOT NULL
+)
+CREATE TABLE tblTripplanner(
+Id SERIAL PRIMARY KEY,
+Touronly_id INT,
+Customize_id INT NOT NULL
+)
+CREATE TABLE tblTouronly(
+Id SERIAL PRIMARY KEY,
+Location VARCHAR(100),
+Activities VARCHAR(100),
+Bookinginformation_id INT,
+Tourtype_id INT,
+Created_at DATE,
+Updated_at DATE NOT NULL
+)
+CREATE TABLE tblCustomize(
+Id SERIAL PRIMARY KEY,
+Location VARCHAR(100),
+Activities VARCHAR(100),
+No_of_days INT,
+Hotel_accomodation_id INT,
+Tourtype_id INT,
+Bookinginformation_id INT,
+Created_at DATE,
+Updated_at DATE NOT NULL
+)
+CREATE TABLE tblBookinginformation(
+Id SERIAL PRIMARY KEY,
+Arrival_datetime DATE,
+Departure_datetime DATE,
+No_of_pax INT,
+Tripplaner_id INT,
+Localdestination_id INT,
+Beyond_the_philippines_id INT,
+Hotel_accomodation_id INT,
+Created_at DATE,
+Updated_at DATE NOT NULL
+)
+CREATE TABLE tblHotel_accomodation(
+Id SERIAL PRIMARY KEY,
+Bedsize VARCHAR(100),
+Req_per_bed INT,
+Created_at DATE,
+Updated_at DATE NOT NULL
+)
+CREATE TABLE tblGuestinformation(
+Id SERIAL PRIMARY KEY,
+Fullname VARCHAR(100),
+Birthdate DATE,
+Email VARCHAR(100),
+Contact_no VARCHAR(100),
+Passport_no VARCHAR(100),
+Flight_no VARCHAR(100),
+Flight_photo VARCHAR(100),
+Valid_id VARCHAR(100),
+Status VARCHAR(100), 
+Tripplanner_id INT,
+Localdestination INT,
+Beyond_the_philippines_id INT,
+Bookinginformation_id INT NOT NULL
+)
+CREATE TABLE tblInquiry(
+Id SERIAL PRIMARY KEY,
+Fullname VARCHAR(100),
+Contact_no VARCHAR(100),
+Gmail VARCHAR(100),
+Message VARCHAR(100),
+created_at date,
+updated_at date NOT NULL
+)
+CREATE TABLE tblLocaldestination(
+id SERIAL PRIMARY KEY,
+part_of_philippines VARCHAR(100),
+region VARCHAR(100),
+location VARCHAR(100),
+prepacked_tour VARCHAR(100),
+tourtype_id INT,
+created_at date,
+updated_at date NOT NULL
+)
+CREATE TABLE tblPayment(
+id SERIAL PRIMARY KEY,
+guestinformation_id INT,
+custumer_id INT,
+payment_method VARCHAR(100),
+transaction_reference VARCHAR(100),
+total_amount INT,
+created_at Date,
+updated_at date not null
+)
+CREATE TABLE tblbeyondthephilippines(
+Id SERIAL PRIMARY KEY,
+part VARCHAR(100),
+region VARCHAR(100),
+location VARCHAR(100),
+prepacked_tour VARCHAR(100),
+tourtype_id INT,
+created_at date,
+updated_at date NOT NULL
+)
