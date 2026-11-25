@@ -1,60 +1,62 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Home | Puerto Princesa of Wonder</title>
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="home.css" />
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
 
-<body>
+  <body>
+    <!-- HEADER -->
 
-<!-- HEADER -->
-
-<header aria-label="Website header" class="navbar">
-
-    <div class="brand-container">
-
+    <header aria-label="Website header" class="navbar">
+      <div class="brand-container">
         <div class="company-logo">
+          <img
+            alt=""
+            onerror="
+              this.hidden = true;
+              this.nextElementSibling.hidden = false;
+            "
+            src="logo_travel_and_tour.jpg"
+          />
 
-            <img alt=""
-                 onerror="this.hidden=true;this.nextElementSibling.hidden=false"
-                 src="logo_travel_and_tour.jpg">
-
-            <span aria-label="Company logo placeholder"
-                  class="logo-fallback" hidden>PW</span>
-
+          <span
+            aria-label="Company logo placeholder"
+            class="logo-fallback"
+            hidden
+            >PW</span
+          >
         </div>
 
         <div class="brand">
-            Puerto Princesa of Wonder Services Cooperative Travel and Tours
+          Puerto Princesa of Wonder Services Cooperative Travel and Tours
         </div>
+      </div>
 
-    </div>
-
-    <nav aria-label="Main navigation" class="nav-links">
-
+      <nav aria-label="Main navigation" class="nav-links">
         <form class="home-search" id="headerSearchForm" role="search">
+          <span aria-hidden="true">⌕</span>
 
-            <span aria-hidden="true">⌕</span>
+          <input
+            aria-label="Search destinations"
+            id="home-location-search"
+            placeholder="Search destinations..."
+            type="search"
+          />
 
-            <input aria-label="Search destinations"
-                   id="home-location-search"
-                   placeholder="Search destinations..."
-                   type="search">
+          <button type="submit">Search</button>
 
-            <button type="submit">Search</button>
-
-            <div class="search-results" id="home-search-results"></div>
-
+          <div class="search-results" id="home-search-results"></div>
         </form>
 
         <a href="index.html">Home</a>
@@ -69,720 +71,676 @@
 
         <a href="contact.html">Contact</a>
 
-        <button aria-label="Open shopping cart"
-                class="cart-nav-btn"
-                onclick="if(typeof openCart==='function')openCart()"
-                type="button">
-
-            🛒 <span id="cart-count">0</span>
-
+        <button
+          aria-label="Open shopping cart"
+          class="cart-nav-btn"
+          onclick="if (typeof openCart === 'function') openCart();"
+          type="button"
+        >
+          🛒 <span id="cart-count">0</span>
         </button>
 
-        <button class="login-nav-btn"
-                onclick="if(typeof showLoginNotice==='function')showLoginNotice();else location.href='login.html'"
-                type="button">
+        <a
+          href="login.html"
+          class="customer-avatar-btn"
+          title="Customer Account / Login"
+          aria-label="Customer Account"
+        >
+          <img
+            src="customer-user.jpg"
+            alt="Customer User"
+            onerror="
+              this.style.display = 'none';
+              this.nextElementSibling.style.display = 'flex';
+            "
+          />
+          <span class="customer-avatar-fallback" style="display: none">CU</span>
+        </a>
+      </nav>
+    </header>
 
-            Login
+    <main id="home-page">
+      <!-- HERO SECTION -->
 
-        </button>
-
-    </nav>
-
-</header>
-
-
-<main id="home-page">
-
-    <!-- HERO SECTION -->
-
-    <section class="landing-hero">
-
+      <section class="landing-hero">
         <div class="landing-hero-content">
+          <span class="home-eyebrow"> YOUR JOURNEY BEGINS HERE </span>
 
-            <span class="home-eyebrow">
-                YOUR JOURNEY BEGINS HERE
-            </span>
+          <h1>
+            Discover<br />
+            <span>Philippines.</span>
+          </h1>
 
-            <h1>
-                Discover<br>
-                <span>Philippines.</span>
-            </h1>
+          <p>
+            Explore breathtaking destinations, unforgettable adventures, and
+            personalized travel experiences in the Philippines and beyond.
+          </p>
 
-            <p>
-                Explore breathtaking destinations, unforgettable
-                adventures, and personalized travel experiences
-                in the Philippines and beyond.
-            </p>
+          <div class="home-actions">
+            <a href="local-destinations.html" class="home-btn">
+              Discover Philippines
+            </a>
 
-            <div class="home-actions">
-
-                <a href="local-destinations.html" class="home-btn">
-                    Discover Philippines
-                </a>
-
-                <a href="tripplanner.html" class="home-btn outline">
-                    Plan My Trip
-                </a>
-
-            </div>
-
+            <a href="tripplanner.html" class="home-btn outline">
+              Plan My Trip
+            </a>
+          </div>
         </div>
+      </section>
 
-    </section>
+      <!-- LIMITED OFFER SECTION -->
+      <section
+        class="limited-offer-section"
+        aria-labelledby="limitedOfferHeading"
+      >
+        <div class="limited-offer-container">
+          <div class="limited-offer-header">
+            <div>
+              <span class="limited-offer-badge"
+                >LIMITED TIME OFFER · SAVE UP TO 25%</span
+              >
+              <h2 id="limitedOfferHeading">
+                Exclusive Palawan &amp; Island Getaway Deals
+              </h2>
+              <p>
+                Book early with Puerto Princesa of Wonder Services Cooperative
+                Travel and Tours and enjoy discounted rates for a limited time.
+              </p>
+            </div>
+            <div class="limited-offer-timer" aria-label="Offer status">
+              <span class="timer-dot"></span>
+              <span>Slots Filling Fast · Book Before Promo Ends</span>
+            </div>
+          </div>
 
+          <div class="limited-offer-grid">
+            <article class="offer-card">
+              <div class="offer-card-media">
+                <img
+                  src="puerto-princesa-underground-river.jpg"
+                  alt="Puerto Princesa Underground River"
+                />
+                <span class="offer-discount-tag">20% OFF</span>
+              </div>
+              <div class="offer-card-body">
+                <span class="offer-location">PUERTO PRINCESA</span>
+                <h3>Underground River + City Tour Bundle</h3>
+                <p>
+                  Includes licensed guide, boat transfer, buffet lunch, and
+                  hotel pick-up.
+                </p>
+                <div class="offer-price-row">
+                  <div>
+                    <span class="offer-old-price">₱3,500</span>
+                    <strong class="offer-new-price"
+                      >₱2,800 <small>/ pax</small></strong
+                    >
+                  </div>
+                  <a href="tripplanner.html" class="offer-book-btn"
+                    >Claim Offer</a
+                  >
+                </div>
+              </div>
+            </article>
 
-    <!-- RECOMMENDED POPULAR DESTINATIONS -->
+            <article class="offer-card offer-card-featured">
+              <div class="offer-card-media">
+                <img
+                  src="elnido.jpg"
+                  alt="El Nido Island Hopping"
+                  onerror="this.src = 'puerto-princesa-honda-bay.jpg'"
+                />
+                <span class="offer-discount-tag">25% OFF · BESTSELLER</span>
+              </div>
+              <div class="offer-card-body">
+                <span class="offer-location">EL NIDO, PALAWAN</span>
+                <h3>El Nido Lagoon &amp; Island Hopping Promo</h3>
+                <p>
+                  Big Lagoon, Secret Lagoon, and Shimizu Island with picnic
+                  lunch and kayak pass.
+                </p>
+                <div class="offer-price-row">
+                  <div>
+                    <span class="offer-old-price">₱2,200</span>
+                    <strong class="offer-new-price"
+                      >₱1,650 <small>/ pax</small></strong
+                    >
+                  </div>
+                  <a href="tripplanner.html" class="offer-book-btn"
+                    >Claim Offer</a
+                  >
+                </div>
+              </div>
+            </article>
 
-    <section class="landing-section" id="popular-destinations">
+            <article class="offer-card">
+              <div class="offer-card-media">
+                <img
+                  src="portbarton.jpg"
+                  alt="Port Barton Customized Package"
+                />
+                <span class="offer-discount-tag">15% OFF</span>
+              </div>
+              <div class="offer-card-body">
+                <span class="offer-location">CUSTOMIZED TOUR</span>
+                <h3>3D2N Custom Palawan Barkada Deal</h3>
+                <p>
+                  Flexible itinerary for 4+ guests with private van transfers
+                  and island stops.
+                </p>
+                <div class="offer-price-row">
+                  <div>
+                    <span class="offer-old-price">₱6,200</span>
+                    <strong class="offer-new-price"
+                      >₱5,270 <small>/ pax</small></strong
+                    >
+                  </div>
+                  <a href="tripplanner-customized.html" class="offer-book-btn"
+                    >Customize Now</a
+                  >
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
 
+      <!-- RECOMMENDED POPULAR DESTINATIONS -->
+
+      <section class="landing-section" id="popular-destinations">
         <div class="landing-heading">
+          <span>EXPLORE MORE, SPEND LESS</span>
 
-            <span>EXPLORE MORE, SPEND LESS</span>
+          <h2>Recommended Popular Destinations</h2>
 
-            <h2>Recommended Popular Destinations</h2>
-
-            <p>
-                Discover featured destinations and exciting travel offers.
-            </p>
-
+          <p>Discover featured destinations and exciting travel offers.</p>
         </div>
 
         <div class="landing-grid" id="popular-grid"></div>
 
         <p class="landing-note">
-            Sample promotional rates. Contact us for confirmed
-            prices and availability.
+          Sample promotional rates. Contact us for confirmed prices and
+          availability.
         </p>
 
         <div class="home-actions center">
+          <a href="local-destinations.html" class="home-btn">
+            View All Destinations
+          </a>
 
-            <a href="local-destinations.html" class="home-btn">
-                View All Destinations
-            </a>
-
-            <a href="beyond-philippines.html" class="home-btn outline">
-                Explore International Tours
-            </a>
-
+          <a href="beyond-philippines.html" class="home-btn outline">
+            Explore International Tours
+          </a>
         </div>
+      </section>
 
-    </section>
+      <!-- TOUR PACKAGE GENERATOR -->
 
-
-    <!-- TOUR PACKAGE GENERATOR -->
-
-    <section class="landing-section" id="tour-generator">
-
+      <section class="landing-section" id="tour-generator">
         <div class="landing-heading">
+          <span>PERSONALIZED TRAVEL RECOMMENDATIONS</span>
 
-            <span>PERSONALIZED TRAVEL RECOMMENDATIONS</span>
+          <h2>Find Your Perfect Tour Package</h2>
 
-            <h2>Find Your Perfect Tour Package</h2>
-
-            <p>
-                Discover recommended packages based on your travel preferences.
-            </p>
-
+          <p>Discover recommended packages based on your travel preferences.</p>
         </div>
 
         <div class="landing-glass generator-panel">
+          <form id="generatorForm" class="landing-form">
+            <label>
+              Preferred Region
 
-            <form id="generatorForm" class="landing-form">
+              <select id="predict-region">
+                <option value="any">Any Region</option>
+                <option value="Palawan">Palawan</option>
+                <option value="Luzon">Luzon</option>
+                <option value="Visayas">Visayas</option>
+                <option value="Mindanao">Mindanao</option>
+                <option value="International">International</option>
+              </select>
+            </label>
 
-                <label>
+            <label>
+              Travel Preference
 
-                    Preferred Region
+              <select id="predict-style">
+                <option value="nature">Nature & Adventure</option>
+                <option value="beach">Beach & Island Hopping</option>
+                <option value="culture">Culture & City Tours</option>
+                <option value="relax">Relaxation</option>
+              </select>
+            </label>
 
-                    <select id="predict-region">
+            <label>
+              Number of Days
 
-                        <option value="any">Any Region</option>
-                        <option value="Palawan">Palawan</option>
-                        <option value="Luzon">Luzon</option>
-                        <option value="Visayas">Visayas</option>
-                        <option value="Mindanao">Mindanao</option>
-                        <option value="International">International</option>
+              <input
+                type="number"
+                id="predict-days"
+                min="1"
+                max="30"
+                value="3"
+                required
+              />
+            </label>
 
-                    </select>
+            <label>
+              Number of Travelers
 
-                </label>
+              <input
+                type="number"
+                id="predict-pax"
+                min="1"
+                max="100"
+                value="2"
+                required
+              />
+            </label>
 
-                <label>
+            <div class="full-width">
+              <button type="submit" class="home-btn">
+                <i class="bi bi-stars"></i>
 
-                    Travel Preference
-
-                    <select id="predict-style">
-
-                        <option value="nature">Nature & Adventure</option>
-                        <option value="beach">Beach & Island Hopping</option>
-                        <option value="culture">Culture & City Tours</option>
-                        <option value="relax">Relaxation</option>
-
-                    </select>
-
-                </label>
-
-                <label>
-
-                    Number of Days
-
-                    <input type="number"
-                           id="predict-days"
-                           min="1"
-                           max="30"
-                           value="3"
-                           required>
-
-                </label>
-
-                <label>
-
-                    Number of Travelers
-
-                    <input type="number"
-                           id="predict-pax"
-                           min="1"
-                           max="100"
-                           value="2"
-                           required>
-
-                </label>
-
-                <div class="full-width">
-
-                    <button type="submit" class="home-btn">
-
-                        <i class="bi bi-stars"></i>
-
-                        Generate Tour Packages
-
-                    </button>
-
-                </div>
-
-            </form>
-
-            <div id="prediction-results" aria-live="polite">
-
-                <p class="landing-note">
-                    Your recommended packages will appear here.
-                </p>
-
+                Generate Tour Packages
+              </button>
             </div>
+          </form>
 
+          <div id="prediction-results" aria-live="polite">
+            <p class="landing-note">
+              Your recommended packages will appear here.
+            </p>
+          </div>
         </div>
+      </section>
 
-    </section>
+      <!-- WEBSITE FEATURES -->
 
-
-    <!-- WEBSITE FEATURES -->
-
-    <section class="landing-section" id="features">
-
+      <section class="landing-section" id="features">
         <div class="landing-heading">
+          <span>TRAVEL YOUR WAY</span>
 
-            <span>TRAVEL YOUR WAY</span>
-
-            <h2>Explore Our Travel Services</h2>
-
+          <h2>Explore Our Travel Services</h2>
         </div>
 
         <article class="landing-glass feature-card">
+          <img
+            src="customize-pic.jpg"
+            alt="Customized travel experience"
+            loading="lazy"
+          />
 
-            <img src="customize-pic.jpg"
-                 alt="Customized travel experience"
-                 loading="lazy">
+          <div class="feature-copy">
+            <span>YOUR TRIP, YOUR WAY</span>
 
-            <div class="feature-copy">
-
-                <span>YOUR TRIP, YOUR WAY</span>
-
-                <h2>Customize Your Dream Trip</h2>
-
-                <p>
-                    Create your own itinerary, choose destinations,
-                    select activities, and personalize your travel
-                    experience using our Trip Planner.
-                </p>
-
-                <a href="tripplanner.html" class="home-btn">
-                    Customize Your Trip
-                </a>
-
-            </div>
-
-        </article>
-
-        <article class="landing-glass feature-card reverse">
-
-            <img src="discover.jpg"
-                 alt="Philippine destinations"
-                 loading="lazy">
-
-            <div class="feature-copy">
-
-                <span>EXPLORE THE PHILIPPINES</span>
-
-                <h2>Discover Philippines</h2>
-
-                <p>
-                    Explore pristine beaches, beautiful islands,
-                    cultural attractions, and natural wonders.
-                </p>
-
-                <a href="local-destinations.html" class="home-btn">
-                    Explore Destinations
-                </a>
-
-            </div>
-
-        </article>
-
-        <article class="landing-glass feature-card">
-
-            <img src="local-tours.jpg"
-                 alt="Local tour packages"
-                 loading="lazy">
-
-            <div class="feature-copy">
-
-                <span>READY-MADE TOUR PACKAGES</span>
-
-                <h2>Your Next Adventure Awaits</h2>
-
-                <p>
-                    Choose from organized local tour packages
-                    and select either joiner or exclusive tours.
-                </p>
-
-                <a href="tripplanner.html" class="home-btn">
-                    Explore Local Tours
-                </a>
-
-            </div>
-
-        </article>
-
-        <article class="landing-glass feature-card reverse">
-
-            <img src="japan.jpg"
-                 alt="International travel"
-                 loading="lazy">
-
-            <div class="feature-copy">
-
-                <span>GO BEYOND BORDERS</span>
-
-                <h2>Beyond the Philippines</h2>
-
-                <p>
-                    Experience the culture of Vietnam and the
-                    breathtaking destinations of Japan.
-                </p>
-
-                <a href="beyond-philippines.html" class="home-btn">
-                    Explore International Tours
-                </a>
-
-            </div>
-
-        </article>
-
-    </section>
-
-
-    <!-- CUSTOMER REVIEWS -->
-
-    <section class="landing-section" id="customer-reviews">
-
-        <div class="landing-heading">
-
-            <span>REAL TRAVELERS, REAL EXPERIENCES</span>
-
-            <h2>What Our Travelers Say</h2>
+            <h2>Customize Your Dream Trip</h2>
 
             <p>
-                Discover travel experiences, ratings, photos,
-                and videos shared by our customers.
+              Create your own itinerary, choose destinations, select activities,
+              and personalize your travel experience using our Trip Planner.
             </p>
 
+            <a href="tripplanner.html" class="home-btn">
+              Customize Your Trip
+            </a>
+          </div>
+        </article>
+
+        <article class="landing-glass feature-card reverse">
+          <img
+            src="discover.jpg"
+            alt="Philippine destinations"
+            loading="lazy"
+          />
+
+          <div class="feature-copy">
+            <span>EXPLORE THE PHILIPPINES</span>
+
+            <h2>Discover Philippines</h2>
+
+            <p>
+              Explore pristine beaches, beautiful islands, cultural attractions,
+              and natural wonders.
+            </p>
+
+            <a href="local-destinations.html" class="home-btn">
+              Explore Destinations
+            </a>
+          </div>
+        </article>
+
+        <article class="landing-glass feature-card">
+          <img src="local-tours.jpg" alt="Local tour packages" loading="lazy" />
+
+          <div class="feature-copy">
+            <span>READY-MADE TOUR PACKAGES</span>
+
+            <h2>Your Next Adventure Awaits</h2>
+
+            <p>
+              Choose from organized local tour packages and select either joiner
+              or exclusive tours.
+            </p>
+
+            <a href="tripplanner.html" class="home-btn">
+              Explore Local Tours
+            </a>
+          </div>
+        </article>
+
+        <article class="landing-glass feature-card reverse">
+          <img src="japan.jpg" alt="International travel" loading="lazy" />
+
+          <div class="feature-copy">
+            <span>GO BEYOND BORDERS</span>
+
+            <h2>Beyond the Philippines</h2>
+
+            <p>
+              Experience the culture of Vietnam and the breathtaking
+              destinations of Japan.
+            </p>
+
+            <a href="beyond-philippines.html" class="home-btn">
+              Explore International Tours
+            </a>
+          </div>
+        </article>
+      </section>
+
+      <!-- CUSTOMER REVIEWS -->
+
+      <section class="landing-section" id="customer-reviews">
+        <div class="landing-heading">
+          <span>REAL TRAVELERS, REAL EXPERIENCES</span>
+
+          <h2>What Our Travelers Say</h2>
+
+          <p>
+            Discover travel experiences, ratings, photos, and videos shared by
+            our customers.
+          </p>
         </div>
 
         <div class="landing-glass rating-summary">
+          <h2 id="average-rating">0.0</h2>
 
-            <h2 id="average-rating">0.0</h2>
+          <div class="review-stars" id="average-stars">☆☆☆☆☆</div>
 
-            <div class="review-stars" id="average-stars">
-                ☆☆☆☆☆
-            </div>
-
-            <p id="total-reviews">0 Customer Reviews</p>
-
+          <p id="total-reviews">0 Customer Reviews</p>
         </div>
 
         <div class="landing-grid" id="customer-review-grid">
-
-            <!-- Reviews generated by home.js -->
-
+          <!-- Reviews generated by home.js -->
         </div>
 
         <div class="home-actions center">
+          <a href="customer-account.html#my-reviews" class="home-btn">
+            <i class="bi bi-pencil-square"></i>
 
-            <a href="customer-account.html#my-reviews"
-               class="home-btn">
+            Write a Review
+          </a>
 
-                <i class="bi bi-pencil-square"></i>
-
-                Write a Review
-
-            </a>
-
-            <button type="button"
-                    class="home-btn outline"
-                    id="view-all-reviews"
-                    hidden>
-
-                View All Reviews
-
-            </button>
-
+          <button
+            type="button"
+            class="home-btn outline"
+            id="view-all-reviews"
+            hidden
+          >
+            View All Reviews
+          </button>
         </div>
 
         <p class="landing-note">
-            Customers can submit reviews, photos, and videos
-            through their customer accounts after completing
-            their booked tours.
+          Customers can submit reviews, photos, and videos through their
+          customer accounts after completing their booked tours.
         </p>
+      </section>
 
-    </section>
+      <!-- FACEBOOK VIDEOS -->
 
-
-    <!-- FACEBOOK VIDEOS -->
-
-    <section class="landing-section" id="facebook-videos">
-
+      <section class="landing-section" id="facebook-videos">
         <div class="landing-heading">
+          <span>FOLLOW OUR ADVENTURES</span>
 
-            <span>FOLLOW OUR ADVENTURES</span>
+          <h2>Travel Stories & Videos</h2>
 
-            <h2>Travel Stories & Videos</h2>
-
-            <p>
-                Watch travel highlights from our official Facebook page.
-            </p>
-
+          <p>Watch travel highlights from our official Facebook page.</p>
         </div>
 
         <div class="landing-glass facebook-panel">
+          <i class="bi bi-facebook facebook-logo"></i>
 
-            <i class="bi bi-facebook facebook-logo"></i>
+          <h2>Puerto Princesa of Wonder Travel and Tours</h2>
 
-            <h2>Puerto Princesa of Wonder Travel and Tours</h2>
+          <p>
+            Discover travel experiences, destination highlights, and our latest
+            announcements.
+          </p>
 
-            <p>
-                Discover travel experiences, destination highlights,
-                and our latest announcements.
-            </p>
+          <div class="facebook-video-grid" id="facebook-video-grid"></div>
 
-            <div class="facebook-video-grid"
-                 id="facebook-video-grid"></div>
+          <div class="home-actions center">
+            <a
+              href="https://www.facebook.com/puertoprincesaislandsofwonderTours/videos/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="home-btn"
+            >
+              <i class="bi bi-play-circle"></i>
 
-            <div class="home-actions center">
+              Watch Facebook Videos
+            </a>
 
-                <a href="https://www.facebook.com/puertoprincesaislandsofwonderTours/videos/"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="home-btn">
-
-                    <i class="bi bi-play-circle"></i>
-
-                    Watch Facebook Videos
-
-                </a>
-
-                <a href="https://www.facebook.com/puertoprincesaislandsofwonderTours"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="home-btn outline">
-
-                    Visit Facebook Page
-
-                </a>
-
-            </div>
-
+            <a
+              href="https://www.facebook.com/puertoprincesaislandsofwonderTours"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="home-btn outline"
+            >
+              Visit Facebook Page
+            </a>
+          </div>
         </div>
+      </section>
+    </main>
 
-    </section>
+    <!-- FOOTER -->
 
-</main>
+    <footer>
+      <div class="footer-brand">Puerto Princesa of Wonder Travel and Tours</div>
 
+      <p>Services Cooperative Travel and Tours</p>
 
-<!-- FOOTER -->
-
-<footer>
-
-    <div class="footer-brand">
-        Puerto Princesa of Wonder Travel and Tours
-    </div>
-
-    <p>
-        Services Cooperative Travel and Tours
-    </p>
-
-    <p class="copyright">
+      <p class="copyright">
         © 2026 Puerto Princesa of Wonder. All Rights Reserved.
-    </p>
+      </p>
+    </footer>
 
-</footer>
+    <!-- FLOATING INQUIRY BOX - LEFT -->
 
-
-<!-- FLOATING INQUIRY BOX - LEFT -->
-
-<div class="landing-support inquiry-support">
-
-    <section class="support-window" id="inquiryWindow" hidden>
-
+    <div class="landing-support inquiry-support">
+      <section class="support-window" id="inquiryWindow" hidden>
         <div class="support-heading">
+          <div>
+            <h3>Travel Inquiry</h3>
+            <small>Let us help plan your trip</small>
+          </div>
 
-            <div>
-                <h3>Travel Inquiry</h3>
-                <small>Let us help plan your trip</small>
-            </div>
-
-            <button type="button"
-                    id="inquiryClose"
-                    aria-label="Close inquiry">
-
-                &times;
-
-            </button>
-
+          <button type="button" id="inquiryClose" aria-label="Close inquiry">
+            &times;
+          </button>
         </div>
 
         <form id="quickInquiry" class="quick-inquiry">
+          <label>
+            Full Name
+            <input type="text" name="name" required />
+          </label>
 
-            <label>
-                Full Name
-                <input type="text" name="name" required>
-            </label>
+          <label>
+            Email Address
+            <input type="email" name="email" required />
+          </label>
 
-            <label>
-                Email Address
-                <input type="email" name="email" required>
-            </label>
+          <label>
+            Contact Number
+            <input type="tel" name="contact" required />
+          </label>
 
-            <label>
-                Contact Number
-                <input type="tel" name="contact" required>
-            </label>
+          <label>
+            Preferred Destination
 
-            <label>
+            <select name="destination" required>
+              <option value="">Select Destination</option>
+              <option>Puerto Princesa</option>
+              <option>El Nido</option>
+              <option>Coron</option>
+              <option>Port Barton</option>
+              <option>Japan</option>
+              <option>Vietnam</option>
+              <option>Other</option>
+            </select>
+          </label>
 
-                Preferred Destination
+          <label>
+            Travel Date
+            <input type="date" name="date" required />
+          </label>
 
-                <select name="destination" required>
+          <label>
+            Number of Travelers
 
-                    <option value="">Select Destination</option>
-                    <option>Puerto Princesa</option>
-                    <option>El Nido</option>
-                    <option>Coron</option>
-                    <option>Port Barton</option>
-                    <option>Japan</option>
-                    <option>Vietnam</option>
-                    <option>Other</option>
+            <input
+              type="number"
+              name="pax"
+              min="1"
+              max="100"
+              value="2"
+              required
+            />
+          </label>
 
-                </select>
+          <label>
+            Your Message
 
-            </label>
+            <textarea
+              name="message"
+              rows="3"
+              placeholder="Tell us about your trip..."
+              required
+            ></textarea>
+          </label>
 
-            <label>
-                Travel Date
-                <input type="date" name="date" required>
-            </label>
+          <button type="submit" class="home-btn">Send Email Inquiry</button>
 
-            <label>
-
-                Number of Travelers
-
-                <input type="number"
-                       name="pax"
-                       min="1"
-                       max="100"
-                       value="2"
-                       required>
-
-            </label>
-
-            <label>
-
-                Your Message
-
-                <textarea name="message"
-                          rows="3"
-                          placeholder="Tell us about your trip..."
-                          required></textarea>
-
-            </label>
-
-            <button type="submit" class="home-btn">
-                Send Email Inquiry
-            </button>
-
-            <small>
-                Opens your email application to send your inquiry.
-            </small>
-
+          <small> Opens your email application to send your inquiry. </small>
         </form>
+      </section>
 
-    </section>
-
-    <button class="support-toggle"
-            id="inquiryToggle"
-            type="button"
-            aria-expanded="false">
-
+      <button
+        class="support-toggle"
+        id="inquiryToggle"
+        type="button"
+        aria-expanded="false"
+      >
         <i class="bi bi-envelope-fill"></i>
 
         Inquire Now
+      </button>
+    </div>
 
-    </button>
+    <!-- FLOATING CHATBOT - RIGHT -->
 
-</div>
-
-
-<!-- FLOATING CHATBOT - RIGHT -->
-
-<div class="landing-support chatbot-support">
-
-    <section class="support-window" id="chatbotWindow" hidden>
-
+    <div class="landing-support chatbot-support">
+      <section class="support-window" id="chatbotWindow" hidden>
         <div class="support-heading">
+          <div>
+            <h3>Travel Assistant</h3>
 
-            <div>
+            <small>● Automated Travel Assistant</small>
+          </div>
 
-                <h3>Travel Assistant</h3>
-
-                <small>● Automated Travel Assistant</small>
-
-            </div>
-
-            <button type="button"
-                    id="chatbotClose"
-                    aria-label="Close chatbot">
-
-                &times;
-
-            </button>
-
+          <button type="button" id="chatbotClose" aria-label="Close chatbot">
+            &times;
+          </button>
         </div>
 
-        <div class="landing-chat-messages"
-             id="chatbotMessages"
-             aria-live="polite">
-
-            <div class="landing-message bot">
-
-                Hello! 👋 Welcome to Puerto Princesa of Wonder.
-                How can I assist you today?
-
-            </div>
-
+        <div
+          class="landing-chat-messages"
+          id="chatbotMessages"
+          aria-live="polite"
+        >
+          <div class="landing-message bot">
+            Hello! 👋 Welcome to Puerto Princesa of Wonder. How can I assist you
+            today?
+          </div>
         </div>
 
         <div class="chat-options">
+          <button type="button" data-chat="Tour packages">Tour Packages</button>
 
-            <button type="button" data-chat="Tour packages">
-                Tour Packages
-            </button>
+          <button type="button" data-chat="How to book?">How to Book</button>
 
-            <button type="button" data-chat="How to book?">
-                How to Book
-            </button>
-
-            <button type="button" data-chat="Contact information">
-                Contact Us
-            </button>
-
+          <button type="button" data-chat="Contact information">
+            Contact Us
+          </button>
         </div>
 
         <form id="chatbotForm" class="landing-chat-input">
+          <input
+            type="text"
+            id="chatbotInput"
+            placeholder="Type your message..."
+            aria-label="Chat message"
+            maxlength="500"
+            autocomplete="off"
+            required
+          />
 
-            <input type="text"
-                   id="chatbotInput"
-                   placeholder="Type your message..."
-                   aria-label="Chat message"
-                   maxlength="500"
-                   autocomplete="off"
-                   required>
-
-            <button type="submit" aria-label="Send message">
-
-                <i class="bi bi-send-fill"></i>
-
-            </button>
-
+          <button type="submit" aria-label="Send message">
+            <i class="bi bi-send-fill"></i>
+          </button>
         </form>
+      </section>
 
-    </section>
-
-    <button class="support-toggle"
-            id="chatbotToggle"
-            type="button"
-            aria-expanded="false">
-
+      <button
+        class="support-toggle"
+        id="chatbotToggle"
+        type="button"
+        aria-expanded="false"
+      >
         <i class="bi bi-chat-dots-fill"></i>
 
         Chat with us
+      </button>
+    </div>
 
-    </button>
+    <!-- SHOPPING CART -->
 
-</div>
-
-
-<!-- SHOPPING CART -->
-
-<div class="cart-overlay"
-     id="cart-overlay"
-     onclick="closeCart()">
-
-    <div class="cart-panel" onclick="event.stopPropagation()">
-
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()">
+      <div class="cart-panel" onclick="event.stopPropagation()">
         <div class="cart-header">
+          <h2>🛒 Your Shopping Cart</h2>
 
-            <h2>🛒 Your Shopping Cart</h2>
-
-            <button type="button"
-                    onclick="closeCart()"
-                    aria-label="Close cart">
-
-                ✕
-
-            </button>
-
+          <button type="button" onclick="closeCart()" aria-label="Close cart">
+            ✕
+          </button>
         </div>
 
         <div id="cart-items"></div>
 
         <div class="cart-footer">
+          <h3>Total: ₱<span id="cart-total">0</span></h3>
 
-            <h3>Total: ₱<span id="cart-total">0</span></h3>
-
-            <button type="button"
-                    onclick="location.href='tripplanner.html'">
-
-                Continue to Trip Planner
-
-            </button>
-
+          <button type="button" onclick="location.href = 'tripplanner.html'">
+            Continue to Trip Planner
+          </button>
         </div>
-
+      </div>
     </div>
 
-</div>
-
-
-<script src="script.js" defer></script>
-<script src="home.js" defer></script>
-
-</body>
+    <script src="script.js" defer></script>
+    <script src="home.js" defer></script>
+  </body>
 </html>

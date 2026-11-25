@@ -1,3 +1,7 @@
+[hidden] {
+  display: none !important;
+}
+
 .admin-page .admin-active-link {
   color: #62d5c4;
   font-weight: 700;
@@ -99,7 +103,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .admin-stat-card {
@@ -121,36 +125,52 @@
   font-size: 26px;
 }
 
-/* ACCOUNT SETTINGS BOX */
-.admin-account-box {
+/* PENDING & CUSTOMER BOOKINGS CARD */
+.admin-bookings-card {
   background: #0a222d;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-  padding: 16px 20px;
-  margin-bottom: 24px;
+  border: 1px solid rgba(98, 213, 196, 0.22);
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 26px;
 }
 
-.admin-account-box summary {
-  cursor: pointer;
-  font-weight: 700;
-  color: #62d5c4;
-}
-
-.admin-account-form {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 16px;
-}
-
-.admin-field-align {
-  justify-content: flex-end;
-}
-
-.admin-notice {
-  color: #62d5c4;
+.admin-list-header p {
+  color: #aebfca;
   font-size: 13px;
-  margin-top: 10px;
+  margin-top: 4px;
+}
+
+.admin-customer-sub {
+  display: block;
+  color: #aebfca;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.admin-status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-pending {
+  background: rgba(244, 197, 66, 0.18);
+  color: #f4c542;
+  border: 1px solid rgba(244, 197, 66, 0.45);
+}
+
+.status-approved {
+  background: rgba(13, 148, 136, 0.22);
+  color: #62d5c4;
+  border: 1px solid rgba(98, 213, 196, 0.45);
+}
+
+.status-cancelled {
+  background: rgba(192, 57, 43, 0.22);
+  color: #ff9488;
+  border: 1px solid rgba(192, 57, 43, 0.45);
 }
 
 /* CATEGORY TABS */
@@ -220,14 +240,20 @@
 .admin-field input,
 .admin-field select,
 .admin-field textarea,
-.admin-list-controls input {
-  width: 100%;
+.admin-list-controls input,
+.admin-list-controls select {
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   background: #071b25;
   color: #ffffff;
   font-size: 14px;
+}
+
+.admin-field input,
+.admin-field select,
+.admin-field textarea {
+  width: 100%;
 }
 
 .admin-list-controls {
@@ -327,12 +353,18 @@
 }
 
 .admin-edit-btn,
-.admin-delete-btn {
+.admin-delete-btn,
+.admin-approve-btn {
   padding: 6px 11px;
   border-radius: 6px;
   border: none;
   font-size: 12px;
   font-weight: 700;
+}
+
+.admin-approve-btn {
+  background: #0d9488;
+  color: #ffffff;
 }
 
 .admin-edit-btn {
@@ -347,8 +379,11 @@
 
 @media (max-width: 960px) {
   .admin-workspace-grid,
-  .admin-stats-grid,
-  .admin-account-form {
+  .admin-stats-grid {
     grid-template-columns: 1fr;
+  }
+
+  .admin-list-controls input {
+    width: 100%;
   }
 }

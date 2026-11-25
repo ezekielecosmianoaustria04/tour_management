@@ -44,7 +44,7 @@
         <h1 id="adminAuthTitle">Admin Account Sign-In</h1>
         <p>
           Sign in to manage Tour Only, Customized, Local Destination, and Beyond
-          the Philippines packages.
+          the Philippines packages, plus pending customer bookings.
         </p>
 
         <form id="adminLoginForm" class="admin-login-form">
@@ -82,13 +82,13 @@
         <div class="admin-topbar">
           <div>
             <span class="admin-kicker">COOPERATIVE MANAGEMENT PANEL</span>
-            <h2>Tour Packages &amp; User Admin Account</h2>
+            <h2>Tour Packages &amp; Customer Bookings</h2>
           </div>
 
           <div class="admin-account-pill">
             <div>
               <strong id="activeAdminName">Cooperative Admin</strong>
-              <span id="activeAdminRole">Super Admin · Active</span>
+              <span id="activeAdminRole">User Admin Acc · Active</span>
             </div>
             <button type="button" id="adminLogoutBtn" class="admin-btn-ghost">
               Lock / Sign Out
@@ -116,35 +116,52 @@
           </div>
         </div>
 
-        <!-- USER ADMIN ACCOUNT SETTINGS -->
-        <details class="admin-account-box">
-          <summary>User Admin Account Settings</summary>
-          <form id="adminAccountForm" class="admin-account-form">
-            <div class="admin-field">
-              <label for="accountDisplayName">Admin Name</label>
-              <input id="accountDisplayName" type="text" required />
+        <!-- PENDING & CUSTOMER DETAILS SECTION -->
+        <section
+          class="admin-bookings-card"
+          aria-labelledby="pendingBookingsHeading"
+        >
+          <div class="admin-list-header">
+            <div>
+              <span class="admin-kicker">CUSTOMER RESERVATIONS</span>
+              <h3 id="pendingBookingsHeading">
+                Pending Bookings &amp; Customer Details
+              </h3>
+              <p id="pendingBookingsSummary">0 pending booking(s)</p>
             </div>
-            <div class="admin-field">
-              <label for="accountEmail">Admin Email</label>
-              <input id="accountEmail" type="email" required />
-            </div>
-            <div class="admin-field">
-              <label for="accountRole">Role</label>
+            <div class="admin-list-controls">
+              <select
+                id="bookingStatusFilter"
+                aria-label="Filter bookings by status"
+              >
+                <option value="Pending">Pending Only</option>
+                <option value="All">All Bookings</option>
+                <option value="Approved">Approved</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
               <input
-                id="accountRole"
-                type="text"
-                value="Tour Operations Admin"
-                required
+                id="bookingSearchInput"
+                type="search"
+                placeholder="Search customer, email, or tour..."
               />
             </div>
-            <div class="admin-field admin-field-align">
-              <button type="submit" class="admin-btn-primary">
-                Save Admin Account
-              </button>
-            </div>
-          </form>
-          <p id="accountSaveNotice" class="admin-notice" hidden></p>
-        </details>
+          </div>
+
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Customer Details</th>
+                  <th>Tour &amp; Category</th>
+                  <th>Travel Date &amp; Guests</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminBookingsTbody"></tbody>
+            </table>
+          </div>
+        </section>
 
         <!-- CATEGORY TABS -->
         <div
