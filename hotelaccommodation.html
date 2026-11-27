@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotel Accommodation</title>
+  <link rel="stylesheet" href="hotelaccommodation.css">
+</head>
+<body>
+
+  <!-- HEADER: logo, nav, search, cart -->
+  <header class="site-header">
+    <a href="#" class="logo" aria-label="Company logo"><span class="logo-mark">H</span> Logo</a>
+    <nav class="main-nav" aria-label="Main">
+      <a href="#">Home</a>
+      <a href="#">Trip Planner</a>
+      <a href="#">Book Destination</a>
+    </nav>
+    <div class="header-tools">
+      <button class="icon-btn" id="searchBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Booking cart">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 11h10L20 7H6.5"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="title-row">
+      <h1>Hotel Company Name</h1>
+      <p class="pcs"><strong id="roomTotal">11</strong> pcs</p>
+    </div>
+
+    <div class="layout">
+      <!-- LEFT: room slider + pagination -->
+      <section class="slider" aria-label="Rooms">
+        <div class="slide-frame">
+          <button class="arrow prev" id="prevBtn" aria-label="Previous room">&#8249;</button>
+          <div class="slide" id="slide">
+            <div class="slide-art" id="slideArt"></div>
+          </div>
+          <button class="arrow next" id="nextBtn" aria-label="Next room">&#8250;</button>
+        </div>
+        <div class="pagination" id="pagination" role="tablist" aria-label="Room pages"></div>
+      </section>
+
+      <!-- RIGHT: special offer -->
+      <aside class="offer" aria-label="Hotel special offer">
+        <div class="offer-head">
+          <h2>Hotel Special Offer</h2>
+          <span class="badge">Save 15%</span>
+        </div>
+
+        <div class="bed-options">
+          <div class="bed-row">
+            <label class="field" for="bedSelect">
+              <span>Bed size</span>
+              <select id="bedSelect"></select>
+            </label>
+            <div class="field">
+              <span id="bedCountLabel">No. of beds</span>
+              <div class="stepper" role="group" aria-labelledby="bedCountLabel">
+                <button id="qtyMinus" aria-label="Fewer beds">−</button>
+                <output id="qty">1</output>
+                <button id="qtyPlus" aria-label="More beds">+</button>
+              </div>
+            </div>
+          </div>
+          <p class="qty-msg" id="qtyMsg" role="status">&nbsp;</p>
+          <div class="addon">
+            <div class="addon-head">
+              <h3>Adds on <small>Add another bed</small></h3>
+            </div>
+            <div id="addonList"></div>
+            <p class="bed-note" id="bedNote"></p>
+          </div>
+        </div>
+
+        <div class="bed-picture" id="bedPicture" aria-hidden="true"></div>
+
+        <div class="price-row">
+          <div>
+            <p class="price" id="price">₱0</p>
+            <p class="per">per room, per night</p>
+          </div>
+        </div>
+        <p class="qty-msg" id="roomsMsg" role="status">&nbsp;</p>
+
+        <div class="total-row">
+          <span>Total</span>
+          <strong id="total">₱0</strong>
+        </div>
+        <button class="book-btn" id="bookBtn">Proceed to booking information</button>
+      </aside>
+    </div>
+  </main>
+
+  <script src="hotelaccommodation.js"></script>
+</body>
+</html>
