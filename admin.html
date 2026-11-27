@@ -23,8 +23,8 @@
           </div>
         </div>
         <p>
-          Sign in to manage tour operations, reservations, and cooperative sales
-          reports.
+          Sign in to manage tour packages, guest records, reservations, and
+          cooperative reports.
         </p>
         <form id="adminGateForm" class="auth-gate-form">
           <label>
@@ -98,7 +98,7 @@
             <span>Admins</span>
           </button>
 
-          <!-- TOURS GROUP -->
+          <!-- TOURS GROUP (REPLACED ITEMS PER SCREENSHOT) -->
           <div class="nav-group open">
             <button type="button" class="nav-item nav-group-toggle">
               <span class="nav-icon">&#9992;</span>
@@ -126,22 +126,30 @@
                 type="button"
                 class="nav-subitem"
                 data-view="tours"
-                data-category="Customize"
+                data-category="Customized Trip"
               >
-                Customize
+                Customized Trip
               </button>
               <button
                 type="button"
                 class="nav-subitem"
                 data-view="tours"
-                data-category="Trip Planner"
+                data-category="Local Destination"
               >
-                Trip Planner
+                Local Destination
+              </button>
+              <button
+                type="button"
+                class="nav-subitem"
+                data-view="tours"
+                data-category="Beyond the Philippines"
+              >
+                Beyond the Philippines
               </button>
             </div>
           </div>
 
-          <!-- MERGED CUSTOMER & BOOKINGS GROUP -->
+          <!-- MERGED CUSTOMER & BOOKINGS GROUP (GUEST INFORMATION FOCUS) -->
           <div class="nav-group open">
             <button type="button" class="nav-item nav-group-toggle">
               <span class="nav-icon">&#128203;</span>
@@ -153,17 +161,9 @@
                 type="button"
                 class="nav-subitem"
                 data-view="bookings"
-                data-booking-tab="info"
-              >
-                Booking Information
-              </button>
-              <button
-                type="button"
-                class="nav-subitem"
-                data-view="bookings"
                 data-booking-tab="guests"
               >
-                Customer &amp; Guest Info
+                Guest Information
               </button>
               <button
                 type="button"
@@ -288,9 +288,9 @@
 
             <div id="notifPopover" class="notif-popover" hidden>
               <div class="notif-popover-head">
-                <strong>Pending Reservations</strong>
+                <strong>Pending Guest Records</strong>
                 <button type="button" id="clearNotifViewBtn">
-                  Open Bookings
+                  Open Guest Info
                 </button>
               </div>
               <ul id="notifList" class="notif-list"></ul>
@@ -341,11 +341,11 @@
             </article>
           </section>
 
-          <!-- SECONDARY 4 BREAKDOWN CARDS (BEYOND, LOCAL, CUSTOMIZED, TOUR ONLY) -->
+          <!-- SECONDARY 4 BREAKDOWN CARDS -->
           <section class="kpi-subgrid" aria-label="Tour category breakdown">
             <article
               class="sub-kpi-card"
-              data-jump-dest="Beyond the Philippines"
+              data-jump-tourcat="Beyond the Philippines"
             >
               <div class="sub-kpi-meta">
                 <span class="sub-kpi-tag tag-indigo">International</span>
@@ -355,7 +355,7 @@
               <p class="sub-kpi-desc">Overseas packages &amp; group bookings</p>
             </article>
 
-            <article class="sub-kpi-card" data-jump-dest="Local Destination">
+            <article class="sub-kpi-card" data-jump-tourcat="Local Destination">
               <div class="sub-kpi-meta">
                 <span class="sub-kpi-tag tag-teal">Domestic</span>
                 <strong class="sub-kpi-count" id="kpiCountLocal">0</strong>
@@ -364,7 +364,7 @@
               <p class="sub-kpi-desc">Palawan &amp; Philippine island tours</p>
             </article>
 
-            <article class="sub-kpi-card" data-jump-tourcat="Customize">
+            <article class="sub-kpi-card" data-jump-tourcat="Customized Trip">
               <div class="sub-kpi-meta">
                 <span class="sub-kpi-tag tag-amber">Tailor-Made</span>
                 <strong class="sub-kpi-count" id="kpiCountCustomized">0</strong>
@@ -387,7 +387,7 @@
             </article>
           </section>
 
-          <!-- ROW 2: BOOKING OVERVIEW (WITH BOOKING FOR THIS MONTH) + TOP DESTINATIONS -->
+          <!-- ROW 2: BOOKING OVERVIEW + TOP DESTINATIONS -->
           <section class="bento-row-2">
             <div class="panel-card chart-panel">
               <div class="panel-header">
@@ -446,9 +446,9 @@
             <div class="panel-card recent-bookings-panel">
               <div class="panel-header">
                 <div>
-                  <h2>Recent Bookings</h2>
+                  <h2>Recent Guest Bookings</h2>
                   <p class="panel-caption">
-                    Latest customer reservations and status
+                    Latest guest records and verification status
                   </p>
                 </div>
                 <button
@@ -464,11 +464,11 @@
                 <table class="clean-data-table">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>Customer Name</th>
+                      <th>ID</th>
+                      <th>Fullname</th>
                       <th>Tour Type</th>
                       <th>Destination</th>
-                      <th>Booking Date</th>
+                      <th>Booking ID</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -500,7 +500,7 @@
             </div>
           </section>
 
-          <!-- ROW 4: QUICK ACTIONS (NO ADD CUSTOMER) + RECENT INQUIRIES -->
+          <!-- ROW 4: QUICK ACTIONS + RECENT INQUIRIES (WITH ARROW DOWN TOGGLE) -->
           <section class="bento-row-4">
             <div class="panel-card quick-actions-panel">
               <div class="panel-header">
@@ -519,7 +519,7 @@
                   id="qaCreateBookingBtn"
                 >
                   <span class="qa-icon">&#128197;</span>
-                  <span>Create Booking</span>
+                  <span>Add Guest Booking</span>
                 </button>
                 <button type="button" class="qa-btn qa-amber" id="qaAddTourBtn">
                   <span class="qa-icon">&#9992;</span>
@@ -540,7 +540,9 @@
               <div class="panel-header">
                 <div>
                   <h2>Recent Inquiries</h2>
-                  <p class="panel-caption">Unanswered client questions</p>
+                  <p class="panel-caption">
+                    Click the arrow down icon to view full message
+                  </p>
                 </div>
                 <button
                   type="button"
@@ -558,6 +560,7 @@
                       <th>#</th>
                       <th>Name</th>
                       <th>Message</th>
+                      <th></th>
                       <th>Date</th>
                     </tr>
                   </thead>
@@ -569,7 +572,7 @@
         </main>
 
         <!-- =========================================================
-           VIEW 2: TOURS & PACKAGES (WITH SINGLE ENABLE/DISABLE BUTTON)
+           VIEW 2: TOURS & PACKAGES (ONLY 4 INPUTS + AUTO CATEGORY)
       ========================================================== -->
         <section id="view-tours" class="sub-module-view" hidden>
           <div class="module-banner">
@@ -595,18 +598,39 @@
             <button type="button" class="pill-tab" data-tour-cat="Tour Only">
               Tour Only
             </button>
-            <button type="button" class="pill-tab" data-tour-cat="Customize">
-              Customize
+            <button
+              type="button"
+              class="pill-tab"
+              data-tour-cat="Customized Trip"
+            >
+              Customized Trip
             </button>
-            <button type="button" class="pill-tab" data-tour-cat="Trip Planner">
-              Trip Planner
+            <button
+              type="button"
+              class="pill-tab"
+              data-tour-cat="Local Destination"
+            >
+              Local Destination
+            </button>
+            <button
+              type="button"
+              class="pill-tab"
+              data-tour-cat="Beyond the Philippines"
+            >
+              Beyond the Philippines
             </button>
           </div>
 
           <div class="crud-split-grid">
             <form id="tourCrudForm" class="panel-card crud-form">
               <div class="panel-header">
-                <h3 id="tourFormHeading">Add New Tour Package</h3>
+                <div>
+                  <h3 id="tourFormHeading">Add New Tour Package</h3>
+                  <p class="panel-caption">
+                    Category:
+                    <strong id="activeTourCategoryLabel">Tour Only</strong>
+                  </p>
+                </div>
                 <button
                   type="button"
                   id="cancelTourEditBtn"
@@ -619,22 +643,13 @@
               <input type="hidden" id="editingTourId" />
 
               <label class="field-group">
-                <span>Tour Category</span>
-                <select id="tourCategoryInput" required>
-                  <option value="Tour Only">Tour Only</option>
-                  <option value="Customize">Customize</option>
-                  <option value="Trip Planner">Trip Planner</option>
-                </select>
-              </label>
-
-              <label class="field-group">
-                <span>Scope</span>
-                <select id="tourScopeInput" required>
-                  <option value="Local Destination">Local Destination</option>
-                  <option value="Beyond the Philippines">
-                    Beyond the Philippines
-                  </option>
-                </select>
+                <span>Destination</span>
+                <input
+                  id="tourDestInput"
+                  type="text"
+                  placeholder="e.g. Puerto Princesa"
+                  required
+                />
               </label>
 
               <label class="field-group">
@@ -643,16 +658,6 @@
                   id="tourNameInput"
                   type="text"
                   placeholder="e.g. Underground River Tour"
-                  required
-                />
-              </label>
-
-              <label class="field-group">
-                <span>Destination</span>
-                <input
-                  id="tourDestInput"
-                  type="text"
-                  placeholder="e.g. Puerto Princesa"
                   required
                 />
               </label>
@@ -670,7 +675,7 @@
               </label>
 
               <label class="field-group">
-                <span>Inclusions &amp; Itinerary</span>
+                <span>Description</span>
                 <textarea
                   id="tourDescInput"
                   rows="3"
@@ -718,15 +723,15 @@
         </section>
 
         <!-- =========================================================
-           VIEW 3: MERGED CUSTOMER & BOOKINGS MODULE
+           VIEW 3: GUEST INFORMATION (tblGuestinformation) & PAYMENTS
       ========================================================== -->
         <section id="view-bookings" class="sub-module-view" hidden>
           <div class="module-banner">
             <div>
               <span class="module-eyebrow"
-                >UNIFIED CLIENT &amp; RESERVATION RECORDS</span
+                >TBLGUESTINFORMATION &amp; RESERVATION RECORDS</span
               >
-              <h2>Customer &amp; Bookings Management</h2>
+              <h2>Guest Information Management</h2>
             </div>
             <div class="banner-actions">
               <button
@@ -734,7 +739,7 @@
                 id="openNewBookingModalBtn"
                 class="btn-primary-solid"
               >
-                + Create Booking
+                + Add Guest Record
               </button>
               <button
                 type="button"
@@ -747,11 +752,8 @@
           </div>
 
           <div class="filter-pills-row" id="bookingSubTabs">
-            <button type="button" class="pill-tab active" data-bsub="info">
-              Booking Information
-            </button>
-            <button type="button" class="pill-tab" data-bsub="guests">
-              Customer &amp; Guest Info
+            <button type="button" class="pill-tab active" data-bsub="guests">
+              Guest Information
             </button>
             <button type="button" class="pill-tab" data-bsub="payments">
               Payments
@@ -760,7 +762,7 @@
 
           <div class="panel-card">
             <div class="panel-header">
-              <h3 id="bookingSubHeading">Booking Information &amp; Status</h3>
+              <h3 id="bookingSubHeading">Guest Information Records</h3>
               <div class="toolbar-inline">
                 <select id="bookingStatusFilterSelect" class="panel-select">
                   <option value="All">All Statuses</option>
@@ -772,7 +774,7 @@
                   id="bookingTableSearch"
                   type="search"
                   class="table-search-input"
-                  placeholder="Search customer, email, tour..."
+                  placeholder="Search fullname, email, passport, flight..."
                 />
               </div>
             </div>
@@ -822,12 +824,11 @@
             </div>
           </div>
 
-          <!-- Report Summary Strip -->
           <div class="report-summary-grid">
             <div class="panel-card report-stat-box">
               <span>Gross Earnings (Confirmed)</span>
               <strong id="repConfirmedEarnings">&#8369;0</strong>
-              <small>Settled &amp; confirmed reservations</small>
+              <small>Settled &amp; confirmed guest bookings</small>
             </div>
             <div class="panel-card report-stat-box">
               <span>Pending / Pipeline Value</span>
@@ -837,24 +838,23 @@
             <div class="panel-card report-stat-box">
               <span>Average Booking Value</span>
               <strong id="repAvgBooking">&#8369;0</strong>
-              <small>Per customer reservation</small>
+              <small>Per guest booking</small>
             </div>
             <div class="panel-card report-stat-box">
-              <span>Total Guests Served</span>
-              <strong id="repTotalPax">0 pax</strong>
-              <small>Across all recorded bookings</small>
+              <span>Total Guest Records</span>
+              <strong id="repTotalPax">0</strong>
+              <small>Registered in tblGuestinformation</small>
             </div>
           </div>
 
           <div class="bento-row-2">
-            <!-- Category Performance Table -->
             <div class="panel-card">
               <div class="panel-header">
                 <div>
                   <h3>Earnings &amp; Bookings by Tour Category</h3>
                   <p class="panel-caption">
-                    Breakdown across Local, Beyond Philippines, Customized, and
-                    Tour Only
+                    Breakdown across Tour Only, Customized Trip, Local
+                    Destination, and Beyond the Philippines
                   </p>
                 </div>
               </div>
@@ -862,9 +862,8 @@
                 <table class="clean-data-table">
                   <thead>
                     <tr>
-                      <th>Category / Scope</th>
-                      <th>Bookings</th>
-                      <th>Total Guests</th>
+                      <th>Category</th>
+                      <th>Guests</th>
                       <th>Earnings</th>
                       <th>Share</th>
                     </tr>
@@ -874,7 +873,6 @@
               </div>
             </div>
 
-            <!-- Payment Channel Report -->
             <div class="panel-card">
               <div class="panel-header">
                 <div>
@@ -897,13 +895,12 @@
             </div>
           </div>
 
-          <!-- Detailed Transaction Ledger -->
           <div class="panel-card">
             <div class="panel-header">
               <div>
-                <h3>Booking &amp; Earnings Ledger</h3>
+                <h3>Guest Booking &amp; Earnings Ledger</h3>
                 <p class="panel-caption">
-                  Complete itemized transaction log for cooperative auditing
+                  Complete itemized log linked to Bookinginformation_id
                 </p>
               </div>
             </div>
@@ -911,12 +908,11 @@
               <table class="clean-data-table">
                 <thead>
                   <tr>
-                    <th>Ref #</th>
-                    <th>Booking Date</th>
-                    <th>Customer</th>
-                    <th>Tour Type</th>
+                    <th>ID</th>
+                    <th>Bookinginformation_id</th>
+                    <th>Fullname</th>
+                    <th>Category</th>
                     <th>Destination</th>
-                    <th>Guests</th>
                     <th>Payment</th>
                     <th>Status</th>
                     <th>Earnings</th>
@@ -1009,7 +1005,7 @@
         </section>
 
         <!-- =========================================================
-           VIEW 6: INQUIRIES, ADMINS & SETTINGS
+           VIEW 6: INQUIRIES (WITH ARROW DOWN TOGGLE), ADMINS & SETTINGS
       ========================================================== -->
         <section id="view-inquiries" class="sub-module-view" hidden>
           <div class="module-banner">
@@ -1035,8 +1031,9 @@
                   <tr>
                     <th>#</th>
                     <th>Customer Name</th>
-                    <th>Contact</th>
+                    <th>Email</th>
                     <th>Message</th>
+                    <th>Expand</th>
                     <th>Date</th>
                     <th>Action</th>
                   </tr>
@@ -1152,65 +1149,102 @@
       </div>
     </div>
 
-    <!-- MODAL FOR CREATING BOOKING -->
+    <!-- MODAL FOR ADDING GUEST INFORMATION RECORD (tblGuestinformation) -->
     <dialog id="quickActionDialog" class="admin-dialog">
       <form id="quickActionForm" method="dialog" class="dialog-box">
         <div class="dialog-head">
-          <h3>Create New Booking</h3>
+          <h3>Add Guest Information (tblGuestinformation)</h3>
           <button type="button" id="closeDialogBtn" class="dialog-x">
             &times;
           </button>
         </div>
-        <div class="dialog-body">
+        <div class="dialog-body dialog-grid-2">
           <label class="field-group"
-            ><span>Customer Full Name</span
-            ><input id="qaBookName" type="text" required
+            ><span>Fullname</span><input id="gFullname" type="text" required
           /></label>
           <label class="field-group"
-            ><span>Email Address</span
+            ><span>Birthdate</span><input id="gBirthdate" type="date" required
+          /></label>
+          <label class="field-group"
+            ><span>Email</span
             ><input
-              id="qaBookEmail"
+              id="gEmail"
               type="email"
-              placeholder="customer@email.com"
+              placeholder="guest@email.com"
               required
           /></label>
           <label class="field-group"
-            ><span>Contact Number</span
-            ><input id="qaBookPhone" type="text" value="0917-000-0000" required
-          /></label>
-          <label class="field-group"
-            ><span>Tour Type</span>
-            <select id="qaBookType">
-              <option value="Tour Only">Tour Only</option>
-              <option value="Customize">Customize</option>
-              <option value="Trip Planner">Trip Planner</option>
-            </select>
-          </label>
-          <label class="field-group"
-            ><span>Scope</span>
-            <select id="qaBookScope">
-              <option value="Local Destination">Local Destination</option>
-              <option value="Beyond the Philippines">
-                Beyond the Philippines
-              </option>
-            </select>
-          </label>
-          <label class="field-group"
-            ><span>Destination</span
+            ><span>Contact_no</span
             ><input
-              id="qaBookDest"
+              id="gContactNo"
               type="text"
-              value="Puerto Princesa"
+              placeholder="0917-000-0000"
               required
           /></label>
           <label class="field-group"
-            ><span>Number of Guests</span
-            ><input id="qaBookGuests" type="number" min="1" value="2" required
+            ><span>Passport_no</span
+            ><input id="gPassportNo" type="text" placeholder="P1234567A"
+          /></label>
+          <label class="field-group"
+            ><span>Flight_no</span
+            ><input id="gFlightNo" type="text" placeholder="5J-637"
+          /></label>
+          <label class="field-group"
+            ><span>Flight_photo (Filename/Ref)</span
+            ><input
+              id="gFlightPhoto"
+              type="text"
+              placeholder="flight_ticket.jpg"
+          /></label>
+          <label class="field-group"
+            ><span>Valid_id (ID Type/Ref)</span
+            ><input
+              id="gValidId"
+              type="text"
+              placeholder="Philippine Passport / National ID"
+              required
+          /></label>
+          <label class="field-group"
+            ><span>Status</span>
+            <select id="gStatus">
+              <option value="Pending">Pending</option>
+              <option value="Processing">Processing</option>
+              <option value="Confirmed">Confirmed</option>
+            </select>
+          </label>
+          <label class="field-group"
+            ><span>Bookinginformation_id (NOT NULL)</span
+            ><input
+              id="gBookingInfoId"
+              type="number"
+              min="1"
+              value="106"
+              required
+          /></label>
+          <label class="field-group"
+            ><span>Tripplanner_id (INT)</span
+            ><input
+              id="gTripplannerId"
+              type="number"
+              min="0"
+              placeholder="Optional"
+          /></label>
+          <label class="field-group"
+            ><span>Localdestination (INT)</span
+            ><input
+              id="gLocalDestId"
+              type="number"
+              min="0"
+              placeholder="Optional"
+          /></label>
+          <label class="field-group"
+            ><span>Beyond_the_philippines_id (INT)</span
+            ><input id="gBeyondId" type="number" min="0" placeholder="Optional"
           /></label>
           <label class="field-group"
             ><span>Amount (&#8369;)</span
             ><input
-              id="qaBookAmt"
+              id="gAmount"
               type="number"
               min="500"
               step="100"
@@ -1219,7 +1253,7 @@
           /></label>
           <label class="field-group"
             ><span>Payment Method</span>
-            <select id="qaBookPay">
+            <select id="gPaymentMethod">
               <option value="GCash">GCash</option>
               <option value="Bank Transfer">Bank Transfer</option>
               <option value="Credit Card">Credit Card</option>
@@ -1227,13 +1261,13 @@
             </select>
           </label>
           <label class="field-group"
-            ><span>Status</span>
-            <select id="qaBookStatus">
-              <option value="Pending">Pending</option>
-              <option value="Processing">Processing</option>
-              <option value="Confirmed">Confirmed</option>
-            </select>
-          </label>
+            ><span>Destination Label</span
+            ><input
+              id="gDestLabel"
+              type="text"
+              value="Puerto Princesa"
+              required
+          /></label>
         </div>
         <div class="dialog-foot">
           <button
@@ -1243,7 +1277,9 @@
           >
             Cancel
           </button>
-          <button type="submit" class="btn-primary-solid">Save Booking</button>
+          <button type="submit" class="btn-primary-solid">
+            Save Guest Record
+          </button>
         </div>
       </form>
     </dialog>

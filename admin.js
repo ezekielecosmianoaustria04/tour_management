@@ -1,17 +1,16 @@
 "use strict";
 
 const STORAGE_KEYS = {
-  session: "ppowAdminLoggedIn_v1",
-  tours: "ppowAdminPackages_v1",
-  bookings: "ppowBookings_v1",
-  inquiries: "ppowInquiries_v1",
+  session: "ppowAdminLoggedIn_v2",
+  tours: "ppowAdminPackages_v2",
+  guests: "ppowGuestInformation_v2",
+  inquiries: "ppowInquiries_v2",
 };
 
 const DEFAULT_TOURS = [
   {
     id: "t-1",
     category: "Tour Only",
-    scope: "Local Destination",
     name: "Underground River Tour",
     destination: "Puerto Princesa",
     price: 2800,
@@ -22,7 +21,6 @@ const DEFAULT_TOURS = [
   {
     id: "t-2",
     category: "Tour Only",
-    scope: "Local Destination",
     name: "Honda Bay Island Hopping",
     destination: "Puerto Princesa",
     price: 2300,
@@ -31,39 +29,27 @@ const DEFAULT_TOURS = [
   },
   {
     id: "t-3",
-    category: "Tour Only",
-    scope: "Local Destination",
-    name: "El Nido Island Hopping Tour A",
-    destination: "El Nido",
-    price: 1600,
-    enabled: true,
-    description: "Big Lagoon, Secret Lagoon, and Shimizu Island.",
-  },
-  {
-    id: "t-4",
-    category: "Customize",
-    scope: "Local Destination",
+    category: "Customized Trip",
     name: "Custom Palawan 4D3N Package",
     destination: "Palawan",
     price: 6500,
     enabled: true,
     description:
-      "Flexible itinerary with private van transfers and hotel options.",
+      "Flexible itinerary with private van transfers and hotel accommodation options.",
+  },
+  {
+    id: "t-4",
+    category: "Local Destination",
+    name: "El Nido Island Hopping Tour A",
+    destination: "El Nido",
+    price: 1600,
+    enabled: true,
+    description:
+      "Big Lagoon, Secret Lagoon, and Shimizu Island full-day boat tour.",
   },
   {
     id: "t-5",
-    category: "Trip Planner",
-    scope: "Local Destination",
-    name: "Drag-and-Drop Barkada Itinerary",
-    destination: "Puerto Princesa & El Nido",
-    price: 8900,
-    enabled: true,
-    description: "Multi-day customized trip planner package.",
-  },
-  {
-    id: "t-6",
-    category: "Tour Only",
-    scope: "Beyond the Philippines",
+    category: "Beyond the Philippines",
     name: "Seoul & Nami Island Getaway",
     destination: "South Korea",
     price: 24500,
@@ -73,81 +59,91 @@ const DEFAULT_TOURS = [
   },
 ];
 
-const DEFAULT_BOOKINGS = [
+// Exact schema matching tblGuestinformation
+const DEFAULT_GUESTS = [
   {
-    id: "BK-1001",
-    customerName: "Maria Santos",
-    customerEmail: "maria.santos@email.com",
-    customerPhone: "0917-410-2219",
-    address: "Mandaragat, Puerto Princesa",
-    tourType: "Tour Only",
-    scope: "Local Destination",
+    Id: 1,
+    Fullname: "Maria Santos",
+    Birthdate: "1996-04-14",
+    Email: "maria.santos@email.com",
+    Contact_no: "0917-410-2219",
+    Passport_no: "P8912345B",
+    Flight_no: "5J-637",
+    Flight_photo: "maria_flight_5j637.jpg",
+    Valid_id: "Philippine Passport",
+    Status: "Confirmed",
+    Tripplanner_id: null,
+    Localdestination: 1,
+    Beyond_the_philippines_id: null,
+    Bookinginformation_id: 101,
+    category: "Tour Only",
     destination: "Puerto Princesa",
     bookingDate: "Nov 25, 2026",
-    guests: 3,
     amount: 8400,
     paymentMethod: "GCash",
-    status: "Confirmed",
   },
   {
-    id: "BK-1002",
-    customerName: "Juan Dela Cruz",
-    customerEmail: "juan.dc@email.com",
-    customerPhone: "0918-882-1044",
-    address: "San Pedro, Puerto Princesa",
-    tourType: "Customize",
-    scope: "Local Destination",
+    Id: 2,
+    Fullname: "Juan Dela Cruz",
+    Birthdate: "1992-09-21",
+    Email: "juan.dc@email.com",
+    Contact_no: "0918-882-1044",
+    Passport_no: "P5521098A",
+    Flight_no: "PR-2785",
+    Flight_photo: "juan_flight_pr2785.jpg",
+    Valid_id: "UMID / Driver License",
+    Status: "Pending",
+    Tripplanner_id: 12,
+    Localdestination: 2,
+    Beyond_the_philippines_id: null,
+    Bookinginformation_id: 102,
+    category: "Customized Trip",
     destination: "Palawan",
     bookingDate: "Nov 22, 2026",
-    guests: 2,
     amount: 13000,
     paymentMethod: "Bank Transfer",
-    status: "Pending",
   },
   {
-    id: "BK-1003",
-    customerName: "Ana Reyes",
-    customerEmail: "ana.reyes@email.com",
-    customerPhone: "0920-334-9901",
-    address: "Taguig City, Metro Manila",
-    tourType: "Trip Planner",
-    scope: "Local Destination",
+    Id: 3,
+    Fullname: "Ana Reyes",
+    Birthdate: "1998-11-05",
+    Email: "ana.reyes@email.com",
+    Contact_no: "0920-334-9901",
+    Passport_no: "P3412987C",
+    Flight_no: "Z2-422",
+    Flight_photo: "ana_flight_z2422.jpg",
+    Valid_id: "National ID (PhilSys)",
+    Status: "Processing",
+    Tripplanner_id: null,
+    Localdestination: 3,
+    Beyond_the_philippines_id: null,
+    Bookinginformation_id: 103,
+    category: "Local Destination",
     destination: "El Nido",
     bookingDate: "Nov 18, 2026",
-    guests: 4,
     amount: 35600,
     paymentMethod: "GCash",
-    status: "Processing",
   },
   {
-    id: "BK-1004",
-    customerName: "Carlos Mendoza",
-    customerEmail: "carlos.m@email.com",
-    customerPhone: "0915-770-4820",
-    address: "Sta. Lourdes, Puerto Princesa",
-    tourType: "Tour Only",
-    scope: "Beyond the Philippines",
+    Id: 4,
+    Fullname: "Carlos Mendoza",
+    Birthdate: "1989-02-19",
+    Email: "carlos.m@email.com",
+    Contact_no: "0915-770-4820",
+    Passport_no: "P9011223D",
+    Flight_no: "KE-624",
+    Flight_photo: "carlos_flight_ke624.jpg",
+    Valid_id: "Philippine Passport",
+    Status: "Confirmed",
+    Tripplanner_id: null,
+    Localdestination: null,
+    Beyond_the_philippines_id: 1,
+    Bookinginformation_id: 104,
+    category: "Beyond the Philippines",
     destination: "South Korea",
     bookingDate: "Nov 12, 2026",
-    guests: 2,
     amount: 49000,
     paymentMethod: "Credit Card",
-    status: "Confirmed",
-  },
-  {
-    id: "BK-1005",
-    customerName: "Isabel Garcia",
-    customerEmail: "isabel.garcia@email.com",
-    customerPhone: "0927-619-3012",
-    address: "Quezon City, Metro Manila",
-    tourType: "Customize",
-    scope: "Local Destination",
-    destination: "Port Barton",
-    bookingDate: "Oct 28, 2026",
-    guests: 2,
-    amount: 13000,
-    paymentMethod: "Others",
-    status: "Confirmed",
   },
 ];
 
@@ -156,21 +152,24 @@ const DEFAULT_INQUIRIES = [
     id: "inq-1",
     name: "Juan Dela Cruz",
     contact: "juan.dc@email.com",
-    message: "Can you recommend a 3-day Palawan family tour?",
+    message:
+      "Can you recommend a 3-day Palawan family tour with private airport pick-up, child-friendly boat transfers in Honda Bay, and flexible meal options for senior citizens?",
     date: "Nov 25, 2026",
   },
   {
     id: "inq-2",
     name: "Maria Santos",
     contact: "maria.santos@email.com",
-    message: "Is the Underground River booking rebookable if weather changes?",
+    message:
+      "Is the Underground River booking rebookable if weather changes or coast guard suspends sea travel on our scheduled morning slot?",
     date: "Nov 22, 2026",
   },
   {
     id: "inq-3",
     name: "Carlos Mendoza",
     contact: "carlos.m@email.com",
-    message: "Do you offer cooperative group discounts for 10 guests?",
+    message:
+      "Do you offer cooperative group discounts for 10 guests traveling together next month including hotel accommodation and van transfers?",
     date: "Nov 19, 2026",
   },
 ];
@@ -239,8 +238,9 @@ const ACCOMMODATIONS_DATA = [
 ];
 
 let currentTourCategoryFilter = "All";
-let currentBookingSubTab = "info";
+let currentBookingSubTab = "guests";
 let currentDestFilter = "All";
+const expandedInquiryIds = new Set();
 
 function readLS(key, fallback) {
   try {
@@ -267,31 +267,17 @@ function getTours() {
   }
   return data.map((item) => ({
     ...item,
-    scope: item.scope || "Local Destination",
     enabled: item.enabled !== false,
   }));
 }
 
-function getBookings() {
-  const data = readLS(STORAGE_KEYS.bookings, null);
+function getGuests() {
+  const data = readLS(STORAGE_KEYS.guests, null);
   if (!Array.isArray(data) || data.length === 0) {
-    writeLS(STORAGE_KEYS.bookings, DEFAULT_BOOKINGS);
-    return [...DEFAULT_BOOKINGS];
+    writeLS(STORAGE_KEYS.guests, DEFAULT_GUESTS);
+    return [...DEFAULT_GUESTS];
   }
-  return data.map((item, idx) => ({
-    ...item,
-    id: item.id || `BK-${1001 + idx}`,
-    scope:
-      item.scope ||
-      (String(item.destination || "")
-        .toLowerCase()
-        .includes("korea") ||
-      String(item.destination || "")
-        .toLowerCase()
-        .includes("japan")
-        ? "Beyond the Philippines"
-        : "Local Destination"),
-  }));
+  return data;
 }
 
 function getInquiries() {
@@ -312,6 +298,34 @@ function statusBadgeClass(status) {
   if (s === "confirmed" || s === "approved") return "badge-confirmed";
   if (s === "processing") return "badge-processing";
   return "badge-pending";
+}
+
+function syncTourCategorySelection(category) {
+  currentTourCategoryFilter = category || "All";
+
+  document.querySelectorAll("#tourCategoryTabs .pill-tab").forEach((tab) => {
+    tab.classList.toggle(
+      "active",
+      tab.dataset.tourCat === currentTourCategoryFilter,
+    );
+  });
+
+  document
+    .querySelectorAll('.nav-subitem[data-view="tours"]')
+    .forEach((sub) => {
+      sub.classList.toggle(
+        "active",
+        sub.dataset.category === currentTourCategoryFilter,
+      );
+    });
+
+  const labelEl = document.getElementById("activeTourCategoryLabel");
+  if (labelEl) {
+    labelEl.textContent =
+      currentTourCategoryFilter === "All"
+        ? "Tour Only"
+        : currentTourCategoryFilter;
+  }
 }
 
 function switchView(viewName) {
@@ -444,8 +458,10 @@ function renderPaymentDonut(period = "month") {
           { label: "Others", pct: 10, color: "#4f46e5" },
         ];
 
-  const bookings = getBookings();
-  const totalPeso = bookings.reduce((sum, b) => sum + Number(b.amount || 0), 0);
+  const totalPeso = getGuests().reduce(
+    (sum, g) => sum + Number(g.amount || 0),
+    0,
+  );
 
   const cx = 75;
   const cy = 75;
@@ -491,64 +507,61 @@ function renderPaymentDonut(period = "month") {
 ========================================================= */
 function renderDashboard() {
   const tours = getTours();
-  const bookings = getBookings();
+  const guests = getGuests();
   const inquiries = getInquiries();
 
   const activeTours = tours.filter((t) => t.enabled);
-  const totalEarnings = bookings.reduce(
+  const totalEarnings = guests.reduce(
     (acc, item) => acc + Number(item.amount || 0),
     0,
   );
-  const uniqueCustomers = new Set(
-    bookings.map((b) => (b.customerEmail || b.customerName).toLowerCase()),
-  ).size;
-  const pendingItems = bookings.filter((b) => b.status === "Pending");
+  const pendingItems = guests.filter((g) => g.Status === "Pending");
 
-  // Bookings for this month (Nov 2026 or current month string)
   const currentMonthShort = new Date().toLocaleDateString("en-US", {
     month: "short",
   });
-  const thisMonthBookings = bookings.filter((b) =>
-    String(b.bookingDate || "")
+  const thisMonthBookings = guests.filter((g) =>
+    String(g.bookingDate || "")
       .toLowerCase()
       .includes(currentMonthShort.toLowerCase()),
   ).length;
 
-  // Category counts (Beyond, Local, Customized, Tour Only)
   const beyondCount =
-    tours.filter((t) => t.scope === "Beyond the Philippines" && t.enabled)
+    tours.filter((t) => t.category === "Beyond the Philippines" && t.enabled)
       .length +
-    bookings.filter((b) => b.scope === "Beyond the Philippines").length;
+    guests.filter(
+      (g) =>
+        g.Beyond_the_philippines_id !== null &&
+        g.Beyond_the_philippines_id !== "",
+    ).length;
 
   const localCount =
-    tours.filter((t) => t.scope === "Local Destination" && t.enabled).length +
-    bookings.filter((b) => b.scope === "Local Destination").length;
+    tours.filter((t) => t.category === "Local Destination" && t.enabled)
+      .length +
+    guests.filter(
+      (g) => g.Localdestination !== null && g.Localdestination !== "",
+    ).length;
 
   const customizedCount =
-    tours.filter(
-      (t) =>
-        (t.category === "Customize" || t.category === "Trip Planner") &&
-        t.enabled,
-    ).length +
-    bookings.filter(
-      (b) => b.tourType === "Customize" || b.tourType === "Trip Planner",
-    ).length;
+    tours.filter((t) => t.category === "Customized Trip" && t.enabled).length +
+    guests.filter((g) => g.Tripplanner_id !== null && g.Tripplanner_id !== "")
+      .length;
 
   const tourOnlyCount =
     tours.filter((t) => t.category === "Tour Only" && t.enabled).length +
-    bookings.filter((b) => b.tourType === "Tour Only").length;
+    guests.filter((g) => g.category === "Tour Only").length;
 
   document.getElementById("kpiTotalCustomers").textContent = (
-    1240 + uniqueCustomers
+    1241 + guests.length
   ).toLocaleString("en-PH");
   document.getElementById("kpiTotalBookings").textContent = (
-    373 + bookings.length
+    374 + guests.length
   ).toLocaleString("en-PH");
   document.getElementById("kpiTotalEarnings").textContent = formatPeso(
-    666950 + totalEarnings,
+    679950 + totalEarnings,
   );
   document.getElementById("kpiTotalTours").textContent = String(
-    36 + activeTours.length,
+    37 + activeTours.length,
   );
 
   document.getElementById("kpiCountBeyond").textContent = String(beyondCount);
@@ -559,8 +572,7 @@ function renderDashboard() {
     String(tourOnlyCount);
 
   const monthEl = document.getElementById("bookingsThisMonthValue");
-  if (monthEl)
-    monthEl.textContent = String(thisMonthBookings || bookings.length);
+  if (monthEl) monthEl.textContent = String(thisMonthBookings || guests.length);
 
   // Notifications
   const badgeEl = document.getElementById("notifBadgeCount");
@@ -572,10 +584,10 @@ function renderDashboard() {
         ? pendingItems
             .map(
               (p) =>
-                `<li><strong>${p.customerName}</strong> &mdash; Pending ${p.tourType} (${p.destination})</li>`,
+                `<li><strong>${p.Fullname}</strong> &mdash; Booking ID #${p.Bookinginformation_id} (${p.destination})</li>`,
             )
             .join("")
-        : "<li>No pending reservations right now.</li>";
+        : "<li>No pending guest records right now.</li>";
   }
 
   // Top Destinations
@@ -599,41 +611,51 @@ function renderDashboard() {
       .join("");
   }
 
-  // Recent Bookings
+  // Recent Guest Bookings
   const recentBookTbody = document.getElementById("recentBookingsTbody");
   if (recentBookTbody) {
-    recentBookTbody.innerHTML = bookings
+    recentBookTbody.innerHTML = guests
       .slice(0, 5)
       .map(
-        (b, idx) => `
+        (g) => `
         <tr>
-          <td>${idx + 1}.</td>
-          <td><strong>${b.customerName}</strong></td>
-          <td>${b.tourType}</td>
-          <td>${b.destination}</td>
-          <td>${b.bookingDate}</td>
-          <td><span class="badge-pill ${statusBadgeClass(b.status)}">${b.status}</span></td>
+          <td>#${g.Id}</td>
+          <td><strong>${g.Fullname}</strong></td>
+          <td>${g.category || "Tour Only"}</td>
+          <td>${g.destination || "Puerto Princesa"}</td>
+          <td>${g.Bookinginformation_id}</td>
+          <td><span class="badge-pill ${statusBadgeClass(g.Status)}">${g.Status}</span></td>
         </tr>
       `,
       )
       .join("");
   }
 
-  // Recent Inquiries
+  // Recent Inquiries with Arrow Down expand button
   const recentInqTbody = document.getElementById("recentInquiriesTbody");
   if (recentInqTbody) {
     recentInqTbody.innerHTML = inquiries
       .slice(0, 4)
-      .map(
-        (q, idx) => `
-        <tr>
-          <td>${idx + 1}.</td>
-          <td>${q.name}</td>
-          <td>${q.message}</td>
-          <td>${q.date}</td>
-        </tr>
-      `,
-      )
+      .map((q, idx) => {
+        const isOpen = expandedInquiryIds.has(`dash-${q.id}`);
+        return `
+          <tr>
+            <td>${idx + 1}.</td>
+            <td><strong>${q.name}</strong></td>
+            <td class="${isOpen ? "msg-cell-expanded" : "msg-cell-clamped"}">${q.message}</td>
+            <td>
+              <button
+                type="button"
+                class="arrow-expand-btn ${isOpen ? "is-open" : ""}"
+                data-toggle-inq="dash-${q.id}"
+                title="Expand or collapse message"
+                aria-label="Toggle message"
+              >&#9662;</button>
+            </td>
+            <td>${q.date}</td>
+          </tr>
+        `;
+      })
       .join("");
   }
 
@@ -646,7 +668,7 @@ function renderDashboard() {
 }
 
 /* =========================================================
-   TOURS CRUD WITH SINGLE ENABLE/DISABLE TOGGLE BUTTON
+   TOURS CRUD (AUTO-FILTER & AUTO-CATEGORY, ONLY 4 FORM INPUTS)
 ========================================================= */
 function renderToursCrud() {
   const tbody = document.getElementById("toursCrudTbody");
@@ -677,7 +699,7 @@ function renderToursCrud() {
               <strong>${t.name}</strong>
               <br><small style="color:#6b7280">${t.description}</small>
             </td>
-            <td>${t.category}<br><small style="color:#6b7280">${t.scope}</small></td>
+            <td><strong>${t.category}</strong></td>
             <td>${t.destination}</td>
             <td><strong>${formatPeso(t.price)}</strong></td>
             <td>
@@ -701,11 +723,11 @@ function renderToursCrud() {
         `,
           )
           .join("")
-      : `<tr><td colspan="6" style="color:#6b7280">No tour packages matched your filter.</td></tr>`;
+      : `<tr><td colspan="6" style="color:#6b7280">No tour packages found under <strong>${currentTourCategoryFilter}</strong>.</td></tr>`;
 }
 
 /* =========================================================
-   MERGED CUSTOMER & BOOKINGS MODULE
+   GUEST INFORMATION MODULE (tblGuestinformation)
 ========================================================= */
 function renderBookingsModule() {
   const thead = document.getElementById("bookingsDynamicThead");
@@ -719,51 +741,35 @@ function renderBookingsModule() {
     .trim()
     .toLowerCase();
 
-  const list = getBookings().filter((b) => {
-    const stOk = statusFilter === "All" || b.status === statusFilter;
+  const list = getGuests().filter((g) => {
+    const stOk = statusFilter === "All" || g.Status === statusFilter;
     const qOk =
       !q ||
-      b.customerName.toLowerCase().includes(q) ||
-      (b.customerEmail || "").toLowerCase().includes(q) ||
-      b.tourType.toLowerCase().includes(q) ||
-      b.destination.toLowerCase().includes(q);
+      String(g.Fullname || "")
+        .toLowerCase()
+        .includes(q) ||
+      String(g.Email || "")
+        .toLowerCase()
+        .includes(q) ||
+      String(g.Contact_no || "")
+        .toLowerCase()
+        .includes(q) ||
+      String(g.Passport_no || "")
+        .toLowerCase()
+        .includes(q) ||
+      String(g.Flight_no || "")
+        .toLowerCase()
+        .includes(q);
     return stOk && qOk;
   });
 
-  if (currentBookingSubTab === "guests") {
-    if (heading) heading.textContent = "Customer & Guest Contact Directory";
-    thead.innerHTML = `
-      <tr>
-        <th>Customer Name</th>
-        <th>Email &amp; Phone</th>
-        <th>Address</th>
-        <th>Guests</th>
-        <th>Booked Package</th>
-      </tr>
-    `;
-    tbody.innerHTML = list
-      .map(
-        (b) => `
-        <tr>
-          <td><strong>${b.customerName}</strong></td>
-          <td>${b.customerEmail || "N/A"}<br><small style="color:#6b7280">${b.customerPhone || "N/A"}</small></td>
-          <td>${b.address || "Puerto Princesa"}</td>
-          <td>${b.guests || 1} pax</td>
-          <td>${b.tourType} (${b.destination})</td>
-        </tr>
-      `,
-      )
-      .join("");
-    return;
-  }
-
   if (currentBookingSubTab === "payments") {
-    if (heading) heading.textContent = "Payment Collections & Status";
+    if (heading) heading.textContent = "Guest Payment Collections & Status";
     thead.innerHTML = `
       <tr>
-        <th>Ref #</th>
-        <th>Customer</th>
-        <th>Tour Type</th>
+        <th>Id</th>
+        <th>Bookinginformation_id</th>
+        <th>Fullname</th>
         <th>Payment Method</th>
         <th>Earnings</th>
         <th>Status</th>
@@ -771,14 +777,14 @@ function renderBookingsModule() {
     `;
     tbody.innerHTML = list
       .map(
-        (b) => `
+        (g) => `
         <tr>
-          <td><strong>${b.id}</strong></td>
-          <td>${b.customerName}</td>
-          <td>${b.tourType} &mdash; ${b.destination}</td>
-          <td>${b.paymentMethod || "GCash"}</td>
-          <td><strong>${formatPeso(b.amount)}</strong></td>
-          <td><span class="badge-pill ${statusBadgeClass(b.status)}">${b.status}</span></td>
+          <td><strong>${g.Id}</strong></td>
+          <td>${g.Bookinginformation_id}</td>
+          <td>${g.Fullname}</td>
+          <td>${g.paymentMethod || "GCash"}</td>
+          <td><strong>${formatPeso(g.amount)}</strong></td>
+          <td><span class="badge-pill ${statusBadgeClass(g.Status)}">${g.Status}</span></td>
         </tr>
       `,
       )
@@ -786,98 +792,94 @@ function renderBookingsModule() {
     return;
   }
 
-  if (heading) heading.textContent = "Customer Reservations & Status";
+  if (heading) heading.textContent = "Guest Information (tblGuestinformation)";
   thead.innerHTML = `
     <tr>
-      <th>Customer Details</th>
-      <th>Tour &amp; Destination</th>
-      <th>Date &amp; Guests</th>
+      <th>Id</th>
+      <th>Fullname</th>
+      <th>Birthdate</th>
+      <th>Email &amp; Contact_no</th>
+      <th>Passport_no</th>
+      <th>Flight_no &amp; Flight_photo</th>
+      <th>Valid_id</th>
+      <th>Linked IDs</th>
       <th>Status</th>
       <th>Actions</th>
     </tr>
   `;
+
   tbody.innerHTML =
     list.length > 0
       ? list
           .map(
-            (b) => `
+            (g) => `
           <tr>
+            <td><strong>${g.Id}</strong></td>
+            <td><strong>${g.Fullname}</strong></td>
+            <td>${g.Birthdate || "N/A"}</td>
+            <td>${g.Email}<br><small style="color:#6b7280">${g.Contact_no}</small></td>
+            <td>${g.Passport_no || "N/A"}</td>
+            <td>${g.Flight_no || "N/A"}<br><small style="color:#6b7280">${g.Flight_photo || "No file"}</small></td>
+            <td>${g.Valid_id || "N/A"}</td>
             <td>
-              <strong>${b.customerName}</strong><br>
-              <small style="color:#6b7280">${b.customerEmail || ""} &middot; ${b.customerPhone || ""}</small>
+              <small style="display:block;color:#374151">Bookinginformation_id: <strong>${g.Bookinginformation_id}</strong></small>
+              <small style="display:block;color:#6b7280">Tripplanner_id: ${g.Tripplanner_id ?? "NULL"}</small>
+              <small style="display:block;color:#6b7280">Localdestination: ${g.Localdestination ?? "NULL"}</small>
+              <small style="display:block;color:#6b7280">Beyond_the_philippines_id: ${g.Beyond_the_philippines_id ?? "NULL"}</small>
             </td>
-            <td>${b.tourType} &mdash; ${b.destination} (${formatPeso(b.amount)})</td>
-            <td>${b.bookingDate} &middot; ${b.guests || 1} pax</td>
-            <td><span class="badge-pill ${statusBadgeClass(b.status)}">${b.status}</span></td>
+            <td><span class="badge-pill ${statusBadgeClass(g.Status)}">${g.Status}</span></td>
             <td>
               <div class="action-mini-group">
-                ${b.status !== "Confirmed" ? `<button type="button" class="mini-btn-ok" data-approve-booking="${b.id}">Confirm</button>` : ""}
-                <button type="button" class="mini-btn-del" data-del-booking="${b.id}">Delete</button>
+                ${g.Status !== "Confirmed" ? `<button type="button" class="mini-btn-ok" data-approve-guest="${g.Id}">Confirm</button>` : ""}
+                <button type="button" class="mini-btn-del" data-del-guest="${g.Id}">Delete</button>
               </div>
             </td>
           </tr>
         `,
           )
           .join("")
-      : `<tr><td colspan="5" style="color:#6b7280">No customer bookings found.</td></tr>`;
+      : `<tr><td colspan="10" style="color:#6b7280">No guest information records found.</td></tr>`;
 }
 
 /* =========================================================
-   REPORTS MODULE RENDERER
+   REPORTS MODULE
 ========================================================= */
 function renderReportsModule() {
-  const bookings = getBookings();
-  const totalEarnings = bookings.reduce((s, b) => s + Number(b.amount || 0), 0);
-  const confirmedEarnings = bookings
-    .filter((b) => b.status === "Confirmed")
-    .reduce((s, b) => s + Number(b.amount || 0), 0);
-  const pendingEarnings = bookings
-    .filter((b) => b.status !== "Confirmed")
-    .reduce((s, b) => s + Number(b.amount || 0), 0);
-  const totalPax = bookings.reduce((s, b) => s + Number(b.guests || 1), 0);
-  const avgVal = bookings.length
-    ? Math.round(totalEarnings / bookings.length)
-    : 0;
+  const guests = getGuests();
+  const totalEarnings = guests.reduce((s, g) => s + Number(g.amount || 0), 0);
+  const confirmedEarnings = guests
+    .filter((g) => g.Status === "Confirmed")
+    .reduce((s, g) => s + Number(g.amount || 0), 0);
+  const pendingEarnings = guests
+    .filter((g) => g.Status !== "Confirmed")
+    .reduce((s, g) => s + Number(g.amount || 0), 0);
+  const avgVal = guests.length ? Math.round(totalEarnings / guests.length) : 0;
 
   document.getElementById("repConfirmedEarnings").textContent =
     formatPeso(confirmedEarnings);
   document.getElementById("repPendingEarnings").textContent =
     formatPeso(pendingEarnings);
   document.getElementById("repAvgBooking").textContent = formatPeso(avgVal);
-  document.getElementById("repTotalPax").textContent = `${totalPax} pax`;
+  document.getElementById("repTotalPax").textContent = String(guests.length);
 
-  // Category Breakdown
-  const catGroups = [
-    {
-      label: "Local Destination",
-      filter: (b) => b.scope === "Local Destination",
-    },
-    {
-      label: "Beyond the Philippines",
-      filter: (b) => b.scope === "Beyond the Philippines",
-    },
-    {
-      label: "Customized / Trip Planner",
-      filter: (b) =>
-        b.tourType === "Customize" || b.tourType === "Trip Planner",
-    },
-    { label: "Tour Only", filter: (b) => b.tourType === "Tour Only" },
+  const categories = [
+    "Tour Only",
+    "Customized Trip",
+    "Local Destination",
+    "Beyond the Philippines",
   ];
-
   const catTbody = document.getElementById("reportCategoryTbody");
   if (catTbody) {
-    catTbody.innerHTML = catGroups
-      .map((g) => {
-        const rows = bookings.filter(g.filter);
-        const amt = rows.reduce((s, b) => s + Number(b.amount || 0), 0);
-        const pax = rows.reduce((s, b) => s + Number(b.guests || 1), 0);
+    catTbody.innerHTML = categories
+      .map((cat) => {
+        const rows = guests.filter((g) => g.category === cat);
+        const amt = rows.reduce((s, g) => s + Number(g.amount || 0), 0);
         const pct =
           totalEarnings > 0 ? Math.round((amt / totalEarnings) * 100) : 0;
         return `
           <tr>
-            <td><strong>${g.label}</strong></td>
+            <td><strong>${cat}</strong></td>
             <td>${rows.length}</td>
-            <td>${pax} pax</td>
             <td><strong>${formatPeso(amt)}</strong></td>
             <td>${pct}%</td>
           </tr>
@@ -886,14 +888,13 @@ function renderReportsModule() {
       .join("");
   }
 
-  // Payment Method Breakdown
   const methods = ["GCash", "Bank Transfer", "Credit Card", "Others"];
   const payTbody = document.getElementById("reportPaymentTbody");
   if (payTbody) {
     payTbody.innerHTML = methods
       .map((m) => {
-        const rows = bookings.filter((b) => (b.paymentMethod || "GCash") === m);
-        const amt = rows.reduce((s, b) => s + Number(b.amount || 0), 0);
+        const rows = guests.filter((g) => (g.paymentMethod || "GCash") === m);
+        const amt = rows.reduce((s, g) => s + Number(g.amount || 0), 0);
         return `
           <tr>
             <td><strong>${m}</strong></td>
@@ -905,22 +906,20 @@ function renderReportsModule() {
       .join("");
   }
 
-  // Itemized Ledger
   const ledgerTbody = document.getElementById("reportLedgerTbody");
   if (ledgerTbody) {
-    ledgerTbody.innerHTML = bookings
+    ledgerTbody.innerHTML = guests
       .map(
-        (b) => `
+        (g) => `
         <tr>
-          <td><strong>${b.id}</strong></td>
-          <td>${b.bookingDate}</td>
-          <td>${b.customerName}</td>
-          <td>${b.tourType}</td>
-          <td>${b.destination}</td>
-          <td>${b.guests || 1}</td>
-          <td>${b.paymentMethod || "GCash"}</td>
-          <td><span class="badge-pill ${statusBadgeClass(b.status)}">${b.status}</span></td>
-          <td><strong>${formatPeso(b.amount)}</strong></td>
+          <td><strong>${g.Id}</strong></td>
+          <td>${g.Bookinginformation_id}</td>
+          <td>${g.Fullname}</td>
+          <td>${g.category || "Tour Only"}</td>
+          <td>${g.destination || "Puerto Princesa"}</td>
+          <td>${g.paymentMethod || "GCash"}</td>
+          <td><span class="badge-pill ${statusBadgeClass(g.Status)}">${g.Status}</span></td>
+          <td><strong>${formatPeso(g.amount)}</strong></td>
         </tr>
       `,
       )
@@ -929,35 +928,43 @@ function renderReportsModule() {
 }
 
 function exportReportToCsv() {
-  const bookings = getBookings();
+  const guests = getGuests();
   const headers = [
-    "Ref ID",
-    "Booking Date",
-    "Customer Name",
+    "Id",
+    "Fullname",
+    "Birthdate",
     "Email",
-    "Tour Type",
-    "Scope",
-    "Destination",
-    "Guests",
-    "Payment Method",
+    "Contact_no",
+    "Passport_no",
+    "Flight_no",
+    "Flight_photo",
+    "Valid_id",
     "Status",
-    "Earnings (PHP)",
+    "Tripplanner_id",
+    "Localdestination",
+    "Beyond_the_philippines_id",
+    "Bookinginformation_id",
+    "Earnings",
   ];
   const lines = [headers.join(",")];
 
-  bookings.forEach((b) => {
+  guests.forEach((g) => {
     const row = [
-      b.id,
-      `"${b.bookingDate}"`,
-      `"${b.customerName}"`,
-      `"${b.customerEmail || ""}"`,
-      `"${b.tourType}"`,
-      `"${b.scope}"`,
-      `"${b.destination}"`,
-      b.guests || 1,
-      `"${b.paymentMethod || "GCash"}"`,
-      b.status,
-      Number(b.amount || 0),
+      g.Id,
+      `"${g.Fullname}"`,
+      `"${g.Birthdate || ""}"`,
+      `"${g.Email || ""}"`,
+      `"${g.Contact_no || ""}"`,
+      `"${g.Passport_no || ""}"`,
+      `"${g.Flight_no || ""}"`,
+      `"${g.Flight_photo || ""}"`,
+      `"${g.Valid_id || ""}"`,
+      g.Status,
+      g.Tripplanner_id ?? "",
+      g.Localdestination ?? "",
+      g.Beyond_the_philippines_id ?? "",
+      g.Bookinginformation_id,
+      Number(g.amount || 0),
     ];
     lines.push(row.join(","));
   });
@@ -968,7 +975,7 @@ function exportReportToCsv() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "PPW-Cooperative-Earnings-Report.csv";
+  a.download = "PPW-GuestInformation-Report.csv";
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -976,7 +983,7 @@ function exportReportToCsv() {
 }
 
 /* =========================================================
-   OTHER SUB-VIEWS
+   OTHER SUB-VIEWS (INCLUDING INQUIRIES WITH ARROW DOWN)
 ========================================================= */
 function renderDestinationsGrid() {
   const grid = document.getElementById("destinationsCardsGrid");
@@ -1021,18 +1028,28 @@ function renderAllInquiries() {
   const tbody = document.getElementById("allInquiriesTbody");
   if (!tbody) return;
   tbody.innerHTML = getInquiries()
-    .map(
-      (q, i) => `
-      <tr>
-        <td>${i + 1}.</td>
-        <td><strong>${q.name}</strong></td>
-        <td>${q.contact || "Customer"}</td>
-        <td>${q.message}</td>
-        <td>${q.date}</td>
-        <td><button type="button" class="mini-btn-del" data-del-inq="${q.id}">Remove</button></td>
-      </tr>
-    `,
-    )
+    .map((q, i) => {
+      const isOpen = expandedInquiryIds.has(`full-${q.id}`);
+      return `
+        <tr>
+          <td>${i + 1}.</td>
+          <td><strong>${q.name}</strong></td>
+          <td>${q.contact || "Customer"}</td>
+          <td class="${isOpen ? "msg-cell-expanded" : "msg-cell-clamped"}">${q.message}</td>
+          <td>
+            <button
+              type="button"
+              class="arrow-expand-btn ${isOpen ? "is-open" : ""}"
+              data-toggle-inq="full-${q.id}"
+              title="Expand or collapse message"
+              aria-label="Toggle message"
+            >&#9662;</button>
+          </td>
+          <td>${q.date}</td>
+          <td><button type="button" class="mini-btn-del" data-del-inq="${q.id}">Remove</button></td>
+        </tr>
+      `;
+    })
     .join("");
 }
 
@@ -1066,15 +1083,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sub.addEventListener("click", () => {
       const targetView = sub.dataset.view;
       if (sub.dataset.category) {
-        currentTourCategoryFilter = sub.dataset.category;
-        document
-          .querySelectorAll("#tourCategoryTabs .pill-tab")
-          .forEach((p) => {
-            p.classList.toggle(
-              "active",
-              p.dataset.tourCat === currentTourCategoryFilter,
-            );
-          });
+        syncTourCategorySelection(sub.dataset.category);
       }
       if (sub.dataset.bookingTab) {
         currentBookingSubTab = sub.dataset.bookingTab;
@@ -1099,27 +1108,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-jump-view]").forEach((el) => {
     el.addEventListener("click", () => switchView(el.dataset.jumpView));
   });
-  document.querySelectorAll("[data-jump-dest]").forEach((el) => {
-    el.addEventListener("click", () => {
-      currentDestFilter = el.dataset.jumpDest;
-      document.querySelectorAll("#destFilterTabs .pill-tab").forEach((p) => {
-        p.classList.toggle(
-          "active",
-          p.dataset.destFilter === currentDestFilter,
-        );
-      });
-      switchView("destinations");
-    });
-  });
   document.querySelectorAll("[data-jump-tourcat]").forEach((el) => {
     el.addEventListener("click", () => {
-      currentTourCategoryFilter = el.dataset.jumpTourcat;
-      document.querySelectorAll("#tourCategoryTabs .pill-tab").forEach((p) => {
-        p.classList.toggle(
-          "active",
-          p.dataset.tourCat === currentTourCategoryFilter,
-        );
-      });
+      syncTourCategorySelection(el.dataset.jumpTourcat);
       switchView("tours");
     });
   });
@@ -1162,7 +1153,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderPaymentDonut(e.target.value);
     });
 
-  // Quick actions (Create Booking, Add Tour Package, Generate Report)
+  // Quick actions
   const dlg = document.getElementById("quickActionDialog");
   document
     .getElementById("qaCreateBookingBtn")
@@ -1179,65 +1170,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("qaAddTourBtn")?.addEventListener("click", () => {
     switchView("tours");
-    document.getElementById("tourNameInput")?.focus();
+    document.getElementById("tourDestInput")?.focus();
   });
   document
     .getElementById("qaOpenReportsBtn")
     ?.addEventListener("click", () => switchView("reports"));
 
-  // Save Booking Modal
+  // Save Guest Information Modal (tblGuestinformation)
   document
     .getElementById("quickActionForm")
     ?.addEventListener("submit", (e) => {
       e.preventDefault();
-      const customerName = document.getElementById("qaBookName")?.value.trim();
-      const customerEmail = document
-        .getElementById("qaBookEmail")
-        ?.value.trim();
-      const customerPhone = document
-        .getElementById("qaBookPhone")
-        ?.value.trim();
-      const tourType =
-        document.getElementById("qaBookType")?.value || "Tour Only";
-      const scope =
-        document.getElementById("qaBookScope")?.value || "Local Destination";
-      const destination =
-        document.getElementById("qaBookDest")?.value.trim() ||
-        "Puerto Princesa";
-      const guests = Number(
-        document.getElementById("qaBookGuests")?.value || 2,
+      const Fullname = document.getElementById("gFullname")?.value.trim();
+      const Birthdate = document.getElementById("gBirthdate")?.value || "";
+      const Email = document.getElementById("gEmail")?.value.trim();
+      const Contact_no = document.getElementById("gContactNo")?.value.trim();
+      const Passport_no =
+        document.getElementById("gPassportNo")?.value.trim() || null;
+      const Flight_no =
+        document.getElementById("gFlightNo")?.value.trim() || null;
+      const Flight_photo =
+        document.getElementById("gFlightPhoto")?.value.trim() || null;
+      const Valid_id = document.getElementById("gValidId")?.value.trim() || "";
+      const Status = document.getElementById("gStatus")?.value || "Pending";
+      const Bookinginformation_id = Number(
+        document.getElementById("gBookingInfoId")?.value || 101,
       );
-      const amount = Number(
-        document.getElementById("qaBookAmt")?.value || 2800,
-      );
-      const paymentMethod =
-        document.getElementById("qaBookPay")?.value || "GCash";
-      const status =
-        document.getElementById("qaBookStatus")?.value || "Pending";
 
-      if (customerName) {
-        const list = getBookings();
+      const tpRaw = document.getElementById("gTripplannerId")?.value.trim();
+      const ldRaw = document.getElementById("gLocalDestId")?.value.trim();
+      const bpRaw = document.getElementById("gBeyondId")?.value.trim();
+
+      const Tripplanner_id = tpRaw !== "" ? Number(tpRaw) : null;
+      const Localdestination = ldRaw !== "" ? Number(ldRaw) : null;
+      const Beyond_the_philippines_id = bpRaw !== "" ? Number(bpRaw) : null;
+
+      const amount = Number(document.getElementById("gAmount")?.value || 2800);
+      const paymentMethod =
+        document.getElementById("gPaymentMethod")?.value || "GCash";
+      const destination =
+        document.getElementById("gDestLabel")?.value.trim() ||
+        "Puerto Princesa";
+
+      let category = "Tour Only";
+      if (Beyond_the_philippines_id !== null)
+        category = "Beyond the Philippines";
+      else if (Tripplanner_id !== null) category = "Customized Trip";
+      else if (Localdestination !== null) category = "Local Destination";
+
+      if (Fullname) {
+        const list = getGuests();
+        const nextId =
+          list.reduce((max, item) => Math.max(max, Number(item.Id || 0)), 0) +
+          1;
         const today = new Date().toLocaleDateString("en-US", {
           month: "short",
           day: "2-digit",
           year: "numeric",
         });
         list.unshift({
-          id: "BK-" + String(1001 + list.length),
-          customerName,
-          customerEmail,
-          customerPhone,
-          address: "Puerto Princesa",
-          tourType,
-          scope,
+          Id: nextId,
+          Fullname,
+          Birthdate,
+          Email,
+          Contact_no,
+          Passport_no,
+          Flight_no,
+          Flight_photo,
+          Valid_id,
+          Status,
+          Tripplanner_id,
+          Localdestination,
+          Beyond_the_philippines_id,
+          Bookinginformation_id,
+          category,
           destination,
           bookingDate: today,
-          guests,
           amount,
           paymentMethod,
-          status,
         });
-        writeLS(STORAGE_KEYS.bookings, list);
+        writeLS(STORAGE_KEYS.guests, list);
       }
 
       e.target.reset();
@@ -1246,14 +1258,10 @@ document.addEventListener("DOMContentLoaded", () => {
       renderAllSubViews();
     });
 
-  // Tours CRUD & Single Enable/Disable Toggle Button
+  // Tours Category Tabs & CRUD
   document.querySelectorAll("#tourCategoryTabs .pill-tab").forEach((tab) => {
     tab.addEventListener("click", () => {
-      currentTourCategoryFilter = tab.dataset.tourCat;
-      document
-        .querySelectorAll("#tourCategoryTabs .pill-tab")
-        .forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
+      syncTourCategorySelection(tab.dataset.tourCat);
       renderToursCrud();
     });
   });
@@ -1265,32 +1273,27 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("tourCrudForm")?.addEventListener("submit", (e) => {
     e.preventDefault();
     const editId = document.getElementById("editingTourId").value;
-    const category = document.getElementById("tourCategoryInput").value;
-    const scope = document.getElementById("tourScopeInput").value;
-    const name = document.getElementById("tourNameInput").value.trim();
     const destination = document.getElementById("tourDestInput").value.trim();
+    const name = document.getElementById("tourNameInput").value.trim();
     const price = Number(document.getElementById("tourPriceInput").value);
     const description = document.getElementById("tourDescInput").value.trim();
     if (!name || !destination || !description) return;
 
+    const assignedCategory =
+      currentTourCategoryFilter === "All"
+        ? "Tour Only"
+        : currentTourCategoryFilter;
     const list = getTours();
+
     if (editId) {
       const idx = list.findIndex((x) => x.id === editId);
-      if (idx !== -1)
-        list[idx] = {
-          ...list[idx],
-          category,
-          scope,
-          name,
-          destination,
-          price,
-          description,
-        };
+      if (idx !== -1) {
+        list[idx] = { ...list[idx], name, destination, price, description };
+      }
     } else {
       list.unshift({
         id: "t-" + Date.now(),
-        category,
-        scope,
+        category: assignedCategory,
         name,
         destination,
         price,
@@ -1327,11 +1330,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const pkg = getTours().find((x) => x.id === editBtn.dataset.editTour);
       if (!pkg) return;
       document.getElementById("editingTourId").value = pkg.id;
-      document.getElementById("tourCategoryInput").value = pkg.category;
-      document.getElementById("tourScopeInput").value =
-        pkg.scope || "Local Destination";
-      document.getElementById("tourNameInput").value = pkg.name;
       document.getElementById("tourDestInput").value = pkg.destination;
+      document.getElementById("tourNameInput").value = pkg.name;
       document.getElementById("tourPriceInput").value = pkg.price;
       document.getElementById("tourDescInput").value = pkg.description;
       document.getElementById("tourFormHeading").textContent =
@@ -1349,7 +1349,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Bookings sub-tabs & status actions
+  // Guest Information sub-tabs & status actions
   document.querySelectorAll("#bookingSubTabs .pill-tab").forEach((tab) => {
     tab.addEventListener("click", () => {
       currentBookingSubTab = tab.dataset.bsub;
@@ -1371,26 +1371,38 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("bookingsDynamicTbody")
     ?.addEventListener("click", (e) => {
-      const appBtn = e.target.closest("[data-approve-booking]");
-      const delBtn = e.target.closest("[data-del-booking]");
+      const appBtn = e.target.closest("[data-approve-guest]");
+      const delBtn = e.target.closest("[data-del-guest]");
       if (appBtn) {
-        const updated = getBookings().map((b) =>
-          b.id === appBtn.dataset.approveBooking
-            ? { ...b, status: "Confirmed" }
-            : b,
+        const targetId = Number(appBtn.dataset.approveGuest);
+        const updated = getGuests().map((g) =>
+          Number(g.Id) === targetId ? { ...g, Status: "Confirmed" } : g,
         );
-        writeLS(STORAGE_KEYS.bookings, updated);
+        writeLS(STORAGE_KEYS.guests, updated);
         renderDashboard();
         renderAllSubViews();
       } else if (delBtn) {
-        const updated = getBookings().filter(
-          (b) => b.id !== delBtn.dataset.delBooking,
-        );
-        writeLS(STORAGE_KEYS.bookings, updated);
+        const targetId = Number(delBtn.dataset.delGuest);
+        const updated = getGuests().filter((g) => Number(g.Id) !== targetId);
+        writeLS(STORAGE_KEYS.guests, updated);
         renderDashboard();
         renderAllSubViews();
       }
     });
+
+  // Arrow Down Expand/Collapse for Inquiries (both Dashboard and Inquiry page)
+  document.body.addEventListener("click", (e) => {
+    const arrowBtn = e.target.closest("[data-toggle-inq]");
+    if (!arrowBtn) return;
+    const key = arrowBtn.dataset.toggleInq;
+    if (expandedInquiryIds.has(key)) {
+      expandedInquiryIds.delete(key);
+    } else {
+      expandedInquiryIds.add(key);
+    }
+    renderDashboard();
+    renderAllInquiries();
+  });
 
   // Reports export & print
   document
@@ -1455,12 +1467,13 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("restoreAllDemoDataBtn")
     ?.addEventListener("click", () => {
       writeLS(STORAGE_KEYS.tours, DEFAULT_TOURS);
-      writeLS(STORAGE_KEYS.bookings, DEFAULT_BOOKINGS);
+      writeLS(STORAGE_KEYS.guests, DEFAULT_GUESTS);
       writeLS(STORAGE_KEYS.inquiries, DEFAULT_INQUIRIES);
       renderDashboard();
       renderAllSubViews();
     });
 
+  syncTourCategorySelection("All");
   const isLoggedIn = Boolean(readLS(STORAGE_KEYS.session, true));
   setAuthUnlocked(isLoggedIn);
 });
