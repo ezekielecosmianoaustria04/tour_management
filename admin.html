@@ -4,333 +4,1248 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard | Puerto Princesa of Wonder</title>
-    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="admin.css" />
     <script src="admin.js" defer></script>
   </head>
-  <body class="admin-page">
-    <header class="navbar">
-      <div class="brand-container">
-        <div class="company-logo">
+  <body class="ppow-admin-body">
+    <!-- AUTH GATE -->
+    <section id="adminAuthGate" class="auth-gate-overlay" hidden>
+      <div class="auth-gate-card">
+        <div class="auth-gate-brand">
           <img
             src="logo_travel_and_tour.jpg"
-            alt="Puerto Princesa of Wonder Logo"
+            alt="Logo"
             onerror="this.style.display = 'none'"
           />
-        </div>
-        <div class="brand">
-          Puerto Princesa of Wonder Services Cooperative Travel and Tours
-        </div>
-      </div>
-
-      <nav class="nav-links" aria-label="Admin navigation">
-        <a href="index.html">Home</a>
-        <a href="tripplanner.html">Trip Planner</a>
-        <a href="tripplanner-customized.html">Customized</a>
-        <a href="local-destinations.html">Local Destinations</a>
-        <a href="beyond-philippines.html">Beyond Philippines</a>
-        <a href="admin.html" class="admin-active-link">Admin</a>
-      </nav>
-    </header>
-
-    <main class="admin-main">
-      <!-- ADMIN ACCOUNT / LOGIN GATE -->
-      <section
-        id="adminAuthSection"
-        class="admin-auth-card"
-        aria-labelledby="adminAuthTitle"
-      >
-        <span class="admin-kicker">USER ADMIN ACCESS</span>
-        <h1 id="adminAuthTitle">Admin Account Sign-In</h1>
-        <p>
-          Sign in to manage Tour Only, Customized, Local Destination, and Beyond
-          the Philippines packages, plus pending customer bookings.
-        </p>
-
-        <form id="adminLoginForm" class="admin-login-form">
-          <div class="admin-field">
-            <label for="adminUsername">Admin Username</label>
-            <input id="adminUsername" type="text" value="admin" required />
+          <div>
+            <span class="auth-kicker">COOPERATIVE ADMIN PORTAL</span>
+            <h1>Ms. Jeannyveve Cusi</h1>
           </div>
-          <div class="admin-field">
-            <label for="adminPasscode">Passcode</label>
+        </div>
+        <p>
+          Sign in to manage tour operations, reservations, and cooperative sales
+          reports.
+        </p>
+        <form id="adminGateForm" class="auth-gate-form">
+          <label>
+            <span>Email Address</span>
             <input
-              id="adminPasscode"
-              type="password"
-              value="wonder2026"
+              id="gateEmail"
+              type="email"
+              value="jeannyveve.cusi@yahoo.com"
               required
             />
-          </div>
-          <div class="admin-auth-actions">
-            <button type="submit" class="admin-btn-primary">
-              Sign In to Admin
+          </label>
+          <label>
+            <span>Password</span>
+            <input
+              id="gatePassword"
+              type="password"
+              value="admin123"
+              required
+            />
+          </label>
+          <div class="auth-gate-actions">
+            <button type="submit" class="btn-primary-solid">Sign In</button>
+            <button type="button" id="gateQuickBtn" class="btn-neutral-outline">
+              Quick Unlock
             </button>
-            <button
-              type="button"
-              id="quickUnlockBtn"
-              class="admin-btn-secondary"
-            >
-              Quick Demo Unlock
-            </button>
           </div>
+          <p id="gateError" class="gate-error" hidden></p>
         </form>
-        <p id="adminAuthError" class="admin-error" role="alert" hidden></p>
-      </section>
+      </div>
+    </section>
 
-      <!-- MAIN ADMIN WORKSPACE -->
-      <section id="adminDashboard" class="admin-dashboard" hidden>
-        <div class="admin-topbar">
-          <div>
-            <span class="admin-kicker">COOPERATIVE MANAGEMENT PANEL</span>
-            <h2>Tour Packages &amp; Customer Bookings</h2>
+    <!-- MAIN SHELL -->
+    <div id="adminShell" class="admin-shell">
+      <!-- SIDEBAR -->
+      <aside
+        class="admin-sidebar"
+        id="adminSidebar"
+        aria-label="Admin navigation"
+      >
+        <div class="sidebar-top-brand">
+          <div class="sidebar-logo-mark">
+            <img
+              src="logo_travel_and_tour.jpg"
+              alt="Puerto Princesa of Wonder"
+              onerror="this.style.display = 'none'"
+            />
+            <span class="sidebar-logo-fallback">PPW</span>
           </div>
+          <div class="sidebar-brand-text">
+            <strong>PPW Tours</strong>
+            <span>Cooperative Operations</span>
+          </div>
+          <button
+            type="button"
+            id="mobileSidebarClose"
+            class="mobile-close-btn"
+            aria-label="Close sidebar"
+          >
+            &times;
+          </button>
+        </div>
 
-          <div class="admin-account-pill">
-            <div>
-              <strong id="activeAdminName">Cooperative Admin</strong>
-              <span id="activeAdminRole">User Admin Acc · Active</span>
-            </div>
-            <button type="button" id="adminLogoutBtn" class="admin-btn-ghost">
-              Lock / Sign Out
+        <nav class="sidebar-nav">
+          <button type="button" class="nav-item active" data-view="dashboard">
+            <span class="nav-icon">&#9638;</span>
+            <span>Dashboard</span>
+          </button>
+
+          <button type="button" class="nav-item" data-view="admins">
+            <span class="nav-icon">&#128100;</span>
+            <span>Admins</span>
+          </button>
+
+          <!-- TOURS GROUP -->
+          <div class="nav-group open">
+            <button type="button" class="nav-item nav-group-toggle">
+              <span class="nav-icon">&#9992;</span>
+              <span>Tours</span>
+              <span class="nav-caret">&#9662;</span>
             </button>
-          </div>
-        </div>
-
-        <!-- SUMMARY STATS -->
-        <div class="admin-stats-grid" id="adminStatsGrid">
-          <div class="admin-stat-card">
-            <span>Tour Only</span>
-            <strong id="countTourOnly">0</strong>
-          </div>
-          <div class="admin-stat-card">
-            <span>Customized</span>
-            <strong id="countCustomized">0</strong>
-          </div>
-          <div class="admin-stat-card">
-            <span>Local Destination</span>
-            <strong id="countLocal">0</strong>
-          </div>
-          <div class="admin-stat-card">
-            <span>Beyond the Philippines</span>
-            <strong id="countBeyond">0</strong>
-          </div>
-        </div>
-
-        <!-- PENDING & CUSTOMER DETAILS SECTION -->
-        <section
-          class="admin-bookings-card"
-          aria-labelledby="pendingBookingsHeading"
-        >
-          <div class="admin-list-header">
-            <div>
-              <span class="admin-kicker">CUSTOMER RESERVATIONS</span>
-              <h3 id="pendingBookingsHeading">
-                Pending Bookings &amp; Customer Details
-              </h3>
-              <p id="pendingBookingsSummary">0 pending booking(s)</p>
-            </div>
-            <div class="admin-list-controls">
-              <select
-                id="bookingStatusFilter"
-                aria-label="Filter bookings by status"
-              >
-                <option value="Pending">Pending Only</option>
-                <option value="All">All Bookings</option>
-                <option value="Approved">Approved</option>
-                <option value="Cancelled">Cancelled</option>
-              </select>
-              <input
-                id="bookingSearchInput"
-                type="search"
-                placeholder="Search customer, email, or tour..."
-              />
-            </div>
-          </div>
-
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Customer Details</th>
-                  <th>Tour &amp; Category</th>
-                  <th>Travel Date &amp; Guests</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="adminBookingsTbody"></tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- CATEGORY TABS -->
-        <div
-          class="admin-category-tabs"
-          role="tablist"
-          aria-label="Package categories"
-        >
-          <button
-            type="button"
-            class="admin-tab active"
-            data-category="Tour Only"
-          >
-            Tour Only
-          </button>
-          <button type="button" class="admin-tab" data-category="Customized">
-            Customized
-          </button>
-          <button
-            type="button"
-            class="admin-tab"
-            data-category="Local Destination"
-          >
-            Local Destination
-          </button>
-          <button
-            type="button"
-            class="admin-tab"
-            data-category="Beyond the Philippines"
-          >
-            Beyond the Philippines
-          </button>
-        </div>
-
-        <div class="admin-workspace-grid">
-          <!-- ADD / EDIT PACKAGE FORM -->
-          <form id="packageForm" class="admin-form-card">
-            <div class="admin-form-header">
-              <h3 id="formModeTitle">Add New Tour Package</h3>
+            <div class="nav-submenu">
               <button
                 type="button"
-                id="cancelEditBtn"
-                class="admin-btn-ghost"
-                hidden
+                class="nav-subitem"
+                data-view="tours"
+                data-category="All"
               >
-                Cancel Edit
+                All Packages
+              </button>
+              <button
+                type="button"
+                class="nav-subitem"
+                data-view="tours"
+                data-category="Tour Only"
+              >
+                Tour Only
+              </button>
+              <button
+                type="button"
+                class="nav-subitem"
+                data-view="tours"
+                data-category="Customize"
+              >
+                Customize
+              </button>
+              <button
+                type="button"
+                class="nav-subitem"
+                data-view="tours"
+                data-category="Trip Planner"
+              >
+                Trip Planner
               </button>
             </div>
+          </div>
 
-            <input type="hidden" id="editingPackageId" />
-
-            <div class="admin-field">
-              <label for="pkgCategory">Category</label>
-              <select id="pkgCategory" required>
-                <option value="Tour Only">Tour Only</option>
-                <option value="Customized">Customized</option>
-                <option value="Local Destination">Local Destination</option>
-                <option value="Beyond the Philippines">
-                  Beyond the Philippines
-                </option>
-              </select>
-            </div>
-
-            <div class="admin-field">
-              <label for="pkgName">Package Name</label>
-              <input
-                id="pkgName"
-                type="text"
-                placeholder="e.g. Underground River Tour"
-                required
-              />
-            </div>
-
-            <div class="admin-field">
-              <label for="pkgDestination">Destination / Location</label>
-              <input
-                id="pkgDestination"
-                type="text"
-                placeholder="e.g. Puerto Princesa or Japan"
-                required
-              />
-            </div>
-
-            <div class="admin-field">
-              <label for="pkgPrice">Price (₱)</label>
-              <input
-                id="pkgPrice"
-                type="number"
-                min="0"
-                step="50"
-                placeholder="e.g. 2800"
-                required
-              />
-            </div>
-
-            <div class="admin-field">
-              <label for="pkgImage">Image File Name (optional)</label>
-              <input
-                id="pkgImage"
-                type="text"
-                placeholder="e.g. puerto-princesa-underground-river.jpg"
-              />
-            </div>
-
-            <div class="admin-field">
-              <label for="pkgDescription">Description</label>
-              <textarea
-                id="pkgDescription"
-                rows="3"
-                placeholder="Short description of the tour package..."
-                required
-              ></textarea>
-            </div>
-
-            <button
-              type="submit"
-              id="savePackageBtn"
-              class="admin-btn-primary admin-full-btn"
-            >
-              + Add Package
+          <!-- MERGED CUSTOMER & BOOKINGS GROUP -->
+          <div class="nav-group open">
+            <button type="button" class="nav-item nav-group-toggle">
+              <span class="nav-icon">&#128203;</span>
+              <span>Customer &amp; Bookings</span>
+              <span class="nav-caret">&#9662;</span>
             </button>
-          </form>
+            <div class="nav-submenu">
+              <button
+                type="button"
+                class="nav-subitem"
+                data-view="bookings"
+                data-booking-tab="info"
+              >
+                Booking Information
+              </button>
+              <button
+                type="button"
+                class="nav-subitem"
+                data-view="bookings"
+                data-booking-tab="guests"
+              >
+                Customer &amp; Guest Info
+              </button>
+              <button
+                type="button"
+                class="nav-subitem"
+                data-view="bookings"
+                data-booking-tab="payments"
+              >
+                Payments
+              </button>
+            </div>
+          </div>
 
-          <!-- PACKAGES TABLE / LIST -->
-          <div class="admin-list-card">
-            <div class="admin-list-header">
-              <div>
-                <h3 id="currentCategoryHeading">Tour Only Packages</h3>
-                <p id="currentCategoryCount">0 packages</p>
+          <!-- DESTINATIONS GROUP -->
+          <div class="nav-group open">
+            <button type="button" class="nav-item nav-group-toggle">
+              <span class="nav-icon">&#127758;</span>
+              <span>Destinations</span>
+              <span class="nav-caret">&#9662;</span>
+            </button>
+            <div class="nav-submenu">
+              <button
+                type="button"
+                class="nav-subitem"
+                data-view="destinations"
+                data-dest-tab="Local Destination"
+              >
+                Local Destination
+              </button>
+              <button
+                type="button"
+                class="nav-subitem"
+                data-view="destinations"
+                data-dest-tab="Beyond the Philippines"
+              >
+                Beyond the Philippines
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="nav-item" data-view="reports">
+            <span class="nav-icon">&#128200;</span>
+            <span>Reports</span>
+          </button>
+
+          <button type="button" class="nav-item" data-view="inquiries">
+            <span class="nav-icon">&#9993;</span>
+            <span>Inquiry</span>
+          </button>
+
+          <button type="button" class="nav-item" data-view="accommodations">
+            <span class="nav-icon">&#127976;</span>
+            <span>Hotel Accommodation</span>
+          </button>
+
+          <button type="button" class="nav-item" data-view="settings">
+            <span class="nav-icon">&#9881;</span>
+            <span>Settings</span>
+          </button>
+
+          <button
+            type="button"
+            id="sidebarLogoutBtn"
+            class="nav-item nav-logout"
+          >
+            <span class="nav-icon">&#8617;</span>
+            <span>Logout</span>
+          </button>
+        </nav>
+      </aside>
+
+      <!-- RIGHT WORKSPACE -->
+      <div class="admin-content-wrapper">
+        <!-- TOPBAR -->
+        <header class="admin-topbar">
+          <div class="topbar-left">
+            <button
+              type="button"
+              id="mobileSidebarOpen"
+              class="mobile-menu-btn"
+              aria-label="Open menu"
+            >
+              &#9776;
+            </button>
+            <div>
+              <span class="topbar-sub"
+                >Puerto Princesa of Wonder Services Cooperative</span
+              >
+              <h1 class="welcome-heading">
+                Welcome, <span class="welcome-name">Ms. Jeannyveve Cusi!</span>
+              </h1>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <button
+              type="button"
+              id="notifToggleBtn"
+              class="notif-bell-btn"
+              aria-label="Pending notifications"
+            >
+              <span>&#128276;</span>
+              <span id="notifBadgeCount" class="notif-badge">0</span>
+            </button>
+
+            <div class="admin-profile-chip">
+              <img
+                src="customer-user.jpg"
+                alt="Ms. Jeannyveve Cusi"
+                onerror="
+                  this.style.display = 'none';
+                  this.nextElementSibling.style.display = 'flex';
+                "
+              />
+              <span class="profile-chip-fallback" style="display: none"
+                >JC</span
+              >
+              <div class="profile-chip-text">
+                <strong>Ms. Jeannyveve Cusi</strong>
+                <small>General Manager</small>
               </div>
-              <div class="admin-list-controls">
-                <input
-                  id="adminSearchInput"
-                  type="search"
-                  placeholder="Search package or destination..."
-                />
+            </div>
+
+            <div id="notifPopover" class="notif-popover" hidden>
+              <div class="notif-popover-head">
+                <strong>Pending Reservations</strong>
+                <button type="button" id="clearNotifViewBtn">
+                  Open Bookings
+                </button>
+              </div>
+              <ul id="notifList" class="notif-list"></ul>
+            </div>
+          </div>
+        </header>
+
+        <!-- =========================================================
+           VIEW 1: DASHBOARD OVERVIEW
+      ========================================================== -->
+        <main id="view-dashboard" class="dashboard-main active-view">
+          <!-- PRIMARY 4 KPI CARDS -->
+          <section class="kpi-grid" aria-label="Primary metrics">
+            <article class="kpi-card kpi-blue" data-jump-view="bookings">
+              <div class="kpi-top-row">
+                <span class="kpi-label">Total Customers</span>
+                <span class="kpi-arrow">&rarr;</span>
+              </div>
+              <div class="kpi-value" id="kpiTotalCustomers">1,245</div>
+              <div class="kpi-foot">Active &amp; repeat travelers</div>
+            </article>
+
+            <article class="kpi-card kpi-emerald" data-jump-view="bookings">
+              <div class="kpi-top-row">
+                <span class="kpi-label">Total Bookings</span>
+                <span class="kpi-arrow">&rarr;</span>
+              </div>
+              <div class="kpi-value" id="kpiTotalBookings">378</div>
+              <div class="kpi-foot">Confirmed &amp; active reservations</div>
+            </article>
+
+            <article class="kpi-card kpi-amber" data-jump-view="reports">
+              <div class="kpi-top-row">
+                <span class="kpi-label">Total Earnings</span>
+                <span class="kpi-arrow">&rarr;</span>
+              </div>
+              <div class="kpi-value" id="kpiTotalEarnings">&#8369;785,950</div>
+              <div class="kpi-foot">Gross cooperative tour revenue</div>
+            </article>
+
+            <article class="kpi-card kpi-slate" data-jump-view="tours">
+              <div class="kpi-top-row">
+                <span class="kpi-label">Total Tours</span>
+                <span class="kpi-arrow">&rarr;</span>
+              </div>
+              <div class="kpi-value" id="kpiTotalTours">42</div>
+              <div class="kpi-foot">Published &amp; active packages</div>
+            </article>
+          </section>
+
+          <!-- SECONDARY 4 BREAKDOWN CARDS (BEYOND, LOCAL, CUSTOMIZED, TOUR ONLY) -->
+          <section class="kpi-subgrid" aria-label="Tour category breakdown">
+            <article
+              class="sub-kpi-card"
+              data-jump-dest="Beyond the Philippines"
+            >
+              <div class="sub-kpi-meta">
+                <span class="sub-kpi-tag tag-indigo">International</span>
+                <strong class="sub-kpi-count" id="kpiCountBeyond">0</strong>
+              </div>
+              <div class="sub-kpi-title">Beyond Philippines</div>
+              <p class="sub-kpi-desc">Overseas packages &amp; group bookings</p>
+            </article>
+
+            <article class="sub-kpi-card" data-jump-dest="Local Destination">
+              <div class="sub-kpi-meta">
+                <span class="sub-kpi-tag tag-teal">Domestic</span>
+                <strong class="sub-kpi-count" id="kpiCountLocal">0</strong>
+              </div>
+              <div class="sub-kpi-title">Local</div>
+              <p class="sub-kpi-desc">Palawan &amp; Philippine island tours</p>
+            </article>
+
+            <article class="sub-kpi-card" data-jump-tourcat="Customize">
+              <div class="sub-kpi-meta">
+                <span class="sub-kpi-tag tag-amber">Tailor-Made</span>
+                <strong class="sub-kpi-count" id="kpiCountCustomized">0</strong>
+              </div>
+              <div class="sub-kpi-title">Customized</div>
+              <p class="sub-kpi-desc">
+                Custom itinerary &amp; private arrangements
+              </p>
+            </article>
+
+            <article class="sub-kpi-card" data-jump-tourcat="Tour Only">
+              <div class="sub-kpi-meta">
+                <span class="sub-kpi-tag tag-blue">Standard</span>
+                <strong class="sub-kpi-count" id="kpiCountTourOnly">0</strong>
+              </div>
+              <div class="sub-kpi-title">Tour Only</div>
+              <p class="sub-kpi-desc">
+                Day tours &amp; scheduled joiner packages
+              </p>
+            </article>
+          </section>
+
+          <!-- ROW 2: BOOKING OVERVIEW (WITH BOOKING FOR THIS MONTH) + TOP DESTINATIONS -->
+          <section class="bento-row-2">
+            <div class="panel-card chart-panel">
+              <div class="panel-header">
+                <div>
+                  <h2>Booking Overview</h2>
+                  <p class="panel-caption">
+                    Monthly reservation volume vs. earnings trend
+                  </p>
+                </div>
+                <div class="overview-controls">
+                  <div class="month-highlight-pill">
+                    <span>Bookings This Month:</span>
+                    <strong id="bookingsThisMonthValue">0</strong>
+                  </div>
+                  <select
+                    id="overviewRangeSelect"
+                    class="panel-select"
+                    aria-label="Overview timeframe"
+                  >
+                    <option value="6m" selected>Last 6 Months</option>
+                    <option value="3m">Last 3 Months</option>
+                    <option value="ytd">Year to Date</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="line-legend">
+                <span><i class="dot-blue"></i> Bookings</span>
+                <span><i class="dot-green"></i> Earnings</span>
+              </div>
+
+              <div id="bookingLineChartWrap" class="line-chart-wrap"></div>
+            </div>
+
+            <div class="panel-card top-dest-panel">
+              <div class="panel-header">
+                <div>
+                  <h2>Top Destinations</h2>
+                  <p class="panel-caption">Most booked routes this season</p>
+                </div>
                 <button
                   type="button"
-                  id="resetDefaultsBtn"
-                  class="admin-btn-secondary"
+                  class="link-action-btn"
+                  data-jump-view="destinations"
                 >
-                  Reset Defaults
+                  View All &rarr;
+                </button>
+              </div>
+
+              <div id="topDestinationsList" class="top-dest-list"></div>
+            </div>
+          </section>
+
+          <!-- ROW 3: RECENT BOOKINGS + PAYMENT OVERVIEW -->
+          <section class="bento-row-3">
+            <div class="panel-card recent-bookings-panel">
+              <div class="panel-header">
+                <div>
+                  <h2>Recent Bookings</h2>
+                  <p class="panel-caption">
+                    Latest customer reservations and status
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  class="link-action-btn"
+                  data-jump-view="bookings"
+                >
+                  Manage All &rarr;
+                </button>
+              </div>
+
+              <div class="table-scroll">
+                <table class="clean-data-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Customer Name</th>
+                      <th>Tour Type</th>
+                      <th>Destination</th>
+                      <th>Booking Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentBookingsTbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="panel-card payment-panel">
+              <div class="panel-header">
+                <div>
+                  <h2>Payment Overview</h2>
+                  <p class="panel-caption">Collections by payment channel</p>
+                </div>
+                <select
+                  id="paymentPeriodSelect"
+                  class="panel-select"
+                  aria-label="Payment period"
+                >
+                  <option value="month" selected>This Month</option>
+                  <option value="quarter">This Quarter</option>
+                </select>
+              </div>
+
+              <div class="donut-layout">
+                <div id="paymentDonutWrap" class="donut-chart-wrap"></div>
+                <ul id="paymentBreakdownList" class="payment-legend-list"></ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- ROW 4: QUICK ACTIONS (NO ADD CUSTOMER) + RECENT INQUIRIES -->
+          <section class="bento-row-4">
+            <div class="panel-card quick-actions-panel">
+              <div class="panel-header">
+                <div>
+                  <h2>Quick Actions</h2>
+                  <p class="panel-caption">
+                    Direct shortcuts for daily operations
+                  </p>
+                </div>
+              </div>
+
+              <div class="quick-actions-grid three-cols">
+                <button
+                  type="button"
+                  class="qa-btn qa-emerald"
+                  id="qaCreateBookingBtn"
+                >
+                  <span class="qa-icon">&#128197;</span>
+                  <span>Create Booking</span>
+                </button>
+                <button type="button" class="qa-btn qa-amber" id="qaAddTourBtn">
+                  <span class="qa-icon">&#9992;</span>
+                  <span>Add Tour Package</span>
+                </button>
+                <button
+                  type="button"
+                  class="qa-btn qa-blue"
+                  id="qaOpenReportsBtn"
+                >
+                  <span class="qa-icon">&#128200;</span>
+                  <span>Generate Report</span>
                 </button>
               </div>
             </div>
 
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th>Package</th>
-                    <th>Destination</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="adminPackagesTbody"></tbody>
+            <div class="panel-card recent-inquiries-panel">
+              <div class="panel-header">
+                <div>
+                  <h2>Recent Inquiries</h2>
+                  <p class="panel-caption">Unanswered client questions</p>
+                </div>
+                <button
+                  type="button"
+                  class="link-action-btn"
+                  data-jump-view="inquiries"
+                >
+                  View All &rarr;
+                </button>
+              </div>
+
+              <div class="table-scroll">
+                <table class="clean-data-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Message</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentInquiriesTbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <!-- =========================================================
+           VIEW 2: TOURS & PACKAGES (WITH SINGLE ENABLE/DISABLE BUTTON)
+      ========================================================== -->
+        <section id="view-tours" class="sub-module-view" hidden>
+          <div class="module-banner">
+            <div>
+              <span class="module-eyebrow"
+                >TOUR INVENTORY &amp; AVAILABILITY</span
+              >
+              <h2>Tour Packages Management</h2>
+            </div>
+            <button
+              type="button"
+              class="btn-neutral-outline"
+              data-jump-view="dashboard"
+            >
+              &larr; Back to Dashboard
+            </button>
+          </div>
+
+          <div class="filter-pills-row" id="tourCategoryTabs">
+            <button type="button" class="pill-tab active" data-tour-cat="All">
+              All Tours
+            </button>
+            <button type="button" class="pill-tab" data-tour-cat="Tour Only">
+              Tour Only
+            </button>
+            <button type="button" class="pill-tab" data-tour-cat="Customize">
+              Customize
+            </button>
+            <button type="button" class="pill-tab" data-tour-cat="Trip Planner">
+              Trip Planner
+            </button>
+          </div>
+
+          <div class="crud-split-grid">
+            <form id="tourCrudForm" class="panel-card crud-form">
+              <div class="panel-header">
+                <h3 id="tourFormHeading">Add New Tour Package</h3>
+                <button
+                  type="button"
+                  id="cancelTourEditBtn"
+                  class="btn-mini-ghost"
+                  hidden
+                >
+                  Cancel
+                </button>
+              </div>
+              <input type="hidden" id="editingTourId" />
+
+              <label class="field-group">
+                <span>Tour Category</span>
+                <select id="tourCategoryInput" required>
+                  <option value="Tour Only">Tour Only</option>
+                  <option value="Customize">Customize</option>
+                  <option value="Trip Planner">Trip Planner</option>
+                </select>
+              </label>
+
+              <label class="field-group">
+                <span>Scope</span>
+                <select id="tourScopeInput" required>
+                  <option value="Local Destination">Local Destination</option>
+                  <option value="Beyond the Philippines">
+                    Beyond the Philippines
+                  </option>
+                </select>
+              </label>
+
+              <label class="field-group">
+                <span>Package Name</span>
+                <input
+                  id="tourNameInput"
+                  type="text"
+                  placeholder="e.g. Underground River Tour"
+                  required
+                />
+              </label>
+
+              <label class="field-group">
+                <span>Destination</span>
+                <input
+                  id="tourDestInput"
+                  type="text"
+                  placeholder="e.g. Puerto Princesa"
+                  required
+                />
+              </label>
+
+              <label class="field-group">
+                <span>Price (&#8369;)</span>
+                <input
+                  id="tourPriceInput"
+                  type="number"
+                  min="0"
+                  step="50"
+                  placeholder="e.g. 2800"
+                  required
+                />
+              </label>
+
+              <label class="field-group">
+                <span>Inclusions &amp; Itinerary</span>
+                <textarea
+                  id="tourDescInput"
+                  rows="3"
+                  placeholder="Key highlights and package inclusions..."
+                  required
+                ></textarea>
+              </label>
+
+              <button
+                type="submit"
+                id="saveTourBtn"
+                class="btn-primary-solid full-w"
+              >
+                Save Tour Package
+              </button>
+            </form>
+
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3>Tour Packages List</h3>
+                <input
+                  id="tourSearchInput"
+                  type="search"
+                  class="table-search-input"
+                  placeholder="Search package or destination..."
+                />
+              </div>
+              <div class="table-scroll">
+                <table class="clean-data-table">
+                  <thead>
+                    <tr>
+                      <th>Package</th>
+                      <th>Category</th>
+                      <th>Destination</th>
+                      <th>Price</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="toursCrudTbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+           VIEW 3: MERGED CUSTOMER & BOOKINGS MODULE
+      ========================================================== -->
+        <section id="view-bookings" class="sub-module-view" hidden>
+          <div class="module-banner">
+            <div>
+              <span class="module-eyebrow"
+                >UNIFIED CLIENT &amp; RESERVATION RECORDS</span
+              >
+              <h2>Customer &amp; Bookings Management</h2>
+            </div>
+            <div class="banner-actions">
+              <button
+                type="button"
+                id="openNewBookingModalBtn"
+                class="btn-primary-solid"
+              >
+                + Create Booking
+              </button>
+              <button
+                type="button"
+                class="btn-neutral-outline"
+                data-jump-view="dashboard"
+              >
+                &larr; Back to Dashboard
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-pills-row" id="bookingSubTabs">
+            <button type="button" class="pill-tab active" data-bsub="info">
+              Booking Information
+            </button>
+            <button type="button" class="pill-tab" data-bsub="guests">
+              Customer &amp; Guest Info
+            </button>
+            <button type="button" class="pill-tab" data-bsub="payments">
+              Payments
+            </button>
+          </div>
+
+          <div class="panel-card">
+            <div class="panel-header">
+              <h3 id="bookingSubHeading">Booking Information &amp; Status</h3>
+              <div class="toolbar-inline">
+                <select id="bookingStatusFilterSelect" class="panel-select">
+                  <option value="All">All Statuses</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Processing">Processing</option>
+                  <option value="Confirmed">Confirmed</option>
+                </select>
+                <input
+                  id="bookingTableSearch"
+                  type="search"
+                  class="table-search-input"
+                  placeholder="Search customer, email, tour..."
+                />
+              </div>
+            </div>
+
+            <div class="table-scroll">
+              <table class="clean-data-table">
+                <thead id="bookingsDynamicThead"></thead>
+                <tbody id="bookingsDynamicTbody"></tbody>
               </table>
             </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
 
-    <footer>
-      <div class="footer-brand">Puerto Princesa of Wonder</div>
-      <p>Services Cooperative Travel and Tours · Admin Panel</p>
-      <p class="copyright">
-        © 2026 Puerto Princesa of Wonder. All Rights Reserved.
-      </p>
-    </footer>
+        <!-- =========================================================
+           VIEW 4: REPORTS MODULE
+      ========================================================== -->
+        <section id="view-reports" class="sub-module-view" hidden>
+          <div class="module-banner">
+            <div>
+              <span class="module-eyebrow"
+                >OPERATIONAL &amp; FINANCIAL ANALYTICS</span
+              >
+              <h2>Cooperative Tour &amp; Earnings Reports</h2>
+            </div>
+            <div class="banner-actions">
+              <button
+                type="button"
+                id="exportReportCsvBtn"
+                class="btn-primary-solid"
+              >
+                Export CSV Report
+              </button>
+              <button
+                type="button"
+                id="printReportBtn"
+                class="btn-neutral-outline"
+              >
+                Print Report
+              </button>
+              <button
+                type="button"
+                class="btn-neutral-outline"
+                data-jump-view="dashboard"
+              >
+                &larr; Dashboard
+              </button>
+            </div>
+          </div>
+
+          <!-- Report Summary Strip -->
+          <div class="report-summary-grid">
+            <div class="panel-card report-stat-box">
+              <span>Gross Earnings (Confirmed)</span>
+              <strong id="repConfirmedEarnings">&#8369;0</strong>
+              <small>Settled &amp; confirmed reservations</small>
+            </div>
+            <div class="panel-card report-stat-box">
+              <span>Pending / Pipeline Value</span>
+              <strong id="repPendingEarnings">&#8369;0</strong>
+              <small>Awaiting payment verification</small>
+            </div>
+            <div class="panel-card report-stat-box">
+              <span>Average Booking Value</span>
+              <strong id="repAvgBooking">&#8369;0</strong>
+              <small>Per customer reservation</small>
+            </div>
+            <div class="panel-card report-stat-box">
+              <span>Total Guests Served</span>
+              <strong id="repTotalPax">0 pax</strong>
+              <small>Across all recorded bookings</small>
+            </div>
+          </div>
+
+          <div class="bento-row-2">
+            <!-- Category Performance Table -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <div>
+                  <h3>Earnings &amp; Bookings by Tour Category</h3>
+                  <p class="panel-caption">
+                    Breakdown across Local, Beyond Philippines, Customized, and
+                    Tour Only
+                  </p>
+                </div>
+              </div>
+              <div class="table-scroll">
+                <table class="clean-data-table">
+                  <thead>
+                    <tr>
+                      <th>Category / Scope</th>
+                      <th>Bookings</th>
+                      <th>Total Guests</th>
+                      <th>Earnings</th>
+                      <th>Share</th>
+                    </tr>
+                  </thead>
+                  <tbody id="reportCategoryTbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Payment Channel Report -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <div>
+                  <h3>Collections by Payment Method</h3>
+                  <p class="panel-caption">Verified payment distribution</p>
+                </div>
+              </div>
+              <div class="table-scroll">
+                <table class="clean-data-table">
+                  <thead>
+                    <tr>
+                      <th>Payment Method</th>
+                      <th>Transactions</th>
+                      <th>Total Collected</th>
+                    </tr>
+                  </thead>
+                  <tbody id="reportPaymentTbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detailed Transaction Ledger -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <div>
+                <h3>Booking &amp; Earnings Ledger</h3>
+                <p class="panel-caption">
+                  Complete itemized transaction log for cooperative auditing
+                </p>
+              </div>
+            </div>
+            <div class="table-scroll">
+              <table class="clean-data-table">
+                <thead>
+                  <tr>
+                    <th>Ref #</th>
+                    <th>Booking Date</th>
+                    <th>Customer</th>
+                    <th>Tour Type</th>
+                    <th>Destination</th>
+                    <th>Guests</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                    <th>Earnings</th>
+                  </tr>
+                </thead>
+                <tbody id="reportLedgerTbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+           VIEW 5: DESTINATIONS & HOTEL ACCOMMODATION
+      ========================================================== -->
+        <section id="view-destinations" class="sub-module-view" hidden>
+          <div class="module-banner">
+            <div>
+              <span class="module-eyebrow"
+                >LOCAL &amp; INTERNATIONAL DESTINATIONS</span
+              >
+              <h2>Destinations Overview</h2>
+            </div>
+            <button
+              type="button"
+              class="btn-neutral-outline"
+              data-jump-view="dashboard"
+            >
+              &larr; Back to Dashboard
+            </button>
+          </div>
+
+          <div class="filter-pills-row" id="destFilterTabs">
+            <button
+              type="button"
+              class="pill-tab active"
+              data-dest-filter="All"
+            >
+              All Destinations
+            </button>
+            <button
+              type="button"
+              class="pill-tab"
+              data-dest-filter="Local Destination"
+            >
+              Local Destination
+            </button>
+            <button
+              type="button"
+              class="pill-tab"
+              data-dest-filter="Beyond the Philippines"
+            >
+              Beyond the Philippines
+            </button>
+          </div>
+
+          <div id="destinationsCardsGrid" class="dest-cards-grid"></div>
+        </section>
+
+        <section id="view-accommodations" class="sub-module-view" hidden>
+          <div class="module-banner">
+            <div>
+              <span class="module-eyebrow">PARTNER STAYS</span>
+              <h2>Hotel Accommodation</h2>
+            </div>
+            <button
+              type="button"
+              class="btn-neutral-outline"
+              data-jump-view="dashboard"
+            >
+              &larr; Back to Dashboard
+            </button>
+          </div>
+
+          <div class="panel-card">
+            <div class="table-scroll">
+              <table class="clean-data-table">
+                <thead>
+                  <tr>
+                    <th>Hotel / Resort</th>
+                    <th>Location</th>
+                    <th>Room / Bed Option</th>
+                    <th>Rate / Night</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="accommodationsTbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+           VIEW 6: INQUIRIES, ADMINS & SETTINGS
+      ========================================================== -->
+        <section id="view-inquiries" class="sub-module-view" hidden>
+          <div class="module-banner">
+            <div>
+              <span class="module-eyebrow"
+                >CUSTOMER MESSAGES &amp; SUPPORT</span
+              >
+              <h2>Customer Inquiries</h2>
+            </div>
+            <button
+              type="button"
+              class="btn-neutral-outline"
+              data-jump-view="dashboard"
+            >
+              &larr; Back to Dashboard
+            </button>
+          </div>
+
+          <div class="panel-card">
+            <div class="table-scroll">
+              <table class="clean-data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Customer Name</th>
+                    <th>Contact</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="allInquiriesTbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="view-admins" class="sub-module-view" hidden>
+          <div class="module-banner">
+            <div>
+              <span class="module-eyebrow">COOPERATIVE STAFF ACCESS</span>
+              <h2>Administrator Accounts</h2>
+            </div>
+            <button
+              type="button"
+              class="btn-neutral-outline"
+              data-jump-view="dashboard"
+            >
+              &larr; Back to Dashboard
+            </button>
+          </div>
+
+          <div class="panel-card">
+            <div class="table-scroll">
+              <table class="clean-data-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Ms. Jeannyveve Cusi</strong></td>
+                    <td>jeannyveve.cusi@yahoo.com</td>
+                    <td>General Manager / Primary Admin</td>
+                    <td>
+                      <span class="badge-pill badge-confirmed">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Cooperative Operations Desk</td>
+                    <td>operations@puertoprincesawonder.ph</td>
+                    <td>Booking &amp; Dispatch Staff</td>
+                    <td>
+                      <span class="badge-pill badge-processing">Standby</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="view-settings" class="sub-module-view" hidden>
+          <div class="module-banner">
+            <div>
+              <span class="module-eyebrow">SYSTEM PREFERENCES</span>
+              <h2>Dashboard Settings</h2>
+            </div>
+            <button
+              type="button"
+              class="btn-neutral-outline"
+              data-jump-view="dashboard"
+            >
+              &larr; Back to Dashboard
+            </button>
+          </div>
+
+          <div class="panel-card settings-card">
+            <p>
+              Signed in as
+              <strong>Ms. Jeannyveve Cusi</strong> (jeannyveve.cusi@yahoo.com).
+            </p>
+            <div class="settings-btn-row">
+              <button
+                type="button"
+                id="restoreAllDemoDataBtn"
+                class="btn-neutral-outline"
+              >
+                Reset Default Data
+              </button>
+              <button
+                type="button"
+                id="settingsSignOutBtn"
+                class="btn-primary-solid"
+              >
+                Lock Admin Session
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="admin-footer">
+          <span
+            >&copy; 2026 Puerto Princesa of Wonder Services Cooperative Travel
+            and Tours. All rights reserved.</span
+          >
+          <div class="footer-links">
+            <a href="index.html">Customer Home</a>
+            <span>&middot;</span>
+            <a href="tripplanner.html">Trip Planner</a>
+            <span>&middot;</span>
+            <a href="admin.html">Admin Panel</a>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- MODAL FOR CREATING BOOKING -->
+    <dialog id="quickActionDialog" class="admin-dialog">
+      <form id="quickActionForm" method="dialog" class="dialog-box">
+        <div class="dialog-head">
+          <h3>Create New Booking</h3>
+          <button type="button" id="closeDialogBtn" class="dialog-x">
+            &times;
+          </button>
+        </div>
+        <div class="dialog-body">
+          <label class="field-group"
+            ><span>Customer Full Name</span
+            ><input id="qaBookName" type="text" required
+          /></label>
+          <label class="field-group"
+            ><span>Email Address</span
+            ><input
+              id="qaBookEmail"
+              type="email"
+              placeholder="customer@email.com"
+              required
+          /></label>
+          <label class="field-group"
+            ><span>Contact Number</span
+            ><input id="qaBookPhone" type="text" value="0917-000-0000" required
+          /></label>
+          <label class="field-group"
+            ><span>Tour Type</span>
+            <select id="qaBookType">
+              <option value="Tour Only">Tour Only</option>
+              <option value="Customize">Customize</option>
+              <option value="Trip Planner">Trip Planner</option>
+            </select>
+          </label>
+          <label class="field-group"
+            ><span>Scope</span>
+            <select id="qaBookScope">
+              <option value="Local Destination">Local Destination</option>
+              <option value="Beyond the Philippines">
+                Beyond the Philippines
+              </option>
+            </select>
+          </label>
+          <label class="field-group"
+            ><span>Destination</span
+            ><input
+              id="qaBookDest"
+              type="text"
+              value="Puerto Princesa"
+              required
+          /></label>
+          <label class="field-group"
+            ><span>Number of Guests</span
+            ><input id="qaBookGuests" type="number" min="1" value="2" required
+          /></label>
+          <label class="field-group"
+            ><span>Amount (&#8369;)</span
+            ><input
+              id="qaBookAmt"
+              type="number"
+              min="500"
+              step="100"
+              value="2800"
+              required
+          /></label>
+          <label class="field-group"
+            ><span>Payment Method</span>
+            <select id="qaBookPay">
+              <option value="GCash">GCash</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="Others">Others</option>
+            </select>
+          </label>
+          <label class="field-group"
+            ><span>Status</span>
+            <select id="qaBookStatus">
+              <option value="Pending">Pending</option>
+              <option value="Processing">Processing</option>
+              <option value="Confirmed">Confirmed</option>
+            </select>
+          </label>
+        </div>
+        <div class="dialog-foot">
+          <button
+            type="button"
+            id="cancelDialogBtn"
+            class="btn-neutral-outline"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn-primary-solid">Save Booking</button>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>

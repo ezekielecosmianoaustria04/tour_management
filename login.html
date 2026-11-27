@@ -1,86 +1,319 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login & Sign Up | Puerto Princesa of Wonder</title>
-  <link rel="stylesheet" href="login.css">
-  <script src="login.js" defer></script>
-</head>
-<body>
-  <main class="login-page">
-    <section class="login-hero" aria-label="Discover Palawan">
-      <div class="hero-content">
-        <span class="eyebrow">PUERTO PRINCESA, PALAWAN</span>
-        <h1>Discover<br><em>Paradise.</em></h1>
-        <p>Explore the beauty of Palawan and experience unforgettable adventures with us.</p>
-      </div>
-    </section>
-    <section class="login-container">
-      <div class="login-box">
-        <div class="login-brand">
-          <div class="brand-logo"><img src="logo_travel_and_tour.jpg" alt="" onerror="this.style.display='none'"><span>PW</span></div>
-          <div class="login-brand-name">PUERTO PRINCESA OF WONDER<span>Services Cooperative Travel and Tours</span></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Sign Up | Puerto Princesa of Wonder</title>
+    <link rel="stylesheet" href="login.css" />
+    <script src="login.js" defer></script>
+  </head>
+  <body>
+    <main class="login-page">
+      <section class="login-hero" aria-label="Discover Palawan">
+        <div class="hero-content">
+          <span class="eyebrow">PUERTO PRINCESA, PALAWAN</span>
+          <h1>Discover<br /><em>Paradise.</em></h1>
+          <p>
+            Explore the beauty of Palawan and experience unforgettable
+            adventures with us.
+          </p>
         </div>
-        <div class="welcome-text"><h2 id="formTitle">Welcome Back!</h2><p id="formSubtitle">Log in to your account to continue.</p></div>
-        <div class="tabs" role="tablist" aria-label="Account form">
-          <button id="loginTab" class="tab active" type="button" role="tab" aria-selected="true" aria-controls="loginPanel">Login</button>
-          <button id="signupTab" class="tab" type="button" role="tab" aria-selected="false" aria-controls="signupPanel">Sign Up</button>
-        </div>
-        <div id="message" class="message" role="status" aria-live="polite" hidden></div>
-        <section id="loginPanel" role="tabpanel" aria-labelledby="loginTab">
-          <form id="loginForm" novalidate>
-            <div class="form-group"><label for="loginEmail">Email Address</label><input type="email" id="loginEmail" name="email" placeholder="Enter your email" autocomplete="email" required></div>
-            <div class="form-group"><label for="loginPassword">Password</label><div class="password-field"><input type="password" id="loginPassword" name="password" placeholder="Enter your password" autocomplete="current-password" required><button type="button" class="toggle-password" data-target="loginPassword" aria-label="Show password">Show</button></div></div>
-            <div class="forgot-password"><button type="button" id="forgotPassword">Forgot Password?</button></div>
-            <button type="submit" class="submit-btn">Login</button>
-          </form>
-
-          <div class="social-auth" aria-label="Continue with a social account">
-            <div class="social-divider"><span>or continue with</span></div>
-            <div class="social-buttons">
-              <button type="button" class="social-btn google-btn" data-provider="Google" aria-label="Continue with Google">
-                <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.27 5.48-4.79 7.18l7.73 6C44.39 38.03 46.98 31.88 46.98 24.55z"/><path fill="#FBBC05" d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.77-4.59l-7.98-6.2A23.86 23.86 0 0 0 0 24c0 3.87.93 7.52 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.15 1.45-4.92 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.97 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-                <span>Google</span>
-              </button>
-              <button type="button" class="social-btn facebook-btn" data-provider="Facebook" aria-label="Continue with Facebook">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12a12 12 0 1 0-13.875 11.85v-8.38H7.078V12h3.047V9.356c0-3.007 1.792-4.669 4.532-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874V12h3.328l-.532 3.47h-2.796v8.38A12.003 12.003 0 0 0 24 12z"/></svg>
-                <span>Facebook</span>
-              </button>
+      </section>
+      <section class="login-container">
+        <div class="login-box">
+          <div class="login-brand">
+            <div class="brand-logo">
+              <img
+                src="logo_travel_and_tour.jpg"
+                alt=""
+                onerror="this.style.display = 'none'"
+              /><span>PW</span>
+            </div>
+            <div class="login-brand-name">
+              PUERTO PRINCESA OF WONDER<span
+                >Services Cooperative Travel and Tours</span
+              >
             </div>
           </div>
-          <p class="signup-text">Don't have an account? <button type="button" data-switch="signup">Sign Up</button></p>
-        </section>
-        <section id="signupPanel" role="tabpanel" aria-labelledby="signupTab" hidden>
-          <form id="signupForm" novalidate>
-            <div class="form-group"><label for="fullName">Full Name</label><input id="fullName" name="fullName" type="text" placeholder="Enter your full name" autocomplete="name" required minlength="2"></div>
-            <div class="form-group"><label for="signupEmail">Email Address</label><input id="signupEmail" name="email" type="email" placeholder="Enter your email" autocomplete="email" required></div>
-            <div class="form-group"><label for="contactNo">Contact Number (optional)</label><input id="contactNo" name="contactNo" type="tel" placeholder="e.g. 09XXXXXXXXX" autocomplete="tel"></div>
-            <div class="form-group"><label for="signupPassword">Password</label><div class="password-field"><input id="signupPassword" name="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" required minlength="8"><button type="button" class="toggle-password" data-target="signupPassword" aria-label="Show password">Show</button></div></div>
-            <div class="form-group"><label for="confirmPassword">Confirm Password</label><div class="password-field"><input id="confirmPassword" name="confirmPassword" type="password" placeholder="Re-enter your password" autocomplete="new-password" required><button type="button" class="toggle-password" data-target="confirmPassword" aria-label="Show password">Show</button></div></div>
-            <p class="account-note">Sign Up is for customer accounts only. Admin accounts must be created by an authorized administrator.</p>
-            <button type="submit" class="submit-btn">Create Customer Account</button>
-          </form>
-
-          <div class="social-auth" aria-label="Continue with a social account">
-            <div class="social-divider"><span>or continue with</span></div>
-            <div class="social-buttons">
-              <button type="button" class="social-btn google-btn" data-provider="Google" aria-label="Continue with Google">
-                <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.27 5.48-4.79 7.18l7.73 6C44.39 38.03 46.98 31.88 46.98 24.55z"/><path fill="#FBBC05" d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.77-4.59l-7.98-6.2A23.86 23.86 0 0 0 0 24c0 3.87.93 7.52 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.15 1.45-4.92 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.97 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-                <span>Google</span>
-              </button>
-              <button type="button" class="social-btn facebook-btn" data-provider="Facebook" aria-label="Continue with Facebook">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12a12 12 0 1 0-13.875 11.85v-8.38H7.078V12h3.047V9.356c0-3.007 1.792-4.669 4.532-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874V12h3.328l-.532 3.47h-2.796v8.38A12.003 12.003 0 0 0 24 12z"/></svg>
-                <span>Facebook</span>
-              </button>
-            </div>
+          <div class="welcome-text">
+            <h2 id="formTitle">Welcome!</h2>
+            <p id="formSubtitle">Log in to your account to continue.</p>
           </div>
-          <p class="signup-text">Already have an account? <button type="button" data-switch="login">Login</button></p>
-        </section>
-        <p class="login-footer">© 2026 Puerto Princesa of Wonder Services Cooperative Travel and Tours</p>
-        <a href="index.html" class="back-home">← Back to Home</a>
-      </div>
-    </section>
-  </main>
-</body>
+          <div class="tabs" role="tablist" aria-label="Account form">
+            <button
+              id="loginTab"
+              class="tab active"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="loginPanel"
+            >
+              Login
+            </button>
+            <button
+              id="signupTab"
+              class="tab"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="signupPanel"
+            >
+              Sign Up
+            </button>
+          </div>
+          <div
+            id="message"
+            class="message"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></div>
+          <section id="loginPanel" role="tabpanel" aria-labelledby="loginTab">
+            <form id="loginForm" novalidate>
+              <div class="form-group">
+                
+              <div class="form-group">
+                <label for="loginEmail">Email Address</label
+                ><input
+                  type="email"
+                  id="loginEmail"
+                  name="email"
+                  placeholder="Enter your email"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <div class="password-field">
+                  <input
+                    type="password"
+                    id="loginPassword"
+                    name="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                  /><button
+                    type="button"
+                    class="toggle-password"
+                    data-target="loginPassword"
+                    aria-label="Show password"
+                  >
+                    Show
+                  </button>
+                </div>
+              </div>
+              <div class="forgot-password">
+                <button type="button" id="forgotPassword">
+                  Forgot Password?
+                </button>
+              </div>
+              <button type="submit" class="submit-btn">Login</button>
+            </form>
+
+            <div
+              class="social-auth"
+              aria-label="Continue with a social account"
+            >
+              <div class="social-divider"><span>or continue with</span></div>
+              <div class="social-buttons">
+                <button
+                  type="button"
+                  class="social-btn google-btn"
+                  data-provider="Google"
+                  aria-label="Continue with Google"
+                >
+                  <svg viewBox="0 0 48 48" aria-hidden="true">
+                    <path
+                      fill="#EA4335"
+                      d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+                    />
+                    <path
+                      fill="#4285F4"
+                      d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.27 5.48-4.79 7.18l7.73 6C44.39 38.03 46.98 31.88 46.98 24.55z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.77-4.59l-7.98-6.2A23.86 23.86 0 0 0 0 24c0 3.87.93 7.52 2.56 10.78l7.97-6.19z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.15 1.45-4.92 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.97 6.19C6.51 42.62 14.62 48 24 48z"
+                    />
+                  </svg>
+                  <span>Google</span>
+                </button>
+                <button
+                  type="button"
+                  class="social-btn facebook-btn"
+                  data-provider="Facebook"
+                  aria-label="Continue with Facebook"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="#1877F2"
+                      d="M24 12a12 12 0 1 0-13.875 11.85v-8.38H7.078V12h3.047V9.356c0-3.007 1.792-4.669 4.532-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874V12h3.328l-.532 3.47h-2.796v8.38A12.003 12.003 0 0 0 24 12z"
+                    />
+                  </svg>
+                  <span>Facebook</span>
+                </button>
+              </div>
+            </div>
+            <p class="signup-text">
+              Don't have an account?
+              <button type="button" data-switch="signup">Sign Up</button>
+            </p>
+          </section>
+          <section
+            id="signupPanel"
+            role="tabpanel"
+            aria-labelledby="signupTab"
+            hidden
+          >
+            <form id="signupForm" novalidate>
+              <div class="form-group">
+                <label for="fullName">Full Name</label
+                ><input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  placeholder="Enter your full name"
+                  autocomplete="name"
+                  required
+                  minlength="2"
+                />
+              </div>
+              <div class="form-group">
+                <label for="signupEmail">Email Address</label
+                ><input
+                  id="signupEmail"
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="contactNo">Contact Number (optional)</label
+                ><input
+                  id="contactNo"
+                  name="contactNo"
+                  type="tel"
+                  placeholder="e.g. 09XXXXXXXXX"
+                  autocomplete="tel"
+                />
+              </div>
+              <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <div class="password-field">
+                  <input
+                    id="signupPassword"
+                    name="password"
+                    type="password"
+                    placeholder="At least 8 characters"
+                    autocomplete="new-password"
+                    required
+                    minlength="8"
+                  /><button
+                    type="button"
+                    class="toggle-password"
+                    data-target="signupPassword"
+                    aria-label="Show password"
+                  >
+                    Show
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="password-field">
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    placeholder="Re-enter your password"
+                    autocomplete="new-password"
+                    required
+                  /><button
+                    type="button"
+                    class="toggle-password"
+                    data-target="confirmPassword"
+                    aria-label="Show password"
+                  >
+                    Show
+                  </button>
+                </div>
+              </div>
+              <p class="account-note">
+                Sign Up is for customer accounts only. Admin accounts must be
+                created by an authorized administrator.
+              </p>
+              <button type="submit" class="submit-btn">
+                Create Customer Account
+              </button>
+            </form>
+
+            <div
+              class="social-auth"
+              aria-label="Continue with a social account"
+            >
+              <div class="social-divider"><span>or continue with</span></div>
+              <div class="social-buttons">
+                <button
+                  type="button"
+                  class="social-btn google-btn"
+                  data-provider="Google"
+                  aria-label="Continue with Google"
+                >
+                  <svg viewBox="0 0 48 48" aria-hidden="true">
+                    <path
+                      fill="#EA4335"
+                      d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+                    />
+                    <path
+                      fill="#4285F4"
+                      d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.27 5.48-4.79 7.18l7.73 6C44.39 38.03 46.98 31.88 46.98 24.55z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.77-4.59l-7.98-6.2A23.86 23.86 0 0 0 0 24c0 3.87.93 7.52 2.56 10.78l7.97-6.19z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.15 1.45-4.92 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.97 6.19C6.51 42.62 14.62 48 24 48z"
+                    />
+                  </svg>
+                  <span>Google</span>
+                </button>
+                <button
+                  type="button"
+                  class="social-btn facebook-btn"
+                  data-provider="Facebook"
+                  aria-label="Continue with Facebook"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="#1877F2"
+                      d="M24 12a12 12 0 1 0-13.875 11.85v-8.38H7.078V12h3.047V9.356c0-3.007 1.792-4.669 4.532-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.49 0-1.955.925-1.955 1.874V12h3.328l-.532 3.47h-2.796v8.38A12.003 12.003 0 0 0 24 12z"
+                    />
+                  </svg>
+                  <span>Facebook</span>
+                </button>
+              </div>
+            </div>
+            <p class="signup-text">
+              Already have an account?
+              <button type="button" data-switch="login">Login</button>
+            </p>
+          </section>
+          <p class="login-footer">
+            © 2026 Puerto Princesa of Wonder Services Cooperative Travel and
+            Tours
+          </p>
+          <a href="index.html" class="back-home">← Back to Home</a>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>

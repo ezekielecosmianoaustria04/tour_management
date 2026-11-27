@@ -1,79 +1,126 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const loginTab = document.getElementById('loginTab');
-  const signupTab = document.getElementById('signupTab');
-  const loginPanel = document.getElementById('loginPanel');
-  const signupPanel = document.getElementById('signupPanel');
-  const title = document.getElementById('formTitle');
-  const subtitle = document.getElementById('formSubtitle');
-  const message = document.getElementById('message');
+"use strict";
 
-  function notify(text, error = false) {
-    message.hidden = false;
-    message.textContent = text;
-    message.classList.toggle('error', error);
+const CUSTOMER_SESSION_KEY = "ppowCustomerLoggedIn_v1";
+const CUSTOMER_PROFILE_KEY = "ppowCustomerProfile_v1";
+const ADMIN_SESSION_KEY = "ppowAdminLoggedIn_v1";
+
+const ADMIN_CREDENTIALS = {
+  email: "jeannyveve.cusi@yahoo.com",
+  password: "admin123",
+};
+
+const CUSTOMER_CREDENTIALS = {
+  email: "xennkunn@gmail.com",
+  password: "user1234",
+};
+
+function saveStorage(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (err) {
+    console.error("Storage error:", err);
   }
-  function switchTab(tab) {
-    const signup = tab === 'signup';
-    loginPanel.hidden = signup;
-    signupPanel.hidden = !signup;
-    loginTab.classList.toggle('active', !signup);
-    signupTab.classList.toggle('active', signup);
-    loginTab.setAttribute('aria-selected', String(!signup));
-    signupTab.setAttribute('aria-selected', String(signup));
-    title.textContent = signup ? 'Create Your Account' : 'Welcome Back!';
-    subtitle.textContent = signup ? 'Sign up to start planning your next adventure.' : 'Log in to your account to continue.';
-    message.hidden = true;
-    history.replaceState(null, '', signup ? '#signup' : '#login');
+}
+
+function showLoginError(message) {
+  const errEl =
+    document.getElementById("loginError") ||
+    document.getElementById("authError") ||
+    document.querySelector(".login-error");
+
+  if (errEl) {
+    errEl.textContent = message;
+    errEl.hidden = false;
+    errEl.style.display = "block";
+    errEl.style.color = "#ff8a80";
+  } else {
+    alert(message);
   }
-  loginTab.addEventListener('click', () => switchTab('login'));
-  signupTab.addEventListener('click', () => switchTab('signup'));
-  document.querySelectorAll('[data-switch]').forEach(button => {
-    button.addEventListener('click', () => switchTab(button.dataset.switch));
-  });
-  if (location.hash === '#signup') switchTab('signup');
+}
 
-  document.querySelectorAll('.toggle-password').forEach(button => {
-    button.addEventListener('click', () => {
-      const input = document.getElementById(button.dataset.target);
-      const visible = input.type === 'text';
-      input.type = visible ? 'password' : 'text';
-      button.textContent = visible ? 'Show' : 'Hide';
-      button.setAttribute('aria-label', visible ? 'Show password' : 'Hide password');
-    });
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  const form =
+    document.getElementById("loginForm") ||
+    document.getElementById("customerLoginForm") ||
+    document.querySelector("form");
 
-  document.getElementById('loginForm').addEventListener('submit', event => {
+  if (!form) return;
+
+  form.addEventListener("submit", (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    if (!form.reportValidity()) return;
-    notify('Login form is ready. Connect it to your secure server authentication endpoint to verify accounts. No login has been performed.');
-  });
 
-  document.getElementById('signupForm').addEventListener('submit', event => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (!form.reportValidity()) return;
-    const password = document.getElementById('signupPassword').value;
-    const confirm = document.getElementById('confirmPassword').value;
-    if (password !== confirm) {
-      notify('Passwords do not match. Please try again.', true);
-      document.getElementById('confirmPassword').focus();
+    const emailInput =
+      document.getElementById("loginEmail") ||
+      document.getElementById("email") ||
+      document.getElementById("loginUsername") ||
+      document.getElementById("username") ||
+      form.querySelector('input[type="email"], input[type="text"]');
+
+    const passwordInput =
+      document.getElementById("loginPassword") ||
+      document.getElementById("password") ||
+      form.querySelector('input[type="password"]');
+
+    const email = emailInput ? emailInput.value.trim().toLowerCase() : "";
+    const password = passwordInput ? passwordInput.value.trim() : "";
+
+    if (!email || !password) {
+      showLoginError("Pakilagay ang Email Address at Password.");
       return;
     }
-    notify('Your customer registration details are valid. Connect this form to your secure backend to create the account. No account has been created yet.');
-  });
 
-  // These buttons are UI placeholders until real OAuth is configured on the server.
-  // Never collect Google/Facebook passwords or simulate a successful sign-in here.
-  document.querySelectorAll('[data-provider]').forEach(button => {
-    button.addEventListener('click', () => {
-      const provider = button.dataset.provider;
-      notify(`Continue with ${provider} is not connected yet. Set up ${provider} OAuth on your backend before this can sign you in.`);
-      message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-  });
+    // 1. Admin Login -> admin.html (admin.css & admin.js dashboard)
+    if (
+      email === ADMIN_CREDENTIALS.email.toLowerCase() &&
+      password === ADMIN_CREDENTIALS.password
+    ) {
+      saveStorage(ADMIN_SESSION_KEY, true);
+      saveStorage(CUSTOMER_SESSION_KEY, false);
+      window.location.href = "admin.html";
+      return;
+    }
 
-  document.getElementById('forgotPassword').addEventListener('click', () => {
-    notify('Password reset requires a secure backend and email verification. This feature is not connected yet.');
+    // 2. Customer Login -> index.html (Customer Home Page)
+    if (
+      email === CUSTOMER_CREDENTIALS.email.toLowerCase() &&
+      password === CUSTOMER_CREDENTIALS.password
+    ) {
+      saveStorage(CUSTOMER_SESSION_KEY, true);
+      saveStorage(CUSTOMER_PROFILE_KEY, {
+        name: "Xenn Kunn",
+        email: CUSTOMER_CREDENTIALS.email,
+        role: "customer",
+        loggedInAt: new Date().toISOString(),
+      });
+      saveStorage(ADMIN_SESSION_KEY, false);
+      window.location.href = "index.html";
+      return;
+    }
+
+    // Fallback kung may bagong na-register na customer account sa localStorage
+    const registeredUsers = JSON.parse(
+      localStorage.getItem("ppowRegisteredUsers_v1") || "[]",
+    );
+    const matchedUser = registeredUsers.find(
+      (u) =>
+        String(u.email || "")
+          .trim()
+          .toLowerCase() === email && String(u.password || "") === password,
+    );
+
+    if (matchedUser) {
+      saveStorage(CUSTOMER_SESSION_KEY, true);
+      saveStorage(CUSTOMER_PROFILE_KEY, {
+        name: matchedUser.name || matchedUser.fullName || "Customer",
+        email: matchedUser.email,
+        role: "customer",
+        loggedInAt: new Date().toISOString(),
+      });
+      saveStorage(ADMIN_SESSION_KEY, false);
+      window.location.href = "index.html";
+      return;
+    }
+
+    showLoginError("Invalid email address or password.");
   });
 });
