@@ -1,10 +1,10 @@
 "use strict";
 
 const STORAGE_KEYS = {
-  session: "ppowAdminLoggedIn_v2",
-  tours: "ppowAdminPackages_v2",
-  guests: "ppowGuestInformation_v2",
-  inquiries: "ppowInquiries_v2",
+  session: "ppowAdminLoggedIn_v3",
+  tours: "ppowAdminPackages_v3",
+  guests: "ppowGuestInformation_v3",
+  inquiries: "ppowInquiries_v3",
 };
 
 const DEFAULT_TOURS = [
@@ -59,7 +59,6 @@ const DEFAULT_TOURS = [
   },
 ];
 
-// Exact schema matching tblGuestinformation
 const DEFAULT_GUESTS = [
   {
     Id: 1,
@@ -72,12 +71,13 @@ const DEFAULT_GUESTS = [
     Flight_photo: "maria_flight_5j637.jpg",
     Valid_id: "Philippine Passport",
     Status: "Confirmed",
-    Tripplanner_id: null,
-    Localdestination: 1,
-    Beyond_the_philippines_id: null,
     Bookinginformation_id: 101,
     category: "Tour Only",
+    tourPackage: "Underground River Tour",
     destination: "Puerto Princesa",
+    hotelName: "Puerto Princesa Bayfront Hotel",
+    hotelRoom: "Deluxe Twin Room (3D2N)",
+    guests: 3,
     bookingDate: "Nov 25, 2026",
     amount: 8400,
     paymentMethod: "GCash",
@@ -93,12 +93,13 @@ const DEFAULT_GUESTS = [
     Flight_photo: "juan_flight_pr2785.jpg",
     Valid_id: "UMID / Driver License",
     Status: "Pending",
-    Tripplanner_id: 12,
-    Localdestination: 2,
-    Beyond_the_philippines_id: null,
     Bookinginformation_id: 102,
     category: "Customized Trip",
+    tourPackage: "Custom Palawan 4D3N Package",
     destination: "Palawan",
+    hotelName: "El Nido Lagoon Cove Resort",
+    hotelRoom: "Superior Lagoon View (4D3N)",
+    guests: 2,
     bookingDate: "Nov 22, 2026",
     amount: 13000,
     paymentMethod: "Bank Transfer",
@@ -114,12 +115,13 @@ const DEFAULT_GUESTS = [
     Flight_photo: "ana_flight_z2422.jpg",
     Valid_id: "National ID (PhilSys)",
     Status: "Processing",
-    Tripplanner_id: null,
-    Localdestination: 3,
-    Beyond_the_philippines_id: null,
     Bookinginformation_id: 103,
     category: "Local Destination",
+    tourPackage: "El Nido Island Hopping Tour A",
     destination: "El Nido",
+    hotelName: "Port Barton Coastal Cottages",
+    hotelRoom: "Garden Bungalow (3D2N)",
+    guests: 4,
     bookingDate: "Nov 18, 2026",
     amount: 35600,
     paymentMethod: "GCash",
@@ -135,12 +137,13 @@ const DEFAULT_GUESTS = [
     Flight_photo: "carlos_flight_ke624.jpg",
     Valid_id: "Philippine Passport",
     Status: "Confirmed",
-    Tripplanner_id: null,
-    Localdestination: null,
-    Beyond_the_philippines_id: 1,
     Bookinginformation_id: 104,
     category: "Beyond the Philippines",
+    tourPackage: "Seoul & Nami Island Getaway",
     destination: "South Korea",
+    hotelName: "Myeongdong Central Stay Hotel",
+    hotelRoom: "Standard Double Room (4D3N)",
+    guests: 2,
     bookingDate: "Nov 12, 2026",
     amount: 49000,
     paymentMethod: "Credit Card",
@@ -241,6 +244,7 @@ let currentTourCategoryFilter = "All";
 let currentBookingSubTab = "guests";
 let currentDestFilter = "All";
 const expandedInquiryIds = new Set();
+const expandedGuestDetailsIds = new Set();
 
 function readLS(key, fallback) {
   try {
@@ -529,23 +533,15 @@ function renderDashboard() {
   const beyondCount =
     tours.filter((t) => t.category === "Beyond the Philippines" && t.enabled)
       .length +
-    guests.filter(
-      (g) =>
-        g.Beyond_the_philippines_id !== null &&
-        g.Beyond_the_philippines_id !== "",
-    ).length;
+    guests.filter((g) => g.category === "Beyond the Philippines").length;
 
   const localCount =
     tours.filter((t) => t.category === "Local Destination" && t.enabled)
-      .length +
-    guests.filter(
-      (g) => g.Localdestination !== null && g.Localdestination !== "",
-    ).length;
+      .length + guests.filter((g) => g.category === "Local Destination").length;
 
   const customizedCount =
     tours.filter((t) => t.category === "Customized Trip" && t.enabled).length +
-    guests.filter((g) => g.Tripplanner_id !== null && g.Tripplanner_id !== "")
-      .length;
+    guests.filter((g) => g.category === "Customized Trip").length;
 
   const tourOnlyCount =
     tours.filter((t) => t.category === "Tour Only" && t.enabled).length +
@@ -584,7 +580,7 @@ function renderDashboard() {
         ? pendingItems
             .map(
               (p) =>
-                `<li><strong>${p.Fullname}</strong> &mdash; Booking ID #${p.Bookinginformation_id} (${p.destination})</li>`,
+                `<li><strong>${p.Fullname}</strong> &mdash; ${p.tourPackage || p.category} (${p.destination})</li>`,
             )
             .join("")
         : "<li>No pending guest records right now.</li>";
@@ -621,7 +617,7 @@ function renderDashboard() {
         <tr>
           <td>#${g.Id}</td>
           <td><strong>${g.Fullname}</strong></td>
-          <td>${g.category || "Tour Only"}</td>
+          <td>${g.tourPackage || g.category || "Tour Only"}</td>
           <td>${g.destination || "Puerto Princesa"}</td>
           <td>${g.Bookinginformation_id}</td>
           <td><span class="badge-pill ${statusBadgeClass(g.Status)}">${g.Status}</span></td>
@@ -727,7 +723,7 @@ function renderToursCrud() {
 }
 
 /* =========================================================
-   GUEST INFORMATION MODULE (tblGuestinformation)
+   GUEST INFORMATION MODULE (WITH EXPANDABLE CUSTOMER DETAILS)
 ========================================================= */
 function renderBookingsModule() {
   const thead = document.getElementById("bookingsDynamicThead");
@@ -759,6 +755,12 @@ function renderBookingsModule() {
         .includes(q) ||
       String(g.Flight_no || "")
         .toLowerCase()
+        .includes(q) ||
+      String(g.tourPackage || "")
+        .toLowerCase()
+        .includes(q) ||
+      String(g.hotelName || "")
+        .toLowerCase()
         .includes(q);
     return stOk && qOk;
   });
@@ -768,8 +770,8 @@ function renderBookingsModule() {
     thead.innerHTML = `
       <tr>
         <th>Id</th>
-        <th>Bookinginformation_id</th>
         <th>Fullname</th>
+        <th>Tour Package</th>
         <th>Payment Method</th>
         <th>Earnings</th>
         <th>Status</th>
@@ -780,8 +782,8 @@ function renderBookingsModule() {
         (g) => `
         <tr>
           <td><strong>${g.Id}</strong></td>
-          <td>${g.Bookinginformation_id}</td>
           <td>${g.Fullname}</td>
+          <td>${g.tourPackage || g.category || "Tour Package"}</td>
           <td>${g.paymentMethod || "GCash"}</td>
           <td><strong>${formatPeso(g.amount)}</strong></td>
           <td><span class="badge-pill ${statusBadgeClass(g.Status)}">${g.Status}</span></td>
@@ -792,7 +794,7 @@ function renderBookingsModule() {
     return;
   }
 
-  if (heading) heading.textContent = "Guest Information (tblGuestinformation)";
+  if (heading) heading.textContent = "Guest Information Management";
   thead.innerHTML = `
     <tr>
       <th>Id</th>
@@ -802,7 +804,7 @@ function renderBookingsModule() {
       <th>Passport_no</th>
       <th>Flight_no &amp; Flight_photo</th>
       <th>Valid_id</th>
-      <th>Linked IDs</th>
+      <th>Customer Details</th>
       <th>Status</th>
       <th>Actions</th>
     </tr>
@@ -811,32 +813,59 @@ function renderBookingsModule() {
   tbody.innerHTML =
     list.length > 0
       ? list
-          .map(
-            (g) => `
-          <tr>
-            <td><strong>${g.Id}</strong></td>
-            <td><strong>${g.Fullname}</strong></td>
-            <td>${g.Birthdate || "N/A"}</td>
-            <td>${g.Email}<br><small style="color:#6b7280">${g.Contact_no}</small></td>
-            <td>${g.Passport_no || "N/A"}</td>
-            <td>${g.Flight_no || "N/A"}<br><small style="color:#6b7280">${g.Flight_photo || "No file"}</small></td>
-            <td>${g.Valid_id || "N/A"}</td>
-            <td>
-              <small style="display:block;color:#374151">Bookinginformation_id: <strong>${g.Bookinginformation_id}</strong></small>
-              <small style="display:block;color:#6b7280">Tripplanner_id: ${g.Tripplanner_id ?? "NULL"}</small>
-              <small style="display:block;color:#6b7280">Localdestination: ${g.Localdestination ?? "NULL"}</small>
-              <small style="display:block;color:#6b7280">Beyond_the_philippines_id: ${g.Beyond_the_philippines_id ?? "NULL"}</small>
-            </td>
-            <td><span class="badge-pill ${statusBadgeClass(g.Status)}">${g.Status}</span></td>
-            <td>
-              <div class="action-mini-group">
-                ${g.Status !== "Confirmed" ? `<button type="button" class="mini-btn-ok" data-approve-guest="${g.Id}">Confirm</button>` : ""}
-                <button type="button" class="mini-btn-del" data-del-guest="${g.Id}">Delete</button>
-              </div>
-            </td>
-          </tr>
-        `,
-          )
+          .map((g) => {
+            const isOpen = expandedGuestDetailsIds.has(Number(g.Id));
+            return `
+            <tr>
+              <td><strong>${g.Id}</strong></td>
+              <td><strong>${g.Fullname}</strong></td>
+              <td>${g.Birthdate || "N/A"}</td>
+              <td>${g.Email}<br><small style="color:#6b7280">${g.Contact_no}</small></td>
+              <td>${g.Passport_no || "N/A"}</td>
+              <td>${g.Flight_no || "N/A"}<br><small style="color:#6b7280">${g.Flight_photo || "No file"}</small></td>
+              <td>${g.Valid_id || "N/A"}</td>
+              <td class="cust-details-cell">
+                <div class="cust-details-summary">
+                  <strong>${g.tourPackage || g.category || "Tour Package"}</strong>
+                  <button
+                    type="button"
+                    class="arrow-expand-btn ${isOpen ? "is-open" : ""}"
+                    data-toggle-guest-details="${g.Id}"
+                    title="View Tour, Hotel Accommodation, and Booking Info"
+                    aria-label="Expand customer details"
+                  >&#9662;</button>
+                </div>
+                ${
+                  isOpen
+                    ? `
+                  <div class="cust-details-drawer">
+                    <div class="detail-block-item">
+                      <span class="detail-block-title">1. Tour</span>
+                      <span class="detail-block-text">${g.tourPackage || "Standard Tour"} (${g.category || "Tour Only"} &mdash; ${g.destination || "Puerto Princesa"})</span>
+                    </div>
+                    <div class="detail-block-item">
+                      <span class="detail-block-title">2. Hotel Accommodation</span>
+                      <span class="detail-block-text">${g.hotelName || "Partner Hotel"} &bull; ${g.hotelRoom || "Standard Room"}</span>
+                    </div>
+                    <div class="detail-block-item">
+                      <span class="detail-block-title">3. Booking Info</span>
+                      <span class="detail-block-text">Date: ${g.bookingDate || "Nov 2026"} &bull; ${g.guests || 1} pax &bull; ${formatPeso(g.amount)} (${g.paymentMethod || "GCash"})</span>
+                    </div>
+                  </div>
+                `
+                    : ""
+                }
+              </td>
+              <td><span class="badge-pill ${statusBadgeClass(g.Status)}">${g.Status}</span></td>
+              <td>
+                <div class="action-mini-group">
+                  ${g.Status !== "Confirmed" ? `<button type="button" class="mini-btn-ok" data-approve-guest="${g.Id}">Confirm</button>` : ""}
+                  <button type="button" class="mini-btn-del" data-del-guest="${g.Id}">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `;
+          })
           .join("")
       : `<tr><td colspan="10" style="color:#6b7280">No guest information records found.</td></tr>`;
 }
@@ -939,11 +968,14 @@ function exportReportToCsv() {
     "Flight_no",
     "Flight_photo",
     "Valid_id",
+    "Tour_Package",
+    "Category",
+    "Destination",
+    "Hotel_Accommodation",
+    "Room_Option",
+    "Guests_Pax",
+    "Payment_Method",
     "Status",
-    "Tripplanner_id",
-    "Localdestination",
-    "Beyond_the_philippines_id",
-    "Bookinginformation_id",
     "Earnings",
   ];
   const lines = [headers.join(",")];
@@ -959,11 +991,14 @@ function exportReportToCsv() {
       `"${g.Flight_no || ""}"`,
       `"${g.Flight_photo || ""}"`,
       `"${g.Valid_id || ""}"`,
+      `"${g.tourPackage || ""}"`,
+      `"${g.category || ""}"`,
+      `"${g.destination || ""}"`,
+      `"${g.hotelName || ""}"`,
+      `"${g.hotelRoom || ""}"`,
+      g.guests || 1,
+      `"${g.paymentMethod || "GCash"}"`,
       g.Status,
-      g.Tripplanner_id ?? "",
-      g.Localdestination ?? "",
-      g.Beyond_the_philippines_id ?? "",
-      g.Bookinginformation_id,
       Number(g.amount || 0),
     ];
     lines.push(row.join(","));
@@ -1176,7 +1211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("qaOpenReportsBtn")
     ?.addEventListener("click", () => switchView("reports"));
 
-  // Save Guest Information Modal (tblGuestinformation)
+  // Save Guest Information Modal
   document
     .getElementById("quickActionForm")
     ?.addEventListener("submit", (e) => {
@@ -1192,31 +1227,28 @@ document.addEventListener("DOMContentLoaded", () => {
       const Flight_photo =
         document.getElementById("gFlightPhoto")?.value.trim() || null;
       const Valid_id = document.getElementById("gValidId")?.value.trim() || "";
-      const Status = document.getElementById("gStatus")?.value || "Pending";
-      const Bookinginformation_id = Number(
-        document.getElementById("gBookingInfoId")?.value || 101,
-      );
 
-      const tpRaw = document.getElementById("gTripplannerId")?.value.trim();
-      const ldRaw = document.getElementById("gLocalDestId")?.value.trim();
-      const bpRaw = document.getElementById("gBeyondId")?.value.trim();
-
-      const Tripplanner_id = tpRaw !== "" ? Number(tpRaw) : null;
-      const Localdestination = ldRaw !== "" ? Number(ldRaw) : null;
-      const Beyond_the_philippines_id = bpRaw !== "" ? Number(bpRaw) : null;
-
-      const amount = Number(document.getElementById("gAmount")?.value || 2800);
-      const paymentMethod =
-        document.getElementById("gPaymentMethod")?.value || "GCash";
+      const tourPackage =
+        document.getElementById("gTourPackage")?.value.trim() ||
+        "Underground River Tour";
+      const category =
+        document.getElementById("gTourCategory")?.value || "Tour Only";
       const destination =
         document.getElementById("gDestLabel")?.value.trim() ||
         "Puerto Princesa";
 
-      let category = "Tour Only";
-      if (Beyond_the_philippines_id !== null)
-        category = "Beyond the Philippines";
-      else if (Tripplanner_id !== null) category = "Customized Trip";
-      else if (Localdestination !== null) category = "Local Destination";
+      const hotelName =
+        document.getElementById("gHotelName")?.value.trim() ||
+        "Puerto Princesa Bayfront Hotel";
+      const hotelRoom =
+        document.getElementById("gHotelRoom")?.value.trim() ||
+        "Deluxe Twin Room";
+
+      const guests = Number(document.getElementById("gPax")?.value || 2);
+      const amount = Number(document.getElementById("gAmount")?.value || 2800);
+      const paymentMethod =
+        document.getElementById("gPaymentMethod")?.value || "GCash";
+      const Status = document.getElementById("gStatus")?.value || "Pending";
 
       if (Fullname) {
         const list = getGuests();
@@ -1239,12 +1271,13 @@ document.addEventListener("DOMContentLoaded", () => {
           Flight_photo,
           Valid_id,
           Status,
-          Tripplanner_id,
-          Localdestination,
-          Beyond_the_philippines_id,
-          Bookinginformation_id,
+          Bookinginformation_id: 100 + nextId,
           category,
+          tourPackage,
           destination,
+          hotelName,
+          hotelRoom,
+          guests,
           bookingDate: today,
           amount,
           paymentMethod,
@@ -1349,7 +1382,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Guest Information sub-tabs & status actions
+  // Guest Information sub-tabs, Customer Details drawer toggle, & status actions
   document.querySelectorAll("#bookingSubTabs .pill-tab").forEach((tab) => {
     tab.addEventListener("click", () => {
       currentBookingSubTab = tab.dataset.bsub;
@@ -1371,9 +1404,19 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("bookingsDynamicTbody")
     ?.addEventListener("click", (e) => {
+      const expandBtn = e.target.closest("[data-toggle-guest-details]");
       const appBtn = e.target.closest("[data-approve-guest]");
       const delBtn = e.target.closest("[data-del-guest]");
-      if (appBtn) {
+
+      if (expandBtn) {
+        const targetId = Number(expandBtn.dataset.toggleGuestDetails);
+        if (expandedGuestDetailsIds.has(targetId)) {
+          expandedGuestDetailsIds.delete(targetId);
+        } else {
+          expandedGuestDetailsIds.add(targetId);
+        }
+        renderBookingsModule();
+      } else if (appBtn) {
         const targetId = Number(appBtn.dataset.approveGuest);
         const updated = getGuests().map((g) =>
           Number(g.Id) === targetId ? { ...g, Status: "Confirmed" } : g,
@@ -1390,7 +1433,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-  // Arrow Down Expand/Collapse for Inquiries (both Dashboard and Inquiry page)
+  // Arrow Down Expand/Collapse for Inquiries
   document.body.addEventListener("click", (e) => {
     const arrowBtn = e.target.closest("[data-toggle-inq]");
     if (!arrowBtn) return;

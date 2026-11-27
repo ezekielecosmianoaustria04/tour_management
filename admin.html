@@ -1153,7 +1153,7 @@
     <dialog id="quickActionDialog" class="admin-dialog">
       <form id="quickActionForm" method="dialog" class="dialog-box">
         <div class="dialog-head">
-          <h3>Add Guest Information (tblGuestinformation)</h3>
+          <h3>Add Guest Information</h3>
           <button type="button" id="closeDialogBtn" class="dialog-x">
             &times;
           </button>
@@ -1204,42 +1204,55 @@
               placeholder="Philippine Passport / National ID"
               required
           /></label>
+
           <label class="field-group"
-            ><span>Status</span>
-            <select id="gStatus">
-              <option value="Pending">Pending</option>
-              <option value="Processing">Processing</option>
-              <option value="Confirmed">Confirmed</option>
-            </select>
-          </label>
-          <label class="field-group"
-            ><span>Bookinginformation_id (NOT NULL)</span
+            ><span>1. Tour Package</span
             ><input
-              id="gBookingInfoId"
-              type="number"
-              min="1"
-              value="106"
+              id="gTourPackage"
+              type="text"
+              placeholder="e.g. Underground River Tour"
               required
           /></label>
           <label class="field-group"
-            ><span>Tripplanner_id (INT)</span
+            ><span>Tour Category</span>
+            <select id="gTourCategory">
+              <option value="Tour Only">Tour Only</option>
+              <option value="Customized Trip">Customized Trip</option>
+              <option value="Local Destination">Local Destination</option>
+              <option value="Beyond the Philippines">
+                Beyond the Philippines
+              </option>
+            </select>
+          </label>
+          <label class="field-group"
+            ><span>Destination</span
             ><input
-              id="gTripplannerId"
-              type="number"
-              min="0"
-              placeholder="Optional"
+              id="gDestLabel"
+              type="text"
+              value="Puerto Princesa"
+              required
+          /></label>
+
+          <label class="field-group"
+            ><span>2. Hotel Accommodation</span
+            ><input
+              id="gHotelName"
+              type="text"
+              placeholder="e.g. Puerto Princesa Bayfront Hotel"
+              required
           /></label>
           <label class="field-group"
-            ><span>Localdestination (INT)</span
+            ><span>Room &amp; Stay Duration</span
             ><input
-              id="gLocalDestId"
-              type="number"
-              min="0"
-              placeholder="Optional"
+              id="gHotelRoom"
+              type="text"
+              placeholder="e.g. Deluxe Twin (3D2N)"
+              required
           /></label>
+
           <label class="field-group"
-            ><span>Beyond_the_philippines_id (INT)</span
-            ><input id="gBeyondId" type="number" min="0" placeholder="Optional"
+            ><span>3. Guests (Pax)</span
+            ><input id="gPax" type="number" min="1" value="2" required
           /></label>
           <label class="field-group"
             ><span>Amount (&#8369;)</span
@@ -1261,13 +1274,13 @@
             </select>
           </label>
           <label class="field-group"
-            ><span>Destination Label</span
-            ><input
-              id="gDestLabel"
-              type="text"
-              value="Puerto Princesa"
-              required
-          /></label>
+            ><span>Status</span>
+            <select id="gStatus">
+              <option value="Pending">Pending</option>
+              <option value="Processing">Processing</option>
+              <option value="Confirmed">Confirmed</option>
+            </select>
+          </label>
         </div>
         <div class="dialog-foot">
           <button
