@@ -1,206 +1,805 @@
+"use strict";
 
-/* ==========================================
-   CUSTOMIZED TRIP PLANNER
-   PALAWAN DESTINATION PAGE
-========================================== */
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
 
     /* ======================================
-       SEARCH FUNCTION
+       HELPER FUNCTIONS
     ====================================== */
 
-    const searchForm = document.getElementById('custom-search-form');
+    const $ = id => document.getElementById(id);
 
-    searchForm?.addEventListener('submit', (event) => {
-        event.preventDefault();
+    const normalize = value =>
 
-        const query = document
-            .getElementById('home-location-search')
-            ?.value.trim();
+        String(value || "")
 
-        if (query) {
-            window.location.href =
-                'tripplanner.html?search=' +
-                encodeURIComponent(query);
+            .toLowerCase()
+
+            .trim()
+
+            .replace(/[\s-]+/g, "");
+
+
+    /* ======================================
+       HEADER ELEMENTS
+    ====================================== */
+
+    const searchToggle = $("headerSearchToggle");
+
+    const searchForm = $("headerSearchForm");
+
+    const searchInput = $("home-location-search");
+
+    const searchResults = $("home-search-results");
+
+    const noSearchResults = $("noSearchResults");
+
+    const mobileMenu = $("mobileMenuToggle");
+
+    const navigation = $("mainNavigation");
+
+
+    /* ======================================
+       SEARCH DESTINATIONS
+
+       DESTINATION DATA IS NOW IN HTML
+    ====================================== */
+
+    function filterDestinations() {
+
+        if (!searchInput || !searchResults) return [];
+
+        const query = normalize(searchInput.value);
+
+        const links = [
+
+            ...searchResults.querySelectorAll("a")
+
+        ];
+
+        const matches = [];
+
+        links.forEach(link => {
+
+            const name = normalize(link.textContent);
+
+            const matched =
+
+                query.length > 0 &&
+
+                name.includes(query);
+
+            link.hidden = !matched;
+
+            if (matched) {
+
+                matches.push(link);
+
+            }
+
+        });
+
+        searchResults.style.display =
+
+            query ? "flex" : "none";
+
+        if (noSearchResults) {
+
+            noSearchResults.hidden =
+
+                !query || matches.length > 0;
+
         }
+
+        return matches;
+
+    }
+
+
+    /* ======================================
+       EXPANDABLE SEARCH BUTTON
+    ====================================== */
+
+    function setSearch(open) {
+
+        if (!searchForm || !searchToggle) return;
+
+        searchForm.hidden = !open;
+
+        searchToggle.setAttribute(
+
+            "aria-expanded",
+
+            String(open)
+
+        );
+
+        searchToggle.setAttribute(
+
+            "aria-label",
+
+            open ? "Close search" : "Open search"
+
+        );
+
+        const icon = searchToggle.querySelector("i");
+
+        if (icon) {
+
+            icon.className = open
+
+                ? "bi bi-x-lg"
+
+                : "bi bi-search";
+
+        }
+
+        if (open) {
+
+            setMobileMenu(false);
+
+            searchInput?.focus();
+
+            filterDestinations();
+
+        } else {
+
+            if (searchResults) {
+
+                searchResults.style.display = "none";
+
+            }
+
+        }
+
+    }
+
+
+    /* ======================================
+       MOBILE NAVIGATION
+    ====================================== */
+
+    function setMobileMenu(open) {
+
+        if (!navigation || !mobileMenu) return;
+
+        navigation.classList.toggle("open", open);
+
+        mobileMenu.setAttribute(
+
+            "aria-expanded",
+
+            String(open)
+
+        );
+
+        mobileMenu.setAttribute(
+
+            "aria-label",
+
+            open ? "Close navigation" : "Open navigation"
+
+        );
+
+        const icon = mobileMenu.querySelector("i");
+
+        if (icon) {
+
+            icon.className = open
+
+                ? "bi bi-x-lg"
+
+                : "bi bi-list";
+
+        }
+
+        if (open) {
+
+            setSearch(false);
+
+        }
+
+    }
+
+
+    /* ======================================
+       OPEN SEARCH
+    ====================================== */
+
+    searchToggle?.addEventListener("click", () => {
+
+        if (searchForm) {
+
+            setSearch(searchForm.hidden);
+
+        }
+
     });
 
 
     /* ======================================
-       SHOPPING CART
+       LIVE SEARCH
     ====================================== */
 
-    document
-        .getElementById('custom-cart-button')
-        ?.addEventListener('click', () => {
+    searchInput?.addEventListener(
 
-            if (typeof window.openCart === 'function') {
-                window.openCart();
-            } else {
-                alert('Cart feature is not connected on this page yet.');
-            }
+        "input",
+
+        filterDestinations
+
+    );
+
+
+    /* ======================================
+       SUBMIT SEARCH
+    ====================================== */
+
+    searchForm?.addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        const matches = filterDestinations();
+
+        if (matches.length > 0) {
+
+            window.location.href = matches[0].href;
+
+        }
+
+    });
+
+
+    /* ======================================
+       OPEN MOBILE MENU
+    ====================================== */
+
+    mobileMenu?.addEventListener("click", () => {
+
+        if (!navigation) return;
+
+        setMobileMenu(
+
+            !navigation.classList.contains("open")
+
+        );
+
+    });
+
+
+    /* ======================================
+       CLOSE MENU AFTER SELECTING A LINK
+    ====================================== */
+
+    navigation?.querySelectorAll("a")
+
+        .forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                setMobileMenu(false);
+
+            });
 
         });
 
 
     /* ======================================
-       LOGIN BUTTON
+       CLOSE SEARCH WHEN CLICKING OUTSIDE
     ====================================== */
 
-    document
-        .getElementById('custom-login-button')
-        ?.addEventListener('click', () => {
+    document.addEventListener("click", event => {
 
-            if (typeof window.showLoginNotice === 'function') {
-                window.showLoginNotice();
+        if (
+
+            !event.target.closest(
+
+                ".header-search-wrapper"
+
+            )
+
+        ) {
+
+            setSearch(false);
+
+        }
+
+        if (
+
+            !event.target.closest(".ppow-header")
+
+        ) {
+
+            setMobileMenu(false);
+
+        }
+
+    });
+
+
+    /* ======================================
+       ESCAPE KEY
+    ====================================== */
+
+    document.addEventListener("keydown", event => {
+
+        if (event.key === "Escape") {
+
+            setSearch(false);
+
+            setMobileMenu(false);
+
+        }
+
+    });
+
+
+    /* ======================================
+       CUSTOMER ACCOUNT
+    ====================================== */
+
+    function updateCustomerAccount() {
+
+        const account = $("customerAccountButton");
+
+        if (!account) return;
+
+        try {
+
+            const loggedIn = JSON.parse(
+
+                localStorage.getItem(
+
+                    "ppowCustomerLoggedIn_v1"
+
+                ) || "false"
+
+            );
+
+            const profile = JSON.parse(
+
+                localStorage.getItem(
+
+                    "ppowCustomerProfile_v1"
+
+                ) || "null"
+
+            );
+
+            if (loggedIn === true) {
+
+                account.href = "customer-account.html";
+
+                account.title =
+
+                    profile?.fullName ||
+
+                    profile?.name ||
+
+                    "Customer Account";
+
             } else {
-                alert('Login feature is not connected on this page yet.');
+
+                account.href = "login.html";
+
+                account.title = "Login or Sign Up";
+
             }
 
+        } catch (error) {
+
+            account.href = "login.html";
+
+            console.error("Account error:", error);
+
+        }
+
+    }
+
+    updateCustomerAccount();
+
+    window.addEventListener(
+
+        "pageshow",
+
+        updateCustomerAccount
+
+    );
+
+    window.addEventListener("storage", event => {
+
+        if (
+
+            event.key === "ppowCustomerLoggedIn_v1" ||
+
+            event.key === "ppowCustomerProfile_v1" ||
+
+            event.key === null
+
+        ) {
+
+            updateCustomerAccount();
+
+        }
+
+    });
+
+
+    /* ======================================
+       PALAWAN DESTINATION SLIDER
+
+       ALL CARDS ARE NOW IN HTML
+    ====================================== */
+
+    const travelCards = $("travelCards");
+
+    const travelCounter = $("travelCounter");
+
+    const travelPrev = $("travelPrev");
+
+    const travelNext = $("travelNext");
+
+    const destinationCards = travelCards
+
+        ? [...travelCards.querySelectorAll(".travel-card")]
+
+        : [];
+
+    let travelStart = 0;
+
+
+    /* ======================================
+       RESPONSIVE VISIBLE CARD COUNT
+    ====================================== */
+
+    function getVisibleCount() {
+
+        return window.innerWidth <= 768 ? 2 : 3;
+
+    }
+
+
+    /* ======================================
+       DISPLAY DESTINATION CARDS
+    ====================================== */
+
+    function renderTravelCards(animate = true) {
+
+        if (!travelCards || !destinationCards.length) {
+
+            return;
+
+        }
+
+        const visibleCount = Math.min(
+
+            getVisibleCount(),
+
+            destinationCards.length
+
+        );
+
+        destinationCards.forEach(card => {
+
+            card.hidden = true;
+
+            card.classList.remove("slide-enter");
+
         });
+
+        for (let i = 0; i < visibleCount; i++) {
+
+            const index =
+
+                (travelStart + i) %
+
+                destinationCards.length;
+
+            const card = destinationCards[index];
+
+            card.hidden = false;
+
+            card.style.order = i;
+
+            if (animate) {
+
+                card.style.animationDelay = `${i * 65}ms`;
+
+                card.classList.add("slide-enter");
+
+            }
+
+        }
+
+        if (travelCounter) {
+
+            travelCounter.textContent =
+
+                String(travelStart + 1).padStart(2, "0") +
+
+                " / " +
+
+                String(destinationCards.length).padStart(2, "0");
+
+        }
+
+        const disableControls =
+
+            destinationCards.length <= visibleCount;
+
+        if (travelPrev) {
+
+            travelPrev.disabled = disableControls;
+
+        }
+
+        if (travelNext) {
+
+            travelNext.disabled = disableControls;
+
+        }
+
+    }
+
+
+    /* ======================================
+       PREVIOUS DESTINATION
+    ====================================== */
+
+    travelPrev?.addEventListener("click", () => {
+
+        if (!destinationCards.length) return;
+
+        travelStart =
+
+            (
+
+                travelStart - 1 +
+
+                destinationCards.length
+
+            ) % destinationCards.length;
+
+        renderTravelCards();
+
+    });
+
+
+    /* ======================================
+       NEXT DESTINATION
+    ====================================== */
+
+    travelNext?.addEventListener("click", () => {
+
+        if (!destinationCards.length) return;
+
+        travelStart =
+
+            (travelStart + 1) %
+
+            destinationCards.length;
+
+        renderTravelCards();
+
+    });
+
+
+    /* ======================================
+       RESPONSIVE SLIDER
+    ====================================== */
+
+    let resizeTimer;
+
+    window.addEventListener("resize", () => {
+
+        clearTimeout(resizeTimer);
+
+        resizeTimer = setTimeout(() => {
+
+            renderTravelCards(false);
+
+            if (window.innerWidth > 1150) {
+
+                setMobileMenu(false);
+
+            }
+
+        }, 150);
+
+    });
+
+
+    /* ======================================
+       TOUCH SWIPE FOR MOBILE
+    ====================================== */
+
+    let touchStartX = 0;
+
+    let touchStartY = 0;
+
+    travelCards?.addEventListener(
+
+        "touchstart",
+
+        event => {
+
+            touchStartX = event.changedTouches[0].screenX;
+
+            touchStartY = event.changedTouches[0].screenY;
+
+        },
+
+        { passive: true }
+
+    );
+
+    travelCards?.addEventListener(
+
+        "touchend",
+
+        event => {
+
+            const touchEndX =
+
+                event.changedTouches[0].screenX;
+
+            const touchEndY =
+
+                event.changedTouches[0].screenY;
+
+            const distanceX = touchStartX - touchEndX;
+
+            const distanceY = touchStartY - touchEndY;
+
+            if (
+
+                Math.abs(distanceX) < 50 ||
+
+                Math.abs(distanceX) <= Math.abs(distanceY)
+
+            ) return;
+
+            if (distanceX > 0) {
+
+                travelNext?.click();
+
+            } else {
+
+                travelPrev?.click();
+
+            }
+
+        },
+
+        { passive: true }
+
+    );
+
+
+    /* ======================================
+       SCROLL REVEAL ANIMATION
+    ====================================== */
+
+    const revealElements =
+
+        document.querySelectorAll(".reveal");
+
+    const reducedMotion = window.matchMedia(
+
+        "(prefers-reduced-motion: reduce)"
+
+    ).matches;
+
+    if (
+
+        "IntersectionObserver" in window &&
+
+        !reducedMotion
+
+    ) {
+
+        const observer = new IntersectionObserver(
+
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+
+                            "visible"
+
+                        );
+
+                        observer.unobserve(entry.target);
+
+                    }
+
+                });
+
+            },
+
+            {
+
+                threshold: 0.08
+
+            }
+
+        );
+
+        revealElements.forEach(element => {
+
+            element.classList.add("reveal-ready");
+
+            observer.observe(element);
+
+        });
+
+    }
+
+
+    /* ======================================
+       INITIALIZE DESTINATION SLIDER
+    ====================================== */
+
+    renderTravelCards(false);
+
+    console.log(
+
+        "Customized Trip Planner initialized successfully."
+
+    );
 
 });
 
 
+
+
+
+
+
 /* ==========================================
-   PALAWAN DESTINATION SLIDER
+   SCROLL REVEAL ANIMATION
 ========================================== */
 
-const travelDestinations = [
+document.addEventListener("DOMContentLoaded", () => {
 
-    {
-        name: 'Puerto Princesa',
-        region: 'PALAWAN',
-        image: 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=85'
-    },
+    const revealElements =
+        document.querySelectorAll(".reveal");
 
-    {
-        name: 'El Nido',
-        region: 'PALAWAN',
-        image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=85'
-    },
-
-    {
-        name: 'Coron',
-        region: 'PALAWAN',
-        image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=800&q=85'
-    },
-
-    {
-        name: 'Port Barton',
-        region: 'PALAWAN',
-        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=85'
-    },
-
-    {
-        name: 'San Vicente',
-        region: 'PALAWAN',
-        image: 'https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=800&q=85'
+    if (!("IntersectionObserver" in window)) {
+        return;
     }
 
-];
+    const revealObserver = new IntersectionObserver(
 
+        (entries) => {
 
-/* ==========================================
-   SLIDER VARIABLES
-========================================== */
+            entries.forEach((entry) => {
 
-let travelStart = 0;
+                if (entry.isIntersecting) {
 
-const travelCards = document.getElementById('travelCards');
-const travelCounter = document.getElementById('travelCounter');
+                    entry.target.classList.add("visible");
 
+                    revealObserver.unobserve(entry.target);
 
-/* ==========================================
-   DISPLAY DESTINATION CARDS
-========================================== */
+                }
 
-function renderTravelCards() {
+            });
 
-    if (!travelCards || !travelCounter) return;
+        },
 
-    const visibleCount = window.matchMedia('(max-width: 540px)').matches
-        ? 2
-        : 3;
+        {
+            threshold: 0.1
+        }
 
-    travelCards.replaceChildren();
+    );
 
-    for (let i = 0; i < visibleCount; i++) {
+    revealElements.forEach((element) => {
 
-        const destination =
-            travelDestinations[
-                (travelStart + i) % travelDestinations.length
-            ];
+        element.classList.add("reveal-ready");
 
-        const card = document.createElement('article');
-        card.className = 'travel-card';
+        revealObserver.observe(element);
 
-        const img = document.createElement('img');
-        img.src = destination.image;
-        img.alt = destination.name;
-        img.loading = 'lazy';
-
-        const info = document.createElement('div');
-        info.className = 'travel-card-info';
-
-        const heading = document.createElement('h3');
-        heading.textContent = destination.name;
-
-        const label = document.createElement('p');
-        label.textContent = destination.region;
-
-        info.append(heading, label);
-        card.append(img, info);
-        travelCards.append(card);
-    }
-
-    travelCounter.textContent =
-        `${String(travelStart + 1).padStart(2, '0')} / ` +
-        `${String(travelDestinations.length).padStart(2, '0')}`;
-}
-
-
-/* ==========================================
-   PREVIOUS BUTTON
-========================================== */
-
-document
-    .getElementById('travelPrev')
-    ?.addEventListener('click', () => {
-
-        travelStart =
-            (travelStart - 1 + travelDestinations.length)
-            % travelDestinations.length;
-
-        renderTravelCards();
     });
 
-
-/* ==========================================
-   NEXT BUTTON
-========================================== */
-
-document
-    .getElementById('travelNext')
-    ?.addEventListener('click', () => {
-
-        travelStart =
-            (travelStart + 1) % travelDestinations.length;
-
-        renderTravelCards();
-    });
-
-
-/* ==========================================
-   RESPONSIVE SLIDER
-========================================== */
-
-window.addEventListener('resize', renderTravelCards);
-
-
-/* ==========================================
-   INITIALIZE SLIDER
-========================================== */
-
-renderTravelCards();
+});

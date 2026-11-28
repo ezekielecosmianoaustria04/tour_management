@@ -3838,7 +3838,12 @@ body{background:#f0f7ff;color:#16365c}
 #tours-page .tour-card-actions{margin-top:auto}
 #tours-page .tour-card button{margin:0;width:100%}
 .tour-details-btn,.tour-drawer-cart,.secondary-btn{border:0;border-radius:10px;padding:12px 20px;background:#2563eb;color:white;font-weight:700;cursor:pointer}
-.tour-details-btn:hover,.tour-drawer-cart:hover,.secondary-btn:hover{background:#1d4ed8;color:white}
+.tour-details-btn:hover,
+.tour-drawer-cart:hover,
+.secondary-btn:hover{ background: #facc15;
+    color: #16365c;
+    border-color: #facc15;
+    transition: 0.3s ease;}
 .tour-details-drawer{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;border:0;padding:0;background:#f0f7ff;color:#16365c;overflow:auto}
 .tour-details-drawer::backdrop,#tripCart::backdrop{background:#16365c99}
 .tour-drawer-header{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:20px 5%;background:white;border-bottom:1px solid #dbeafe;z-index:2}
