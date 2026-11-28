@@ -1,11 +1,11 @@
 "use strict";
 
 const STORAGE_KEYS = {
-  session: "ppowAdminLoggedIn_v5",
-  tours: "ppowAdminPackages_v5",
-  guests: "ppowGuestInformation_v5",
-  hotels: "ppowHotelAccommodations_v5",
-  inquiries: "ppowInquiries_v5",
+  session: "ppowAdminLoggedIn_v6",
+  tours: "ppowAdminPackages_v6",
+  guests: "ppowGuestInformation_v6",
+  hotels: "ppowHotelAccommodations_v6",
+  inquiries: "ppowInquiries_v6",
 };
 
 const DEFAULT_TOURS = [
@@ -18,6 +18,7 @@ const DEFAULT_TOURS = [
     enabled: true,
     description:
       "Subterranean River National Park with licensed guide, boat transfer, and buffet lunch.",
+    photos: ["puerto-princesa-underground-river.jpg"],
   },
   {
     id: "t-2",
@@ -27,6 +28,7 @@ const DEFAULT_TOURS = [
     price: 2300,
     enabled: true,
     description: "Cowrie Island, Luli Island, and Starfish Island boat tour.",
+    photos: ["puerto-princesa-honda-bay.jpg"],
   },
   {
     id: "t-3",
@@ -37,6 +39,7 @@ const DEFAULT_TOURS = [
     enabled: true,
     description:
       "Flexible itinerary with private van transfers and hotel accommodation options.",
+    photos: ["customize-pic.jpg"],
   },
   {
     id: "t-4",
@@ -47,6 +50,7 @@ const DEFAULT_TOURS = [
     enabled: true,
     description:
       "Big Lagoon, Secret Lagoon, and Shimizu Island full-day boat tour.",
+    photos: ["el-nido-tour-a.png"],
   },
   {
     id: "t-5",
@@ -57,6 +61,7 @@ const DEFAULT_TOURS = [
     enabled: true,
     description:
       "4D3N international group tour with airport transfers and city guide.",
+    photos: ["discover.jpg"],
   },
 ];
 
@@ -159,6 +164,8 @@ const DEFAULT_HOTELS = [
     room: "Deluxe Twin / Family Room",
     rate: 3200,
     enabled: true,
+    companyPic: "logo_travel_and_tour.jpg",
+    bedPic: "customize-pic.jpg",
   },
   {
     id: "h-2",
@@ -167,6 +174,8 @@ const DEFAULT_HOTELS = [
     room: "Superior Lagoon View",
     rate: 4500,
     enabled: true,
+    companyPic: "discover.jpg",
+    bedPic: "portbarton.jpg",
   },
   {
     id: "h-3",
@@ -175,6 +184,8 @@ const DEFAULT_HOTELS = [
     room: "Garden Bungalow",
     rate: 2600,
     enabled: true,
+    companyPic: "puerto-princesa-honda-bay.jpg",
+    bedPic: "puerto-princesa-underground-river.jpg",
   },
 ];
 
@@ -247,6 +258,10 @@ const DESTINATIONS_DATA = [
 let currentTourCategoryFilter = "Tour Only";
 let currentBookingSubTab = "guests";
 let currentDestFilter = "All";
+let stagedFivePics = [];
+let stagedHotelCompanyPic = "";
+let stagedHotelBedPic = "";
+
 const expandedInquiryIds = new Set();
 const expandedGuestDetailsIds = new Set();
 
@@ -276,6 +291,7 @@ function getTours() {
   return data.map((item) => ({
     ...item,
     enabled: item.enabled !== false,
+    photos: Array.isArray(item.photos) ? item.photos : [],
   }));
 }
 
@@ -330,6 +346,45 @@ function renderStatusDot(enabled) {
       <span>${isOn ? "Enabled" : "Disabled"}</span>
     </span>
   `;
+}
+
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderTourFivePicsPreview() {
+  const countEl = document.getElementById("tourFivePicsCount");
+  const stripEl = document.getElementById("tourFivePicsPreview");
+  if (countEl) countEl.textContent = `${stagedFivePics.length} / 5 pics`;
+  if (!stripEl) return;
+
+  stripEl.innerHTML = stagedFivePics
+    .map(
+      (src) =>
+        `<img src="${src}" alt="Attached tour pic" class="pic-thumb-item" onerror="this.src='discover.jpg'">`,
+    )
+    .join("");
+}
+
+function renderHotelPicPreviews() {
+  const compEl = document.getElementById("hotelCompanyPicPreview");
+  const bedEl = document.getElementById("hotelBedPicPreview");
+
+  if (compEl) {
+    compEl.innerHTML = stagedHotelCompanyPic
+      ? `<img src="${stagedHotelCompanyPic}" alt="Company picture" onerror="this.src='logo_travel_and_tour.jpg'">`
+      : "";
+  }
+  if (bedEl) {
+    bedEl.innerHTML = stagedHotelBedPic
+      ? `<img src="${stagedHotelBedPic}" alt="Bed picture" onerror="this.src='customize-pic.jpg'">`
+      : "";
+  }
 }
 
 function syncTourCategorySelection(category) {
@@ -693,7 +748,7 @@ function renderDashboard() {
 }
 
 /* =========================================================
-   TOURS CRUD (AUTO-FILTER BY ACTIVE CATEGORY)
+   TOURS CRUD (ATTACH 5PICS ACROSS ALL CATEGORIES)
 ========================================================= */
 function renderToursCrud() {
   const tbody = document.getElementById("toursCrudTbody");
@@ -715,32 +770,48 @@ function renderToursCrud() {
   tbody.innerHTML =
     list.length > 0
       ? list
-          .map(
-            (t) => `
-          <tr class="${t.enabled ? "" : "row-disabled"}">
-            <td>
-              <strong>${t.name}</strong>
-              <br><small style="color:#6b7280">${t.description}</small>
-            </td>
-            <td><strong>${t.category}</strong></td>
-            <td>${t.destination}</td>
-            <td><strong>${formatPeso(t.price)}</strong></td>
-            <td>${renderStatusDot(t.enabled)}</td>
-            <td>
-              <div class="action-mini-group">
-                <button type="button" class="mini-btn-edit" data-edit-tour="${t.id}">Edit</button>
-                <button
-                  type="button"
-                  class="${t.enabled ? "mini-btn-toggle-disable" : "mini-btn-toggle-enable"}"
-                  data-toggle-tour="${t.id}"
-                >
-                  ${t.enabled ? "Disable" : "Enable"}
-                </button>
-              </div>
-            </td>
-          </tr>
-        `,
-          )
+          .map((t) => {
+            const pics = Array.isArray(t.photos) ? t.photos.slice(0, 5) : [];
+            const thumbsHtml = pics.length
+              ? `
+                <div class="table-thumb-row">
+                  ${pics
+                    .slice(0, 3)
+                    .map(
+                      (src) =>
+                        `<img src="${src}" alt="${t.name}" class="table-thumb-img" onerror="this.src='discover.jpg'">`,
+                    )
+                    .join("")}
+                  <span class="table-thumb-more">${pics.length}/5</span>
+                </div>
+              `
+              : `<span style="color:#9ca3af;font-size:11.5px;">0/5 pics</span>`;
+
+            return `
+            <tr class="${t.enabled ? "" : "row-disabled"}">
+              <td>
+                <strong>${t.name}</strong>
+                <br><small style="color:#6b7280">${t.description}</small>
+              </td>
+              <td>${thumbsHtml}</td>
+              <td>${t.destination}</td>
+              <td><strong>${formatPeso(t.price)}</strong></td>
+              <td>${renderStatusDot(t.enabled)}</td>
+              <td>
+                <div class="action-mini-group">
+                  <button type="button" class="mini-btn-edit" data-edit-tour="${t.id}">Edit</button>
+                  <button
+                    type="button"
+                    class="${t.enabled ? "mini-btn-toggle-disable" : "mini-btn-toggle-enable"}"
+                    data-toggle-tour="${t.id}"
+                  >
+                    ${t.enabled ? "Disable" : "Enable"}
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
+          })
           .join("")
       : `<tr><td colspan="6" style="color:#6b7280">No tour packages found under <strong>${currentTourCategoryFilter}</strong>.</td></tr>`;
 }
@@ -1088,6 +1159,13 @@ function renderAccommodations() {
             (h) => `
           <tr class="${h.enabled ? "" : "row-disabled"}">
             <td><strong>${h.hotel}</strong></td>
+            <td>
+              <div class="table-thumb-row">
+                ${h.companyPic ? `<img src="${h.companyPic}" alt="Company" class="table-thumb-img" title="Attached Picture of Company" onerror="this.src='logo_travel_and_tour.jpg'">` : ""}
+                ${h.bedPic ? `<img src="${h.bedPic}" alt="Bed" class="table-thumb-img" title="Attached Picture of Bed" onerror="this.src='customize-pic.jpg'">` : ""}
+                ${!h.companyPic && !h.bedPic ? `<span style="color:#9ca3af;font-size:11.5px;">No pics</span>` : ""}
+              </div>
+            </td>
             <td>${h.location}</td>
             <td>${h.room}</td>
             <td><strong>${formatPeso(h.rate)}</strong></td>
@@ -1109,7 +1187,7 @@ function renderAccommodations() {
         `,
           )
           .join("")
-      : `<tr><td colspan="6" style="color:#6b7280">No hotel accommodations found.</td></tr>`;
+      : `<tr><td colspan="7" style="color:#6b7280">No hotel accommodations found.</td></tr>`;
 }
 
 function renderAllInquiries() {
@@ -1344,13 +1422,22 @@ document.addEventListener("DOMContentLoaded", () => {
       renderAllSubViews();
     });
 
-  // Tours Category Tabs & CRUD
+  // Tours Category Tabs & Attach 5pics
   document.querySelectorAll("#tourCategoryTabs .pill-tab").forEach((tab) => {
     tab.addEventListener("click", () => {
       syncTourCategorySelection(tab.dataset.tourCat);
       renderToursCrud();
     });
   });
+
+  document
+    .getElementById("tourFivePicsInput")
+    ?.addEventListener("change", async (e) => {
+      const files = Array.from(e.target.files || []).slice(0, 5);
+      const converted = await Promise.all(files.map(fileToDataUrl));
+      stagedFivePics = converted;
+      renderTourFivePicsPreview();
+    });
 
   document
     .getElementById("tourSearchInput")
@@ -1371,7 +1458,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (editId) {
       const idx = list.findIndex((x) => x.id === editId);
       if (idx !== -1) {
-        list[idx] = { ...list[idx], name, destination, price, description };
+        list[idx] = {
+          ...list[idx],
+          name,
+          destination,
+          price,
+          description,
+          photos:
+            stagedFivePics.length > 0 ? stagedFivePics : list[idx].photos || [],
+        };
       }
     } else {
       list.unshift({
@@ -1382,6 +1477,7 @@ document.addEventListener("DOMContentLoaded", () => {
         price,
         enabled: true,
         description,
+        photos: stagedFivePics.slice(0, 5),
       });
     }
 
@@ -1390,6 +1486,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("tourFormHeading").textContent =
       "Add New Tour Package";
     document.getElementById("cancelTourEditBtn").hidden = true;
+    stagedFivePics = [];
+    renderTourFivePicsPreview();
     e.target.reset();
     renderDashboard();
     renderToursCrud();
@@ -1402,6 +1500,8 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("tourFormHeading").textContent =
         "Add New Tour Package";
       document.getElementById("cancelTourEditBtn").hidden = true;
+      stagedFivePics = [];
+      renderTourFivePicsPreview();
       document.getElementById("tourCrudForm")?.reset();
     });
 
@@ -1417,6 +1517,8 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("tourNameInput").value = pkg.name;
       document.getElementById("tourPriceInput").value = pkg.price;
       document.getElementById("tourDescInput").value = pkg.description;
+      stagedFivePics = Array.isArray(pkg.photos) ? pkg.photos.slice(0, 5) : [];
+      renderTourFivePicsPreview();
       document.getElementById("tourFormHeading").textContent =
         "Edit Tour Package";
       document.getElementById("cancelTourEditBtn").hidden = false;
@@ -1432,7 +1534,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Hotel Accommodation CRUD (Add, Edit, Delete, Enable/Disable)
+  // Hotel Accommodation CRUD + Company & Bed Picture Uploads
+  document
+    .getElementById("hotelCompanyPicInput")
+    ?.addEventListener("change", async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      stagedHotelCompanyPic = await fileToDataUrl(file);
+      renderHotelPicPreviews();
+    });
+
+  document
+    .getElementById("hotelBedPicInput")
+    ?.addEventListener("change", async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      stagedHotelBedPic = await fileToDataUrl(file);
+      renderHotelPicPreviews();
+    });
+
   document
     .getElementById("hotelSearchInput")
     ?.addEventListener("input", renderAccommodations);
@@ -1450,7 +1570,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (editId) {
       const idx = list.findIndex((x) => x.id === editId);
       if (idx !== -1) {
-        list[idx] = { ...list[idx], hotel, location, room, rate };
+        list[idx] = {
+          ...list[idx],
+          hotel,
+          location,
+          room,
+          rate,
+          companyPic: stagedHotelCompanyPic || list[idx].companyPic || "",
+          bedPic: stagedHotelBedPic || list[idx].bedPic || "",
+        };
       }
     } else {
       list.unshift({
@@ -1460,14 +1588,19 @@ document.addEventListener("DOMContentLoaded", () => {
         room,
         rate,
         enabled: true,
+        companyPic: stagedHotelCompanyPic || "",
+        bedPic: stagedHotelBedPic || "",
       });
     }
 
     writeLS(STORAGE_KEYS.hotels, list);
     document.getElementById("editingHotelId").value = "";
     document.getElementById("hotelFormHeading").textContent =
-      "Add Hotel Accommodation";
+      "Add / Edit Hotel Accommodation";
     document.getElementById("cancelHotelEditBtn").hidden = true;
+    stagedHotelCompanyPic = "";
+    stagedHotelBedPic = "";
+    renderHotelPicPreviews();
     e.target.reset();
     renderAccommodations();
   });
@@ -1477,8 +1610,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ?.addEventListener("click", () => {
       document.getElementById("editingHotelId").value = "";
       document.getElementById("hotelFormHeading").textContent =
-        "Add Hotel Accommodation";
+        "Add / Edit Hotel Accommodation";
       document.getElementById("cancelHotelEditBtn").hidden = true;
+      stagedHotelCompanyPic = "";
+      stagedHotelBedPic = "";
+      renderHotelPicPreviews();
       document.getElementById("hotelCrudForm")?.reset();
     });
 
@@ -1499,6 +1635,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("hotelLocInput").value = item.location;
         document.getElementById("hotelRoomInput").value = item.room;
         document.getElementById("hotelRateInput").value = item.rate;
+        stagedHotelCompanyPic = item.companyPic || "";
+        stagedHotelBedPic = item.bedPic || "";
+        renderHotelPicPreviews();
         document.getElementById("hotelFormHeading").textContent =
           "Edit Hotel Accommodation";
         document.getElementById("cancelHotelEditBtn").hidden = false;
@@ -1655,6 +1794,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   syncTourCategorySelection("Tour Only");
+  renderTourFivePicsPreview();
+  renderHotelPicPreviews();
   const isLoggedIn = Boolean(readLS(STORAGE_KEYS.session, true));
   setAuthUnlocked(isLoggedIn);
 });

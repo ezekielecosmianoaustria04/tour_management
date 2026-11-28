@@ -98,7 +98,7 @@
             <span>Admins</span>
           </button>
 
-          <!-- TOURS GROUP (NO ALL PACKAGES) -->
+          <!-- TOURS GROUP -->
           <div class="nav-group open">
             <button type="button" class="nav-item nav-group-toggle">
               <span class="nav-icon">&#9992;</span>
@@ -564,7 +564,7 @@
         </main>
 
         <!-- =========================================================
-           VIEW 2: TOURS & PACKAGES (NO ALL TOURS TAB)
+           VIEW 2: TOURS & PACKAGES (ATTACH 5PICS ACROSS ALL CATEGORIES)
       ========================================================== -->
         <section id="view-tours" class="sub-module-view" hidden>
           <div class="module-banner">
@@ -646,7 +646,7 @@
               </label>
 
               <label class="field-group">
-                <span>Package Name</span>
+                <<span>Package Name</span>
                 <input
                   id="tourNameInput"
                   type="text"
@@ -677,6 +677,32 @@
                 ></textarea>
               </label>
 
+              <!-- ATTACH 5PICS -->
+              <div class="field-group">
+                <div class="attach-row-header">
+                  <span>Attach 5pics</span>
+                  <span class="attach-badge-pill" id="tourFivePicsCount"
+                    >0 / 5 pics</span
+                  >
+                </div>
+                <label
+                  class="attach-circle-trigger"
+                  for="tourFivePicsInput"
+                  title="Attach up to 5 pictures"
+                >
+                  <span class="attach-circle-icon">&#128247;</span>
+                  <span>Attach Picture (Up to 5 pics)</span>
+                </label>
+                <input
+                  id="tourFivePicsInput"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  hidden
+                />
+                <div id="tourFivePicsPreview" class="multi-pic-strip"></div>
+              </div>
+
               <button
                 type="submit"
                 id="saveTourBtn"
@@ -701,7 +727,7 @@
                   <thead>
                     <tr>
                       <th>Package</th>
-                      <th>Category</th>
+                      <th>Photos (5pics)</th>
                       <th>Destination</th>
                       <th>Price</th>
                       <th>Status</th>
@@ -918,7 +944,7 @@
         </section>
 
         <!-- =========================================================
-           VIEW 5: DESTINATIONS & HOTEL ACCOMMODATION (WITH CRUD + ENABLE/DISABLE)
+           VIEW 5: DESTINATIONS & HOTEL ACCOMMODATION (WITH COMPANY & BED PICS)
       ========================================================== -->
         <section id="view-destinations" class="sub-module-view" hidden>
           <div class="module-banner">
@@ -982,7 +1008,7 @@
           <div class="crud-split-grid">
             <form id="hotelCrudForm" class="panel-card crud-form">
               <div class="panel-header">
-                <h3 id="hotelFormHeading">Add Hotel Accommodation</h3>
+                <h3 id="hotelFormHeading">Add / Edit Hotel Accommodation</h3>
                 <button
                   type="button"
                   id="cancelHotelEditBtn"
@@ -1036,6 +1062,31 @@
                 />
               </label>
 
+              <label class="field-group">
+                <span>1. Attached Picture of Company</span>
+                <input
+                  id="hotelCompanyPicInput"
+                  type="file"
+                  accept="image/*"
+                  class="file-input-styled"
+                />
+                <div
+                  id="hotelCompanyPicPreview"
+                  class="single-pic-preview"
+                ></div>
+              </label>
+
+              <label class="field-group">
+                <span>2. Attached Picture of Bed</span>
+                <input
+                  id="hotelBedPicInput"
+                  type="file"
+                  accept="image/*"
+                  class="file-input-styled"
+                />
+                <div id="hotelBedPicPreview" class="single-pic-preview"></div>
+              </label>
+
               <button
                 type="submit"
                 id="saveHotelBtn"
@@ -1060,6 +1111,7 @@
                   <thead>
                     <tr>
                       <th>Hotel / Resort</th>
+                      <th>Company &amp; Bed Pic</th>
                       <th>Location</th>
                       <th>Room / Bed Option</th>
                       <th>Rate / Night</th>
