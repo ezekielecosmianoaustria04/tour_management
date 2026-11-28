@@ -16,7 +16,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="customized-trip-planner.css">
 
 
@@ -29,7 +29,7 @@
     <!-- HEADER COPIED FROM INDEX.HTML -->
 <header class="navbar ppow-header" aria-label="Website header">
   <div class="brand-container">
-    <div class="company-logo"><img src="logo_travel_and_tour.jpg" alt="Company logo" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="logo-fallback" hidden>PW</span></div>
+    <div class="company-logo"><img src="logo_travel_and_tour.jpg" alt="Company logo" data-action-error="0"><span class="logo-fallback" hidden>PW</span></div>
     <div class="brand">Puerto Princesa of Wonder <span>Services Cooperative Travel and Tours</span></div>
   </div>
   <nav class="nav-links" id="mainNavigation" aria-label="Main navigation">
@@ -47,7 +47,7 @@
         <button type="submit">Search</button><div class="search-results" id="home-search-results" aria-live="polite"></div>
       </form>
     </div>
-    <a href="login.html" class="customer-avatar-btn" id="customerAccountButton" aria-label="Customer account"><img src="customer-user.jpg" alt="Customer account" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="customer-avatar-fallback" style="display:none"><i class="bi bi-person-fill"></i></span></a>
+    <a href="login.html" class="customer-avatar-btn" id="customerAccountButton" aria-label="Customer account"><img src="customer-user.jpg" alt="Customer account" data-action-error="1"><span class="customer-avatar-fallback" hidden><i class="bi bi-person-fill"></i></span></a>
     <button class="header-icon mobile-menu" id="mobileMenuToggle" type="button" aria-label="Navigation menu" aria-controls="mainNavigation" aria-expanded="false"><i class="bi bi-list"></i></button>
   </div>
 </header>
@@ -65,7 +65,7 @@
     </div>
     <div class="planner-progress-box" aria-live="polite">
       <div class="planner-progress-heading"><strong>Itinerary progress</strong><span id="plannerProgressText">0 of 3 days planned</span></div>
-      <div class="planner-progress-track"><div id="plannerProgressBar" class="planner-progress-bar" style="width:0%"></div></div>
+      <div class="planner-progress-track"><div id="plannerProgressBar" class="planner-progress-bar" ></div></div>
       <span class="planner-save-hint">Your itinerary is saved automatically in this browser.</span>
     </div>
   </div>
@@ -80,7 +80,7 @@
     <main
       class="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6"
     >
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div id="plannerWorkspace" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <!-- ==============================================================
            LEFT COLUMN: AVAILABLE TOURS (4 cols on lg)
       ============================================================== -->
@@ -124,7 +124,7 @@
                   id="tourSearchInput"
                   type="text"
                   placeholder="Search lagoon, island, firefly..."
-                  oninput="renderAvailableTours()"
+                  data-action-input="2"
                   class="w-full pl-8 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500 transition"
                 />
               </div>
@@ -132,7 +132,7 @@
               <div class="flex items-center gap-1.5" role="tablist">
                 <button
                   type="button"
-                  onclick="setLocationFilter('ALL')"
+                  data-action-click="3"
                   data-filter="ALL"
                   class="filter-pill flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold bg-sky-600 text-white shadow-sm transition"
                 >
@@ -140,7 +140,7 @@
                 </button>
                 <button
                   type="button"
-                  onclick="setLocationFilter('El Nido')"
+                  data-action-click="4"
                   data-filter="El Nido"
                   class="filter-pill flex-1 py-1.5 px-2.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200/70 transition"
                 >
@@ -148,7 +148,7 @@
                 </button>
                 <button
                   type="button"
-                  onclick="setLocationFilter('Puerto Princesa')"
+                  data-action-click="5"
                   data-filter="Puerto Princesa"
                   class="filter-pill flex-1 py-1.5 px-2.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200/70 transition"
                 >
@@ -198,10 +198,10 @@
             <div class="planner-days-controls">
               <label for="tripDayCount">Number of Days</label>
               <input type="number" id="tripDayCount" min="1" max="30" value="3" inputmode="numeric" aria-label="Number of itinerary days">
-              <button type="button" class="planner-generate-days" onclick="generateItineraryDays()">Generate Days</button>
+              <button type="button" class="planner-generate-days" data-action-click="6">Generate Days</button>
               <button
                 type="button"
-                onclick="clearAllDays()"
+                data-action-click="7"
                 class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 transition"
               >
                 <i class="fa-regular fa-trash-can"></i> Clear All
@@ -242,7 +242,7 @@
           >
             <button
               type="button"
-              onclick="resetToDefault()"
+              data-action-click="8"
               class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 border-2 border-slate-200 transition"
             >
               <i class="fa-solid fa-rotate-left text-sky-600"></i>
@@ -251,7 +251,7 @@
 
             <button
               type="button"
-              onclick="openSummaryModal()"
+              data-action-click="9"
               class="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-[#0F2942] to-[#0284C7] hover:from-[#163B5E] hover:to-[#0369A1] shadow-lg shadow-sky-900/15 transition transform hover:-translate-y-0.5"
             >
               <i class="fa-solid fa-check-circle"></i>
@@ -273,7 +273,7 @@
             <button
               type="button"
               id="tabInclusions"
-              onclick="switchInfoTab('inclusions')"
+              data-action-click="10"
               class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-extrabold bg-sky-600 text-white shadow-sm transition"
             >
               <i class="fa-solid fa-star"></i>
@@ -282,7 +282,7 @@
             <button
               type="button"
               id="tabExclusions"
-              onclick="switchInfoTab('exclusions')"
+              data-action-click="11"
               class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold text-slate-600 hover:bg-white/60 transition"
             >
               <i class="fa-solid fa-ban text-rose-500"></i>
@@ -503,7 +503,7 @@
 
             <button
               type="button"
-              onclick="switchInfoTab('inclusions')"
+              data-action-click="12"
               class="w-full py-2 text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 rounded-xl transition"
             >
               ← View Included Amenities
@@ -535,7 +535,7 @@
           ></div>
           <button
             type="button"
-            onclick="closeTourModal()"
+            data-action-click="13"
             class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-black/50 hover:bg-black/75 text-white flex items-center justify-center transition"
           >
             <i class="fa-solid fa-xmark"></i>
@@ -662,7 +662,7 @@
           </div>
           <button
             type="button"
-            onclick="closeSummaryModal()"
+            data-action-click="14"
             class="w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition"
           >
             <i class="fa-solid fa-xmark"></i>
@@ -683,7 +683,7 @@
         >
           <button
             type="button"
-            onclick="copyItineraryText()"
+            data-action-click="15"
             class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 transition"
           >
             <i class="fa-regular fa-copy text-sky-600"></i>
@@ -692,19 +692,19 @@
           <div class="flex items-center gap-2">
             <button
               type="button"
-              onclick="closeSummaryModal()"
+              data-action-click="16"
               class="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-200/70 transition"
             >
               Keep Editing
             </button>
-            <button
-              type="button"
-              onclick="confirmBookingSimulation()"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition"
-            >
-              <i class="fa-solid fa-paper-plane"></i>
-              <span>Proceed to Booking</span>
-            </button>
+            <a href="hotelaccommodation.html"
+   class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition">
+
+    <i class="fa-solid fa-paper-plane"></i>
+
+    <span>Proceed to Hotel Booking</span>
+
+</a>
           </div>
         </div>
       </div>
@@ -730,1183 +730,195 @@
     <!-- ======================================================================
        JAVASCRIPT: DATA, DRAG-AND-DROP ENGINE, VALIDATION & UI RENDERING
   ====================================================================== -->
-    <script>
-      // 1. MASTER TOUR CATALOG (All 9 Tours from the Design + Rich Details)
-      const TOURS = [
-        {
-          id: "pp-underground",
-          title: "Puerto Princesa Underground River Tour",
-          shortTitle: "Puerto Princesa Underground River Tour",
-          location: "Puerto Princesa",
-          durationType: "Full Day",
-          durationLabel: "Full Day • 8 hrs",
-          schedule: "7:30 AM – 4:00 PM",
-          includedInBase: true,
-          addonPrice: 0,
-          image:
-            "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80",
-          fallbackImg:
-            "https://placehold.co/600x400/0F2942/FFFFFF?text=Underground+River",
-          description:
-            "Explore the UNESCO World Heritage subterranean river system in Sabang, gliding through cathedral-like limestone chambers and dramatic stalactite formations.",
-          spots: [
-            "Sabang Wharf Boat Ride",
-            "Subterranean River Cave",
-            "Monkey Trail Forest",
-            "Buffet Lunch at Sabang Beach",
-          ],
-        },
-        {
-          id: "pp-hondabay",
-          title: "Puerto Princesa Honda Bay Island Hopping",
-          shortTitle: "Puerto Princesa Honda Bay Island Hopping",
-          location: "Puerto Princesa",
-          durationType: "Full Day",
-          durationLabel: "Full Day • 7 hrs",
-          schedule: "8:00 AM – 3:30 PM",
-          includedInBase: false,
-          addonPrice: 1500,
-          image:
-            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
-          fallbackImg:
-            "https://placehold.co/600x400/0284C7/FFFFFF?text=Honda+Bay",
-          description:
-            "Spend a sun-drenched day hopping across powdery sandbars and vibrant coral reefs in Honda Bay, ideal for swimming and beginner-friendly snorkeling.",
-          spots: [
-            "Starfish Island",
-            "Luli Sandbar",
-            "Cowrie Island",
-            "Seaside Picnic Lunch",
-          ],
-        },
-        {
-          id: "pp-firefly-jungle",
-          title: "Puerto Princesa Jungle Firefly Watching",
-          shortTitle: "Puerto Princesa Jungle Firefly Watching",
-          location: "Puerto Princesa",
-          durationType: "Evening",
-          durationLabel: "Evening • 3.5 hrs",
-          schedule: "5:30 PM – 9:00 PM",
-          includedInBase: false,
-          addonPrice: 1100,
-          image:
-            "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
-          fallbackImg:
-            "https://placehold.co/600x400/064E3B/FFFFFF?text=Jungle+Firefly",
-          description:
-            "Paddle quietly along the mangrove-lined Iwahig River under a canopy of stars while thousands of bioluminescent fireflies illuminate the riverbank trees.",
-          spots: [
-            "Iwahig Mangrove River",
-            "Paddleboat Firefly Cruise",
-            "Stargazing & Plankton Glow",
-            "Riverside Filipino Dinner",
-          ],
-        },
-        {
-          id: "pp-city",
-          title: "Puerto Princesa Halfday City Tour",
-          shortTitle: "Puerto Princesa Halfday City Tour",
-          location: "Puerto Princesa",
-          durationType: "Half Day",
-          durationLabel: "Half Day • 4 hrs",
-          schedule: "1:00 PM – 5:00 PM",
-          includedInBase: true,
-          addonPrice: 0,
-          image:
-            "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=600&q=80",
-          fallbackImg:
-            "https://placehold.co/600x400/1E3A8A/FFFFFF?text=City+Tour",
-          description:
-            "Discover the cultural heritage, scenic baywalk, and iconic landmarks of Puerto Princesa—a relaxed itinerary ideal for arrival or departure days.",
-          spots: [
-            "Immaculate Conception Cathedral",
-            "Plaza Cuartel",
-            "Mitra’s Ranch Viewdeck",
-            "Baker’s Hill & Pasalubong Center",
-          ],
-        },
-        {
-          id: "pp-bay-firefly",
-          title: "Puerto Princesa Bay Cruise and Firefly Watching",
-          shortTitle: "Puerto Princesa Bay Cruise and Firefly Watching",
-          location: "Puerto Princesa",
-          durationType: "Evening",
-          durationLabel: "Evening • 4 hrs",
-          schedule: "5:00 PM – 9:00 PM",
-          includedInBase: false,
-          addonPrice: 1300,
-          image:
-            "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=600&q=80",
-          fallbackImg:
-            "https://placehold.co/600x400/1D4ED8/FFFFFF?text=Bay+Cruise",
-          description:
-            "Enjoy a golden sunset dinner cruise across Puerto Princesa Bay followed by an enchanting boat ride into the quiet mangrove sanctuary of fireflies.",
-          spots: [
-            "Sunset Bay Cruise",
-            "Onboard Buffet Dinner",
-            "Mangrove Firefly Sanctuary",
-            "Live Acoustic Serenade",
-          ],
-        },
-        {
-          id: "en-tour-a",
-          title: "El Nido Tour A",
-          shortTitle: "El Nido Tour A",
-          location: "El Nido",
-          durationType: "Full Day",
-          durationLabel: "Full Day • 8 hrs",
-          schedule: "8:30 AM – 4:30 PM",
-          includedInBase: true,
-          addonPrice: 0,
-          image:
-            "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=600&q=80",
-          fallbackImg:
-            "https://placehold.co/600x400/0284C7/FFFFFF?text=El+Nido+Tour+A",
-          description:
-            "El Nido’s signature lagoon-hopping route featuring emerald waters enclosed by towering limestone karst cliffs and vibrant coral gardens.",
-          spots: [
-            "Big Lagoon",
-            "Secret Lagoon",
-            "Shimizu Island",
-            "Seven Commandos Beach",
-          ],
-        },
-        {
-          id: "en-tour-b",
-          title: "El Nido Tour B",
-          shortTitle: "El Nido Tour B",
-          location: "El Nido",
-          durationType: "Full Day",
-          durationLabel: "Full Day • 8 hrs",
-          schedule: "8:30 AM – 4:30 PM",
-          includedInBase: false,
-          addonPrice: 1300,
-          image:
-            "https://images.unsplash.com/photo-1537956965359-7573183d1f57?auto=format&fit=crop&w=600&q=80",
-          fallbackImg:
-            "https://placehold.co/600x400/0369A1/FFFFFF?text=El+Nido+Tour+B",
-          description:
-            "Walk across a dramatic tidal sandbar connecting two islands, explore cathedral-like sea caves, and snorkel crystal-clear coves.",
-          spots: [
-            "Snake Island Sandbar",
-            "Pinagbuyutan Island",
-            "Cudugnon Cave",
-            "Cathedral Cave & Entalula",
-          ],
-        },
-        {
-          id: "en-tour-c",
-          title: "El Nido Tour C",
-          shortTitle: "El Nido Tour C",
-          location: "El Nido",
-          durationType: "Full Day",
-          durationLabel: "Full Day • 8 hrs",
-          schedule: "8:30 AM – 4:30 PM",
-          includedInBase: false,
-          addonPrice: 1400,
-          image:
-            "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=80",
-          fallbackImg:
-            "https://placehold.co/600x400/0F766E/FFFFFF?text=El+Nido+Tour+C",
-          description:
-            "Venture to outer islands famed for dramatic rock formations, hidden white-sand beaches accessible through rock crevices, and vibrant reef life.",
-          spots: [
-            "Hidden Beach",
-            "Secret Beach",
-            "Helicopter Island",
-            "Matinloc Shrine & Talisay",
-          ],
-        },
-        {
-          id: "en-tour-d",
-          title: "El Nido Tour D",
-          shortTitle: "El Nido Tour D",
-          location: "El Nido",
-          durationType: "Full Day",
-          durationLabel: "Full Day • 7.5 hrs",
-          schedule: "8:30 AM – 4:00 PM",
-          includedInBase: false,
-          addonPrice: 1200,
-          image:
-            "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80",
-          fallbackImg:
-            "https://placehold.co/600x400/0E7490/FFFFFF?text=El+Nido+Tour+D",
-          description:
-            "A serene, laid-back island-hopping route around Cadlao Island boasting tranquil turquoise lagoons and uncrowded white-sand coves.",
-          spots: [
-            "Small Lagoon",
-            "Cadlao Lagoon",
-            "Pasandigan Cove",
-            "Paradise Beach & Nat-Nat",
-          ],
-        },
-      ];
-
-      // 2. DEFAULT ITINERARY STATE (1 tour per day)
-      const DEFAULT_DAYS = [
-        {
-          id: "day-1",
-          title: "Arrival & Island Hopping",
-          tours: ["pp-underground"],
-        },
-        {
-          id: "day-2",
-          title: "Island Adventure",
-          tours: ["en-tour-a"],
-        },
-        {
-          id: "day-3",
-          title: "Relax & Explore",
-          tours: ["pp-city"],
-        },
-      ];
-
-      const BASE_PRICE_PER_PAX = 8999;
-      let paxCount = 2;
-      let currentLocationFilter = "ALL";
-      let days = JSON.parse(JSON.stringify(DEFAULT_DAYS));
-      try {
-        const savedDays = JSON.parse(localStorage.getItem("ppw_custom_trip_draft"));
-        if (Array.isArray(savedDays) && savedDays.length >= 1 && savedDays.length <= 30 &&
-            savedDays.every((d, i) => d.id === `day-${i + 1}` && typeof d.title === "string" && Array.isArray(d.tours) && d.tours.every(id => TOURS.some(t => t.id === id)))) {
-          days = savedDays;
-        }
-      } catch (error) { /* Start with the default itinerary if saved data is invalid. */ }
-
-      // Generate exactly the requested number of day drop-zones.
-      // Existing days and their selected tours are retained when possible.
-      function generateItineraryDays() {
-        const input = document.getElementById("tripDayCount");
-        const count = Number(input.value);
-        if (!Number.isInteger(count) || count < 1 || count > 30) {
-          showToast("Enter a number of days from 1 to 30.", "warning");
-          input.value = days.length;
-          return;
-        }
-        if (count < days.length && days.slice(count).some(day => day.tours.length)) {
-          if (!window.confirm(`Reducing to ${count} days will remove tours scheduled on later days. Continue?`)) {
-            input.value = days.length;
-            return;
-          }
-        }
-        days = Array.from({ length: count }, (_, i) =>
-          days[i] || { id: `day-${i + 1}`, title: `Day ${i + 1} Activities`, tours: [] }
-        );
-        renderItinerary();
-        showToast(`Generated ${count} itinerary day${count === 1 ? "" : "s"}.`, "success");
-      }
-
-      // Drag tracking state
-      let dragState = {
-        sourceType: null, // 'catalog' or 'itinerary'
-        tourId: null,
-        sourceDayId: null,
-        sourceIndex: null,
-      };
-
-      // Helper: Get Tour Object by ID
-      function getTourById(id) {
-        return TOURS.find((t) => t.id === id);
-      }
-
-      // Helper: Format PHP Currency
-      function formatPHP(amount) {
-        return "₱" + amount.toLocaleString("en-PH");
-      }
-
-      // Helper: Find which day number (1-based) a tour is already scheduled in, or null if not yet used
-      function getScheduledDayIndex(tourId) {
-        return days.findIndex((d) => d.tours.includes(tourId));
-      }
-
-      // 3. RENDER LEFT COLUMN: AVAILABLE TOURS
-      function setLocationFilter(loc) {
-        currentLocationFilter = loc;
-        document.querySelectorAll(".filter-pill").forEach((btn) => {
-          if (btn.dataset.filter === loc) {
-            btn.className =
-              "filter-pill flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold bg-sky-600 text-white shadow-sm transition";
-          } else {
-            btn.className =
-              "filter-pill flex-1 py-1.5 px-2.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200/70 transition";
-          }
-        });
-        renderAvailableTours();
-      }
-
-      function renderAvailableTours() {
-        const container = document.getElementById("availableToursList");
-        const query = document
-          .getElementById("tourSearchInput")
-          .value.trim()
-          .toLowerCase();
-
-        const filtered = TOURS.filter((tour) => {
-          const matchesLoc =
-            currentLocationFilter === "ALL" ||
-            tour.location === currentLocationFilter;
-          const matchesSearch =
-            !query ||
-            tour.title.toLowerCase().includes(query) ||
-            tour.location.toLowerCase().includes(query) ||
-            tour.spots.some((s) => s.toLowerCase().includes(query));
-          return matchesLoc && matchesSearch;
-        });
-
-        document.getElementById("availableCountBadge").textContent =
-          `${filtered.length} Tour${filtered.length === 1 ? "" : "s"}`;
-
-        if (filtered.length === 0) {
-          container.innerHTML = `
-          <div class="text-center py-8 px-4">
-            <i class="fa-solid fa-compass text-2xl text-slate-300 mb-2"></i>
-            <p class="text-xs font-semibold text-slate-500">No matching tours found.</p>
-            <button type="button" onclick="document.getElementById('tourSearchInput').value=''; setLocationFilter('ALL');"
-                    class="mt-2 text-xs font-bold text-sky-600 hover:underline">Reset filters</button>
-          </div>
-        `;
-          return;
-        }
-
-        container.innerHTML = filtered
-          .map((tour) => {
-            const scheduledIdx = getScheduledDayIndex(tour.id);
-            const isAlreadyAdded = scheduledIdx !== -1;
-
-            const priceBadge = tour.includedInBase
-              ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-2 py-0.5 rounded-md">Included</span>`
-              : `<span class="inline-flex items-center gap-1 text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200/80 px-2 py-0.5 rounded-md">+${formatPHP(tour.addonPrice)}/pax</span>`;
-
-            const locColor =
-              tour.location === "El Nido"
-                ? "text-sky-700 bg-sky-50"
-                : "text-indigo-700 bg-indigo-50";
-
-            const cardWrapperClass = isAlreadyAdded
-              ? "bg-slate-50/90 border-slate-200 opacity-75 cursor-not-allowed"
-              : "draggable-tour group bg-white hover:bg-sky-50/40 border-slate-200/90 hover:border-sky-400 shadow-2xs";
-
-            const actionControl = isAlreadyAdded
-              ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-200/80 text-slate-600" title="Already scheduled on Day ${scheduledIdx + 1}">
-               <i class="fa-solid fa-check text-emerald-600"></i> Day ${scheduledIdx + 1}
-             </span>`
-              : `<button type="button" onclick="quickAddTour('${tour.id}')"
-                     title="Quick add to itinerary"
-                     class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-sky-600 hover:bg-sky-700 text-white transition">
-               + Add
-             </button>`;
-
-            return `
-          <div draggable="${!isAlreadyAdded}"
-               ${!isAlreadyAdded ? `ondragstart="handleCatalogDragStart(event, '${tour.id}')" ondragend="handleDragEnd(event)"` : ""}
-               class="${cardWrapperClass} border rounded-xl p-2.5 select-none transition">
-            <div class="flex items-center gap-2.5">
-              <!-- Visible Drag / Lock Handle -->
-              <div class="${isAlreadyAdded ? "text-slate-300" : "text-slate-300 group-hover:text-sky-500"} transition px-0.5"
-                   title="${isAlreadyAdded ? `Already added to Day ${scheduledIdx + 1}` : "Drag into a day"}">
-                <i class="fa-solid ${isAlreadyAdded ? "fa-lock text-xs" : "fa-grip-vertical text-sm"}"></i>
-              </div>
-
-              <!-- Thumbnail -->
-              <div class="relative w-16 h-14 rounded-lg overflow-hidden shrink-0 bg-slate-100">
-                <img src="${tour.image}" onerror="this.src='${tour.fallbackImg}'" alt="${tour.title}"
-                     class="w-full h-full object-cover ${isAlreadyAdded ? "grayscale-[30%]" : "group-hover:scale-105"} transition duration-300" />
-                ${isAlreadyAdded ? `<span class="absolute top-1 left-1 bg-slate-800/85 text-white text-[9px] font-extrabold px-1.5 py-0.2 rounded-full shadow">Day ${scheduledIdx + 1}</span>` : ""}
-              </div>
-
-              <!-- Text & Meta -->
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-1.5 mb-0.5">
-                  <span class="text-[10px] font-bold px-1.5 py-0.2 rounded ${locColor}">${tour.location}</span>
-                  <span class="text-[10px] font-medium text-slate-400 truncate">${tour.durationType}</span>
-                </div>
-                <h3 class="text-xs font-extrabold ${isAlreadyAdded ? "text-slate-600" : "text-[#0F2942] group-hover:text-sky-700"} leading-snug line-clamp-2 transition">
-                  ${tour.title}
-                </h3>
-                <div class="mt-1.5 flex items-center justify-between gap-1">
-                  ${priceBadge}
-                  <div class="flex items-center gap-1">
-                    ${actionControl}
-                    <button type="button" onclick="openTourModal('${tour.id}')"
-                            title="View spots & schedule"
-                            class="w-6 h-6 rounded-full bg-slate-100 hover:bg-sky-100 text-slate-600 hover:text-sky-700 flex items-center justify-center transition">
-                      <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-          })
-          .join("");
-      }
-
-      // 4. ANALYZE DAY SCHEDULE & TRAVEL CLARITY
-      function analyzeDayWarnings(dayTours) {
-        const warnings = [];
-        if (dayTours.length === 0) return warnings;
-
-        const locations = [...new Set(dayTours.map((t) => t.location))];
-        if (
-          locations.includes("El Nido") &&
-          locations.includes("Puerto Princesa")
-        ) {
-          warnings.push(
-            "El Nido & Puerto Princesa are ~5–6 hrs apart by van—combining them on the same day is not recommended.",
-          );
-        }
-
-        const fullDayCount = dayTours.filter(
-          (t) => t.durationType === "Full Day",
-        ).length;
-        if (fullDayCount > 1) {
-          warnings.push(
-            `${fullDayCount} Full-Day tours scheduled on the same date—consider moving extra tours to another day.`,
-          );
-        }
-
-        return warnings;
-      }
-
-      // 5. RENDER CENTER COLUMN: YOUR ITINERARY (FIXED 3 DAYS)
-      function renderItinerary() {
-        const container = document.getElementById("itineraryDaysContainer");
-        const dayCountLabel = document.getElementById("itineraryDayCount");
-        const dayCountInput = document.getElementById("tripDayCount");
-        if (dayCountLabel) dayCountLabel.textContent = days.length;
-        if (dayCountInput) dayCountInput.value = days.length;
-
-        container.innerHTML = days
-          .map((day, dayIndex) => {
-            const dayTours = day.tours
-              .map((id) => getTourById(id))
-              .filter(Boolean);
-            const warnings = analyzeDayWarnings(dayTours);
-
-            const warningBanner =
-              warnings.length > 0
-                ? `<div class="mt-3 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 text-xs text-amber-800 flex items-start gap-2">
-               <i class="fa-solid fa-triangle-exclamation text-amber-500 mt-0.5 shrink-0"></i>
-               <div class="space-y-0.5">${warnings.map((w) => `<p>${w}</p>`).join("")}</div>
-             </div>`
-                : "";
-
-            const cardsHtml =
-              dayTours.length > 0
-                ? `<div class="grid grid-cols-1 gap-3">
-              ${dayTours
-                .map((tour, tourIdx) => {
-                  const badgeClass = tour.includedInBase
-                    ? "bg-emerald-500/95 text-white"
-                    : "bg-amber-500/95 text-white";
-                  const badgeText = tour.includedInBase
-                    ? "Included"
-                    : `+${formatPHP(tour.addonPrice)}`;
-
-                  return `
-                  <div draggable="false"
-                       class="itinerary-card group bg-white rounded-xl border border-slate-200 shadow-xs hover:shadow-md hover:border-sky-400 overflow-hidden flex flex-col sm:flex-row">
-                    <div class="relative h-32 sm:h-auto sm:w-48 shrink-0 bg-slate-100 overflow-hidden">
-                      <img src="${tour.image}" onerror="this.src='${tour.fallbackImg}'" alt="${tour.title}"
-                           class="w-full h-full object-cover group-hover:scale-105 transition duration-300" />
-                      <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-black/25"></div>
-
-                      <span class="absolute top-2 left-2 text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow-xs ${badgeClass}">
-                        ${badgeText}
-                      </span>
-
-                      <div class="absolute bottom-1.5 left-2 right-2 flex items-center justify-between text-[10px] text-white/95 font-semibold">
-                        <span><i class="fa-regular fa-clock mr-1"></i>${tour.durationType}</span>
-                        <span class="bg-black/40 px-1.5 py-0.2 rounded">${tour.location}</span>
-                      </div>
-                    </div>
-
-                    <div class="p-3.5 flex-1 flex flex-col justify-between">
-                      <div class="flex items-start justify-between gap-2">
-                        <div>
-                          <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full mb-1">
-                            <i class="fa-solid fa-circle-check"></i> Selected for Day ${dayIndex + 1}
-                          </span>
-                          <h4 class="text-sm font-extrabold text-[#0F2942] leading-snug">
-                            ${tour.title}
-                          </h4>
-                          <p class="text-[11px] text-slate-500 mt-1 line-clamp-2">${tour.description}</p>
-                        </div>
-                        <button type="button"
-                                onclick="removeTourFromDay('${day.id}', ${tourIdx})"
-                                title="Remove from Day ${dayIndex + 1}"
-                                class="w-7 h-7 rounded-full bg-slate-100 hover:bg-rose-600 text-slate-500 hover:text-white flex items-center justify-center text-xs shadow-2xs shrink-0 transition">
-                          <i class="fa-solid fa-xmark"></i>
-                        </button>
-                      </div>
-
-                      <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
-                        <span class="text-[11px] font-semibold text-slate-500">
-                          <i class="fa-regular fa-calendar mr-1 text-sky-600"></i>${tour.schedule}
-                        </span>
-                        <button type="button" onclick="openTourModal('${tour.id}')"
-                                class="text-xs font-bold text-sky-600 hover:text-sky-800 hover:bg-sky-50 px-2.5 py-1 rounded-lg transition">
-                          View Spots &amp; Details →
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                `;
-                })
-                .join("")}
-            </div>`
-                : `<div class="py-7 px-4 text-center flex flex-col items-center justify-center text-slate-400">
-               <div class="w-10 h-10 rounded-full bg-sky-100/80 text-sky-500 flex items-center justify-center mb-2">
-                 <i class="fa-solid fa-cloud-arrow-down text-base"></i>
-               </div>
-               <p class="text-xs font-bold text-slate-600">Drop 1 tour here for Day ${dayIndex + 1}</p>
-               <p class="text-[11px] text-slate-400 mt-0.5">Maximum of 1 tour per day</p>
-             </div>`;
-
-            return `
-          <div class="bg-[#F5FAFF] border border-sky-200/80 rounded-2xl p-4 transition">
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <div class="flex items-center gap-2.5">
-                <span class="w-7 h-7 rounded-full bg-sky-600 text-white font-extrabold text-xs flex items-center justify-center shadow-xs shrink-0">
-                  ${dayIndex + 1}
-                </span>
-                <div>
-                  <h3 class="text-sm sm:text-base font-extrabold text-[#0F2942]">
-                    Day ${dayIndex + 1} – ${day.title}
-                  </h3>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-2">
-                <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${dayTours.length >= 1 ? "bg-emerald-50 border border-emerald-200 text-emerald-700" : "bg-white border border-sky-200 text-sky-700"}">
-                  ${dayTours.length} / 1 Tour
-                </span>
-              </div>
-            </div>
-
-            <div ondragover="handleDragOver(event)"
-                 ondragleave="handleDragLeave(event)"
-                 ondrop="handleDropOnDay(event, '${day.id}')"
-                 class="drop-zone min-h-[115px] rounded-xl border-2 border-dashed ${dayTours.length >= 1 ? "border-emerald-300/80 bg-white" : "border-sky-300/80 bg-white/75"} p-3">
-              ${cardsHtml}
-            </div>
-
-            ${warningBanner}
-          </div>
-        `;
-          })
-          .join("");
-
-        renderAvailableTours();
-        updatePricing();
-        const planned = days.filter(day => day.tours.length > 0).length;
-        const progressText = document.getElementById("plannerProgressText");
-        const progressBar = document.getElementById("plannerProgressBar");
-        if (progressText) progressText.textContent = `${planned} of ${days.length} days planned`;
-        if (progressBar) progressBar.style.width = `${Math.round(planned / days.length * 100)}%`;
-        try { localStorage.setItem("ppw_custom_trip_draft", JSON.stringify(days)); } catch (error) {}
-      }
-
-      // 6. DRAG-AND-DROP HANDLERS
-      function handleCatalogDragStart(event, tourId) {
-        const scheduledIdx = getScheduledDayIndex(tourId);
-        if (scheduledIdx !== -1) {
-          event.preventDefault();
-          const tour = getTourById(tourId);
-          showToast(
-            `"${tour.shortTitle}" is already in Day ${scheduledIdx + 1}.`,
-            "warning",
-          );
-          return;
-        }
-
-        dragState = {
-          sourceType: "catalog",
-          tourId: tourId,
-          sourceDayId: null,
-          sourceIndex: null,
-        };
-        event.dataTransfer.effectAllowed = "copy";
-        event.dataTransfer.setData("text/plain", tourId);
-        event.currentTarget.classList.add("dragging");
-      }
-
-      function handleItineraryDragStart(event, dayId, tourIdx, tourId) {
-        dragState = {
-          sourceType: "itinerary",
-          tourId: tourId,
-          sourceDayId: dayId,
-          sourceIndex: tourIdx,
-        };
-        event.dataTransfer.effectAllowed = "move";
-        event.dataTransfer.setData("text/plain", tourId);
-        event.currentTarget.classList.add("dragging");
-      }
-
-      function handleDragEnd(event) {
-        event.currentTarget.classList.remove("dragging");
-        document
-          .querySelectorAll(".drop-zone")
-          .forEach((z) => z.classList.remove("drag-over"));
-      }
-
-      function handleDragOver(event) {
-        event.preventDefault();
-        event.dataTransfer.dropEffect =
-          dragState.sourceType === "catalog" ? "copy" : "move";
-        event.currentTarget.classList.add("drag-over");
-      }
-
-      function handleDragLeave(event) {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
-          event.currentTarget.classList.remove("drag-over");
-        }
-      }
-
-      function handleDropOnDay(event, targetDayId) {
-        event.preventDefault();
-        event.currentTarget.classList.remove("drag-over");
-
-        const targetDay = days.find((d) => d.id === targetDayId);
-        if (!targetDay || !dragState.tourId) return;
-
-        const tour = getTourById(dragState.tourId);
-        if (!tour) return;
-
-        if (dragState.sourceType === "catalog") {
-          // Prevent duplicate anywhere across all days in the itinerary
-          const existingDayIdx = getScheduledDayIndex(dragState.tourId);
-          if (existingDayIdx !== -1) {
-            showToast(
-              `"${tour.shortTitle}" is already placed in Day ${existingDayIdx + 1} and cannot be added to another day.`,
-              "warning",
-            );
-            dragState = {
-              sourceType: null,
-              tourId: null,
-              sourceDayId: null,
-              sourceIndex: null,
-            };
-            return;
-          }
-          // Enforce maximum of 1 tour per day
-          if (targetDay.tours.length >= 1) {
-            const targetDayNumber =
-              days.findIndex((d) => d.id === targetDay.id) + 1;
-            showToast(
-              `Day ${targetDayNumber} already has a tour. Remove it (×) first to replace it.`,
-              "warning",
-            );
-            dragState = {
-              sourceType: null,
-              tourId: null,
-              sourceDayId: null,
-              sourceIndex: null,
-            };
-            return;
-          }
-          targetDay.tours.push(dragState.tourId);
-          showToast(
-            `Added "${tour.shortTitle}" to ${targetDay.title}`,
-            "success",
-          );
-        } else if (dragState.sourceType === "itinerary") {
-          // Tours already placed in a day cannot be moved to another day unless removed first
-          showToast(
-            `"${tour.shortTitle}" is already assigned to a day. Remove it (×) first to place it elsewhere.`,
-            "warning",
-          );
-        }
-
-        dragState = {
-          sourceType: null,
-          tourId: null,
-          sourceDayId: null,
-          sourceIndex: null,
-        };
-        renderItinerary();
-      }
-
-      // 7. QUICK ADD, REMOVE, DAY MANAGEMENT & PRICING
-      function quickAddTour(tourId) {
-        const tour = getTourById(tourId);
-        if (!tour) return;
-
-        // Block adding if tour is already present in ANY day
-        const existingDayIdx = getScheduledDayIndex(tourId);
-        if (existingDayIdx !== -1) {
-          showToast(
-            `"${tour.shortTitle}" is already added to Day ${existingDayIdx + 1}.`,
-            "warning",
-          );
-          return;
-        }
-
-        // Find the first empty day (max 1 tour per day)
-        const targetDay = days.find((d) => d.tours.length === 0);
-        if (!targetDay) {
-          showToast(
-            "All itinerary days already have 1 tour assigned. Remove a tour (×) first to add a new one.",
-            "warning",
-          );
-          return;
-        }
-
-        targetDay.tours.push(tourId);
-        renderItinerary();
-        showToast(
-          `Added "${tour.shortTitle}" to ${targetDay.title}`,
-          "success",
-        );
-      }
-
-      function removeTourFromDay(dayId, tourIdx) {
-        const day = days.find((d) => d.id === dayId);
-        if (!day) return;
-        const [removedId] = day.tours.splice(tourIdx, 1);
-        const tour = getTourById(removedId);
-        renderItinerary();
-        if (tour) {
-          showToast(`Removed "${tour.shortTitle}"`, "info");
-        }
-      }
-
-      function clearAllDays() {
-        days.forEach((d) => {
-          d.tours = [];
-        });
-        renderItinerary();
-        showToast("Cleared all tours from your itinerary.", "info");
-      }
-
-      function resetToDefault() {
-        days = Array.from({ length: days.length }, (_, i) => ({
-          id: `day-${i + 1}`, title: `Day ${i + 1} Activities`, tours: []
-        }));
-        renderItinerary();
-        showToast(
-          "Itinerary reset with the current number of days.",
-          "success",
-        );
-      }
-
-      function changePax(delta) {
-        paxCount = Math.max(1, Math.min(20, paxCount + delta));
-        document.getElementById("paxDisplay").textContent = paxCount;
-        updatePricing();
-      }
-
-      function calculatePricing() {
-        let addonPerPax = 0;
-        let addonCount = 0;
-
-        days.forEach((day) => {
-          day.tours.forEach((id) => {
-            const tour = getTourById(id);
-            if (tour && !tour.includedInBase) {
-              addonPerPax += tour.addonPrice;
-              addonCount += 1;
-            }
-          });
-        });
-
-        const perPaxTotal = BASE_PRICE_PER_PAX + addonPerPax;
-        const grandTotal = perPaxTotal * paxCount;
-
-        return { addonPerPax, addonCount, perPaxTotal, grandTotal };
-      }
-
-      function updatePricing() {
-        const { addonCount, perPaxTotal, grandTotal } = calculatePricing();
-        document.getElementById("totalPriceDisplay").textContent =
-          formatPHP(grandTotal);
-        document.getElementById("perPersonBreakdown").textContent =
-          `${formatPHP(perPaxTotal)} / pax × ${paxCount} guest${paxCount === 1 ? "" : "s"}`;
-
-        const badge = document.getElementById("extraToursBadge");
-        if (addonCount > 0) {
-          badge.classList.remove("hidden");
-          badge.textContent = `+${addonCount} Add-on${addonCount === 1 ? "" : "s"}`;
-        } else {
-          badge.classList.add("hidden");
-        }
-      }
-
-      // 8. RIGHT PANEL TABS (INCLUSIONS / EXCLUSIONS)
-      function switchInfoTab(tab) {
-        const tabInc = document.getElementById("tabInclusions");
-        const tabExc = document.getElementById("tabExclusions");
-        const panelInc = document.getElementById("panelInclusions");
-        const panelExc = document.getElementById("panelExclusions");
-
-        if (tab === "inclusions") {
-          tabInc.className =
-            "flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-extrabold bg-sky-600 text-white shadow-sm transition";
-          tabExc.className =
-            "flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold text-slate-600 hover:bg-white/60 transition";
-          panelInc.classList.remove("hidden");
-          panelExc.classList.add("hidden");
-        } else {
-          tabExc.className =
-            "flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-extrabold bg-rose-600 text-white shadow-sm transition";
-          tabInc.className =
-            "flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs font-bold text-slate-600 hover:bg-white/60 transition";
-          panelExc.classList.remove("hidden");
-          panelInc.classList.add("hidden");
-        }
-      }
-
-      // 9. MODALS & TOAST NOTIFICATIONS
-      function openTourModal(tourId) {
-        const tour = getTourById(tourId);
-        if (!tour) return;
-
-        document.getElementById("modalTourImg").src = tour.image;
-        document.getElementById("modalTourImg").onerror = function () {
-          this.src = tour.fallbackImg;
-        };
-        document.getElementById("modalTourLocation").textContent =
-          tour.location;
-        document.getElementById("modalTourDuration").textContent =
-          tour.durationLabel;
-        document.getElementById("modalTourTitle").textContent = tour.title;
-        document.getElementById("modalTourSchedule").textContent =
-          tour.schedule;
-        document.getElementById("modalTourDesc").textContent = tour.description;
-
-        const priceEl = document.getElementById("modalTourPrice");
-        if (tour.includedInBase) {
-          priceEl.textContent = "Included in Base";
-          priceEl.className = "text-sm font-extrabold text-emerald-700";
-        } else {
-          priceEl.textContent = `+${formatPHP(tour.addonPrice)} / pax`;
-          priceEl.className = "text-sm font-extrabold text-amber-700";
-        }
-
-        document.getElementById("modalTourSpots").innerHTML = tour.spots
-          .map(
-            (spot) => `
-        <div class="flex items-center gap-2 bg-sky-50/70 border border-sky-100 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-700">
-          <i class="fa-solid fa-location-dot text-sky-600 text-[11px] shrink-0"></i>
-          <span class="truncate">${spot}</span>
-        </div>
-      `,
-          )
-          .join("");
-
-        const daySelect = document.getElementById("modalTargetDay");
-        const modalAddBtn = document.getElementById("modalAddBtn");
-        const existingDayIdx = getScheduledDayIndex(tour.id);
-        const hasAvailableDay = days.some((d) => d.tours.length === 0);
-
-        daySelect.innerHTML = days
-          .map((d, idx) => {
-            const isFull = d.tours.length >= 1;
-            return `<option value="${d.id}" ${existingDayIdx === idx ? "selected" : ""} ${isFull ? "disabled" : ""}>
-          Day ${idx + 1} – ${d.title} ${isFull ? "(Full - 1/1)" : "(Available)"}
-        </option>`;
-          })
-          .join("");
-
-        if (existingDayIdx !== -1) {
-          daySelect.disabled = true;
-          modalAddBtn.disabled = true;
-          modalAddBtn.className =
-            "px-4 py-2 rounded-xl text-xs font-extrabold bg-slate-200 text-slate-500 cursor-not-allowed";
-          modalAddBtn.innerHTML = `<i class="fa-solid fa-check text-emerald-600 mr-1"></i> Already in Day ${existingDayIdx + 1}`;
-          modalAddBtn.onclick = null;
-        } else if (!hasAvailableDay) {
-          daySelect.disabled = true;
-          modalAddBtn.disabled = true;
-          modalAddBtn.className =
-            "px-4 py-2 rounded-xl text-xs font-extrabold bg-slate-200 text-slate-500 cursor-not-allowed";
-          modalAddBtn.innerHTML = `<i class="fa-solid fa-lock mr-1"></i> All Days Full (1/1)`;
-          modalAddBtn.onclick = null;
-        } else {
-          const firstEmptyDay = days.find((d) => d.tours.length === 0);
-          if (firstEmptyDay) daySelect.value = firstEmptyDay.id;
-
-          daySelect.disabled = false;
-          modalAddBtn.disabled = false;
-          modalAddBtn.className =
-            "px-4 py-2 rounded-xl text-xs font-extrabold bg-sky-600 hover:bg-sky-700 text-white shadow-sm transition";
-          modalAddBtn.innerHTML = `<i class="fa-solid fa-plus mr-1"></i> Add to Day`;
-          modalAddBtn.onclick = () => {
-            const selectedDayId = daySelect.value;
-            const targetDay = days.find((d) => d.id === selectedDayId);
-            if (targetDay) {
-              if (getScheduledDayIndex(tour.id) !== -1) {
-                showToast(
-                  `"${tour.shortTitle}" is already scheduled in your itinerary.`,
-                  "warning",
-                );
-              } else if (targetDay.tours.length >= 1) {
-                showToast(
-                  "This day already has 1 tour. Remove it first before adding another.",
-                  "warning",
-                );
-              } else {
-                targetDay.tours.push(tour.id);
-                renderItinerary();
-                showToast(
-                  `Added "${tour.shortTitle}" to ${targetDay.title}`,
-                  "success",
-                );
-                closeTourModal();
-              }
-            }
-          };
-        }
-
-        const modal = document.getElementById("tourDetailModal");
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-      }
-
-      function closeTourModal() {
-        const modal = document.getElementById("tourDetailModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      }
-
-      function openSummaryModal() {
-        const totalScheduled = days.reduce((sum, d) => sum + d.tours.length, 0);
-        if (totalScheduled === 0) {
-          showToast(
-            "Please add at least one tour to your itinerary before reviewing.",
-            "warning",
-          );
-          return;
-        }
-
-        const { addonPerPax, perPaxTotal, grandTotal } = calculatePricing();
-
-        const daysHtml = days
-          .map((day, idx) => {
-            const dayTours = day.tours
-              .map((id) => getTourById(id))
-              .filter(Boolean);
-            return `
-          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-4">
-            <div class="flex items-center justify-between mb-2">
-              <h4 class="font-extrabold text-[#0F2942]">Day ${idx + 1} – ${day.title}</h4>
-              <span class="text-xs font-bold text-sky-700 bg-sky-100 px-2.5 py-0.5 rounded-full">${dayTours.length} Tour${dayTours.length === 1 ? "" : "s"}</span>
-            </div>
-            ${
-              dayTours.length > 0
-                ? `<ul class="space-y-1.5">
-                  ${dayTours
-                    .map(
-                      (t) => `
-                    <li class="flex items-center justify-between text-xs bg-white px-3 py-2 rounded-lg border border-slate-100">
-                      <span class="font-bold text-slate-800"><i class="fa-solid fa-check text-emerald-500 mr-1.5"></i>${t.title}</span>
-                      <span class="font-semibold ${t.includedInBase ? "text-emerald-600" : "text-amber-700"}">
-                        ${t.includedInBase ? "Included" : `+${formatPHP(t.addonPrice)}/pax`}
-                      </span>
-                    </li>
-                  `,
-                    )
-                    .join("")}
-                </ul>`
-                : `<p class="text-xs text-slate-400 italic">Free &amp; easy day (no scheduled tours)</p>`
-            }
-          </div>
-        `;
-          })
-          .join("");
-
-        document.getElementById("summaryModalBody").innerHTML = `
-        <div class="space-y-3">
-          ${daysHtml}
-        </div>
-        <div class="bg-sky-50 border border-sky-200 rounded-xl p-4 space-y-1.5 text-xs">
-          <div class="flex justify-between text-slate-600">
-            <span>Base Package Rate (${paxCount} pax × ${formatPHP(BASE_PRICE_PER_PAX)})</span>
-            <span class="font-bold">${formatPHP(BASE_PRICE_PER_PAX * paxCount)}</span>
-          </div>
-          <div class="flex justify-between text-slate-600">
-            <span>Selected Add-on Tours (${paxCount} pax × ${formatPHP(addonPerPax)})</span>
-            <span class="font-bold">${formatPHP(addonPerPax * paxCount)}</span>
-          </div>
-          <div class="pt-2 border-t border-sky-200 flex justify-between items-center text-base font-extrabold text-[#0F2942]">
-            <span>Estimated Grand Total (${formatPHP(perPaxTotal)} / pax)</span>
-            <span class="text-sky-700 text-lg">${formatPHP(grandTotal)}</span>
-          </div>
-        </div>
-      `;
-
-        const modal = document.getElementById("summaryModal");
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-      }
-
-      function closeSummaryModal() {
-        const modal = document.getElementById("summaryModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      }
-
-      function copyItineraryText() {
-        const { perPaxTotal, grandTotal } = calculatePricing();
-        const lines = [
-          "CUSTOMIZED PALAWAN & EL NIDO ITINERARY",
-          `Guests: ${paxCount} Pax | Total: ${formatPHP(grandTotal)} (${formatPHP(perPaxTotal)}/pax)`,
-          "----------------------------------------",
-        ];
-
-        days.forEach((day, idx) => {
-          lines.push(`\nDay ${idx + 1} – ${day.title}:`);
-          if (day.tours.length === 0) {
-            lines.push("  • Free time / Leisure");
-          } else {
-            day.tours.forEach((id) => {
-              const t = getTourById(id);
-              if (t) lines.push(`  • ${t.title} (${t.schedule})`);
-            });
-          }
-        });
-
-        const textarea = document.createElement("textarea");
-        textarea.value = lines.join("\n");
-        document.body.appendChild(textarea);
-        textarea.select();
-        try {
-          document.execCommand("copy");
-          showToast("Itinerary copied to clipboard!", "success");
-        } catch (err) {
-          showToast("Unable to copy itinerary text.", "warning");
-        }
-        document.body.removeChild(textarea);
-      }
-
-      function confirmBookingSimulation() {
-        const totalScheduled = days.reduce((sum, d) => sum + d.tours.length, 0);
-        if (totalScheduled === 0) {
-          showToast(
-            "Add at least one tour before continuing to booking.",
-            "warning",
-          );
-          return;
-        }
-        const { addonPerPax, perPaxTotal, grandTotal } = calculatePricing();
-        const payload = {
-          destination: "El Nido",
-          pax: paxCount,
-          basePerPax: BASE_PRICE_PER_PAX,
-          addonPerPax: addonPerPax,
-          perPaxTotal: perPaxTotal,
-          grandTotal: grandTotal,
-          days: days.map((d, i) => ({
-            day: i + 1,
-            title: d.title,
-            tours: d.tours
-              .map(getTourById)
-              .filter(Boolean)
-              .map((t) => ({
-                id: t.id,
-                title: t.title,
-                schedule: t.schedule,
-                included: t.includedInBase,
-                addonPrice: t.addonPrice,
-              })),
-          })),
-        };
-        try {
-          sessionStorage.setItem(
-            "ppw_custom_itinerary",
-            JSON.stringify(payload),
-          );
-        } catch (err) {
-          showToast(
-            "Could not save your itinerary in this browser.",
-            "warning",
-          );
-          return;
-        }
-        closeSummaryModal();
-        showToast("Itinerary saved. Taking you back to booking...", "success");
-        setTimeout(() => {
-          window.location.href = "index.html?resume=custom";
-        }, 600);
-      }
-
-      function showToast(message, type = "info") {
-        const container = document.getElementById("toastContainer");
-        const toast = document.createElement("div");
-
-        const styles = {
-          success: "bg-emerald-700 text-white border-emerald-500",
-          warning: "bg-amber-600 text-white border-amber-400",
-          info: "bg-[#0F2942] text-white border-sky-500",
-        };
-        const icons = {
-          success: "fa-circle-check",
-          warning: "fa-triangle-exclamation",
-          info: "fa-circle-info",
-        };
-
-        toast.className = `${styles[type] || styles.info} border px-4 py-3 rounded-xl shadow-lg text-xs font-bold flex items-center gap-2.5 max-w-sm animate-pop pointer-events-auto`;
-        toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.info} text-sm shrink-0"></i><span>${message}</span>`;
-
-        container.appendChild(toast);
-        setTimeout(() => {
-          toast.style.opacity = "0";
-          toast.style.transform = "translateY(6px)";
-          toast.style.transition = "all 0.25s ease";
-          setTimeout(() => toast.remove(), 260);
-        }, 3200);
-      }
-
-      // Initialize on Window Load
-      window.addEventListener("DOMContentLoaded", () => {
-        try {
-          const ctx = JSON.parse(sessionStorage.getItem("ppw_booking_context"));
-          if (ctx && Number(ctx.pax) > 0) {
-            paxCount = Math.max(1, Math.min(20, Number(ctx.pax)));
-            document.getElementById("paxDisplay").textContent = paxCount;
-          }
-        } catch (e) {
-          /* no booking context – keep default */
-        }
-        renderItinerary();
-      });
-    </script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const toggle = document.querySelector("[data-nav-toggle]");
-        const nav = document.getElementById("site-nav-menu");
-        if (toggle && nav) {
-          toggle.addEventListener("click", function () {
-            const isOpen = nav.classList.toggle("open");
-            toggle.setAttribute("aria-expanded", String(isOpen));
-          });
-        }
-      });
-
-
-      
-    </script>
-  <script>
-(() => {
-const $ = id => document.getElementById(id);
-const normalize = value => String(value || "").toLowerCase().replace(/[\s-]+/g, "");
-function initializeHeader(){
- const form=$('headerSearchForm'),toggle=$('headerSearchToggle'),input=$('home-location-search'),menu=$('mobileMenuToggle'),nav=$('mainNavigation'),results=$('home-search-results');
- const destinations=["Puerto Princesa", "El Nido", "Coron", "Aborlan", "Agutaya", "Araceli", "Balabac", "Bataraza", "Brooke's Point", "Busuanga", "Cagayancillo", "Culion", "Cuyo", "Dumaran", "Kalayaan", "Linapacan", "Magsaysay", "Narra", "Quezon", "Rizal", "Roxas", "San Vicente", "Sofronio Española", "Taytay"];
- const links=destinations.map(name=>{const a=document.createElement("a");a.textContent=name;a.href="discover-palawan.html";a.hidden=true;results.append(a);return a;});
- function filter(){const q=normalize(input.value);let matches=[];links.forEach(a=>{a.hidden=!q||!normalize(a.textContent).includes(q);if(!a.hidden)matches.push(a);});results.hidden=!q;results.style.display=q?'flex':'none';return matches;}
- function setSearch(open){form.hidden=!open;toggle.setAttribute('aria-expanded',String(open));toggle.querySelector('i').className=open?'bi bi-x-lg':'bi bi-search';if(open){setMenu(false);input.focus();filter();}else {results.hidden=true;results.style.display='none';}}
- function setMenu(open){nav.classList.toggle('open',open);menu.setAttribute('aria-expanded',String(open));menu.querySelector('i').className=open?'bi bi-x-lg':'bi bi-list';if(open)setSearch(false);}
- toggle.onclick=()=>setSearch(form.hidden);menu.onclick=()=>setMenu(!nav.classList.contains('open'));input.addEventListener('input',filter);
- form.addEventListener('submit',e=>{e.preventDefault();const matches=filter();if(matches.length)location.href=matches[0].href;});
- document.addEventListener('click',e=>{if(!e.target.closest('.header-search-wrapper'))setSearch(false);if(!e.target.closest('.ppow-header'))setMenu(false);});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'){setSearch(false);setMenu(false);}});
- try{if(JSON.parse(localStorage.getItem('ppowCustomerLoggedIn_v1')||'false')===true)$('customerAccountButton').href='customer-account.html';}catch{}
-}
-document.addEventListener('DOMContentLoaded', initializeHeader);
-})();
+    
+
+    
+  
+    <!-- EDIT TOUR DETAILS HERE -->
+    <script type="application/json" id="tourCatalog">
+[
+  {
+    "id": "pp-underground",
+    "title": "Puerto Princesa Underground River Tour",
+    "shortTitle": "Puerto Princesa Underground River Tour",
+    "location": "Puerto Princesa",
+    "durationType": "Full Day",
+    "durationLabel": "Full Day • 8 hrs",
+    "schedule": "7:30 AM – 4:00 PM",
+    "includedInBase": true,
+    "addonPrice": 0,
+    "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80",
+    "fallbackImg": "https://placehold.co/600x400/0F2942/FFFFFF?text=Underground+River",
+    "description": "Explore the UNESCO World Heritage subterranean river system in Sabang, gliding through cathedral-like limestone chambers and dramatic stalactite formations.",
+    "spots": [
+      "Sabang Wharf Boat Ride",
+      "Subterranean River Cave",
+      "Monkey Trail Forest",
+      "Buffet Lunch at Sabang Beach"
+    ]
+  },
+  {
+    "id": "pp-hondabay",
+    "title": "Puerto Princesa Honda Bay Island Hopping",
+    "shortTitle": "Puerto Princesa Honda Bay Island Hopping",
+    "location": "Puerto Princesa",
+    "durationType": "Full Day",
+    "durationLabel": "Full Day • 7 hrs",
+    "schedule": "8:00 AM – 3:30 PM",
+    "includedInBase": false,
+    "addonPrice": 1500,
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    "fallbackImg": "https://placehold.co/600x400/0284C7/FFFFFF?text=Honda+Bay",
+    "description": "Spend a sun-drenched day hopping across powdery sandbars and vibrant coral reefs in Honda Bay, ideal for swimming and beginner-friendly snorkeling.",
+    "spots": [
+      "Starfish Island",
+      "Luli Sandbar",
+      "Cowrie Island",
+      "Seaside Picnic Lunch"
+    ]
+  },
+  {
+    "id": "pp-firefly-jungle",
+    "title": "Puerto Princesa Jungle Firefly Watching",
+    "shortTitle": "Puerto Princesa Jungle Firefly Watching",
+    "location": "Puerto Princesa",
+    "durationType": "Evening",
+    "durationLabel": "Evening • 3.5 hrs",
+    "schedule": "5:30 PM – 9:00 PM",
+    "includedInBase": false,
+    "addonPrice": 1100,
+    "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+    "fallbackImg": "https://placehold.co/600x400/064E3B/FFFFFF?text=Jungle+Firefly",
+    "description": "Paddle quietly along the mangrove-lined Iwahig River under a canopy of stars while thousands of bioluminescent fireflies illuminate the riverbank trees.",
+    "spots": [
+      "Iwahig Mangrove River",
+      "Paddleboat Firefly Cruise",
+      "Stargazing & Plankton Glow",
+      "Riverside Filipino Dinner"
+    ]
+  },
+  {
+    "id": "pp-city",
+    "title": "Puerto Princesa Halfday City Tour",
+    "shortTitle": "Puerto Princesa Halfday City Tour",
+    "location": "Puerto Princesa",
+    "durationType": "Half Day",
+    "durationLabel": "Half Day • 4 hrs",
+    "schedule": "1:00 PM – 5:00 PM",
+    "includedInBase": true,
+    "addonPrice": 0,
+    "image": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=600&q=80",
+    "fallbackImg": "https://placehold.co/600x400/1E3A8A/FFFFFF?text=City+Tour",
+    "description": "Discover the cultural heritage, scenic baywalk, and iconic landmarks of Puerto Princesa—a relaxed itinerary ideal for arrival or departure days.",
+    "spots": [
+      "Immaculate Conception Cathedral",
+      "Plaza Cuartel",
+      "Mitra’s Ranch Viewdeck",
+      "Baker’s Hill & Pasalubong Center"
+    ]
+  },
+  {
+    "id": "pp-bay-firefly",
+    "title": "Puerto Princesa Bay Cruise and Firefly Watching",
+    "shortTitle": "Puerto Princesa Bay Cruise and Firefly Watching",
+    "location": "Puerto Princesa",
+    "durationType": "Evening",
+    "durationLabel": "Evening • 4 hrs",
+    "schedule": "5:00 PM – 9:00 PM",
+    "includedInBase": false,
+    "addonPrice": 1300,
+    "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=600&q=80",
+    "fallbackImg": "https://placehold.co/600x400/1D4ED8/FFFFFF?text=Bay+Cruise",
+    "description": "Enjoy a golden sunset dinner cruise across Puerto Princesa Bay followed by an enchanting boat ride into the quiet mangrove sanctuary of fireflies.",
+    "spots": [
+      "Sunset Bay Cruise",
+      "Onboard Buffet Dinner",
+      "Mangrove Firefly Sanctuary",
+      "Live Acoustic Serenade"
+    ]
+  },
+  {
+    "id": "en-tour-a",
+    "title": "El Nido Tour A",
+    "shortTitle": "El Nido Tour A",
+    "location": "El Nido",
+    "durationType": "Full Day",
+    "durationLabel": "Full Day • 8 hrs",
+    "schedule": "8:30 AM – 4:30 PM",
+    "includedInBase": true,
+    "addonPrice": 0,
+    "image": "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=600&q=80",
+    "fallbackImg": "https://placehold.co/600x400/0284C7/FFFFFF?text=El+Nido+Tour+A",
+    "description": "El Nido’s signature lagoon-hopping route featuring emerald waters enclosed by towering limestone karst cliffs and vibrant coral gardens.",
+    "spots": [
+      "Big Lagoon",
+      "Secret Lagoon",
+      "Shimizu Island",
+      "Seven Commandos Beach"
+    ]
+  },
+  {
+    "id": "en-tour-b",
+    "title": "El Nido Tour B",
+    "shortTitle": "El Nido Tour B",
+    "location": "El Nido",
+    "durationType": "Full Day",
+    "durationLabel": "Full Day • 8 hrs",
+    "schedule": "8:30 AM – 4:30 PM",
+    "includedInBase": false,
+    "addonPrice": 1300,
+    "image": "https://images.unsplash.com/photo-1537956965359-7573183d1f57?auto=format&fit=crop&w=600&q=80",
+    "fallbackImg": "https://placehold.co/600x400/0369A1/FFFFFF?text=El+Nido+Tour+B",
+    "description": "Walk across a dramatic tidal sandbar connecting two islands, explore cathedral-like sea caves, and snorkel crystal-clear coves.",
+    "spots": [
+      "Snake Island Sandbar",
+      "Pinagbuyutan Island",
+      "Cudugnon Cave",
+      "Cathedral Cave & Entalula"
+    ]
+  },
+  {
+    "id": "en-tour-c",
+    "title": "El Nido Tour C",
+    "shortTitle": "El Nido Tour C",
+    "location": "El Nido",
+    "durationType": "Full Day",
+    "durationLabel": "Full Day • 8 hrs",
+    "schedule": "8:30 AM – 4:30 PM",
+    "includedInBase": false,
+    "addonPrice": 1400,
+    "image": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=600&q=80",
+    "fallbackImg": "https://placehold.co/600x400/0F766E/FFFFFF?text=El+Nido+Tour+C",
+    "description": "Venture to outer islands famed for dramatic rock formations, hidden white-sand beaches accessible through rock crevices, and vibrant reef life.",
+    "spots": [
+      "Hidden Beach",
+      "Secret Beach",
+      "Helicopter Island",
+      "Matinloc Shrine & Talisay"
+    ]
+  },
+  {
+    "id": "en-tour-d",
+    "title": "El Nido Tour D",
+    "shortTitle": "El Nido Tour D",
+    "location": "El Nido",
+    "durationType": "Full Day",
+    "durationLabel": "Full Day • 7.5 hrs",
+    "schedule": "8:30 AM – 4:00 PM",
+    "includedInBase": false,
+    "addonPrice": 1200,
+    "image": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80",
+    "fallbackImg": "https://placehold.co/600x400/0E7490/FFFFFF?text=El+Nido+Tour+D",
+    "description": "A serene, laid-back island-hopping route around Cadlao Island boasting tranquil turquoise lagoons and uncrowded white-sand coves.",
+    "spots": [
+      "Small Lagoon",
+      "Cadlao Lagoon",
+      "Pasandigan Cove",
+      "Paradise Beach & Nat-Nat"
+    ]
+  }
+]
 </script>
+    <script src="customized-trip-planner.js" defer></script>
 </body>
 </html>

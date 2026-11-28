@@ -1,102 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hotel Accommodation</title>
-  <link rel="stylesheet" href="hotelaccommodation.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hotel Accommodation | Puerto Princesa of Wonder</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="hotelaccommodation.css">
 </head>
-<body>
 
-  <!-- HEADER: logo, nav, search, cart -->
-  <header class="site-header">
-    <a href="#" class="logo" aria-label="Company logo"><span class="logo-mark">H</span> Logo</a>
-    <nav class="main-nav" aria-label="Main">
-      <a href="#">Home</a>
-      <a href="#">Trip Planner</a>
-      <a href="#">Book Destination</a>
-    </nav>
-    <div class="header-tools">
-      <button class="icon-btn" id="searchBtn" aria-label="Search">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-      </button>
-      <button class="icon-btn" aria-label="Booking cart">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.5 11h10L20 7H6.5"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
-    </div>
-  </header>
+<body class="hotel-page">
 
-  <main class="page">
-    <div class="title-row">
-      <h1>Hotel Company Name</h1>
-      <p class="pcs"><strong id="roomTotal">11</strong> pcs</p>
-    </div>
+    <!-- ======================================
+         SAME HEADER AS HOMEPAGE
+    ======================================= -->
 
-    <div class="layout">
-      <!-- LEFT: room slider + pagination -->
-      <section class="slider" aria-label="Rooms">
-        <div class="slide-frame">
-          <button class="arrow prev" id="prevBtn" aria-label="Previous room">&#8249;</button>
-          <div class="slide" id="slide">
-            <div class="slide-art" id="slideArt"></div>
-          </div>
-          <button class="arrow next" id="nextBtn" aria-label="Next room">&#8250;</button>
-        </div>
-        <div class="pagination" id="pagination" role="tablist" aria-label="Room pages"></div>
-      </section>
+    <header class="navbar ppow-header" aria-label="Website header">
 
-      <!-- RIGHT: special offer -->
-      <aside class="offer" aria-label="Hotel special offer">
-        <div class="offer-head">
-          <h2>Hotel Special Offer</h2>
-          <span class="badge">Save 15%</span>
-        </div>
+        <div class="brand-container">
 
-        <div class="bed-options">
-          <div class="bed-row">
-            <label class="field" for="bedSelect">
-              <span>Bed size</span>
-              <select id="bedSelect"></select>
-            </label>
-            <div class="field">
-              <span id="bedCountLabel">No. of beds</span>
-              <div class="stepper" role="group" aria-labelledby="bedCountLabel">
-                <button id="qtyMinus" aria-label="Fewer beds">−</button>
-                <output id="qty">1</output>
-                <button id="qtyPlus" aria-label="More beds">+</button>
-              </div>
+            <div class="company-logo">
+
+                <img src="logo_travel_and_tour.jpg"
+                    alt="Company logo"
+                    onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+
+                <span class="logo-fallback" hidden>PW</span>
+
             </div>
-          </div>
-          <p class="qty-msg" id="qtyMsg" role="status">&nbsp;</p>
-          <div class="addon">
-            <div class="addon-head">
-              <h3>Adds on <small>Add another bed</small></h3>
+
+            <div class="brand">
+                Puerto Princesa of Wonder
+                <span>Services Cooperative Travel and Tours</span>
             </div>
-            <div id="addonList"></div>
-            <p class="bed-note" id="bedNote"></p>
-          </div>
+
         </div>
 
-        <div class="bed-picture" id="bedPicture" aria-hidden="true"></div>
+        <nav class="nav-links"
+            id="mainNavigation"
+            aria-label="Main navigation">
 
-        <div class="price-row">
-          <div>
-            <p class="price" id="price">₱0</p>
-            <p class="per">per room, per night</p>
-          </div>
+            <a href="index.html">Home</a>
+
+            <a href="tripplanner.html">Trip Planner</a>
+
+            <a href="local-destinations.html">Local Destinations</a>
+
+            <a href="beyond-philippines.html">Beyond the Philippines</a>
+
+            <a href="about.html">About</a>
+
+            <a href="contact.html">Contact</a>
+
+        </nav>
+
+        <div class="header-actions">
+
+            <div class="header-search-wrapper">
+
+                <button class="header-icon"
+                    id="headerSearchToggle"
+                    type="button"
+                    aria-label="Search destinations"
+                    aria-expanded="false"
+                    aria-controls="headerSearchForm">
+
+                    <i class="bi bi-search"></i>
+
+                </button>
+
+                <form class="home-search"
+                    id="headerSearchForm"
+                    role="search"
+                    hidden>
+
+                    <input id="home-location-search"
+                        type="search"
+                        placeholder="Search destinations..."
+                        aria-label="Search destinations"
+                        autocomplete="off">
+
+                    <button type="submit">Search</button>
+
+                    <div class="search-results"
+                        id="home-search-results"
+                        aria-live="polite">
+                    </div>
+
+                </form>
+
+            </div>
+
+            <a href="login.html"
+                class="customer-avatar-btn"
+                id="customerAccountButton"
+                aria-label="Customer account">
+
+                <img src="customer-user.jpg"
+                    alt="Customer account"
+                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+
+                <span class="customer-avatar-fallback"
+                    style="display:none">
+
+                    <i class="bi bi-person-fill"></i>
+
+                </span>
+
+            </a>
+
+            <button class="header-icon mobile-menu"
+                id="mobileMenuToggle"
+                type="button"
+                aria-label="Navigation menu"
+                aria-expanded="false"
+                aria-controls="mainNavigation">
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
         </div>
-        <p class="qty-msg" id="roomsMsg" role="status">&nbsp;</p>
 
-        <div class="total-row">
-          <span>Total</span>
-          <strong id="total">₱0</strong>
+    </header>
+
+
+    <!-- ======================================
+         SUB HERO
+    ======================================= -->
+
+    <section class="hotel-hero">
+
+        <div class="hotel-hero-content">
+
+            <span class="hotel-eyebrow">
+                REST, RELAX AND EXPLORE
+            </span>
+
+            <h1>Hotel Accommodation</h1>
+
+            <p>
+                Discover comfortable stays and exceptional
+                accommodations for your next adventure.
+            </p>
+
+            <a href="#hotel-selection" class="hotel-hero-btn">
+
+                Explore Rooms
+
+            </a>
+
         </div>
-        <button class="book-btn" id="bookBtn">Proceed to booking information</button>
-      </aside>
-    </div>
-  </main>
 
-  <script src="hotelaccommodation.js"></script>
+    </section>
+
+
+    <!-- ======================================
+         HOTEL SELECTION
+    ======================================= -->
+
+    <main class="page" id="hotel-selection">
+
+
+        <div class="title-row">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    FIND YOUR PERFECT STAY
+                </span>
+
+                <h1>Hotel Company Name</h1>
+
+                <p class="hotel-subtitle">
+                    Choose your preferred room and bed arrangement.
+                </p>
+
+            </div>
+
+            <p class="pcs">
+                <strong id="roomTotal">11</strong> Room Types
+            </p>
+
+        </div>
+
+
+        <!-- ROOM SEARCH -->
+
+        <div class="room-search-container">
+
+            <i class="bi bi-search"></i>
+
+            <input type="search"
+                id="roomSearch"
+                placeholder="Search room type..."
+                aria-label="Search room type">
+
+            <button type="button" id="searchBtn">
+                Search
+            </button>
+
+        </div>
+
+        <p id="roomSearchStatus" role="status"></p>
+
+
+        <div class="layout">
+
+            <!-- ROOM SLIDER -->
+
+            <section class="slider" aria-label="Hotel rooms">
+
+                <div class="slide-frame">
+
+                    <button class="arrow prev"
+                        id="prevBtn"
+                        type="button"
+                        aria-label="Previous room">
+
+                        <i class="bi bi-chevron-left"></i>
+
+                    </button>
+
+                    <div class="slide" id="slide">
+
+                        <div class="slide-art" id="slideArt"></div>
+
+                        <div class="slide-caption">
+
+                            <span class="room-label">
+                                AVAILABLE ROOM TYPE
+                            </span>
+
+                            <h2 id="roomName">Standard Room</h2>
+
+                            <p id="roomDescription">
+                                Quiet room with garden view.
+                            </p>
+
+                            <div class="room-features">
+
+                                <span>
+                                    <i class="bi bi-wifi"></i>
+                                    Free Wi-Fi
+                                </span>
+
+                                <span>
+                                    <i class="bi bi-snow"></i>
+                                    Air Conditioning
+                                </span>
+
+                                <span>
+                                    <i class="bi bi-door-closed"></i>
+                                    Private Room
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button class="arrow next"
+                        id="nextBtn"
+                        type="button"
+                        aria-label="Next room">
+
+                        <i class="bi bi-chevron-right"></i>
+
+                    </button>
+
+                </div>
+
+                <div class="pagination"
+                    id="pagination"
+                    role="tablist"
+                    aria-label="Room pages">
+                </div>
+
+            </section>
+
+
+            <!-- HOTEL SPECIAL OFFER -->
+
+            <aside class="offer" aria-label="Hotel special offer">
+
+                <div class="offer-head">
+
+                    <h2>
+                        <i class="bi bi-stars"></i>
+                        Hotel Special Offer
+                    </h2>
+
+                    <span class="badge">Save 15%</span>
+
+                </div>
+
+
+                <!-- MAIN BED OPTIONS -->
+
+                <div class="bed-options">
+
+                    <div class="bed-row">
+
+                        <label class="field" for="bedSelect">
+
+                            <span>Bed Size</span>
+
+                            <select id="bedSelect"></select>
+
+                        </label>
+
+                        <div class="field">
+
+                            <span>No. of Beds</span>
+
+                            <div class="stepper">
+
+                                <button id="qtyMinus"
+                                    type="button"
+                                    aria-label="Fewer beds">−</button>
+
+                                <output id="qty">1</output>
+
+                                <button id="qtyPlus"
+                                    type="button"
+                                    aria-label="More beds">+</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <p class="qty-msg" id="qtyMsg" role="status"></p>
+
+
+                    <!-- WORKING ADD-ONS -->
+
+                    <div class="addon">
+
+                        <div class="addon-head">
+
+                            <h3>
+                                <i class="bi bi-plus-circle"></i>
+                                Add-ons
+                            </h3>
+
+                            <span>Optional</span>
+
+                        </div>
+
+                        <p class="addon-description">
+                            Customize your room by adding extra beds.
+                        </p>
+
+                        <div id="addonList"></div>
+
+                        <button type="button"
+                            class="add-bed-btn"
+                            id="addBedBtn">
+
+                            <i class="bi bi-plus-circle"></i>
+                            Add Another Bed
+
+                        </button>
+
+                        <p class="bed-note" id="bedNote"></p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BED PREVIEW -->
+
+                <div class="bed-picture" id="bedPicture"></div>
+
+
+                <!-- PRICE BREAKDOWN -->
+
+                <div class="price-breakdown">
+
+                    <div class="breakdown-row">
+                        <span>Room Rate</span>
+                        <strong id="basePrice">₱0</strong>
+                    </div>
+
+                    <div class="breakdown-row">
+                        <span>Additional Beds</span>
+                        <strong id="extraPrice">₱0</strong>
+                    </div>
+
+                    <div class="breakdown-row discount-row">
+                        <span>Discount (15%)</span>
+                        <strong id="discountPrice">−₱0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="price-row">
+
+                    <div>
+
+                        <p class="price-label">
+                            Discounted Room Rate
+                        </p>
+
+                        <p class="price" id="price">₱0</p>
+
+                        <p class="per">Per room, per night</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="total-row">
+
+                    <span>Estimated Total</span>
+
+                    <strong id="total" aria-live="polite">₱0</strong>
+
+                </div>
+
+
+                <button class="book-btn"
+                    id="bookBtn"
+                    type="button">
+
+                    Proceed to Booking Information
+
+                </button>
+
+                <p class="qty-msg" id="roomsMsg" role="status"></p>
+
+                <p class="booking-note">
+
+                    <i class="bi bi-info-circle"></i>
+
+                    Final rates and availability are subject to confirmation.
+
+                </p>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <!-- ======================================
+         SAME FOOTER AS HOMEPAGE
+    ======================================= -->
+
+    <footer>
+
+        <div class="footer-brand">
+            Puerto Princesa of Wonder Travel and Tours
+        </div>
+
+        <p>Services Cooperative Travel and Tours</p>
+
+        <p class="copyright">
+            © 2026 Puerto Princesa of Wonder. All Rights Reserved.
+        </p>
+
+    </footer>
+
+    <script src="hotelaccommodation.js" defer></script>
+
 </body>
 </html>
