@@ -1,6 +1,4 @@
-
 (() => {
-
     "use strict";
 
     const $ = id => document.getElementById(id);
@@ -17,13 +15,11 @@
             "'": "&#039;"
         })[char]);
 
-
     /* ==========================================
        TOUR PACKAGE DATA
     ========================================== */
 
     const tours = [
-
         {
             destination: "Puerto Princesa",
             region: "Palawan",
@@ -34,7 +30,6 @@
             image: "underground-river.jpg",
             discount: 20
         },
-
         {
             destination: "Puerto Princesa",
             region: "Palawan",
@@ -45,7 +40,6 @@
             image: "honda-bay.jpg",
             discount: 0
         },
-
         {
             destination: "El Nido",
             region: "Palawan",
@@ -56,7 +50,6 @@
             image: "elnido-tour-a.jpg",
             discount: 30
         },
-
         {
             destination: "El Nido",
             region: "Palawan",
@@ -67,7 +60,6 @@
             image: "elnido-tour-b.jpg",
             discount: 0
         },
-
         {
             destination: "Coron",
             region: "Palawan",
@@ -78,7 +70,6 @@
             image: "coron-tour.jpg",
             discount: 15
         },
-
         {
             destination: "Port Barton",
             region: "Palawan",
@@ -89,7 +80,6 @@
             image: "portbarton-tour.jpg",
             discount: 0
         },
-
         {
             destination: "Japan",
             region: "International",
@@ -100,7 +90,6 @@
             image: "japan.jpg",
             discount: 0
         },
-
         {
             destination: "Vietnam",
             region: "International",
@@ -111,9 +100,7 @@
             image: "vietnam.jpg",
             discount: 0
         }
-
     ];
-
 
     /* ==========================================
        CREATE TOUR CARDS
@@ -122,32 +109,27 @@
     function createTourCard(tour, pax = 1, promo = false) {
 
         const price = promo
-
             ? Math.round(
                 tour.price * (1 - tour.discount / 100)
             )
-
             : tour.price;
 
         return `
-
             <article class="landing-glass destination-card">
 
                 <div class="destination-photo">
 
-                    <img src="${escapeHTML(tour.image)}"
-                         alt="${escapeHTML(tour.destination)}"
-                         loading="lazy"
-                         onerror="this.hidden=true">
+                    <img
+                        src="${escapeHTML(tour.image)}"
+                        alt="${escapeHTML(tour.destination)}"
+                        loading="lazy"
+                        onerror="this.hidden=true"
+                    >
 
                     ${promo ? `
-
                         <span class="discount-label">
-
                             ${tour.discount}% OFF · SAMPLE
-
                         </span>
-
                     ` : ""}
 
                 </div>
@@ -155,13 +137,13 @@
                 <div class="destination-copy">
 
                     <small>
-
                         ${escapeHTML(tour.destination)}
                         · ${tour.days} day(s)
-
                     </small>
 
-                    <h3>${escapeHTML(tour.name)}</h3>
+                    <h3>
+                        ${escapeHTML(tour.name)}
+                    </h3>
 
                     <p>
 
@@ -176,40 +158,38 @@
                     </p>
 
                     <p>
-
                         Estimated subtotal:
                         ${peso(price * pax)}
-
                         for ${pax} traveler(s)
-
                     </p>
 
-                    <button type="button"
-                            class="home-btn"
-                            data-tour="${escapeHTML(tour.name)}"
-                            data-destination="${escapeHTML(tour.destination)}"
-                            data-pax="${pax}">
-
+                    <button
+                        type="button"
+                        class="home-btn"
+                        data-tour="${escapeHTML(tour.name)}"
+                        data-destination="${escapeHTML(tour.destination)}"
+                        data-pax="${pax}"
+                    >
                         Inquire Now
-
                     </button>
 
                 </div>
 
             </article>
-
         `;
-
     }
 
-
     /* ==========================================
-       POPULAR DESTINATIONS
+       RECOMMENDED POPULAR DESTINATIONS
     ========================================== */
 
     function renderPopularDestinations() {
 
-        $("popular-grid").innerHTML = tours
+        const container = $("popular-grid");
+
+        if (!container) return;
+
+        container.innerHTML = tours
 
             .filter(tour => tour.discount > 0)
 
@@ -218,12 +198,10 @@
             .map(tour => createTourCard(tour, 1, true))
 
             .join("");
-
     }
 
-
     /* ==========================================
-       GENERATE TOUR PACKAGES
+       TOUR PACKAGE GENERATOR
     ========================================== */
 
     function generatePackages(event) {
@@ -253,7 +231,6 @@
                 "Please enter valid travel details.";
 
             return;
-
         }
 
         const matches = tours.filter(tour => {
@@ -278,7 +255,6 @@
             return regionMatch &&
                    preferenceMatch &&
                    durationMatch;
-
         });
 
         if (!matches.length) {
@@ -290,20 +266,17 @@
                     <h3>No Matching Tour Packages</h3>
 
                     <p>
-
                         Try another region, travel preference,
                         or longer travel duration.
 
-                        You may also inquire about a customized trip.
-
+                        You may also inquire about
+                        a customized trip.
                     </p>
 
                 </div>
-
             `;
 
             return;
-
         }
 
         results.innerHTML = `
@@ -311,10 +284,8 @@
             <h2>Recommended Tour Packages</h2>
 
             <p>
-
                 Suggested packages for ${days} travel day(s)
                 and ${pax} traveler(s).
-
             </p>
 
             <div class="landing-grid">
@@ -328,18 +299,58 @@
             <p class="landing-note">
 
                 Sample estimates cover the listed tour only.
+
                 Flights, extra travel days, accommodation,
-                and other expenses are not included unless confirmed.
+                and other expenses are not included
+                unless confirmed.
 
             </p>
-
         `;
-
     }
 
+    /* ==========================================
+       DESTINATION SEARCH DATA
+    ========================================== */
+
+    const destinations = [
+
+        "Puerto Princesa",
+        "El Nido",
+        "Coron",
+        "Port Barton",
+
+        "Baguio",
+        "Benguet",
+        "Ilocos",
+        "Pangasinan",
+        "Pampanga",
+        "Zambales",
+        "Olongapo",
+
+        "Cebu",
+        "Bohol",
+        "Boracay",
+        "Iloilo",
+        "Bacolod",
+        "Siquijor",
+        "Dumaguete",
+        "Samar",
+        "Leyte",
+
+        "Davao",
+        "Cagayan de Oro",
+        "Camiguin",
+        "Siargao",
+        "Bukidnon",
+        "General Santos",
+
+        "Japan",
+        "Vietnam"
+
+    ];
 
     /* ==========================================
-       DESTINATION SEARCH
+       DESTINATION PAGE URL
     ========================================== */
 
     function destinationURL(destination) {
@@ -347,21 +358,39 @@
         if (["Japan", "Vietnam"].includes(destination)) {
 
             return "beyond-philippines.html";
-
         }
 
         return "local-destinations.html";
-
     }
 
+    /* ==========================================
+       NORMALIZE SEARCH
+    ========================================== */
+
+    function normalizeSearch(value) {
+
+        return String(value || "")
+
+            .toLowerCase()
+
+            .trim()
+
+            .replace(/[\s-]+/g, "");
+    }
+
+    /* ==========================================
+       LIVE DESTINATION SEARCH
+    ========================================== */
 
     function searchDestinations(openFirst = false) {
 
-        const query = $("home-location-search")
-
-            .value.trim().toLowerCase();
+        const input = $("home-location-search");
 
         const results = $("home-search-results");
+
+        if (!input || !results) return;
+
+        const query = normalizeSearch(input.value);
 
         results.replaceChildren();
 
@@ -369,33 +398,35 @@
 
         if (!query) return;
 
-        const destinations = [
+        const matches = destinations.filter(destination =>
 
-            ...new Set(tours.map(tour => tour.destination))
-
-        ].filter(destination =>
-
-            destination.toLowerCase().includes(query)
+            normalizeSearch(destination).includes(query)
 
         );
 
-        if (openFirst && destinations.length) {
+        if (openFirst && matches.length) {
 
-            location.href = destinationURL(destinations[0]);
-
-            return;
-
-        }
-
-        if (!destinations.length) {
-
-            results.textContent = "No matching destinations.";
+            window.location.href =
+                destinationURL(matches[0]);
 
             return;
-
         }
 
-        destinations.forEach(destination => {
+        if (!matches.length) {
+
+            const message = document.createElement("p");
+
+            message.textContent =
+                "No matching destinations.";
+
+            message.style.padding = "14px";
+
+            results.append(message);
+
+            return;
+        }
+
+        matches.forEach(destination => {
 
             const link = document.createElement("a");
 
@@ -406,9 +437,290 @@
             results.append(link);
 
         });
-
     }
 
+    /* ==========================================
+       EXPANDABLE HEADER SEARCH
+    ========================================== */
+
+    function initializeHeader() {
+
+        const header = document.querySelector(".ppow-header");
+
+        const searchForm = $("headerSearchForm");
+
+        const searchToggle = $("headerSearchToggle");
+
+        const searchInput = $("home-location-search");
+
+        const searchResults = $("home-search-results");
+
+        const mobileMenu = $("mobileMenuToggle");
+
+        const navigation = $("mainNavigation");
+
+        if (!header) return;
+
+        /* OPEN OR CLOSE SEARCH */
+
+        function setSearch(open) {
+
+            if (!searchForm || !searchToggle) return;
+
+            searchForm.hidden = !open;
+
+            searchToggle.setAttribute(
+                "aria-expanded",
+                String(open)
+            );
+
+            searchToggle.setAttribute(
+                "aria-label",
+                open ? "Close search" : "Open search"
+            );
+
+            const icon = searchToggle.querySelector("i");
+
+            if (icon) {
+
+                icon.className = open
+
+                    ? "bi bi-x-lg"
+
+                    : "bi bi-search";
+            }
+
+            if (open) {
+
+                setMenu(false);
+
+                if (searchInput) {
+
+                    searchInput.focus();
+
+                    searchDestinations();
+                }
+
+            } else {
+
+                if (searchResults) {
+
+                    searchResults.style.display = "none";
+                }
+            }
+        }
+
+        /* MOBILE NAVIGATION */
+
+        function setMenu(open) {
+
+            if (!navigation || !mobileMenu) return;
+
+            navigation.classList.toggle("open", open);
+
+            mobileMenu.setAttribute(
+                "aria-expanded",
+                String(open)
+            );
+
+            const icon = mobileMenu.querySelector("i");
+
+            if (icon) {
+
+                icon.className = open
+
+                    ? "bi bi-x-lg"
+
+                    : "bi bi-list";
+            }
+
+            if (open) {
+
+                setSearch(false);
+            }
+        }
+
+        /* SEARCH BUTTON CLICK */
+
+        if (searchToggle && searchForm) {
+
+            searchToggle.addEventListener("click", () => {
+
+                setSearch(searchForm.hidden);
+
+            });
+        }
+
+        /* SEARCH INPUT */
+
+        if (searchInput) {
+
+            searchInput.addEventListener("input", () => {
+
+                searchDestinations();
+
+            });
+        }
+
+        /* SEARCH SUBMISSION */
+
+        if (searchForm) {
+
+            searchForm.addEventListener("submit", event => {
+
+                event.preventDefault();
+
+                searchDestinations(true);
+
+            });
+        }
+
+        /* MOBILE MENU BUTTON */
+
+        if (mobileMenu && navigation) {
+
+            mobileMenu.addEventListener("click", () => {
+
+                setMenu(
+                    !navigation.classList.contains("open")
+                );
+
+            });
+
+            navigation.querySelectorAll("a")
+
+                .forEach(link => {
+
+                    link.addEventListener("click", () => {
+
+                        setMenu(false);
+
+                    });
+
+                });
+        }
+
+        /* CLICK OUTSIDE */
+
+        document.addEventListener("click", event => {
+
+            if (
+                !event.target.closest(".header-search-wrapper")
+            ) {
+
+                setSearch(false);
+            }
+
+            if (!header.contains(event.target)) {
+
+                setMenu(false);
+            }
+        });
+
+        /* ESCAPE KEY */
+
+        document.addEventListener("keydown", event => {
+
+            if (event.key === "Escape") {
+
+                setSearch(false);
+
+                setMenu(false);
+            }
+        });
+
+        /* ACTIVE NAVIGATION */
+
+        const currentPage =
+
+            window.location.pathname.split("/").pop()
+
+            || "index.html";
+
+        if (navigation) {
+
+            navigation.querySelectorAll("a")
+
+                .forEach(link => {
+
+                    const linkPage = new URL(
+                        link.href,
+                        window.location.href
+                    ).pathname.split("/").pop();
+
+                    const active = linkPage === currentPage;
+
+                    link.classList.toggle("active", active);
+
+                    if (active) {
+
+                        link.setAttribute(
+                            "aria-current",
+                            "page"
+                        );
+
+                    } else {
+
+                        link.removeAttribute("aria-current");
+                    }
+                });
+        }
+    }
+
+    /* ==========================================
+       CUSTOMER ACCOUNT
+    ========================================== */
+
+    function updateCustomerAccount() {
+
+        const account = $("customerAccountButton");
+
+        if (!account) return;
+
+        try {
+
+            const loggedIn = JSON.parse(
+
+                localStorage.getItem(
+                    "ppowCustomerLoggedIn_v1"
+                ) || "false"
+
+            );
+
+            const profile = JSON.parse(
+
+                localStorage.getItem(
+                    "ppowCustomerProfile_v1"
+                ) || "null"
+
+            );
+
+            if (loggedIn === true) {
+
+                account.href = "customer-account.html";
+
+                account.title =
+
+                    profile?.fullName ||
+
+                    profile?.name ||
+
+                    "Customer Account";
+
+            } else {
+
+                account.href = "login.html";
+
+                account.title = "Login or Sign Up";
+            }
+
+        } catch (error) {
+
+            console.error("Account error:", error);
+
+            account.href = "login.html";
+        }
+    }
 
     /* ==========================================
        FLOATING INQUIRY AND CHATBOT
@@ -428,32 +740,39 @@
 
             : "inquiry";
 
-        $(selected + "Window").hidden = !open;
+        const selectedWindow = $(selected + "Window");
 
-        $(selected + "Toggle").setAttribute(
+        const selectedToggle = $(selected + "Toggle");
 
+        if (!selectedWindow || !selectedToggle) return;
+
+        selectedWindow.hidden = !open;
+
+        selectedToggle.setAttribute(
             "aria-expanded",
-
             String(open)
-
         );
 
         if (open) {
 
-            $(other + "Window").hidden = true;
+            const otherWindow = $(other + "Window");
 
-            $(other + "Toggle").setAttribute(
+            const otherToggle = $(other + "Toggle");
 
-                "aria-expanded",
+            if (otherWindow) {
 
-                "false"
+                otherWindow.hidden = true;
+            }
 
-            );
+            if (otherToggle) {
 
+                otherToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+            }
         }
-
     }
-
 
     /* ==========================================
        INQUIRY FORM
@@ -487,7 +806,7 @@
 
         ].join("\n");
 
-        location.href =
+        window.location.href =
 
             "mailto:jeannyveve.cusi@gmail.com" +
 
@@ -498,17 +817,52 @@
             "&body=" +
 
             encodeURIComponent(body);
-
     }
 
+    /* ==========================================
+       TOUR INQUIRY BUTTONS
+    ========================================== */
+
+    function initializeTourInquiry() {
+
+        document.addEventListener("click", event => {
+
+            const button = event.target.closest("[data-tour]");
+
+            if (!button) return;
+
+            const form = $("quickInquiry");
+
+            if (!form) return;
+
+            form.elements.destination.value =
+                button.dataset.destination;
+
+            form.elements.pax.value =
+                button.dataset.pax || 1;
+
+            form.elements.message.value =
+
+                "I would like to inquire about " +
+
+                button.dataset.tour +
+
+                ". Please confirm rates and availability.";
+
+            toggleSupport("inquiry", true);
+
+        });
+    }
 
     /* ==========================================
-       CHATBOT
+       CHATBOT MESSAGE DISPLAY
     ========================================== */
 
     function addChatMessage(text, type) {
 
         const container = $("chatbotMessages");
+
+        if (!container) return;
 
         const message = document.createElement("div");
 
@@ -519,9 +873,11 @@
         container.append(message);
 
         container.scrollTop = container.scrollHeight;
-
     }
 
+    /* ==========================================
+       AUTOMATED CHATBOT RESPONSES
+    ========================================== */
 
     function chatbotReply(text) {
 
@@ -534,7 +890,6 @@
                 "Smart: 0919-272-6174, or email " +
 
                 "jeannyveve.cusi@gmail.com.";
-
         }
 
         if (/address|office|location/.test(query)) {
@@ -542,7 +897,6 @@
             return "Our office is located at 41-A Pineda, " +
 
                 "San Pedro, Puerto Princesa City, Palawan.";
-
         }
 
         if (/book|reserve|reservation/.test(query)) {
@@ -552,7 +906,6 @@
                 "using our Trip Planner. Send an inquiry to " +
 
                 "confirm your booking and availability.";
-
         }
 
         if (/review|feedback|rating/.test(query)) {
@@ -562,7 +915,6 @@
                 "submit a review and upload travel photos or " +
 
                 "videos through your customer account.";
-
         }
 
         if (/payment|gcash|maya/.test(query)) {
@@ -570,7 +922,6 @@
             return "Please contact our travel team for confirmed " +
 
                 "payment options and instructions.";
-
         }
 
         if (/japan|vietnam|international/.test(query)) {
@@ -578,7 +929,6 @@
             return "Visit our Beyond Philippines page to explore " +
 
                 "Vietnam and Japan travel packages.";
-
         }
 
         if (/custom|itinerary|planner/.test(query)) {
@@ -586,7 +936,6 @@
             return "Our Trip Planner offers Tour Only and " +
 
                 "Customized Trip options.";
-
         }
 
         if (/price|package|tour|discount|cost/.test(query)) {
@@ -596,19 +945,16 @@
                 "to discover suggested tours and estimated prices. " +
 
                 "Contact us to confirm rates and availability.";
-
         }
 
         if (/hello|hi\b|hey/.test(query)) {
 
             return "Hello! How can I help you plan your next adventure?";
-
         }
 
         if (/thank/.test(query)) {
 
             return "You're welcome! We look forward to traveling with you.";
-
         }
 
         return "I can help with tour packages, destinations, " +
@@ -616,29 +962,28 @@
             "booking inquiries, and contact details. " +
 
             "For other questions, please use Inquire Now.";
-
     }
 
+    /* ==========================================
+       SEND CHAT MESSAGE
+    ========================================== */
 
     function sendChatMessage(text) {
 
-        const message = text.trim();
+        const message = String(text || "").trim();
 
         if (!message) return;
 
         addChatMessage(message, "user");
 
         addChatMessage(chatbotReply(message), "bot");
-
     }
-
 
     /* ==========================================
        CUSTOMER REVIEWS
     ========================================== */
 
     let showAllReviews = false;
-
 
     function getApprovedReviews() {
 
@@ -677,14 +1022,11 @@
             console.error("Review loading error:", error);
 
             return [];
-
         }
-
     }
 
-
     /* ==========================================
-       PHOTO PREVIEW
+       CUSTOMER PHOTO PREVIEW
     ========================================== */
 
     function previewPhoto(url) {
@@ -720,12 +1062,10 @@
         });
 
         dialog.showModal();
-
     }
 
-
     /* ==========================================
-       DISPLAY CUSTOMER REVIEWS
+       RENDER CUSTOMER REVIEWS
     ========================================== */
 
     function renderCustomerReviews() {
@@ -748,31 +1088,50 @@
 
             : 0;
 
-        $("average-rating").textContent = average.toFixed(1);
+        if ($("average-rating")) {
 
-        $("total-reviews").textContent =
+            $("average-rating").textContent =
+                average.toFixed(1);
+        }
 
-            reviews.length +
+        if ($("total-reviews")) {
 
-            (reviews.length === 1
-                ? " Customer Review"
-                : " Customer Reviews");
+            $("total-reviews").textContent =
+
+                reviews.length +
+
+                (reviews.length === 1
+
+                    ? " Customer Review"
+
+                    : " Customer Reviews");
+        }
 
         const rounded = Math.round(average);
 
-        $("average-stars").textContent =
+        if ($("average-stars")) {
 
-            "★".repeat(rounded) +
+            $("average-stars").textContent =
 
-            "☆".repeat(5 - rounded);
+                "★".repeat(rounded) +
 
-        $("view-all-reviews").hidden = reviews.length <= 3;
+                "☆".repeat(5 - rounded);
+        }
 
-        $("view-all-reviews").textContent =
+        const viewAll = $("view-all-reviews");
 
-            showAllReviews ? "Show Less" : "View All Reviews";
+        if (viewAll) {
+
+            viewAll.hidden = reviews.length <= 3;
+
+            viewAll.textContent =
+
+                showAllReviews ? "Show Less" : "View All Reviews";
+        }
 
         container.replaceChildren();
+
+        /* NO CUSTOMER REVIEWS */
 
         if (!reviews.length) {
 
@@ -783,20 +1142,17 @@
                     <h3>Share Your Travel Experience</h3>
 
                     <p>
-
                         No customer reviews yet.
-
                         Be the first to share your adventure!
-
                     </p>
 
                 </div>
-
             `;
 
             return;
-
         }
+
+        /* DISPLAY FIRST THREE REVIEWS */
 
         const visibleReviews = showAllReviews
 
@@ -809,7 +1165,6 @@
             const card = document.createElement("article");
 
             card.className =
-
                 "landing-glass customer-review-card";
 
             const name = String(
@@ -840,8 +1195,10 @@
 
                 </div>
 
-                <div class="review-stars"
-                     aria-label="${rating} out of 5 stars">
+                <div
+                    class="review-stars"
+                    aria-label="${rating} out of 5 stars"
+                >
 
                     ${"★".repeat(rating)}
 
@@ -862,15 +1219,14 @@
                     ${escapeHTML(review.review_message)}
 
                 </p>
-
             `;
 
-
-            /* CUSTOMER UPLOADED PHOTOS AND VIDEOS */
+            /* CUSTOMER PHOTOS AND VIDEOS */
 
             if (Array.isArray(review.media)) {
 
-                const mediaContainer = document.createElement("div");
+                const mediaContainer =
+                    document.createElement("div");
 
                 mediaContainer.className = "review-media";
 
@@ -895,9 +1251,15 @@
 
                         /^https?:\/\//i.test(url);
 
-                    if (file.type === "image" && imageAllowed) {
+                    /* REVIEW IMAGE */
 
-                        const button = document.createElement("button");
+                    if (
+                        file.type === "image" &&
+                        imageAllowed
+                    ) {
+
+                        const button =
+                            document.createElement("button");
 
                         button.type = "button";
 
@@ -906,7 +1268,8 @@
                             "View customer travel photo"
                         );
 
-                        const image = document.createElement("img");
+                        const image =
+                            document.createElement("img");
 
                         image.src = url;
 
@@ -919,12 +1282,17 @@
                         button.onclick = () => previewPhoto(url);
 
                         mediaContainer.append(button);
-
                     }
 
-                    if (file.type === "video" && videoAllowed) {
+                    /* REVIEW VIDEO */
 
-                        const video = document.createElement("video");
+                    if (
+                        file.type === "video" &&
+                        videoAllowed
+                    ) {
+
+                        const video =
+                            document.createElement("video");
 
                         video.src = url;
 
@@ -935,7 +1303,6 @@
                         video.playsInline = true;
 
                         mediaContainer.append(video);
-
                     }
 
                 });
@@ -943,11 +1310,8 @@
                 if (mediaContainer.children.length) {
 
                     card.append(mediaContainer);
-
                 }
-
             }
-
 
             /* REVIEW DATE */
 
@@ -961,29 +1325,27 @@
 
                 Number.isNaN(created.getTime())
 
-                ? ""
+                    ? ""
 
-                : created.toLocaleDateString("en-PH", {
+                    : created.toLocaleDateString("en-PH", {
 
-                    year: "numeric",
+                        year: "numeric",
 
-                    month: "long",
+                        month: "long",
 
-                    day: "numeric"
+                        day: "numeric"
 
-                });
+                    });
 
             card.append(date);
 
             container.append(card);
 
         });
-
     }
 
-
     /* ==========================================
-       FACEBOOK VIDEO EMBEDS
+       FACEBOOK VIDEO DATA
     ========================================== */
 
     const facebookVideos = [
@@ -992,10 +1354,17 @@
 
     ];
 
+    /* ==========================================
+       RENDER FACEBOOK VIDEOS
+    ========================================== */
 
     function renderFacebookVideos() {
 
         const container = $("facebook-video-grid");
+
+        if (!container) return;
+
+        container.replaceChildren();
 
         facebookVideos.forEach(link => {
 
@@ -1008,7 +1377,6 @@
             } catch {
 
                 return;
-
             }
 
             if (
@@ -1046,9 +1414,7 @@
             container.append(iframe);
 
         });
-
     }
-
 
     /* ==========================================
        INITIALIZE HOMEPAGE
@@ -1056,7 +1422,15 @@
 
     document.addEventListener("DOMContentLoaded", () => {
 
+        /* INITIALIZE HEADER */
+
+        initializeHeader();
+
+        updateCustomerAccount();
+
         if (!$("home-page")) return;
+
+        /* RENDER HOMEPAGE CONTENT */
 
         renderPopularDestinations();
 
@@ -1064,10 +1438,11 @@
 
         renderFacebookVideos();
 
+        initializeTourInquiry();
 
-        /* GENERATOR */
+        /* TOUR PACKAGE GENERATOR */
 
-        $("generatorForm").addEventListener(
+        $("generatorForm")?.addEventListener(
 
             "submit",
 
@@ -1075,122 +1450,81 @@
 
         );
 
+        /* OPEN INQUIRY WINDOW */
 
-        /* SEARCH */
+        $("inquiryToggle")?.addEventListener("click", () => {
 
-        $("home-location-search").addEventListener(
+            toggleSupport(
 
-            "input",
+                "inquiry",
 
-            () => searchDestinations()
+                $("inquiryWindow").hidden
 
-        );
-
-        $("headerSearchForm").addEventListener(
-
-            "submit",
-
-            event => {
-
-                event.preventDefault();
-
-                searchDestinations(true);
-
-            }
-
-        );
-
-
-        /* INQUIRY AND CHATBOT TOGGLES */
-
-        $("inquiryToggle").onclick = () => {
-
-            toggleSupport("inquiry", $("inquiryWindow").hidden);
-
-        };
-
-        $("inquiryClose").onclick = () => {
-
-            toggleSupport("inquiry", false);
-
-        };
-
-        $("chatbotToggle").onclick = () => {
-
-            toggleSupport("chatbot", $("chatbotWindow").hidden);
-
-        };
-
-        $("chatbotClose").onclick = () => {
-
-            toggleSupport("chatbot", false);
-
-        };
-
-
-        /* INQUIRY DATE */
-
-        const inquiryForm = $("quickInquiry");
-
-        const today = new Date(
-
-            Date.now() -
-
-            new Date().getTimezoneOffset() * 60000
-
-        ).toISOString().slice(0, 10);
-
-        inquiryForm.elements.date.min = today;
-
-        inquiryForm.addEventListener(
-
-            "submit",
-
-            submitInquiry
-
-        );
-
-
-        /* TOUR INQUIRY BUTTONS */
-
-        document.addEventListener("click", event => {
-
-            const button = event.target.closest("[data-tour]");
-
-            if (button) {
-
-                inquiryForm.elements.destination.value =
-
-                    button.dataset.destination;
-
-                inquiryForm.elements.pax.value =
-
-                    button.dataset.pax || 1;
-
-                inquiryForm.elements.message.value =
-
-                    "I would like to inquire about " +
-
-                    button.dataset.tour +
-
-                    ". Please confirm rates and availability.";
-
-                toggleSupport("inquiry", true);
-
-            }
-
-            if (!event.target.closest(".home-search")) {
-
-                $("home-search-results").style.display = "none";
-
-            }
+            );
 
         });
 
+        /* CLOSE INQUIRY WINDOW */
 
-        /* CHATBOT MESSAGES */
+        $("inquiryClose")?.addEventListener("click", () => {
 
-        $("chatbotForm").addEventListener(
+            toggleSupport("inquiry", false);
+
+        });
+
+        /* OPEN CHATBOT WINDOW */
+
+        $("chatbotToggle")?.addEventListener("click", () => {
+
+            toggleSupport(
+
+                "chatbot",
+
+                $("chatbotWindow").hidden
+
+            );
+
+        });
+
+        /* CLOSE CHATBOT WINDOW */
+
+        $("chatbotClose")?.addEventListener("click", () => {
+
+            toggleSupport("chatbot", false);
+
+        });
+
+        /* INQUIRY FORM */
+
+        const inquiryForm = $("quickInquiry");
+
+        if (inquiryForm) {
+
+            const today = new Date(
+
+                Date.now() -
+
+                new Date().getTimezoneOffset() * 60000
+
+            ).toISOString().slice(0, 10);
+
+            if (inquiryForm.elements.date) {
+
+                inquiryForm.elements.date.min = today;
+            }
+
+            inquiryForm.addEventListener(
+
+                "submit",
+
+                submitInquiry
+
+            );
+        }
+
+        /* CHATBOT FORM */
+
+        $("chatbotForm")?.addEventListener(
 
             "submit",
 
@@ -1200,13 +1534,19 @@
 
                 const input = $("chatbotInput");
 
+                if (!input) return;
+
                 sendChatMessage(input.value);
 
                 input.value = "";
 
+                input.focus();
+
             }
 
         );
+
+        /* CHATBOT QUICK OPTIONS */
 
         document.querySelectorAll("[data-chat]")
 
@@ -1220,19 +1560,17 @@
 
             });
 
+        /* VIEW ALL CUSTOMER REVIEWS */
 
-        /* VIEW ALL REVIEWS */
-
-        $("view-all-reviews").onclick = () => {
+        $("view-all-reviews")?.addEventListener("click", () => {
 
             showAllReviews = !showAllReviews;
 
             renderCustomerReviews();
 
-        };
+        });
 
-
-        /* CLOSE USING ESCAPE KEY */
+        /* CLOSE SUPPORT USING ESCAPE */
 
         document.addEventListener("keydown", event => {
 
@@ -1241,18 +1579,18 @@
                 toggleSupport("inquiry", false);
 
                 toggleSupport("chatbot", false);
-
-                $("home-search-results").style.display = "none";
-
             }
 
         });
 
+        console.log(
+            "Homepage initialized successfully."
+        );
+
     });
 
-
     /* ==========================================
-       AUTOMATIC REVIEW REFRESH
+       AUTOMATIC REVIEW AND ACCOUNT REFRESH
     ========================================== */
 
     window.addEventListener("storage", event => {
@@ -1260,7 +1598,19 @@
         if (event.key === "customerReviews") {
 
             renderCustomerReviews();
+        }
 
+        if (
+
+            event.key === "ppowCustomerLoggedIn_v1" ||
+
+            event.key === "ppowCustomerProfile_v1" ||
+
+            event.key === null
+
+        ) {
+
+            updateCustomerAccount();
         }
 
     });
@@ -1268,6 +1618,8 @@
     window.addEventListener("pageshow", () => {
 
         renderCustomerReviews();
+
+        updateCustomerAccount();
 
     });
 
