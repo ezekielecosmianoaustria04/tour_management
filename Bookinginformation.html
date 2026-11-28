@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booking Information</title>
+  <link rel="stylesheet" href="bookinginformation.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="#" class="brand">
+      <img class="brand-logo" src="logo.png" alt="Puerto Princesa of Wonder Services logo">
+      <span class="brand-name">Puerto Princesa of Wonder Services<br>Cooperative Travel and Tours</span>
+    </a>
+    <div class="nav-row">
+      <form class="search" id="searchForm" role="search">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input type="search" id="searchInput" placeholder="Search a location (e.g. El Nido, Baguio, Cebu)" aria-label="Search a location">
+        <button type="submit">Search</button>
+      </form>
+      <nav class="main-nav" aria-label="Main">
+        <a href="#">Home</a>
+        <a href="#">Trip Planner</a>
+        <a href="#">Local Destinations</a>
+        <a href="#">Beyond Philippines</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+      <button class="cart-btn" aria-label="Booking cart">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="#" class="login-btn">Login</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <h1>Booking Information</h1>
+
+    <div class="card">
+      <!-- QUESTION: disappears once answered -->
+      <section class="ask" id="askBlock" aria-labelledby="askQ">
+        <h2 id="askQ">Have you booked a flight?</h2>
+        <div class="yn">
+          <button type="button" class="yn-btn" id="yesBtn">Yes</button>
+          <button type="button" class="yn-btn" id="noBtn">No</button>
+        </div>
+      </section>
+
+      <p class="status" id="status" role="status" hidden></p>
+
+      <!-- FLIGHT: disabled until Yes/No is answered -->
+      <fieldset class="flight" id="flightBlock" disabled>
+        <legend>Flight</legend>
+        <p class="lock-note" id="lockNote">Answer the question above first.</p>
+
+        <div class="dates">
+          <label class="field">
+            <span>Arrival <small>(date &amp; time)</small></span>
+            <input type="datetime-local" id="arrival" required>
+          </label>
+          <span class="dash" aria-hidden="true">—</span>
+          <label class="field">
+            <span>Departure <small>(date &amp; time)</small></span>
+            <input type="datetime-local" id="departure" required>
+          </label>
+        </div>
+
+        <div class="pax-row">
+          <label class="field pax" for="pax"><span>No. of pax</span></label>
+          <div class="spin">
+            <input type="number" id="pax" min="1" max="30" step="1" value="1" inputmode="numeric">
+            <div class="spin-btns">
+              <button type="button" id="paxUp" aria-label="Increase pax">&#9650;</button>
+              <button type="button" id="paxDown" aria-label="Decrease pax">&#9660;</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="error" id="error" role="alert"></p>
+        <button type="button" class="continue-btn" id="continueBtn" disabled>Continue</button>
+      </fieldset>
+    </div>
+  </main>
+
+  <script src="bookinginformation.js"></script>
+</body>
+</html>
