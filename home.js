@@ -1349,70 +1349,52 @@
     ========================================== */
 
     const facebookVideos = [
-
-        // Paste actual public Facebook video URLs here.
-
+        { title: "Travel Highlights 01", url: "https://www.facebook.com/reel/1872358057061263" },
+        { title: "Travel Highlights 02", url: "https://www.facebook.com/reel/1565917381683329" },
+        { title: "Travel Highlights 03", url: "https://www.facebook.com/reel/1289148916351752" },
+        { title: "Travel Highlights 04", url: "https://www.facebook.com/reel/2677117449320304" },
+        { title: "Travel Highlights 05", url: "https://www.facebook.com/reel/1762999757810366" }
     ];
 
-    /* ==========================================
-       RENDER FACEBOOK VIDEOS
-    ========================================== */
-
     function renderFacebookVideos() {
-
         const container = $("facebook-video-grid");
-
         if (!container) return;
-
         container.replaceChildren();
-
-        facebookVideos.forEach(link => {
-
-            let url;
-
+        const page = "https://www.facebook.com/puertoprincesaislandsofwonderTours/videos/";
+        facebookVideos.slice(0,5).forEach((video,index) => {
+            let url = null;
             try {
-
-                url = new URL(link);
-
-            } catch {
-
-                return;
+                const parsed = new URL(video.url);
+                if (parsed.protocol === "https:" && (parsed.hostname === "facebook.com" || parsed.hostname.endsWith(".facebook.com"))) url = parsed.href;
+            } catch {}
+            const card = document.createElement("article");
+            card.className = "fb-video-card";
+            const player = document.createElement("div");
+            player.className = "fb-video-player";
+            if (url) {
+                const iframe = document.createElement("iframe");
+                iframe.src = "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(url) + "&show_text=false&autoplay=false&width=300";
+                iframe.title = video.title;
+                iframe.loading = "lazy";
+                iframe.allow = "encrypted-media; picture-in-picture; fullscreen";
+                iframe.allowFullscreen = true;
+                player.append(iframe);
+            } else {
+                player.innerHTML = `<div class="fb-video-placeholder"><i class="bi bi-play-circle-fill"></i><span>Video ${index+1} · Link not yet added</span></div>`;
             }
-
-            if (
-
-                url.protocol !== "https:" ||
-
-                !(
-                    url.hostname === "facebook.com" ||
-
-                    url.hostname.endsWith(".facebook.com")
-                )
-
-            ) return;
-
-            const iframe = document.createElement("iframe");
-
-            iframe.src =
-
-                "https://www.facebook.com/plugins/video.php?href=" +
-
-                encodeURIComponent(url.href) +
-
-                "&show_text=false";
-
-            iframe.title = "Facebook travel video";
-
-            iframe.loading = "lazy";
-
-            iframe.allowFullscreen = true;
-
-            iframe.allow =
-
-                "encrypted-media; picture-in-picture; fullscreen";
-
-            container.append(iframe);
-
+            const info = document.createElement("div");
+            info.className = "fb-video-info";
+            const title = document.createElement("h3");
+            title.textContent = video.title;
+            const link = document.createElement("a");
+            link.className = "fb-watch-link";
+            link.href = url || page;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = url ? "Watch on Facebook" : "Visit Facebook Videos";
+            info.append(title,link);
+            card.append(player,info);
+            container.append(card);
         });
     }
 
