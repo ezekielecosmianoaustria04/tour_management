@@ -1,140 +1,37 @@
-
 "use strict";
 
 /* ==========================================
-   TOUR PACKAGE DATA
-   Used for cards, prices and cart only.
-   Descriptions remain in HTML.
+   HELPER FUNCTIONS
 ========================================== */
 
-const tourPackages = [
-    {
-        id: 1,
-        destination: "Puerto Princesa",
-        name: "Underground River Tour",
-        price: 2800,
-        image: "underground-river.jpg"
-    },
-    {
-        id: 2,
-        destination: "Puerto Princesa",
-        name: "Honda Bay Island Hopping",
-        price: 2300,
-        image: "honda-bay.jpg"
-    },
-    {
-        id: 3,
-        destination: "Puerto Princesa",
-        name: "Jungle Firefly Watching",
-        price: 2200,
-        image: "firefly.jpg"
-    },
-    {
-        id: 4,
-        destination: "Puerto Princesa",
-        name: "Halfday City Tour",
-        price: 990,
-        image: "puerto-princesa.jpg"
-    },
-    {
-        id: 5,
-        destination: "Puerto Princesa",
-        name: "Bay Cruise & Firefly Watching",
-        price: 2000,
-        image: "bay-cruise.jpg"
-    },
-    {
-        id: 6,
-        destination: "Puerto Princesa",
-        name: "Dolphin Watching",
-        price: 1500,
-        image: "dolphin-watching.jpg"
-    },
-    {
-        id: 7,
-        destination: "El Nido",
-        name: "El Nido Island Hopping Tour A Package",
-        price: 1600,
-        image: "el-nido-tour-a.png"
-    },
-    {
-        id: 8,
-        destination: "El Nido",
-        name: "El Nido Island Hopping Tour B Package",
-        price: 1700,
-        image: "el-nido-tour-b.png"
-    },
-    {
-        id: 9,
-        destination: "El Nido",
-        name: "El Nido Island Hopping Tour C Package",
-        price: 1800,
-        image: "el-nido-tour-c.png"
-    },
-    {
-        id: 10,
-        destination: "El Nido",
-        name: "El Nido Island Hopping Tour D Package",
-        price: 1900,
-        image: "el-nido-tour-d.png"
-    },
-    {
-        id: 11,
-        destination: "Coron",
-        name: "Coron: Island Hopping Tour A",
-        price: 1300,
-        image: "coron.jpg"
-    },
-    {
-        id: 12,
-        destination: "Coron",
-        name: "Coron: Town Tour",
-        price: 1200,
-        image: "coron.jpg"
-    },
-    {
-        id: 13,
-        destination: "Coron",
-        name: "Coron: Island Escapade Tour",
-        price: 1800,
-        image: "coron.jpg"
-    },
-    {
-        id: 14,
-        destination: "Coron",
-        name: "Coron: Island Hopping Tour B",
-        price: 1800,
-        image: "coron.jpg"
-    }
+const $ = id => document.getElementById(id);
+
+const cards = () => [
+    ...document.querySelectorAll("#tour-tiles .tour-card")
 ];
+
+const normalize = value =>
+    String(value || "")
+        .toLowerCase()
+        .replace(/[\s-]+/g, "");
 
 
 /* ==========================================
-   PAGE NAVIGATION
+   TRIP PLANNER PAGE NAVIGATION
 ========================================== */
 
-const tripPlannerPages = [
-    "planner-page",
-    "destination-page",
-    "tours-page",
-    "customize-choice-page"
-];
+function showTripPlannerPage(id) {
 
-function showTripPlannerPage(pageId) {
+    if (!$(id)) return;
 
-    if (!tripPlannerPages.includes(pageId)) {
-        console.warn("Unknown page:", pageId);
-        return;
-    }
+    document.querySelectorAll(".app-page").forEach(page => {
 
-    tripPlannerPages.forEach(id => {
+        page.hidden = page.id !== id;
 
-        const page = document.getElementById(id);
+        page.style.display = page.hidden
+            ? "none"
+            : "block";
 
-        if (page) {
-            page.style.display =
-                id === pageId ? "block" : "none";
-        }
     });
 
     window.scrollTo({
@@ -143,18 +40,26 @@ function showTripPlannerPage(pageId) {
     });
 }
 
-// Compatibility with existing HTML onclick="showPage(...)"
-function showPage(pageId) {
-    showTripPlannerPage(pageId);
+
+/* ==========================================
+   OPEN TOUR ONLY
+========================================== */
+
+function openTourOnly() {
+
+    showTripPlannerPage("destination-page");
+
 }
 
 
 /* ==========================================
-   TOUR ONLY
+   OPEN CUSTOMIZE YOUR TRIP
 ========================================== */
 
-function openTourOnly() {
-    showTripPlannerPage("destination-page");
+function openCustomizeChoice() {
+
+    location.href = "tripplanner-customized.html";
+
 }
 
 
@@ -162,370 +67,140 @@ function openTourOnly() {
    SELECT DESTINATION
 ========================================== */
 
-let selectedTourDestination = "";
-
-function normalizeTourDestination(destination) {
-
-    const value = String(destination || "")
-        .trim()
-        .toLowerCase();
-
-    const destinations = {
-        "puerto princesa": "Puerto Princesa",
-        "puerto-princesa": "Puerto Princesa",
-        "elnido": "El Nido",
-        "el nido": "El Nido",
-        "el-nido": "El Nido",
-        "coron": "Coron"
-    };
-
-    return destinations[value] || "";
-}
-
 function chooseTourDestination(destination) {
 
-    const normalized = normalizeTourDestination(destination);
+    let count = 0;
 
-    if (!normalized) {
-        console.warn("Unknown destination:", destination);
-        return;
-    }
+    cards().forEach(card => {
 
-    selectedTourDestination = normalized;
+        card.hidden =
+            normalize(card.dataset.destination) !==
+            normalize(destination);
 
-    renderTourCatalog();
+        if (!card.hidden) {
+
+            count++;
+
+        }
+
+    });
+
+    $("no-tour-message").hidden = count > 0;
+
+    $("selected-destination-title").textContent =
+        destination + " Tour Packages";
 
     showTripPlannerPage("tours-page");
+
 }
 
 
 /* ==========================================
-   RENDER TOUR CARDS
+   GET TOUR INFORMATION FROM HTML
+
+   Edit tour name, price and picture
+   directly inside tripplanner.html.
 ========================================== */
 
-function renderTourCatalog() {
+function getTour(id) {
 
-    const container = document.getElementById("tour-tiles");
-
-    const title = document.getElementById(
-        "selected-destination-title"
+    const card = cards().find(
+        c => Number(c.dataset.tourId) === Number(id)
     );
 
-    const description = document.getElementById(
-        "selected-destination-description"
+    if (!card) return null;
+
+    const price = Number(
+
+        card.querySelector(".tour-price")
+            .textContent
+            .split("/")[0]
+            .replace(/[^\d.]/g, "")
+
     );
 
-    if (!container) {
-        console.error("Missing element: #tour-tiles");
-        return;
-    }
+    return {
 
-    const selectedTours = tourPackages.filter(
-        tour => tour.destination === selectedTourDestination
-    );
+        id: Number(id),
 
-    if (title) {
-        title.textContent =
-            selectedTourDestination + " Tour Packages";
-    }
+        name: card.querySelector("h3")
+            .textContent.trim(),
 
-    if (description) {
-        description.textContent =
-            "Choose from our available tour packages in " +
-            selectedTourDestination + ".";
-    }
+        destination: card.dataset.destination,
 
-    container.replaceChildren();
+        price: price,
 
-    if (selectedTours.length === 0) {
-        container.textContent =
-            "No tour packages available.";
-        return;
-    }
+        image: card.querySelector("img")
+            .getAttribute("src")
 
-    selectedTours.forEach(tour => {
+    };
 
-        // CARD
-        const card = document.createElement("article");
-        card.className = "tour-card";
-        card.dataset.destination = tour.destination;
-
-        // IMAGE
-        const image = document.createElement("img");
-        image.src = tour.image;
-        image.alt = tour.name;
-        image.loading = "lazy";
-
-        // CONTENT
-        const content = document.createElement("div");
-        content.className = "tour-card-content";
-
-        // LOCATION
-        const location = document.createElement("span");
-        location.className = "tour-location";
-        location.textContent = tour.destination;
-
-        // NAME
-        const name = document.createElement("h3");
-        name.textContent = tour.name;
-
-        // PRICE
-        const price = document.createElement("p");
-        price.className = "tour-price";
-
-        price.textContent =
-            "₱" + tour.price.toLocaleString("en-PH");
-
-        const perPerson = document.createElement("small");
-        perPerson.textContent = " / person";
-
-        price.appendChild(perPerson);
-
-        // ADD TO CART BUTTON
-        const cartButton = document.createElement("button");
-        cartButton.type = "button";
-        cartButton.className = "tour-book-btn";
-        cartButton.textContent = "Add to Cart";
-
-        cartButton.addEventListener("click", () => {
-            addTourToCart(tour.id);
-        });
-
-        // DETAILS BUTTON
-        const detailsButton = document.createElement("button");
-        detailsButton.type = "button";
-        detailsButton.className = "tour-details-btn";
-        detailsButton.textContent = "Details →";
-
-        detailsButton.addEventListener("click", () => {
-            openTourDetails(tour.id);
-        });
-
-        content.append(
-            location,
-            name,
-            price,
-            cartButton,
-            detailsButton
-        );
-
-        card.append(image, content);
-
-        container.appendChild(card);
-    });
 }
 
 
 /* ==========================================
-   CART STORAGE
+   OPEN FULLSCREEN TOUR DETAILS
 ========================================== */
 
-function getTripCart() {
+function openTourDetails(id) {
 
-    try {
+    const tour = getTour(id);
 
-        const savedCart = JSON.parse(
-            localStorage.getItem("travelCart") || "[]"
-        );
+    const drawer = $("tourDetailsDrawer");
 
-        return Array.isArray(savedCart) ? savedCart : [];
+    const sections = [
 
-    } catch (error) {
+        ...drawer.querySelectorAll(".tour-detail-content")
 
-        console.error("Unable to read cart:", error);
-        return [];
-    }
-}
+    ];
 
+    const selected = sections.find(
 
-/* ==========================================
-   ADD TOUR TO CART
-========================================== */
+        section =>
+            Number(section.dataset.tourId) === Number(id)
 
-function addTourToCart(tourId) {
-
-    const selectedTour = tourPackages.find(
-        tour => tour.id === Number(tourId)
     );
 
-    if (!selectedTour) {
-        console.warn("Tour not found:", tourId);
-        return;
-    }
+    if (!selected || !tour) return;
 
-    const cart = getTripCart();
+    /* HIDE OTHER TOUR DETAILS */
 
-    const existing = cart.find(
-        item => Number(item.id) === selectedTour.id
-    );
+    sections.forEach(section => {
 
-    if (existing) {
+        section.hidden = section !== selected;
 
-        existing.quantity =
-            (Number(existing.quantity) || 1) + 1;
-
-    } else {
-
-        cart.push({
-            id: selectedTour.id,
-            name: selectedTour.name,
-            destination: selectedTour.destination,
-            price: selectedTour.price,
-            image: selectedTour.image,
-            quantity: 1
-        });
-    }
-
-    try {
-
-        localStorage.setItem(
-            "travelCart",
-            JSON.stringify(cart)
-        );
-
-        updateTripCartCount();
-
-        alert(selectedTour.name + " added to cart!");
-
-    } catch (error) {
-
-        console.error("Unable to save cart:", error);
-        alert("Unable to save your cart. Please try again.");
-    }
-}
-
-// Compatibility with existing onclick="selectTour(8)"
-function selectTour(tourId) {
-    addTourToCart(tourId);
-}
-
-
-/* ==========================================
-   UPDATE CART COUNT
-========================================== */
-
-function updateTripCartCount() {
-
-    const cart = getTripCart();
-
-    const total = cart.reduce(
-        (sum, item) => sum + (Number(item.quantity) || 1),
-        0
-    );
-
-    document.querySelectorAll("#cart-count").forEach(element => {
-        element.textContent = total;
-    });
-}
-
-
-/* ==========================================
-   CUSTOMIZE YOUR TRIP
-========================================== */
-
-function openCustomizeTrip() {
-    showTripPlannerPage("customize-choice-page");
-}
-
-function selectTripLocation(location) {
-
-    if (location === "local") {
-
-        window.location.href = "customize-local.html";
-
-    } else if (location === "international") {
-
-        window.location.href = "customize-international.html";
-
-    } else {
-
-        console.warn("Invalid trip location:", location);
-    }
-}
-
-function openBuilder(destination, travelers) {
-
-    alert(
-        "Customize Your Trip\n\n" +
-        "Destination: " + destination + "\n" +
-        "Travelers: " + travelers + "\n\n" +
-        "Trip customization feature is not yet connected."
-    );
-}
-
-
-/* ==========================================
-   FULL SCREEN TOUR DETAILS DRAWER
-   Content comes directly from HTML.
-========================================== */
-
-let previousTourFocus = null;
-let previousBodyOverflow = "";
-
-function openTourDetails(tourId) {
-
-    const drawer = document.getElementById(
-        "tourDetailsDrawer"
-    );
-
-    if (!drawer) {
-        console.error("Missing #tourDetailsDrawer");
-        return;
-    }
-
-    const selectedTour = Array.from(
-        drawer.querySelectorAll(".tour-detail-content")
-    ).find(section =>
-        Number(section.dataset.tourId) === Number(tourId)
-    );
-
-    if (!selectedTour) {
-
-        console.warn(
-            "Missing HTML tour details for ID:",
-            tourId
-        );
-
-        alert("Tour details are not available yet.");
-        return;
-    }
-
-    if (!drawer.classList.contains("active")) {
-        previousTourFocus = document.activeElement;
-        previousBodyOverflow = document.body.style.overflow;
-    }
-
-    // Hide all other tour descriptions
-    drawer.querySelectorAll(
-        ".tour-detail-content"
-    ).forEach(section => {
-        section.hidden = true;
     });
 
-    // Show only selected tour
-    selectedTour.hidden = false;
+    /* UPDATE TOUR NAME */
 
-    // Open full-screen drawer
-    drawer.classList.add("active");
-    drawer.setAttribute("aria-hidden", "false");
+    selected.querySelector("h2").textContent =
+        tour.name;
 
-    document.body.style.overflow = "hidden";
+    /* UPDATE TOUR PRICE */
 
-    // Reset drawer scroll
-    const body = drawer.querySelector(".tour-drawer-body");
+    selected.querySelector(".tour-detail-price")
+        .textContent =
 
-    if (body) {
-        body.scrollTop = 0;
-    }
+        "₱" +
 
-    // Focus close button
-    const closeButton = drawer.querySelector(
-        ".tour-drawer-close"
-    );
+        tour.price.toLocaleString("en-PH") +
 
-    if (closeButton) {
-        closeButton.focus();
-    }
+        " / person";
+
+    /* UPDATE TOUR IMAGE */
+
+    selected.querySelector("img").src =
+        tour.image;
+
+    selected.querySelector("img").alt =
+        tour.name;
+
+    /* OPEN DIALOG */
+
+    drawer.showModal();
+
+    drawer.scrollTop = 0;
+
 }
 
 
@@ -535,23 +210,54 @@ function openTourDetails(tourId) {
 
 function closeTourDetails() {
 
-    const drawer = document.getElementById(
-        "tourDetailsDrawer"
-    );
+    $("tourDetailsDrawer").close();
 
-    if (!drawer) return;
+}
 
-    drawer.classList.remove("active");
-    drawer.setAttribute("aria-hidden", "true");
 
-    document.body.style.overflow = previousBodyOverflow;
+/* ==========================================
+   GET SELECTED TOURS FROM LOCAL STORAGE
+========================================== */
 
-    if (
-        previousTourFocus &&
-        typeof previousTourFocus.focus === "function"
-    ) {
-        previousTourFocus.focus();
+function getTripCart() {
+
+    try {
+
+        const cart = JSON.parse(
+
+            localStorage.getItem("travelCart") || "[]"
+
+        );
+
+        return Array.isArray(cart) ? cart : [];
+
+    } catch {
+
+        return [];
+
     }
+
+}
+
+
+/* ==========================================
+   UPDATE SELECTED TOUR COUNT
+========================================== */
+
+function updateTripCartCount() {
+
+    $("cart-count").textContent =
+
+        getTripCart().reduce(
+
+            (total, tour) =>
+
+                total + (Number(tour.quantity) || 1),
+
+            0
+
+        );
+
 }
 
 
@@ -559,131 +265,440 @@ function closeTourDetails() {
    ADD TOUR FROM DETAILS DRAWER
 ========================================== */
 
-function addDrawerTourToCart(tourId) {
+function addDrawerTourToCart(id) {
 
-    const selectedTour = tourPackages.find(
-        tour => tour.id === Number(tourId)
+    const tour = getTour(id);
+
+    if (
+
+        !tour ||
+
+        !Number.isFinite(tour.price) ||
+
+        tour.price <= 0
+
+    ) return;
+
+    const cart = getTripCart();
+
+    const existing = cart.find(
+
+        item => Number(item.id) === tour.id
+
     );
 
-    if (!selectedTour) {
-        console.warn("Invalid tour ID:", tourId);
-        return;
+    /* UPDATE EXISTING TOUR */
+
+    if (existing) {
+
+        Object.assign(existing, tour, {
+
+            quantity:
+                (Number(existing.quantity) || 1) + 1
+
+        });
+
+    } else {
+
+        /* ADD NEW TOUR */
+
+        cart.push({
+
+            ...tour,
+
+            quantity: 1
+
+        });
+
     }
 
-    closeTourDetails();
+    /* SAVE SELECTED TOURS */
 
-    addTourToCart(tourId);
+    try {
+
+        localStorage.setItem(
+
+            "travelCart",
+
+            JSON.stringify(cart)
+
+        );
+
+        updateTripCartCount();
+
+        closeTourDetails();
+
+        openTripCart();
+
+    } catch {
+
+        alert("Unable to save selected tour.");
+
+    }
+
 }
 
 
 /* ==========================================
-   KEYBOARD SUPPORT
+   OPEN SELECTED TOURS
 ========================================== */
 
-document.addEventListener("keydown", function(event) {
+function openTripCart() {
 
-    const drawer = document.getElementById(
-        "tourDetailsDrawer"
-    );
+    const cart = getTripCart();
 
-    if (!drawer || !drawer.classList.contains("active")) {
-        return;
+    const items = $("cartItems");
+
+    items.replaceChildren();
+
+    let total = 0;
+
+    cart.forEach((tour, index) => {
+
+        const row = document.createElement("p");
+
+        const quantity = Number(tour.quantity) || 1;
+
+        const subtotal = Number(tour.price) * quantity;
+
+        total += subtotal;
+
+        row.textContent =
+
+            `${tour.name} × ${quantity} — ₱${subtotal.toLocaleString("en-PH")} `;
+
+        /* REMOVE TOUR BUTTON */
+
+        const remove = document.createElement("button");
+
+        remove.type = "button";
+
+        remove.textContent = "Remove";
+
+        remove.onclick = () => {
+
+            cart.splice(index, 1);
+
+            try {
+
+                localStorage.setItem(
+
+                    "travelCart",
+
+                    JSON.stringify(cart)
+
+                );
+
+                updateTripCartCount();
+
+                openTripCart();
+
+            } catch {
+
+                alert("Unable to update selected tours.");
+
+            }
+
+        };
+
+        row.append(remove);
+
+        items.append(row);
+
+    });
+
+    /* EMPTY SELECTED TOURS */
+
+    if (!cart.length) {
+
+        items.textContent = "No selected tours yet.";
+
     }
 
-    // ESCAPE TO CLOSE
-    if (event.key === "Escape") {
+    /* DISPLAY TOTAL PRICE */
 
-        event.preventDefault();
-        closeTourDetails();
-        return;
+    $("cartTotal").textContent =
+
+        "Estimated total: ₱" +
+
+        total.toLocaleString("en-PH");
+
+    /* OPEN SELECTED TOURS DIALOG */
+
+    if (!$("tripCart").open) {
+
+        $("tripCart").showModal();
+
     }
 
-    // KEEP FOCUS INSIDE DRAWER
-    if (event.key === "Tab") {
-
-        const focusable = Array.from(
-            drawer.querySelectorAll(
-                'button:not([disabled]), ' +
-                'a[href], ' +
-                'input:not([disabled]), ' +
-                'select:not([disabled]), ' +
-                'textarea:not([disabled])'
-            )
-        ).filter(element =>
-            element.getClientRects().length > 0 &&
-            !element.closest("[hidden]")
-        );
-
-        if (!focusable.length) {
-            event.preventDefault();
-            return;
-        }
-
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
-        if (
-            event.shiftKey &&
-            document.activeElement === first
-        ) {
-            event.preventDefault();
-            last.focus();
-
-        } else if (
-            !event.shiftKey &&
-            document.activeElement === last
-        ) {
-            event.preventDefault();
-            first.focus();
-        }
-    }
-});
+}
 
 
 /* ==========================================
-   DIRECT LINK SUPPORT
+   HEADER INITIALIZATION
 
-   Examples:
-   tripplanner.html?view=tour-only
-   tripplanner.html?view=tour-only&destination=Coron
-   tripplanner.html?view=tour-only&destination=El%20Nido
+   SAME HEADER AS HOMEPAGE
 ========================================== */
 
-function handleTripPlannerDirectLink() {
+function initializeHeader() {
 
-    const params = new URLSearchParams(
-        window.location.search
-    );
+    const form = $("headerSearchForm");
 
-    const view = params.get("view");
-    const destination = params.get("destination");
+    const toggle = $("headerSearchToggle");
 
-    if (view === "tour-only") {
+    const input = $("home-location-search");
 
-        if (destination) {
+    const menu = $("mobileMenuToggle");
 
-            const normalized =
-                normalizeTourDestination(destination);
+    const nav = $("mainNavigation");
 
-            if (normalized) {
-                chooseTourDestination(normalized);
-            } else {
-                openTourOnly();
+    const results = $("home-search-results");
+
+    /* SEARCH DATA FROM HTML */
+
+    const links = [
+
+        ...results.querySelectorAll("a")
+
+    ];
+
+
+    /* ======================================
+       FILTER DESTINATION SEARCH
+    ====================================== */
+
+    function filter() {
+
+        const query = normalize(input.value);
+
+        let matches = [];
+
+        links.forEach(link => {
+
+            link.hidden =
+
+                !query ||
+
+                !normalize(link.textContent)
+                    .includes(query);
+
+            if (!link.hidden) {
+
+                matches.push(link);
+
             }
+
+        });
+
+        results.style.display = query
+            ? "flex"
+            : "none";
+
+        return matches;
+
+    }
+
+
+    /* ======================================
+       EXPANDABLE SEARCH BUTTON
+    ====================================== */
+
+    function setSearch(open) {
+
+        form.hidden = !open;
+
+        toggle.setAttribute(
+
+            "aria-expanded",
+
+            String(open)
+
+        );
+
+        toggle.querySelector("i").className = open
+
+            ? "bi bi-x-lg"
+
+            : "bi bi-search";
+
+        if (open) {
+
+            setMenu(false);
+
+            input.focus();
+
+            filter();
 
         } else {
 
-            openTourOnly();
+            results.style.display = "none";
+
         }
 
-    } else if (view === "customize") {
-
-        openCustomizeTrip();
-
-    } else {
-
-        showTripPlannerPage("planner-page");
     }
+
+
+    /* ======================================
+       RESPONSIVE MOBILE MENU
+    ====================================== */
+
+    function setMenu(open) {
+
+        nav.classList.toggle("open", open);
+
+        menu.setAttribute(
+
+            "aria-expanded",
+
+            String(open)
+
+        );
+
+        menu.querySelector("i").className = open
+
+            ? "bi bi-x-lg"
+
+            : "bi bi-list";
+
+        if (open) {
+
+            setSearch(false);
+
+        }
+
+    }
+
+
+    /* ======================================
+       SEARCH BUTTON CLICK
+    ====================================== */
+
+    toggle.onclick = () => {
+
+        setSearch(form.hidden);
+
+    };
+
+
+    /* ======================================
+       MOBILE MENU BUTTON CLICK
+    ====================================== */
+
+    menu.onclick = () => {
+
+        setMenu(
+
+            !nav.classList.contains("open")
+
+        );
+
+    };
+
+
+    /* ======================================
+       LIVE SEARCH
+    ====================================== */
+
+    input.addEventListener("input", filter);
+
+
+    /* ======================================
+       SEARCH FORM SUBMISSION
+    ====================================== */
+
+    form.addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        const matches = filter();
+
+        if (matches.length) {
+
+            location.href = matches[0].href;
+
+        }
+
+    });
+
+
+    /* ======================================
+       CLOSE WHEN CLICKING OUTSIDE
+    ====================================== */
+
+    document.addEventListener("click", event => {
+
+        if (
+
+            !event.target.closest(
+                ".header-search-wrapper"
+            )
+
+        ) {
+
+            setSearch(false);
+
+        }
+
+        if (
+
+            !event.target.closest(".ppow-header")
+
+        ) {
+
+            setMenu(false);
+
+        }
+
+    });
+
+
+    /* ======================================
+       CLOSE USING ESCAPE KEY
+    ====================================== */
+
+    document.addEventListener("keydown", event => {
+
+        if (event.key === "Escape") {
+
+            setSearch(false);
+
+            setMenu(false);
+
+        }
+
+    });
+
+
+    /* ======================================
+       CUSTOMER ACCOUNT
+    ====================================== */
+
+    try {
+
+        const loggedIn = JSON.parse(
+
+            localStorage.getItem(
+
+                "ppowCustomerLoggedIn_v1"
+
+            ) || "false"
+
+        );
+
+        if (loggedIn === true) {
+
+            $("customerAccountButton").href =
+
+                "customer-account.html";
+
+        }
+
+    } catch {
+
+        // Keep the default login page link.
+
+    }
+
 }
 
 
@@ -691,36 +706,88 @@ function handleTripPlannerDirectLink() {
    INITIALIZE TRIP PLANNER
 ========================================== */
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* INITIALIZE HEADER */
+
+    initializeHeader();
+
+    /* UPDATE SELECTED TOUR COUNT */
 
     updateTripCartCount();
 
-    handleTripPlannerDirectLink();
+    /* GET URL PARAMETERS */
 
-    // Ensure all drawer sections are initially hidden
-    const drawer = document.getElementById(
-        "tourDetailsDrawer"
+    const params = new URLSearchParams(
+
+        location.search
+
     );
 
-    if (drawer) {
+    const destination = params.get("destination");
 
-        drawer.classList.remove("active");
-        drawer.setAttribute("aria-hidden", "true");
 
-        drawer.querySelectorAll(
-            ".tour-detail-content"
-        ).forEach(section => {
-            section.hidden = true;
-        });
+    /* ======================================
+       CUSTOMIZE DIRECT LINK
+    ====================================== */
+
+    if (params.get("view") === "customize") {
+
+        openCustomizeChoice();
+
+        return;
+
     }
+
+
+    /* ======================================
+       TOUR ONLY DIRECT LINK
+    ====================================== */
+
+    if (params.get("view") === "tour-only") {
+
+        if (destination) {
+
+            const match = [
+
+                ...document.querySelectorAll(
+
+                    ".destination-selection-card h2"
+
+                )
+
+            ].find(heading =>
+
+                normalize(heading.textContent) ===
+
+                normalize(destination)
+
+            );
+
+            if (match) {
+
+                chooseTourDestination(
+
+                    match.textContent.trim()
+
+                );
+
+            } else {
+
+                openTourOnly();
+
+            }
+
+        } else {
+
+            openTourOnly();
+
+        }
+
+    } else {
+
+        showTripPlannerPage("planner-page");
+
+    }
+
 });
-
-
-
-
-
-function openCustomizeChoice() {
-    window.location.href = "tripplaner-customized.html";
-}
-
-
