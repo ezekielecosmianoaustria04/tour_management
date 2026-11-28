@@ -98,7 +98,7 @@
             <span>Admins</span>
           </button>
 
-          <!-- TOURS GROUP (REPLACED ITEMS PER SCREENSHOT) -->
+          <!-- TOURS GROUP (NO ALL PACKAGES) -->
           <div class="nav-group open">
             <button type="button" class="nav-item nav-group-toggle">
               <span class="nav-icon">&#9992;</span>
@@ -106,14 +106,6 @@
               <span class="nav-caret">&#9662;</span>
             </button>
             <div class="nav-submenu">
-              <button
-                type="button"
-                class="nav-subitem"
-                data-view="tours"
-                data-category="All"
-              >
-                All Packages
-              </button>
               <button
                 type="button"
                 class="nav-subitem"
@@ -149,7 +141,7 @@
             </div>
           </div>
 
-          <!-- MERGED CUSTOMER & BOOKINGS GROUP (GUEST INFORMATION FOCUS) -->
+          <!-- MERGED CUSTOMER & BOOKINGS GROUP -->
           <div class="nav-group open">
             <button type="button" class="nav-item nav-group-toggle">
               <span class="nav-icon">&#128203;</span>
@@ -500,7 +492,7 @@
             </div>
           </section>
 
-          <!-- ROW 4: QUICK ACTIONS + RECENT INQUIRIES (WITH ARROW DOWN TOGGLE) -->
+          <!-- ROW 4: QUICK ACTIONS + RECENT INQUIRIES -->
           <section class="bento-row-4">
             <div class="panel-card quick-actions-panel">
               <div class="panel-header">
@@ -572,7 +564,7 @@
         </main>
 
         <!-- =========================================================
-           VIEW 2: TOURS & PACKAGES (ONLY 4 INPUTS + AUTO CATEGORY)
+           VIEW 2: TOURS & PACKAGES (NO ALL TOURS TAB)
       ========================================================== -->
         <section id="view-tours" class="sub-module-view" hidden>
           <div class="module-banner">
@@ -592,10 +584,11 @@
           </div>
 
           <div class="filter-pills-row" id="tourCategoryTabs">
-            <button type="button" class="pill-tab active" data-tour-cat="All">
-              All Tours
-            </button>
-            <button type="button" class="pill-tab" data-tour-cat="Tour Only">
+            <button
+              type="button"
+              class="pill-tab active"
+              data-tour-cat="Tour Only"
+            >
               Tour Only
             </button>
             <button
@@ -723,7 +716,7 @@
         </section>
 
         <!-- =========================================================
-           VIEW 3: GUEST INFORMATION (tblGuestinformation) & PAYMENTS
+           VIEW 3: GUEST INFORMATION & PAYMENTS
       ========================================================== -->
         <section id="view-bookings" class="sub-module-view" hidden>
           <div class="module-banner">
@@ -762,7 +755,7 @@
 
           <div class="panel-card">
             <div class="panel-header">
-              <h3 id="bookingSubHeading">Guest Information Records</h3>
+              <h3 id="bookingSubHeading">Guest Information Management</h3>
               <div class="toolbar-inline">
                 <select id="bookingStatusFilterSelect" class="panel-select">
                   <option value="All">All Statuses</option>
@@ -909,7 +902,7 @@
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Bookinginformation_id</th>
+                    <th>Booking ID</th>
                     <th>Fullname</th>
                     <th>Category</th>
                     <th>Destination</th>
@@ -925,7 +918,7 @@
         </section>
 
         <!-- =========================================================
-           VIEW 5: DESTINATIONS & HOTEL ACCOMMODATION
+           VIEW 5: DESTINATIONS & HOTEL ACCOMMODATION (WITH CRUD + ENABLE/DISABLE)
       ========================================================== -->
         <section id="view-destinations" class="sub-module-view" hidden>
           <div class="module-banner">
@@ -986,26 +979,103 @@
             </button>
           </div>
 
-          <div class="panel-card">
-            <div class="table-scroll">
-              <table class="clean-data-table">
-                <thead>
-                  <tr>
-                    <th>Hotel / Resort</th>
-                    <th>Location</th>
-                    <th>Room / Bed Option</th>
-                    <th>Rate / Night</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody id="accommodationsTbody"></tbody>
-              </table>
+          <div class="crud-split-grid">
+            <form id="hotelCrudForm" class="panel-card crud-form">
+              <div class="panel-header">
+                <h3 id="hotelFormHeading">Add Hotel Accommodation</h3>
+                <button
+                  type="button"
+                  id="cancelHotelEditBtn"
+                  class="btn-mini-ghost"
+                  hidden
+                >
+                  Cancel
+                </button>
+              </div>
+              <input type="hidden" id="editingHotelId" />
+
+              <label class="field-group">
+                <span>Hotel / Resort</span>
+                <input
+                  id="hotelNameInput"
+                  type="text"
+                  placeholder="e.g. Puerto Princesa Bayfront Hotel"
+                  required
+                />
+              </label>
+
+              <label class="field-group">
+                <span>Location</span>
+                <input
+                  id="hotelLocInput"
+                  type="text"
+                  placeholder="e.g. Puerto Princesa"
+                  required
+                />
+              </label>
+
+              <label class="field-group">
+                <span>Room / Bed Option</span>
+                <input
+                  id="hotelRoomInput"
+                  type="text"
+                  placeholder="e.g. Deluxe Twin / Family Room"
+                  required
+                />
+              </label>
+
+              <label class="field-group">
+                <span>Rate / Night (&#8369;)</span>
+                <input
+                  id="hotelRateInput"
+                  type="number"
+                  min="0"
+                  step="100"
+                  placeholder="e.g. 3200"
+                  required
+                />
+              </label>
+
+              <button
+                type="submit"
+                id="saveHotelBtn"
+                class="btn-primary-solid full-w"
+              >
+                Save Hotel Accommodation
+              </button>
+            </form>
+
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3>Partner Hotels List</h3>
+                <input
+                  id="hotelSearchInput"
+                  type="search"
+                  class="table-search-input"
+                  placeholder="Search hotel, location, room..."
+                />
+              </div>
+              <div class="table-scroll">
+                <table class="clean-data-table">
+                  <thead>
+                    <tr>
+                      <th>Hotel / Resort</th>
+                      <th>Location</th>
+                      <th>Room / Bed Option</th>
+                      <th>Rate / Night</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="accommodationsTbody"></tbody>
+                </table>
+              </div>
             </div>
           </div>
         </section>
 
         <!-- =========================================================
-           VIEW 6: INQUIRIES (WITH ARROW DOWN TOGGLE), ADMINS & SETTINGS
+           VIEW 6: INQUIRIES, ADMINS & SETTINGS
       ========================================================== -->
         <section id="view-inquiries" class="sub-module-view" hidden>
           <div class="module-banner">
@@ -1149,7 +1219,7 @@
       </div>
     </div>
 
-    <!-- MODAL FOR ADDING GUEST INFORMATION RECORD (tblGuestinformation) -->
+    <!-- MODAL FOR ADDING GUEST INFORMATION & CUSTOMER DETAILS -->
     <dialog id="quickActionDialog" class="admin-dialog">
       <form id="quickActionForm" method="dialog" class="dialog-box">
         <div class="dialog-head">

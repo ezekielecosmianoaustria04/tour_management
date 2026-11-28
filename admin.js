@@ -1,10 +1,11 @@
 "use strict";
 
 const STORAGE_KEYS = {
-  session: "ppowAdminLoggedIn_v3",
-  tours: "ppowAdminPackages_v3",
-  guests: "ppowGuestInformation_v3",
-  inquiries: "ppowInquiries_v3",
+  session: "ppowAdminLoggedIn_v5",
+  tours: "ppowAdminPackages_v5",
+  guests: "ppowGuestInformation_v5",
+  hotels: "ppowHotelAccommodations_v5",
+  inquiries: "ppowInquiries_v5",
 };
 
 const DEFAULT_TOURS = [
@@ -150,6 +151,33 @@ const DEFAULT_GUESTS = [
   },
 ];
 
+const DEFAULT_HOTELS = [
+  {
+    id: "h-1",
+    hotel: "Puerto Princesa Bayfront Hotel",
+    location: "Puerto Princesa",
+    room: "Deluxe Twin / Family Room",
+    rate: 3200,
+    enabled: true,
+  },
+  {
+    id: "h-2",
+    hotel: "El Nido Lagoon Cove Resort",
+    location: "El Nido",
+    room: "Superior Lagoon View",
+    rate: 4500,
+    enabled: true,
+  },
+  {
+    id: "h-3",
+    hotel: "Port Barton Coastal Cottages",
+    location: "Port Barton",
+    room: "Garden Bungalow",
+    rate: 2600,
+    enabled: true,
+  },
+];
+
 const DEFAULT_INQUIRIES = [
   {
     id: "inq-1",
@@ -216,31 +244,7 @@ const DESTINATIONS_DATA = [
   },
 ];
 
-const ACCOMMODATIONS_DATA = [
-  {
-    hotel: "Puerto Princesa Bayfront Hotel",
-    location: "Puerto Princesa",
-    room: "Deluxe Twin / Family Room",
-    rate: 3200,
-    status: "Confirmed",
-  },
-  {
-    hotel: "El Nido Lagoon Cove Resort",
-    location: "El Nido",
-    room: "Superior Lagoon View",
-    rate: 4500,
-    status: "Confirmed",
-  },
-  {
-    hotel: "Port Barton Coastal Cottages",
-    location: "Port Barton",
-    room: "Garden Bungalow",
-    rate: 2600,
-    status: "Pending",
-  },
-];
-
-let currentTourCategoryFilter = "All";
+let currentTourCategoryFilter = "Tour Only";
 let currentBookingSubTab = "guests";
 let currentDestFilter = "All";
 const expandedInquiryIds = new Set();
@@ -284,6 +288,18 @@ function getGuests() {
   return data;
 }
 
+function getHotels() {
+  const data = readLS(STORAGE_KEYS.hotels, null);
+  if (!Array.isArray(data) || data.length === 0) {
+    writeLS(STORAGE_KEYS.hotels, DEFAULT_HOTELS);
+    return [...DEFAULT_HOTELS];
+  }
+  return data.map((item) => ({
+    ...item,
+    enabled: item.enabled !== false,
+  }));
+}
+
 function getInquiries() {
   const data = readLS(STORAGE_KEYS.inquiries, null);
   if (!Array.isArray(data) || data.length === 0) {
@@ -299,13 +315,33 @@ function formatPeso(n) {
 
 function statusBadgeClass(status) {
   const s = String(status || "Pending").toLowerCase();
-  if (s === "confirmed" || s === "approved") return "badge-confirmed";
+  if (s === "confirmed" || s === "approved" || s === "enabled")
+    return "badge-confirmed";
   if (s === "processing") return "badge-processing";
+  if (s === "disabled") return "badge-disabled";
   return "badge-pending";
 }
 
+function renderStatusDot(enabled) {
+  const isOn = Boolean(enabled);
+  return `
+    <span class="status-dot-wrap" title="${isOn ? "Enabled" : "Disabled"}">
+      <i class="status-dot ${isOn ? "is-enabled" : "is-disabled"}"></i>
+      <span>${isOn ? "Enabled" : "Disabled"}</span>
+    </span>
+  `;
+}
+
 function syncTourCategorySelection(category) {
-  currentTourCategoryFilter = category || "All";
+  const validCategories = [
+    "Tour Only",
+    "Customized Trip",
+    "Local Destination",
+    "Beyond the Philippines",
+  ];
+  currentTourCategoryFilter = validCategories.includes(category)
+    ? category
+    : "Tour Only";
 
   document.querySelectorAll("#tourCategoryTabs .pill-tab").forEach((tab) => {
     tab.classList.toggle(
@@ -325,10 +361,7 @@ function syncTourCategorySelection(category) {
 
   const labelEl = document.getElementById("activeTourCategoryLabel");
   if (labelEl) {
-    labelEl.textContent =
-      currentTourCategoryFilter === "All"
-        ? "Tour Only"
-        : currentTourCategoryFilter;
+    labelEl.textContent = currentTourCategoryFilter;
   }
 }
 
@@ -570,7 +603,6 @@ function renderDashboard() {
   const monthEl = document.getElementById("bookingsThisMonthValue");
   if (monthEl) monthEl.textContent = String(thisMonthBookings || guests.length);
 
-  // Notifications
   const badgeEl = document.getElementById("notifBadgeCount");
   const notifList = document.getElementById("notifList");
   if (badgeEl) badgeEl.textContent = String(pendingItems.length);
@@ -586,7 +618,6 @@ function renderDashboard() {
         : "<li>No pending guest records right now.</li>";
   }
 
-  // Top Destinations
   const topDestEl = document.getElementById("topDestinationsList");
   if (topDestEl) {
     topDestEl.innerHTML = DESTINATIONS_DATA.slice(0, 3)
@@ -607,7 +638,6 @@ function renderDashboard() {
       .join("");
   }
 
-  // Recent Guest Bookings
   const recentBookTbody = document.getElementById("recentBookingsTbody");
   if (recentBookTbody) {
     recentBookTbody.innerHTML = guests
@@ -627,7 +657,6 @@ function renderDashboard() {
       .join("");
   }
 
-  // Recent Inquiries with Arrow Down expand button
   const recentInqTbody = document.getElementById("recentInquiriesTbody");
   if (recentInqTbody) {
     recentInqTbody.innerHTML = inquiries
@@ -664,7 +693,7 @@ function renderDashboard() {
 }
 
 /* =========================================================
-   TOURS CRUD (AUTO-FILTER & AUTO-CATEGORY, ONLY 4 FORM INPUTS)
+   TOURS CRUD (AUTO-FILTER BY ACTIVE CATEGORY)
 ========================================================= */
 function renderToursCrud() {
   const tbody = document.getElementById("toursCrudTbody");
@@ -674,9 +703,7 @@ function renderToursCrud() {
     .trim()
     .toLowerCase();
   const list = getTours().filter((t) => {
-    const catOk =
-      currentTourCategoryFilter === "All" ||
-      t.category === currentTourCategoryFilter;
+    const catOk = t.category === currentTourCategoryFilter;
     const qOk =
       !q ||
       t.name.toLowerCase().includes(q) ||
@@ -698,11 +725,7 @@ function renderToursCrud() {
             <td><strong>${t.category}</strong></td>
             <td>${t.destination}</td>
             <td><strong>${formatPeso(t.price)}</strong></td>
-            <td>
-              <span class="badge-pill ${t.enabled ? "badge-confirmed" : "badge-disabled"}">
-                ${t.enabled ? "Enabled" : "Disabled"}
-              </span>
-            </td>
+            <td>${renderStatusDot(t.enabled)}</td>
             <td>
               <div class="action-mini-group">
                 <button type="button" class="mini-btn-edit" data-edit-tour="${t.id}">Edit</button>
@@ -1018,7 +1041,7 @@ function exportReportToCsv() {
 }
 
 /* =========================================================
-   OTHER SUB-VIEWS (INCLUDING INQUIRIES WITH ARROW DOWN)
+   DESTINATIONS, HOTEL ACCOMMODATION CRUD & INQUIRIES
 ========================================================= */
 function renderDestinationsGrid() {
   const grid = document.getElementById("destinationsCardsGrid");
@@ -1046,17 +1069,47 @@ function renderDestinationsGrid() {
 function renderAccommodations() {
   const tbody = document.getElementById("accommodationsTbody");
   if (!tbody) return;
-  tbody.innerHTML = ACCOMMODATIONS_DATA.map(
-    (a) => `
-      <tr>
-        <td><strong>${a.hotel}</strong></td>
-        <td>${a.location}</td>
-        <td>${a.room}</td>
-        <td><strong>${formatPeso(a.rate)}</strong></td>
-        <td><span class="badge-pill ${statusBadgeClass(a.status)}">${a.status}</span></td>
-      </tr>
-    `,
-  ).join("");
+
+  const q = (document.getElementById("hotelSearchInput")?.value || "")
+    .trim()
+    .toLowerCase();
+  const list = getHotels().filter(
+    (h) =>
+      !q ||
+      h.hotel.toLowerCase().includes(q) ||
+      h.location.toLowerCase().includes(q) ||
+      h.room.toLowerCase().includes(q),
+  );
+
+  tbody.innerHTML =
+    list.length > 0
+      ? list
+          .map(
+            (h) => `
+          <tr class="${h.enabled ? "" : "row-disabled"}">
+            <td><strong>${h.hotel}</strong></td>
+            <td>${h.location}</td>
+            <td>${h.room}</td>
+            <td><strong>${formatPeso(h.rate)}</strong></td>
+            <td>${renderStatusDot(h.enabled)}</td>
+            <td>
+              <div class="action-mini-group">
+                <button type="button" class="mini-btn-edit" data-edit-hotel="${h.id}">Edit</button>
+                <button
+                  type="button"
+                  class="${h.enabled ? "mini-btn-toggle-disable" : "mini-btn-toggle-enable"}"
+                  data-toggle-hotel="${h.id}"
+                >
+                  ${h.enabled ? "Disable" : "Enable"}
+                </button>
+                <button type="button" class="mini-btn-del" data-del-hotel="${h.id}">Delete</button>
+              </div>
+            </td>
+          </tr>
+        `,
+          )
+          .join("")
+      : `<tr><td colspan="6" style="color:#6b7280">No hotel accommodations found.</td></tr>`;
 }
 
 function renderAllInquiries() {
@@ -1312,10 +1365,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const description = document.getElementById("tourDescInput").value.trim();
     if (!name || !destination || !description) return;
 
-    const assignedCategory =
-      currentTourCategoryFilter === "All"
-        ? "Tour Only"
-        : currentTourCategoryFilter;
+    const assignedCategory = currentTourCategoryFilter;
     const list = getTours();
 
     if (editId) {
@@ -1381,6 +1431,93 @@ document.addEventListener("DOMContentLoaded", () => {
       renderToursCrud();
     }
   });
+
+  // Hotel Accommodation CRUD (Add, Edit, Delete, Enable/Disable)
+  document
+    .getElementById("hotelSearchInput")
+    ?.addEventListener("input", renderAccommodations);
+
+  document.getElementById("hotelCrudForm")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const editId = document.getElementById("editingHotelId").value;
+    const hotel = document.getElementById("hotelNameInput").value.trim();
+    const location = document.getElementById("hotelLocInput").value.trim();
+    const room = document.getElementById("hotelRoomInput").value.trim();
+    const rate = Number(document.getElementById("hotelRateInput").value);
+    if (!hotel || !location || !room) return;
+
+    const list = getHotels();
+    if (editId) {
+      const idx = list.findIndex((x) => x.id === editId);
+      if (idx !== -1) {
+        list[idx] = { ...list[idx], hotel, location, room, rate };
+      }
+    } else {
+      list.unshift({
+        id: "h-" + Date.now(),
+        hotel,
+        location,
+        room,
+        rate,
+        enabled: true,
+      });
+    }
+
+    writeLS(STORAGE_KEYS.hotels, list);
+    document.getElementById("editingHotelId").value = "";
+    document.getElementById("hotelFormHeading").textContent =
+      "Add Hotel Accommodation";
+    document.getElementById("cancelHotelEditBtn").hidden = true;
+    e.target.reset();
+    renderAccommodations();
+  });
+
+  document
+    .getElementById("cancelHotelEditBtn")
+    ?.addEventListener("click", () => {
+      document.getElementById("editingHotelId").value = "";
+      document.getElementById("hotelFormHeading").textContent =
+        "Add Hotel Accommodation";
+      document.getElementById("cancelHotelEditBtn").hidden = true;
+      document.getElementById("hotelCrudForm")?.reset();
+    });
+
+  document
+    .getElementById("accommodationsTbody")
+    ?.addEventListener("click", (e) => {
+      const editBtn = e.target.closest("[data-edit-hotel]");
+      const toggleBtn = e.target.closest("[data-toggle-hotel]");
+      const delBtn = e.target.closest("[data-del-hotel]");
+
+      if (editBtn) {
+        const item = getHotels().find(
+          (x) => x.id === editBtn.dataset.editHotel,
+        );
+        if (!item) return;
+        document.getElementById("editingHotelId").value = item.id;
+        document.getElementById("hotelNameInput").value = item.hotel;
+        document.getElementById("hotelLocInput").value = item.location;
+        document.getElementById("hotelRoomInput").value = item.room;
+        document.getElementById("hotelRateInput").value = item.rate;
+        document.getElementById("hotelFormHeading").textContent =
+          "Edit Hotel Accommodation";
+        document.getElementById("cancelHotelEditBtn").hidden = false;
+      } else if (toggleBtn) {
+        const updated = getHotels().map((item) =>
+          item.id === toggleBtn.dataset.toggleHotel
+            ? { ...item, enabled: !item.enabled }
+            : item,
+        );
+        writeLS(STORAGE_KEYS.hotels, updated);
+        renderAccommodations();
+      } else if (delBtn) {
+        const updated = getHotels().filter(
+          (item) => item.id !== delBtn.dataset.delHotel,
+        );
+        writeLS(STORAGE_KEYS.hotels, updated);
+        renderAccommodations();
+      }
+    });
 
   // Guest Information sub-tabs, Customer Details drawer toggle, & status actions
   document.querySelectorAll("#bookingSubTabs .pill-tab").forEach((tab) => {
@@ -1511,12 +1648,13 @@ document.addEventListener("DOMContentLoaded", () => {
     ?.addEventListener("click", () => {
       writeLS(STORAGE_KEYS.tours, DEFAULT_TOURS);
       writeLS(STORAGE_KEYS.guests, DEFAULT_GUESTS);
+      writeLS(STORAGE_KEYS.hotels, DEFAULT_HOTELS);
       writeLS(STORAGE_KEYS.inquiries, DEFAULT_INQUIRIES);
       renderDashboard();
       renderAllSubViews();
     });
 
-  syncTourCategorySelection("All");
+  syncTourCategorySelection("Tour Only");
   const isLoggedIn = Boolean(readLS(STORAGE_KEYS.session, true));
   setAuthUnlocked(isLoggedIn);
 });
