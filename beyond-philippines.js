@@ -1,62 +1,61 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
+
+    const $ = id => document.getElementById(id);
+
 
     /* ==========================================
-       INTERNATIONAL DESTINATIONS
+       INTERNATIONAL TOUR PACKAGE ELEMENTS
     ========================================== */
 
-    const destinations = [
-        ['Vietnam', 16.0, 108.0],
-        ['Japan', 36.2, 138.2]
+    const filters = [
+        ...document.querySelectorAll(".country-filter")
     ];
 
+    const sections = [
+        ...document.querySelectorAll("[data-country-section]")
+    ];
 
-    /* ==========================================
-       HTML ELEMENTS
-    ========================================== */
+    const cards = [
+        ...document.querySelectorAll("#international .package-card")
+    ];
 
-    const mapNode = document.getElementById('internationalMap');
-    const search = document.getElementById('destinationSearch');
-    const count = document.getElementById('destinationCount');
-    const status = document.getElementById('terrainSelection');
+    const noResults = $("noPackageResults");
 
-    if (!mapNode || !search || !count || !status) return;
+    const resetButton = $("resetPackages");
 
-    const buttons = new Map();
-    const markers = new Map();
-
-    let selected = null;
-    let map = null;
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
 
 
     /* ==========================================
-       MAP MARKER STYLE
+       NORMALIZE SEARCH TEXT
     ========================================== */
 
-    function styleMarker(name, hover = false) {
+    function normalize(value) {
 
-        const marker = markers.get(name);
+        return String(value || "")
 
-        if (!marker) return;
+            .toLowerCase()
 
-        const active = selected === name;
+            .trim()
 
-        marker.setStyle({
+            .replace(/[\s-]+/g, "");
 
-            radius: hover ? 12 : active ? 11 : 7,
+    }
 
-            weight: hover || active ? 4 : 2,
 
-            color: hover || active
-                ? '#ffb400'
-                : '#ffffff',
+    /* ==========================================
+       SMOOTH SCROLL
+    ========================================== */
 
-            fillColor: hover
-                ? '#ffe86a'
-                : active
-                    ? '#ffd700'
-                    : '#0d9488',
+    function scrollToElement(element) {
 
-            fillOpacity: 1
+        element?.scrollIntoView({
+
+            behavior: reducedMotion ? "auto" : "smooth",
+
+            block: "start"
 
         });
 
@@ -64,111 +63,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================
-       SELECT COUNTRY
+       ENTRANCE ANIMATION
     ========================================== */
 
-    function choose(name) {
+    function animateElement(element) {
 
-        const place = destinations.find(
-            destination => destination[0] === name
-        );
+        if (!element || reducedMotion) return;
 
-        if (!place) return;
+        element.classList.remove("reveal");
 
-        const previous = selected;
+        void element.offsetWidth;
 
-        selected = name;
+        element.classList.add("reveal");
 
-        if (previous) {
-            styleMarker(previous);
-        }
-
-        styleMarker(name);
+    }
 
 
-        // Highlight selected country button
+    /* ==========================================
+       FILTER COUNTRY PACKAGES
+    ========================================== */
 
-        buttons.forEach((button, key) => {
+    function filterCountry(country = "all") {
 
-            const active = key === name;
+        filters.forEach(button => {
 
-            button.classList.toggle('active', active);
+            const active =
+                button.dataset.country === country;
+
+            button.classList.toggle(
+                "active",
+                active
+            );
 
             button.setAttribute(
-                'aria-pressed',
+                "aria-pressed",
                 String(active)
             );
 
         });
 
 
-        // Display selected country
+        /* RESET PACKAGE CARDS */
 
-        status.textContent =
-            'Selected destination: ' + name;
+        cards.forEach(card => {
 
+            card.hidden = false;
 
-        // Display attractions and tour packages
-
-        renderAttractions(name);
+        });
 
 
-        // Automatically zoom to selected country
-
-        if (map) {
-
-            map.flyTo(
-                [place[1], place[2]],
-                6,
-                {
-                    duration: 1.1
-                }
-            );
-
-            markers.get(name)?.openTooltip();
-
-        }
-
-    }
-
-
-    /* ==========================================
-       DISPLAY ATTRACTIONS AND TOUR PACKAGES
-    ========================================== */
-
-    function renderAttractions(name) {
-
-        const sections = document.querySelectorAll(
-            '#international [data-attractions-for]'
-        );
+        /* SHOW SELECTED COUNTRY */
 
         sections.forEach(section => {
 
-            const match =
-                section.dataset.attractionsFor === name;
+            const visible =
 
-            section.hidden = !match;
+                country === "all" ||
+
+                section.dataset.countrySection === country;
+
+            section.hidden = !visible;
+
+            if (visible) {
+
+                animateElement(section);
+
+            }
 
         });
+
+
+        /* HIDE NO RESULTS MESSAGE */
+
+        if (noResults) {
+
+            noResults.hidden = true;
+
+        }
 
     }
 
 
     /* ==========================================
-       DESTINATION BUTTONS
+       COUNTRY FILTER BUTTON EVENTS
     ========================================== */
 
-    document.querySelectorAll(
-        '#terrainButtons [data-destination]'
-    ).forEach(button => {
+    filters.forEach(button => {
 
-        const name = button.dataset.destination;
+        button.addEventListener("click", () => {
 
-        buttons.set(name, button);
-
-        button.addEventListener('click', () => {
-
-            choose(name);
+            filterCountry(button.dataset.country);
 
         });
 
@@ -176,239 +160,953 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================
-       DESTINATION SEARCH
+       SEARCH INTERNATIONAL PACKAGES
     ========================================== */
 
-    function filter() {
+    function searchPackages(query) {
 
-        const query = search.value
-            .trim()
-            .toLowerCase();
-
-        let visible = 0;
-
-        buttons.forEach((button, name) => {
-
-            const match = name
-                .toLowerCase()
-                .includes(query);
-
-            button.hidden = !match;
-
-            if (match) {
-                visible++;
-            }
-
-        });
-
-        count.textContent =
-            `${visible} of ${destinations.length} destinations`;
-
-    }
+        const keyword = normalize(query);
 
 
-    search.addEventListener('input', filter);
+        /* EMPTY SEARCH */
 
-    filter();
+        if (!keyword) {
 
+            filterCountry("all");
 
-    /* ==========================================
-       HEADER SEARCH BAR
-    ========================================== */
+            return;
 
-    const headerSearch = document.getElementById(
-        'home-location-search'
-    );
-
-    const headerSearchForm = document.getElementById(
-        'headerSearchForm'
-    );
+        }
 
 
-    headerSearchForm?.addEventListener('submit', event => {
+        /* SEARCH COUNTRY NAME */
 
-        event.preventDefault();
+        const matchedCountry = sections.find(section =>
 
-        if (!headerSearch) return;
-
-        const query = headerSearch.value.trim();
-
-        search.value = query;
-
-        filter();
-
-
-        // Check if country name matches
-
-        const exact = destinations.find(([name]) =>
-
-            name.toLowerCase() === query.toLowerCase()
+            normalize(section.dataset.countrySection)
+                === keyword
 
         );
 
 
-        if (exact) {
+        if (matchedCountry) {
 
-            choose(exact[0]);
+            filterCountry(
+                matchedCountry.dataset.countrySection
+            );
+
+            scrollToElement(matchedCountry);
+
+            return;
 
         }
 
 
-        // Scroll to destination search
+        /* REMOVE ACTIVE FILTER BUTTON */
 
-        search.scrollIntoView({
+        filters.forEach(button => {
 
-            behavior: 'smooth',
+            button.classList.remove("active");
 
-            block: 'center'
+            button.setAttribute(
+                "aria-pressed",
+                "false"
+            );
 
         });
 
-    });
+
+        let totalMatches = 0;
 
 
-    /* ==========================================
-       CHECK LEAFLET CONNECTION
-    ========================================== */
+        /* SEARCH PACKAGE DETAILS */
 
-    if (typeof L === 'undefined') {
+        sections.forEach(section => {
 
-        mapNode.textContent =
-            'Terrain map could not load. You can still select a destination below.';
+            let sectionMatches = 0;
 
-        mapNode.style.padding = '24px';
+            const country =
+                section.dataset.countrySection;
 
-        return;
+            const sectionCards =
+                section.querySelectorAll(".package-card");
+
+
+            sectionCards.forEach(card => {
+
+                const searchableText = normalize(
+
+                    country + " " + card.textContent
+
+                );
+
+                const match =
+                    searchableText.includes(keyword);
+
+                card.hidden = !match;
+
+                if (match) {
+
+                    sectionMatches++;
+
+                    totalMatches++;
+
+                }
+
+            });
+
+
+            section.hidden = sectionMatches === 0;
+
+            if (sectionMatches > 0) {
+
+                animateElement(section);
+
+            }
+
+        });
+
+
+        /* DISPLAY NO RESULTS */
+
+        if (noResults) {
+
+            noResults.hidden = totalMatches !== 0;
+
+        }
+
+
+        /* SCROLL TO SEARCH RESULTS */
+
+        scrollToElement(
+            $("internationalPackages")
+        );
 
     }
 
 
     /* ==========================================
-       INITIALIZE INTERACTIVE MAP
+       RESET PACKAGE SEARCH
     ========================================== */
 
-    map = L.map(mapNode, {
+    resetButton?.addEventListener("click", () => {
 
-        center: [26.0, 123.0],
+        filterCountry("all");
 
-        zoom: 4,
+        const input = $("home-location-search");
 
-        minZoom: 3,
+        if (input) {
 
-        maxZoom: 15,
+            input.value = "";
 
-        scrollWheelZoom: false
+        }
 
     });
 
 
     /* ==========================================
-       TERRAIN MAP LAYER
+       HEADER ELEMENTS
     ========================================== */
 
-    L.tileLayer(
+    const header =
+        document.querySelector(".ppow-header");
 
-        'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+    const searchForm =
+        $("headerSearchForm");
 
-        {
+    const searchToggle =
+        $("headerSearchToggle");
 
-            attribution:
-                'Map data © OpenStreetMap contributors, SRTM | Map style © OpenTopoMap',
+    const searchInput =
+        $("home-location-search");
 
-            maxZoom: 15
+    const searchResults =
+        $("home-search-results");
 
-        }
+    const mobileMenu =
+        $("mobileMenuToggle");
 
-    ).addTo(map);
+    const navigation =
+        $("mainNavigation");
 
 
     /* ==========================================
-       DEFAULT MAP VIEW
+       HEADER SEARCH DESTINATIONS
     ========================================== */
 
-    map.fitBounds(
-
-        [
-            [8, 102],
-            [46, 146]
-        ],
+    const searchableDestinations = [
 
         {
-            padding: [20, 20]
+            name: "Vietnam",
+            type: "country"
+        },
+
+        {
+            name: "Japan",
+            type: "country"
+        },
+
+        {
+            name: "Puerto Princesa",
+            type: "local"
+        },
+
+        {
+            name: "El Nido",
+            type: "local"
+        },
+
+        {
+            name: "Coron",
+            type: "local"
+        },
+
+        {
+            name: "Palawan",
+            type: "local"
+        },
+
+        {
+            name: "Port Barton",
+            type: "local"
+        },
+
+        {
+            name: "Baguio",
+            type: "local"
+        },
+
+        {
+            name: "Zambales",
+            type: "local"
+        },
+
+        {
+            name: "Cebu",
+            type: "local"
+        },
+
+        {
+            name: "Bohol",
+            type: "local"
+        },
+
+        {
+            name: "Boracay",
+            type: "local"
+        },
+
+        {
+            name: "Davao",
+            type: "local"
+        },
+
+        {
+            name: "Siargao",
+            type: "local"
         }
+
+    ];
+
+
+    /* ==========================================
+       GET TOUR PACKAGE NAMES
+    ========================================== */
+
+    cards.forEach(card => {
+
+        const heading =
+            card.querySelector("h3");
+
+        if (heading) {
+
+            searchableDestinations.push({
+
+                name: heading.textContent.trim(),
+
+                type: "package"
+
+            });
+
+        }
+
+    });
+
+
+    /* ==========================================
+       OPEN AND CLOSE HEADER SEARCH
+    ========================================== */
+
+    function setSearch(open) {
+
+        if (!searchForm || !searchToggle) return;
+
+        searchForm.hidden = !open;
+
+        searchToggle.setAttribute(
+
+            "aria-expanded",
+
+            String(open)
+
+        );
+
+        searchToggle.setAttribute(
+
+            "aria-label",
+
+            open ? "Close search" : "Search destinations"
+
+        );
+
+
+        const icon =
+            searchToggle.querySelector("i");
+
+        if (icon) {
+
+            icon.className = open
+
+                ? "bi bi-x-lg"
+
+                : "bi bi-search";
+
+        }
+
+
+        if (open) {
+
+            setMenu(false);
+
+            searchInput?.focus();
+
+            renderSearchResults();
+
+        } else {
+
+            if (searchResults) {
+
+                searchResults.style.display = "none";
+
+            }
+
+        }
+
+    }
+
+
+    /* ==========================================
+       MOBILE NAVIGATION
+    ========================================== */
+
+    function setMenu(open) {
+
+        if (!navigation || !mobileMenu) return;
+
+        navigation.classList.toggle(
+
+            "open",
+
+            open
+
+        );
+
+        mobileMenu.setAttribute(
+
+            "aria-expanded",
+
+            String(open)
+
+        );
+
+
+        const icon =
+            mobileMenu.querySelector("i");
+
+        if (icon) {
+
+            icon.className = open
+
+                ? "bi bi-x-lg"
+
+                : "bi bi-list";
+
+        }
+
+
+        if (open) {
+
+            setSearch(false);
+
+        }
+
+    }
+
+
+    /* ==========================================
+       OPEN SEARCH RESULT
+    ========================================== */
+
+    function openSearchResult(result) {
+
+        setSearch(false);
+
+
+        /* LOCAL DESTINATIONS */
+
+        if (result.type === "local") {
+
+            window.location.href =
+                "local-destinations.html";
+
+            return;
+
+        }
+
+
+        /* INTERNATIONAL DESTINATIONS */
+
+        searchPackages(result.name);
+
+    }
+
+
+    /* ==========================================
+       LIVE HEADER SEARCH
+    ========================================== */
+
+    function renderSearchResults() {
+
+        if (!searchInput || !searchResults) return;
+
+        const query =
+            normalize(searchInput.value);
+
+        searchResults.replaceChildren();
+
+        searchResults.style.display =
+
+            query ? "flex" : "none";
+
+
+        if (!query) return;
+
+
+        const matches =
+            searchableDestinations.filter(item =>
+
+                normalize(item.name).includes(query)
+
+            );
+
+
+        /* NO MATCHING DESTINATIONS */
+
+        if (!matches.length) {
+
+            const message =
+                document.createElement("p");
+
+            message.textContent =
+                "No matching destinations.";
+
+            message.style.padding = "12px";
+
+            searchResults.append(message);
+
+            return;
+
+        }
+
+
+        /* CREATE SEARCH RESULT LINKS */
+
+        matches.forEach(item => {
+
+            const link =
+                document.createElement("a");
+
+            link.href = item.type === "local"
+
+                ? "local-destinations.html"
+
+                : "#internationalPackages";
+
+            link.textContent = item.name;
+
+            link.addEventListener("click", event => {
+
+                event.preventDefault();
+
+                openSearchResult(item);
+
+            });
+
+            searchResults.append(link);
+
+        });
+
+    }
+
+
+    /* ==========================================
+       HEADER SEARCH BUTTON
+    ========================================== */
+
+    searchToggle?.addEventListener("click", () => {
+
+        if (!searchForm) return;
+
+        setSearch(searchForm.hidden);
+
+    });
+
+
+    /* ==========================================
+       LIVE SEARCH INPUT
+    ========================================== */
+
+    searchInput?.addEventListener(
+
+        "input",
+
+        renderSearchResults
 
     );
 
 
     /* ==========================================
-       CREATE COUNTRY MAP MARKERS
+       SEARCH FORM SUBMISSION
     ========================================== */
 
-    destinations.forEach(([name, lat, lng]) => {
+    searchForm?.addEventListener("submit", event => {
 
-        const marker = L.circleMarker(
+        event.preventDefault();
 
-            [lat, lng],
+        const query =
+            searchInput?.value.trim() || "";
 
-            {
-
-                radius: 7,
-
-                color: '#ffffff',
-
-                weight: 2,
-
-                fillColor: '#0d9488',
-
-                fillOpacity: 1
-
-            }
-
-        ).addTo(map);
+        if (!query) return;
 
 
-        /* COUNTRY TOOLTIP */
+        const localMatch =
+            searchableDestinations.find(item =>
 
-        marker.bindTooltip(name, {
+                item.type === "local" &&
 
-            direction: 'top',
+                normalize(item.name) === normalize(query)
 
-            offset: [0, -8]
-
-        });
-
-
-        markers.set(name, marker);
+            );
 
 
-        /* YELLOW HOVER EFFECT */
+        if (localMatch) {
 
-        marker.on('mouseover', () => {
+            openSearchResult(localMatch);
 
-            styleMarker(name, true);
+            return;
 
-            marker.openTooltip();
-
-        });
+        }
 
 
-        /* RETURN TO DEFAULT STYLE */
+        searchPackages(query);
 
-        marker.on('mouseout', () => {
+        setSearch(false);
 
-            styleMarker(name);
-
-        });
+    });
 
 
-        /* CLICK COUNTRY MARKER */
+    /* ==========================================
+       MOBILE MENU BUTTON
+    ========================================== */
 
-        marker.on('click', () => {
+    mobileMenu?.addEventListener("click", () => {
 
-            choose(name);
+        if (!navigation) return;
+
+        setMenu(
+
+            !navigation.classList.contains("open")
+
+        );
+
+    });
+
+
+    /* ==========================================
+       CLOSE MENU AFTER CLICKING NAVIGATION
+    ========================================== */
+
+    navigation?.querySelectorAll("a").forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            setMenu(false);
 
         });
 
     });
+
+
+    /* ==========================================
+       CLOSE SEARCH WHEN CLICKING OUTSIDE
+    ========================================== */
+
+    document.addEventListener("click", event => {
+
+        if (
+
+            !event.target.closest(
+                ".header-search-wrapper"
+            )
+
+        ) {
+
+            setSearch(false);
+
+        }
+
+
+        if (header && !header.contains(event.target)) {
+
+            setMenu(false);
+
+        }
+
+    });
+
+
+    /* ==========================================
+       ESCAPE KEY FUNCTION
+    ========================================== */
+
+    document.addEventListener("keydown", event => {
+
+        if (event.key === "Escape") {
+
+            setSearch(false);
+
+            setMenu(false);
+
+        }
+
+    });
+
+
+    /* ==========================================
+       ACTIVE NAVIGATION LINK
+    ========================================== */
+
+    function updateActiveNavigation() {
+
+        const currentPage =
+
+            window.location.pathname.split("/").pop()
+
+            || "index.html";
+
+
+        navigation?.querySelectorAll("a").forEach(link => {
+
+            const linkPage = new URL(
+
+                link.href,
+
+                window.location.href
+
+            ).pathname.split("/").pop();
+
+
+            const active =
+                linkPage === currentPage;
+
+            link.classList.toggle(
+
+                "active",
+
+                active
+
+            );
+
+
+            if (active) {
+
+                link.setAttribute(
+
+                    "aria-current",
+
+                    "page"
+
+                );
+
+            } else {
+
+                link.removeAttribute("aria-current");
+
+            }
+
+        });
+
+    }
+
+
+    /* ==========================================
+       CUSTOMER ACCOUNT
+    ========================================== */
+
+    function updateCustomerAccount() {
+
+        const account =
+            $("customerAccountButton");
+
+        if (!account) return;
+
+
+        try {
+
+            const loggedIn = JSON.parse(
+
+                localStorage.getItem(
+
+                    "ppowCustomerLoggedIn_v1"
+
+                ) || "false"
+
+            );
+
+
+            const profile = JSON.parse(
+
+                localStorage.getItem(
+
+                    "ppowCustomerProfile_v1"
+
+                ) || "null"
+
+            );
+
+
+            if (loggedIn === true) {
+
+                account.href =
+                    "customer-account.html";
+
+                account.title =
+
+                    profile?.fullName ||
+
+                    profile?.name ||
+
+                    "Customer Account";
+
+            } else {
+
+                account.href = "login.html";
+
+                account.title = "Login or Sign Up";
+
+            }
+
+        } catch (error) {
+
+            console.error(
+
+                "Customer account error:",
+
+                error
+
+            );
+
+            account.href = "login.html";
+
+        }
+
+    }
+
+
+    /* ==========================================
+       SCROLL REVEAL ANIMATION
+    ========================================== */
+
+    function initializeScrollReveal() {
+
+        if (
+
+            reducedMotion ||
+
+            !("IntersectionObserver" in window)
+
+        ) {
+
+            return;
+
+        }
+
+
+        const revealElements =
+            document.querySelectorAll(
+
+                "#international .country-banner, " +
+
+                "#international .section-heading, " +
+
+                "#international .package-card, " +
+
+                "#international .package-notice"
+
+            );
+
+
+        const observer = new IntersectionObserver(
+
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+
+                            "visible"
+
+                        );
+
+                        observer.unobserve(entry.target);
+
+                    }
+
+                });
+
+            },
+
+            {
+
+                threshold: 0.08
+
+            }
+
+        );
+
+
+        revealElements.forEach(element => {
+
+            element.classList.add("scroll-reveal");
+
+            observer.observe(element);
+
+        });
+
+    }
+
+
+    /* ==========================================
+       EXPLORE TOUR PACKAGES BUTTON
+    ========================================== */
+
+    const exploreButton =
+        document.querySelector("#international .hero-button");
+
+
+    exploreButton?.addEventListener("click", event => {
+
+        const target =
+            $("internationalPackages");
+
+        if (!target) return;
+
+        event.preventDefault();
+
+        scrollToElement(target);
+
+    });
+
+
+    /* ==========================================
+       CHECK IMAGE FILES
+    ========================================== */
+
+    function initializeImageFallback() {
+
+        const images =
+            document.querySelectorAll("#international img");
+
+
+        images.forEach(img => {
+
+            function handleError() {
+
+                console.warn(
+
+                    "Image not found:",
+
+                    img.getAttribute("src")
+
+                );
+
+                img.classList.add("image-missing");
+
+                img.closest(".package-image")
+
+                    ?.classList.add("missing-picture");
+
+            }
+
+
+            img.addEventListener(
+
+                "error",
+
+                handleError,
+
+                { once: true }
+
+            );
+
+
+            if (img.complete && img.naturalWidth === 0) {
+
+                handleError();
+
+            }
+
+        });
+
+    }
+
+
+    /* ==========================================
+       INITIALIZE PAGE
+    ========================================== */
+
+    filterCountry("all");
+
+    updateActiveNavigation();
+
+    updateCustomerAccount();
+
+    initializeScrollReveal();
+
+    initializeImageFallback();
+
+
+    /* ==========================================
+       UPDATE CUSTOMER ACCOUNT
+    ========================================== */
+
+    window.addEventListener(
+
+        "pageshow",
+
+        updateCustomerAccount
+
+    );
+
+
+    window.addEventListener(
+
+        "storage",
+
+        updateCustomerAccount
+
+    );
 
 });

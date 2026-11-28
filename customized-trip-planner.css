@@ -237,3 +237,244 @@ body.custom-trip-planner-page .planner-save-hint {
   body.custom-trip-planner-page .planner-feature-chips span {font-size:11px;padding:8px 11px !important}
   body.custom-trip-planner-page .planner-progress-box {padding:17px !important}
 }
+
+
+/* Homepage header */
+.navbar {
+    width: 100%;
+    min-height: 85px;
+    padding: 12px 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: #071b25;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+}
+
+.company-logo img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #2563eb;
+}
+
+.brand {
+    color: white;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.3;
+    max-width: 330px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.nav-links a,
+.nav-links button {
+    border: none;
+    background: transparent;
+    color: white;
+    padding: 10px 12px;
+    border-radius: 24px;
+    font-size: 17px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links button:hover {
+    background: rgba(37,99,235,0.12);
+    color: #2563eb;
+}
+
+.home-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 350px;
+    max-width: 100%;
+    min-height: 42px;
+    padding: 5px 8px;
+    background: white;
+    border-radius: 25px;
+    color: #17313d;
+    position: relative;
+}
+
+.home-search span {
+    font-size: 20px;
+    color: #1d4ed8;
+}
+
+.home-search input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #172b35;
+    font-size: 12px;
+}
+
+.home-search input::placeholder {
+    color: #8299a3;
+}
+
+.home-search button {
+    border: none;
+    padding: 9px 14px;
+    border-radius: 20px;
+    background: #2563eb;
+    color: white;
+    font-size: 12px;
+}
+
+.home-search button:hover {
+    background: #1d4ed8;
+}
+
+/* SEARCH SUGGESTIONS */
+
+.search-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    flex-direction: column;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    z-index: 9999;
+}
+
+.search-results button,
+.search-results a,
+.search-results .search-result-item {
+    display: block;
+    width: 100%;
+    padding: 13px 18px;
+    text-align: left;
+    text-decoration: none;
+    background: white;
+    color: #17313d;
+    border: none;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-results button:hover,
+.search-results a:hover,
+.search-results .search-result-item:hover {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.customer-avatar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #2563eb;
+  background: #0a222d;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.customer-avatar-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+}
+
+.customer-avatar-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.customer-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+.ppow-header [hidden]{display:none!important}
+body > header.navbar.ppow-header{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:16px;padding:10px 2%;min-height:76px;position:sticky;top:0;z-index:1500;background:#071b25;overflow:visible}
+.ppow-header .brand-container{display:flex;align-items:center;flex:0 1 270px;min-width:0;gap:9px}
+.ppow-header .company-logo{flex:0 0 46px;width:46px;height:46px}
+.ppow-header .company-logo img,.ppow-header .logo-fallback{width:46px;height:46px;border-radius:50%;object-fit:cover}
+.ppow-header .logo-fallback{display:grid;place-items:center;background:#2563eb;color:white}
+.ppow-header .brand{font-size:13px;line-height:1.3;text-align:left;max-width:220px}
+.ppow-header .brand span{display:block;font-size:10px;font-weight:500;color:#c3d5db}
+body > header.navbar.ppow-header .nav-links{display:flex;position:static;flex:1 1 auto;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:center;width:auto;gap:clamp(8px,1vw,18px);padding:0;margin:0;background:transparent}
+.ppow-header .nav-links a{font-size:clamp(11px,1vw,14px);padding:8px 0;white-space:nowrap;color:white;text-decoration:none}
+.ppow-header .nav-links a[aria-current=page],.ppow-header .nav-links a:hover{color:#2563eb}
+.ppow-header .header-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ppow-header .header-icon{display:grid;place-items:center;width:40px;height:40px;border:1px solid #ffffff35;border-radius:50%;background:#ffffff10;color:white;font-size:17px}
+.ppow-header .header-icon:hover{background:#2563eb}
+.ppow-header .mobile-menu{display:none}
+.ppow-header .home-search{position:absolute;top:calc(100% + 8px);right:2%;left:auto;width:min(390px,96vw);max-width:none;display:flex;animation:searchExpand .2s ease-out;transform-origin:top right;z-index:1600}
+@keyframes searchExpand{from{opacity:0;transform:scaleX(.2)}to{opacity:1;transform:scaleX(1)}}
+.ppow-header .search-results{top:calc(100% + 8px);left:0;right:auto;width:100%;color:#17313d}
+@media(max-width:1050px){.ppow-header .mobile-menu{display:grid}body > header.navbar.ppow-header .nav-links{display:none;position:absolute;top:100%;left:12px;right:12px;width:auto;flex-direction:column;align-items:stretch;background:#071b25;padding:16px;border-radius:12px;box-shadow:0 12px 30px #0005}body > header.navbar.ppow-header .nav-links.open{display:flex}.ppow-header .nav-links a{font-size:14px;padding:10px}.ppow-header .brand-container{flex:1 1 auto}}
+@media(max-width:480px){.ppow-header .brand{font-size:10px}.ppow-header .brand span{font-size:9px}.ppow-header .header-actions{gap:5px}.ppow-header .header-icon,.ppow-header .customer-avatar-btn{width:34px;height:34px}.ppow-header .company-logo,.ppow-header .company-logo img{width:36px;height:36px;flex-basis:36px}}
+@media(prefers-reduced-motion:reduce){.ppow-header .home-search{animation:none}}
+
+/* LIGHT BLUE AND YELLOW HOMEPAGE THEME */
+:root{color-scheme:light;--page:#f0f7ff;--surface:#fff;--blue:#2563eb;--navy:#16365c;--muted:#526b89;--yellow:#facc15;--line:#dbeafe}
+
+body > header.navbar.ppow-header{background:#fff;box-shadow:0 4px 20px #16365c12;border-bottom:1px solid var(--line)}
+.ppow-header .brand,.ppow-header .nav-links a{color:var(--navy)}
+.ppow-header .brand span{color:var(--muted)}
+.ppow-header .nav-links a[aria-current=page],.ppow-header .nav-links a:hover{color:var(--blue);background:#eff6ff}
+.ppow-header .header-icon,.ppow-header .customer-avatar-btn{background:#eff6ff;color:var(--blue);border:1px solid #bfdbfe}
+.ppow-header .header-icon:hover{background:var(--blue);color:white}
+.ppow-header .home-search{background:white;border:1px solid #bfdbfe;box-shadow:0 8px 24px #16365c22}
+@media(max-width:1050px){body > header.navbar.ppow-header .nav-links{background:white;border:1px solid var(--line)}}
+body.custom-trip-planner-page > header.navbar.ppow-header {display:flex !important;visibility:visible !important;opacity:1 !important;width:100%;font-family:Arial,Helvetica,sans-serif;min-height:76px;}
+.ppow-header .nav-links a,.ppow-header .header-icon,.ppow-header .customer-avatar-btn{transition:background-color .3s,color .3s,border-color .3s;}
+.ppow-header .nav-links a:hover,.ppow-header .header-icon:hover,.ppow-header .customer-avatar-btn:hover{background:#facc15;color:#16365c;border-color:#facc15;}
+body.custom-trip-planner-page > footer{width:100%;padding:40px 6%;text-align:center;background:#e0edff;color:#16365c;border-top:1px solid #bfdbfe;}
+body.custom-trip-planner-page > footer .footer-brand{font-size:21px;font-weight:800;color:#1d4ed8;}
+/* Palawan hero photo: change filename here */
+body.custom-trip-planner-page > section.planner-dnd-intro {
+ background:linear-gradient(90deg,rgba(10,35,66,.86),rgba(10,35,66,.52) 60%,rgba(10,35,66,.20)),url("elnido.jpg") center / cover no-repeat !important;
+}
+body.custom-trip-planner-page .planner-kicker{color:#facc15;}
+body.custom-trip-planner-page .planner-progress-bar{background:linear-gradient(90deg,#2563eb,#facc15);}
+body.custom-trip-planner-page .planner-back-link:hover{background:#facc15;color:#16365c;}
+body.custom-trip-planner-page .planner-back-link{transition:background .3s,color .3s;}

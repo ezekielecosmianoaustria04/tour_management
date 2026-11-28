@@ -1,36 +1,80 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Discover Palawan | Puerto Princesa of Wonder</title><link rel="stylesheet" href="style.css">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discover Palawan | Puerto Princesa of Wonder</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="discover-palawan.css">
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer>
-  </script>
-  <script src="discover-palawan.js" defer></script></head>
-<body>
-<header class="navbar" aria-label="Website header">
-  <div class="brand-container">
-    <div class="company-logo"
-    ><img src="logo_travel_and_tour.jpg" alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
-    <span class="logo-fallback" hidden aria-label="Company logo placeholder">PW</span></div>
-    <div class="brand">Puerto Princesa of Wonder Services Cooperative Travel and Tours</div>
-  </div>
-  <nav class="nav-links" aria-label="Main navigation">
-    <form class="home-search" id="headerSearchForm" role="search">
-      <span aria-hidden="true">⌕</span>
-      <input id="home-location-search" type="search" placeholder="Search a location (e.g. El Nido, Baguio, Cebu)..." aria-label="Search destinations">
-      <button type="submit">Search</button>
-    </form>
-    <a href="index.html">Home</a>
-    <a href="tripplanner.html">Trip Planner</a>
-    <a href="local-destinations.html">Local Destinations</a>
-    <a href="beyond-philippines.html">Beyond Philippines</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <button type="button" class="cart-nav-btn" onclick="if(typeof openCart==='function')openCart()" aria-label="Open shopping cart">🛒 <span id="cart-count">0</span></button>
-    <button type="button" class="login-nav-btn" onclick="if(typeof showLoginNotice==='function')showLoginNotice()">Login</button>
-  </nav>
-</header>
-
+  <link rel="stylesheet" href="tripplanner.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script src="discover-palawan.js" defer></script>
+</head>
+<body class="discover-palawan-page">
+<header aria-label="Website header" class="navbar ppow-header">
+   <div class="brand-container">
+    <div class="company-logo">
+     <img alt="Company logo" onerror="this.hidden=true;this.nextElementSibling.hidden=false" src="logo_travel_and_tour.jpg"/>
+     <span class="logo-fallback" hidden="">
+      PW
+     </span>
+    </div>
+    <div class="brand">
+     Puerto Princesa of Wonder
+     <span>
+      Services Cooperative Travel and Tours
+     </span>
+    </div>
+   </div>
+   <nav aria-label="Main navigation" class="nav-links" id="mainNavigation">
+    <a href="index.html">
+     Home
+    </a>
+    <a aria-current="page" href="tripplanner.html">
+     Trip Planner
+    </a>
+    <a href="local-destinations.html">
+     Local Destinations
+    </a>
+    <a href="beyond-philippines.html">
+     Beyond the Philippines
+    </a>
+    <a href="about.html">
+     About
+    </a>
+    <a href="contact.html">
+     Contact
+    </a>
+   </nav>
+   <div class="header-actions">
+    <div class="header-search-wrapper">
+     <button aria-controls="headerSearchForm" aria-expanded="false" aria-label="Search destinations" class="header-icon" id="headerSearchToggle" type="button">
+      <i class="bi bi-search">
+      </i>
+     </button>
+     <form class="home-search" hidden="" id="headerSearchForm" role="search">
+      <input aria-label="Search destinations" autocomplete="off" id="home-location-search" placeholder="Search destinations..." type="search"/>
+      <button type="submit">
+       Search
+      </button>
+      <div aria-live="polite" class="search-results" id="home-search-results" hidden></div>
+     </form>
+    </div>
+    <a aria-label="Customer account" class="customer-avatar-btn" href="login.html" id="customerAccountButton">
+     <img alt="Customer account" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" src="customer-user.jpg"/>
+     <span class="customer-avatar-fallback" style="display:none">
+      <i class="bi bi-person-fill">
+      </i>
+     </span>
+    </a>
+    <button aria-controls="mainNavigation" aria-expanded="false" aria-label="Navigation menu" class="header-icon mobile-menu" id="mobileMenuToggle" type="button">
+     <i class="bi bi-list">
+     </i>
+    </button>
+   </div>
+  </header>
 
 <main id="terrain-planner"><section class="terrain-hero"><span class="terrain-kicker">TRIP PLANNER · EXPLORE PALAWAN</span><h1>Discover Palawan</h1><p>Explore the realistic terrain of Palawan. Explore the cities and municipalities of Palawan. Hover over a destination marker for a yellow glow, then click to explore its terrain.</p></section><section class="terrain-workspace"><div class="terrain-map-panel"><span class="terrain-kicker">INTERACTIVE TERRAIN MAP</span><h2>Choose Your Destination</h2><div class="terrain-search-row"><input id="destinationSearch" type="search" placeholder="Search Palawan destinations..." aria-label="Search destinations"><span id="destinationCount" aria-live="polite"></span></div><div id="philippinesTerrainMap" aria-label="Interactive Palawan terrain map"></div><div class="terrain-selection" id="terrainSelection" aria-live="polite">Select a destination on the map or from the list.</div><div class="terrain-buttons" id="terrainButtons" aria-label="Palawan destinations">
     <button type="button" data-destination="Puerto Princesa" aria-pressed="false">Puerto Princesa</button>
@@ -328,5 +372,6 @@
 </article></div></section>
 </main>
 <footer><div class="footer-brand">Puerto Princesa of Wonder Travel and Tours</div><p>Services Cooperative Travel and Tours</p><p class="copyright">© 2026 Puerto Princesa of Wonder. All Rights Reserved.</p></footer>
-<script src="script.js" defer></script>
-</body></html>
+
+</body>
+</html>

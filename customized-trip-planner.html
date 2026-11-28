@@ -27,22 +27,29 @@
 <body class="custom-trip-planner-page">
 
     <!-- HEADER COPIED FROM INDEX.HTML -->
-<header class="navbar">
-  <div class="brand-container"><div class="company-logo"><img src="logo_travel_and_tour.jpg" alt="Company Logo"></div><div class="brand">Puerto Princesa of Wonder Services Cooperative Travel and Tours</div></div>
-    
-  <nav class="nav-links" aria-label="Main navigation">
-    <div class="home-search"><span>⌕</span><input id="home-location-search" type="search" placeholder="Search a location (e.g. El Nido, Baguio, Cebu)..." oninput="searchHomeLocations()"><button type="button" onclick="searchHomeLocations(true)">Search</button></div>
-    <div id="home-search-results" class="search-results" aria-live="polite"></div>
-    <button type="button" onclick="window.location.href='index.html'">Home</button>
-    <button type="button" onclick="window.location.href='tripplanner.html'">Trip Planner</button>
-    <button type="button" onclick="window.location.href='local-destinations.html'">Local Destinations</button>
-    <button type="button" onclick="window.location.href='index.html#beyond-page'">Beyond Philippines</button>
-    <button type="button" onclick="window.location.href='about.html'">About</button>
-    <button type="button" onclick="window.location.href='contact.html'">Contact</button>
-    <button type="button" class="cart-nav-btn" onclick="openCart()">🛒<span id="cart-count">0</span></button>
-    <button class="login-nav-btn" onclick="showLoginNotice()">Login</button>
-
+<header class="navbar ppow-header" aria-label="Website header">
+  <div class="brand-container">
+    <div class="company-logo"><img src="logo_travel_and_tour.jpg" alt="Company logo" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="logo-fallback" hidden>PW</span></div>
+    <div class="brand">Puerto Princesa of Wonder <span>Services Cooperative Travel and Tours</span></div>
+  </div>
+  <nav class="nav-links" id="mainNavigation" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="tripplanner.html" aria-current="page">Trip Planner</a>
+    <a href="local-destinations.html">Local Destinations</a>
+    <a href="beyond-philippines.html">Beyond the Philippines</a>
+    <a href="about.html">About</a><a href="contact.html">Contact</a>
   </nav>
+  <div class="header-actions">
+    <div class="header-search-wrapper">
+      <button class="header-icon" id="headerSearchToggle" type="button" aria-label="Search destinations" aria-expanded="false" aria-controls="headerSearchForm"><i class="bi bi-search"></i></button>
+      <form class="home-search" id="headerSearchForm" role="search" hidden>
+        <input id="home-location-search" type="search" placeholder="Search destinations..." aria-label="Search destinations" autocomplete="off">
+        <button type="submit">Search</button><div class="search-results" id="home-search-results" aria-live="polite"></div>
+      </form>
+    </div>
+    <a href="login.html" class="customer-avatar-btn" id="customerAccountButton" aria-label="Customer account"><img src="customer-user.jpg" alt="Customer account" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="customer-avatar-fallback" style="display:none"><i class="bi bi-person-fill"></i></span></a>
+    <button class="header-icon mobile-menu" id="mobileMenuToggle" type="button" aria-label="Navigation menu" aria-controls="mainNavigation" aria-expanded="false"><i class="bi bi-list"></i></button>
+  </div>
 </header>
 
 
@@ -708,7 +715,17 @@
       class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"
     ></div>
 
-<footer><div class="footer-brand">Puerto Princesa of Wonder Travel and Tours</div>Services Cooperative Travel and Tours<br>© 2026 Puerto Princesa of Wonder. All Rights Reserved.</footer>
+<footer>
+   <div class="footer-brand">
+    Puerto Princesa of Wonder
+   </div>
+   <p>
+    Services Cooperative Travel and Tours
+   </p>
+   <p class="copyright">
+    © 2026 Puerto Princesa of Wonder. All Rights Reserved.
+   </p>
+  </footer>
 
     <!-- ======================================================================
        JAVASCRIPT: DATA, DRAG-AND-DROP ENGINE, VALIDATION & UI RENDERING
@@ -1871,7 +1888,25 @@
 
       
     </script>
-    <script src="script.js" defer></script>
-    <script src="tripplanner.js" defer></script>
-  </body>
+  <script>
+(() => {
+const $ = id => document.getElementById(id);
+const normalize = value => String(value || "").toLowerCase().replace(/[\s-]+/g, "");
+function initializeHeader(){
+ const form=$('headerSearchForm'),toggle=$('headerSearchToggle'),input=$('home-location-search'),menu=$('mobileMenuToggle'),nav=$('mainNavigation'),results=$('home-search-results');
+ const destinations=["Puerto Princesa", "El Nido", "Coron", "Aborlan", "Agutaya", "Araceli", "Balabac", "Bataraza", "Brooke's Point", "Busuanga", "Cagayancillo", "Culion", "Cuyo", "Dumaran", "Kalayaan", "Linapacan", "Magsaysay", "Narra", "Quezon", "Rizal", "Roxas", "San Vicente", "Sofronio Española", "Taytay"];
+ const links=destinations.map(name=>{const a=document.createElement("a");a.textContent=name;a.href="discover-palawan.html";a.hidden=true;results.append(a);return a;});
+ function filter(){const q=normalize(input.value);let matches=[];links.forEach(a=>{a.hidden=!q||!normalize(a.textContent).includes(q);if(!a.hidden)matches.push(a);});results.hidden=!q;results.style.display=q?'flex':'none';return matches;}
+ function setSearch(open){form.hidden=!open;toggle.setAttribute('aria-expanded',String(open));toggle.querySelector('i').className=open?'bi bi-x-lg':'bi bi-search';if(open){setMenu(false);input.focus();filter();}else {results.hidden=true;results.style.display='none';}}
+ function setMenu(open){nav.classList.toggle('open',open);menu.setAttribute('aria-expanded',String(open));menu.querySelector('i').className=open?'bi bi-x-lg':'bi bi-list';if(open)setSearch(false);}
+ toggle.onclick=()=>setSearch(form.hidden);menu.onclick=()=>setMenu(!nav.classList.contains('open'));input.addEventListener('input',filter);
+ form.addEventListener('submit',e=>{e.preventDefault();const matches=filter();if(matches.length)location.href=matches[0].href;});
+ document.addEventListener('click',e=>{if(!e.target.closest('.header-search-wrapper'))setSearch(false);if(!e.target.closest('.ppow-header'))setMenu(false);});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){setSearch(false);setMenu(false);}});
+ try{if(JSON.parse(localStorage.getItem('ppowCustomerLoggedIn_v1')||'false')===true)$('customerAccountButton').href='customer-account.html';}catch{}
+}
+document.addEventListener('DOMContentLoaded', initializeHeader);
+})();
+</script>
+</body>
 </html>

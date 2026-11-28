@@ -1,91 +1,671 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About Us | Puerto Princesa of Wonder</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="about.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us | Puerto Princesa of Wonder</title>
+
+    <!-- BOOTSTRAP ICONS -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS FILES -->
+
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="about.css">
+
+    <!-- JAVASCRIPT -->
+
+    <script defer src="about.js"></script>
+
 </head>
-<body>
-  <header aria-label="Website header" class="navbar">
-   <div class="brand-container">
-    <div class="company-logo">
-     <img alt="" onerror="this.hidden=true;this.nextElementSibling.hidden=false" src="logo_travel_and_tour.jpg"/>
-     <span aria-label="Company logo placeholder" class="logo-fallback" hidden="">
-      PW
-     </span>
-    </div>
-    <div class="brand">
-     Puerto Princesa of Wonder Services Cooperative Travel and Tours
-    </div>
-   </div>
-   <nav aria-label="Main navigation" class="nav-links">
-    <form class="home-search" id="headerSearchForm" role="search">
-     <span aria-hidden="true">
-      ⌕
-     </span>
-     <input aria-label="Search destinations" id="home-location-search" placeholder="Search Vietnam or Japan..." type="search"/>
-     <button type="submit">
-      Search
-     </button>
-    </form>
-    <a href="index.html">
-     Home
-    </a>
-    <a href="tripplanner.html">
-     Trip Planner
-    </a>
-    <a href="local-destinations.html">
-     Local Destinations
-    </a>
-    <a href="beyond-philippines.html">
-     Beyond Philippines
-    </a>
-    <a href="about.html">
-     About
-    </a>
-    <a href="contact.html">
-     Contact
-    </a>
-    <button aria-label="Open shopping cart" class="cart-nav-btn" onclick="if(typeof openCart==='function')openCart()" type="button">
-     🛒
-     <span id="cart-count">
-      0
-     </span>
-    </button>
-    <button class="login-nav-btn" onclick="if(typeof showLoginNotice==='function')showLoginNotice()" type="button">
-     Login
-    </button>
-   </nav>
-  </header>
-<main id="about-page">
-<section class="about-hero"><div class="hero-glass"><span class="kicker">OUR STORY · SINCE 2014</span><h1>Beyond the Journey.</h1><p>Discover the people behind every adventure.</p></div></section>
-<section class="company-section glass"><div><span class="kicker">WHO WE ARE</span><h2>Your journey starts with us.</h2><p>Established in 2014, Puerto Princesa of Wonder Services Cooperative Travel and Tours is based in Puerto Princesa City, Palawan, Philippines. We provide organized tour packages and customized travel arrangements for local and international destinations.</p><p>We aim to create memorable travel experiences while showcasing the beauty, culture and communities of Palawan.</p></div><div class="company-image"><img src="palawan.jpg" alt="Palawan scenery"><div class="year glass"><strong>2014</strong><br>Year established</div></div></section>
-<section class="owner-section"><span class="kicker">OUR LEADERSHIP</span><h2>Meet Our Owner</h2><article class="owner-card glass"><div class="owner-photo"><!-- <img src="owner.jpg" alt="Ms. Jeannyveve Fabila Cusi"> --></div><h3>Ms. Jeannyveve Fabila Cusi</h3><span class="position">Owner</span></article></section>
-<section class="team-section"><span class="kicker">OUR PEOPLE</span><h2>Meet Our Management Team</h2>
-<section class="team-group"><h3>General Managers</h3><div class="team-grid"><article class="team-card"><div class="team-photo"><!-- <img src="general-manager-1.jpg" alt="General Manager"> --></div><h4><!-- Personnel name --></h4><span>General Manager</span></article>
-<article class="team-card"><div class="team-photo"><!-- <img src="general-manager-2.jpg" alt="General Manager"> --></div><h4><!-- Personnel name --></h4><span>General Manager</span></article></div></section>
-<section class="team-group"><h3>Liaison Officers</h3><div class="team-grid"><article class="team-card"><div class="team-photo"><!-- <img src="liaison-officer-1.jpg" alt="Liaison Officer"> --></div><h4><!-- Personnel name --></h4><span>Liaison Officer</span></article>
-<article class="team-card"><div class="team-photo"><!-- <img src="liaison-officer-2.jpg" alt="Liaison Officer"> --></div><h4><!-- Personnel name --></h4><span>Liaison Officer</span></article></div></section>
-<section class="team-group"><h3>Corporate Travel Managers</h3><div class="team-grid"><article class="team-card"><div class="team-photo"><!-- <img src="corporate-travel-manager-1.jpg" alt="Corporate Travel Manager"> --></div><h4><!-- Personnel name --></h4><span>Corporate Travel Manager</span></article>
-<article class="team-card"><div class="team-photo"><!-- <img src="corporate-travel-manager-2.jpg" alt="Corporate Travel Manager"> --></div><h4><!-- Personnel name --></h4><span>Corporate Travel Manager</span></article></div></section>
-<section class="team-group"><h3>Tour Coordinators</h3><div class="team-grid"><article class="team-card"><div class="team-photo"><!-- <img src="tour-coordinator-1.jpg" alt="Tour Coordinator"> --></div><h4><!-- Personnel name --></h4><span>Tour Coordinator</span></article>
-<article class="team-card"><div class="team-photo"><!-- <img src="tour-coordinator-2.jpg" alt="Tour Coordinator"> --></div><h4><!-- Personnel name --></h4><span>Tour Coordinator</span></article>
-<article class="team-card"><div class="team-photo"><!-- <img src="tour-coordinator-3.jpg" alt="Tour Coordinator"> --></div><h4><!-- Personnel name --></h4><span>Tour Coordinator</span></article></div></section>
-</section><section class="about-contact glass"><h2>Ready for your next adventure?</h2><p>Let our team help you plan your journey.</p><a href="contact.html">Contact Us</a></section></main>
-  <footer>
-   <div class="footer-brand">
-    Puerto Princesa of Wonder Travel and Tours
-   </div>
-   <p>
-    Services Cooperative Travel and Tours
-   </p>
-   <p class="copyright">
-    © 2026 Puerto Princesa of Wonder. All Rights Reserved.
-   </p>
-  </footer>
-  <script defer="" src="script.js">
-  </script>
- </body>
+
+<body class="about-page">
+
+    <!-- ======================================
+         WEBSITE HEADER
+    ======================================= -->
+
+    <header class="navbar ppow-header" aria-label="Website header">
+
+        <div class="brand-container">
+
+            <div class="company-logo">
+
+                <img src="logo_travel_and_tour.jpg"
+                     alt="Company Logo"
+                     onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+
+                <span class="logo-fallback" hidden>PW</span>
+
+            </div>
+
+            <div class="brand">
+
+                Puerto Princesa of Wonder
+
+                <span>
+                    Services Cooperative Travel and Tours
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- MAIN NAVIGATION -->
+
+        <nav class="nav-links"
+             id="mainNavigation"
+             aria-label="Main navigation">
+
+            <a href="index.html">Home</a>
+
+            <a href="tripplanner.html">Trip Planner</a>
+
+            <a href="local-destinations.html">Local Destinations</a>
+
+            <a href="beyond-philippines.html">Beyond the Philippines</a>
+
+            <a href="about.html"
+               class="active"
+               aria-current="page">
+
+                About
+
+            </a>
+
+            <a href="contact.html">Contact</a>
+
+        </nav>
+
+        <!-- HEADER ACTIONS -->
+
+        <div class="header-actions">
+
+            <!-- EXPANDABLE SEARCH BAR -->
+
+            <div class="header-search-wrapper">
+
+                <button class="header-icon"
+                        id="headerSearchToggle"
+                        type="button"
+                        aria-label="Search destinations"
+                        aria-expanded="false"
+                        aria-controls="headerSearchForm">
+
+                    <i class="bi bi-search"></i>
+
+                </button>
+
+                <form class="home-search"
+                      id="headerSearchForm"
+                      role="search"
+                      hidden>
+
+                    <input type="search"
+                           id="home-location-search"
+                           placeholder="Search destinations..."
+                           aria-label="Search destinations"
+                           autocomplete="off">
+
+                    <button type="submit">
+                        Search
+                    </button>
+
+                    <div class="search-results"
+                         id="home-search-results"
+                         aria-live="polite">
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- CUSTOMER ACCOUNT -->
+
+            <a href="login.html"
+               class="customer-avatar-btn"
+               id="customerAccountButton"
+               aria-label="Customer account">
+
+                <img src="customer-user.jpg"
+                     alt="Customer Account"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+
+                <span class="customer-avatar-fallback"
+                      style="display:none">
+
+                    <i class="bi bi-person-fill"></i>
+
+                </span>
+
+            </a>
+
+            <!-- MOBILE MENU -->
+
+            <button class="header-icon mobile-menu"
+                    id="mobileMenuToggle"
+                    type="button"
+                    aria-label="Navigation menu"
+                    aria-expanded="false"
+                    aria-controls="mainNavigation">
+
+                <i class="bi bi-list"></i>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ======================================
+         ABOUT US MAIN CONTENT
+    ======================================= -->
+
+    <main id="about-page">
+
+
+        <!-- ==================================
+             SUB HERO BACKGROUND PICTURE
+        =================================== -->
+
+        <section class="about-hero">
+
+            <!-- CHANGE BACKGROUND PICTURE HERE -->
+
+            <img class="about-hero-background"
+                 src="visayas.png"
+                 alt=""
+                 aria-hidden="true">
+
+            <div class="about-hero-overlay"></div>
+
+            <div class="hero-content">
+
+                <span class="kicker">
+
+                    OUR STORY · SINCE 2014
+
+                </span>
+
+                <h1>
+
+                    Beyond the Journey.
+
+                </h1>
+
+                <p>
+
+                    Discover the people behind every adventure.
+
+                </p>
+
+                <a href="#companyStory"
+                   class="hero-button">
+
+                    Discover Our Story
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================
+             COMPANY INFORMATION
+        =================================== -->
+
+        <section class="company-section glass"
+                 id="companyStory">
+
+            <div class="company-content">
+
+                <span class="kicker">
+
+                    WHO WE ARE
+
+                </span>
+
+                <h2>
+
+                    Your journey starts with us.
+
+                </h2>
+
+                <p>
+
+                    Established in 2014, Puerto Princesa of Wonder
+                    Services Cooperative Travel and Tours is based
+                    in Puerto Princesa City, Palawan, Philippines.
+                    We provide organized tour packages and customized
+                    travel arrangements for local and international
+                    destinations.
+
+                </p>
+
+                <p>
+
+                    We aim to create memorable travel experiences
+                    while showcasing the beauty, culture and
+                    communities of Palawan.
+
+                </p>
+
+            </div>
+
+
+            <!-- COMPANY PICTURE -->
+
+            <div class="company-image">
+
+                <img src="puertoprincesa.png"
+                     alt="Beautiful scenery of Palawan"
+                     loading="lazy">
+
+                <div class="year glass">
+
+                    <strong>2014</strong>
+
+                    <span>Year Established</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================
+             OWNER SECTION
+        =================================== -->
+
+        <section class="owner-section">
+
+            <span class="kicker">
+
+                OUR LEADERSHIP
+
+            </span>
+
+            <h2>Meet Our Owner</h2>
+
+            <p class="section-description">
+
+                Meet the person behind our commitment
+                to memorable travel experiences.
+
+            </p>
+
+            <article class="owner-card glass">
+
+                <div class="owner-photo">
+
+                    <!-- OWNER PICTURE -->
+
+                    <img src="owner.png"
+                         alt="Ms. Jeannyveve Fabila Cusi"
+                         loading="lazy">
+
+                    <i class="bi bi-person-fill photo-placeholder"></i>
+
+                </div>
+
+                <h3>
+
+                    Ms. Jeannyveve Fabila Cusi
+
+                </h3>
+
+                <span class="position">
+
+                    Owner
+
+                </span>
+
+            </article>
+
+        </section>
+
+
+        <!-- ==================================
+             MANAGEMENT TEAM
+        =================================== -->
+
+        <section class="team-section">
+
+            <span class="kicker">
+
+                OUR PEOPLE
+
+            </span>
+
+            <h2>Meet Our Management Team</h2>
+
+            <p class="section-description">
+
+                Dedicated individuals working together
+                to make every journey unforgettable.
+
+            </p>
+
+
+            <!-- ==================================
+                 GENERAL MANAGERS
+            =================================== -->
+
+            <section class="team-group">
+
+                <h3>General Managers</h3>
+
+                <div class="team-grid">
+
+                    <!-- GENERAL MANAGER 1 -->
+
+                    <article class="team-card">
+
+                        <div class="team-photo">
+
+                            <img src="general-manager-1.jpg"
+                                 alt="General Manager"
+                                 loading="lazy">
+
+                            <i class="bi bi-person-fill photo-placeholder"></i>
+
+                        </div>
+
+                        <h4><!-- Personnel Name --></h4>
+
+                        <span>General Manager</span>
+
+                    </article>
+
+
+                    <!-- GENERAL MANAGER 2 -->
+
+                    <article class="team-card">
+
+                        <div class="team-photo">
+
+                            <img src="general-manager-2.jpg"
+                                 alt="General Manager"
+                                 loading="lazy">
+
+                            <i class="bi bi-person-fill photo-placeholder"></i>
+
+                        </div>
+
+                        <h4><!-- Personnel Name --></h4>
+
+                        <span>General Manager</span>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 LIAISON OFFICERS
+            =================================== -->
+
+            <section class="team-group">
+
+                <h3>Liaison Officers</h3>
+
+                <div class="team-grid">
+
+                    <!-- LIAISON OFFICER 1 -->
+
+                    <article class="team-card">
+
+                        <div class="team-photo">
+
+                            <img src="liaison-officer-1.jpg"
+                                 alt="Liaison Officer"
+                                 loading="lazy">
+
+                            <i class="bi bi-person-fill photo-placeholder"></i>
+
+                        </div>
+
+                        <h4><!-- Personnel Name --></h4>
+
+                        <span>Liaison Officer</span>
+
+                    </article>
+
+
+                    <!-- LIAISON OFFICER 2 -->
+
+                    <article class="team-card">
+
+                        <div class="team-photo">
+
+                            <img src="liaison-officer-2.jpg"
+                                 alt="Liaison Officer"
+                                 loading="lazy">
+
+                            <i class="bi bi-person-fill photo-placeholder"></i>
+
+                        </div>
+
+                        <h4><!-- Personnel Name --></h4>
+
+                        <span>Liaison Officer</span>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 CORPORATE TRAVEL MANAGERS
+            =================================== -->
+
+            <section class="team-group">
+
+                <h3>Corporate Travel Managers</h3>
+
+                <div class="team-grid">
+
+                    <!-- CORPORATE TRAVEL MANAGER 1 -->
+
+                    <article class="team-card">
+
+                        <div class="team-photo">
+
+                            <img src="corporate-travel-manager-1.jpg"
+                                 alt="Corporate Travel Manager"
+                                 loading="lazy">
+
+                            <i class="bi bi-person-fill photo-placeholder"></i>
+
+                        </div>
+
+                        <h4><!-- Personnel Name --></h4>
+
+                        <span>Corporate Travel Manager</span>
+
+                    </article>
+
+
+                    <!-- CORPORATE TRAVEL MANAGER 2 -->
+
+                    <article class="team-card">
+
+                        <div class="team-photo">
+
+                            <img src="corporate-travel-manager-2.jpg"
+                                 alt="Corporate Travel Manager"
+                                 loading="lazy">
+
+                            <i class="bi bi-person-fill photo-placeholder"></i>
+
+                        </div>
+
+                        <h4><!-- Personnel Name --></h4>
+
+                        <span>Corporate Travel Manager</span>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================
+                 TOUR COORDINATORS
+            =================================== -->
+
+            <section class="team-group">
+
+                <h3>Tour Coordinators</h3>
+
+                <div class="team-grid">
+
+                    <!-- TOUR COORDINATOR 1 -->
+
+                    <article class="team-card">
+
+                        <div class="team-photo">
+
+                            <img src="tour-coordinator-1.jpg"
+                                 alt="Tour Coordinator"
+                                 loading="lazy">
+
+                            <i class="bi bi-person-fill photo-placeholder"></i>
+
+                        </div>
+
+                        <h4><!-- Personnel Name --></h4>
+
+                        <span>Tour Coordinator</span>
+
+                    </article>
+
+
+                    <!-- TOUR COORDINATOR 2 -->
+
+                    <article class="team-card">
+
+                        <div class="team-photo">
+
+                            <img src="tour-coordinator-2.jpg"
+                                 alt="Tour Coordinator"
+                                 loading="lazy">
+
+                            <i class="bi bi-person-fill photo-placeholder"></i>
+
+                        </div>
+
+                        <h4><!-- Personnel Name --></h4>
+
+                        <span>Tour Coordinator</span>
+
+                    </article>
+
+
+                    <!-- TOUR COORDINATOR 3 -->
+
+                    <article class="team-card">
+
+                        <div class="team-photo">
+
+                            <img src="tour-coordinator-3.jpg"
+                                 alt="Tour Coordinator"
+                                 loading="lazy">
+
+                            <i class="bi bi-person-fill photo-placeholder"></i>
+
+                        </div>
+
+                        <h4><!-- Personnel Name --></h4>
+
+                        <span>Tour Coordinator</span>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- ==================================
+             CONTACT SECTION
+        =================================== -->
+
+        <section class="about-contact glass">
+
+            <span class="kicker">
+
+                LET'S EXPLORE TOGETHER
+
+            </span>
+
+            <h2>
+
+                Ready for your next adventure?
+
+            </h2>
+
+            <p>
+
+                Let our team help you plan your journey.
+
+            </p>
+
+            <a href="contact.html">
+
+                Contact Us
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- ======================================
+         WEBSITE FOOTER
+    ======================================= -->
+
+    <footer>
+
+        <div class="footer-brand">
+
+            Puerto Princesa of Wonder Travel and Tours
+
+        </div>
+
+        <p>
+
+            Services Cooperative Travel and Tours
+
+        </p>
+
+        <p class="copyright">
+
+            © 2026 Puerto Princesa of Wonder.
+            All Rights Reserved.
+
+        </p>
+
+    </footer>
+
+</body>
+
 </html>

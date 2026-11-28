@@ -1,46 +1,1306 @@
-#international{background:linear-gradient(135deg,#071b25,#0d3441);color:white;padding-bottom:70px;min-height:80vh}
-#international .intro{text-align:center;padding:65px 20px 40px}
-#international .intro span{color:#62d5c4;letter-spacing:3px;font-weight:bold;font-size:13px}
-#international h1{font-size:clamp(32px,5vw,56px);margin:15px 0}
-#international p{color:#c5e1e3;line-height:1.7}
-#international .workspace,#international .attractions{width:min(1200px,94%);margin:auto}
-#international .workspace{padding:25px;background:#ffffff12;border:1px solid #ffffff33;border-radius:22px}
-#international h2{margin-bottom:20px}
-#international .search{display:flex;gap:15px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
-#destinationSearch{padding:12px;border:1px solid #62d5c4;border-radius:10px;width:min(400px,100%);color:#12333d;background:white}
-#internationalMap{height:560px;background:#87ceeb;border-radius:15px;z-index:1}
-#terrainSelection{margin:15px 0}
-#terrainButtons{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-#terrainButtons button{padding:15px;background:#ffffff12;color:white;border:1px solid #62d5c4;border-radius:12px;font-weight:bold}
-#terrainButtons button:hover,#terrainButtons button.active{background:#ffd700;color:#092b36;box-shadow:0 0 17px #ffd70066}
-#international [hidden]{display:none!important}
-#international .attractions{margin-top:45px;scroll-margin-top:160px}
-#international .attractions h2,#international .note{text-align:center}
-#international .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px}
-#international article{overflow:hidden;border-radius:16px;background:#102d38;border:1px solid #62d5c433}
-#international article img{width:100%;height:220px;object-fit:cover;display:block;background:#244c55}
-#international article div{padding:22px}
-#international article h3{margin-bottom:12px}
-#international article a{display:inline-block;margin-top:18px;padding:10px 18px;background:#0d9488;color:white;border-radius:8px;text-decoration:none}
-body>header.navbar{flex-direction:column;align-items:flex-start;gap:12px}
-body>header.navbar .nav-links{justify-content:flex-start;width:100%}
-@media(max-width:700px){#international .cards{grid-template-columns:1fr}
-#internationalMap{height:400px}
-#international .workspace{padding:15px}
+/* ==========================================
+   GLOBAL STYLES
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* INTERNATIONAL TOUR PACKAGES */
-#international .package-grid {display:grid;grid-template-columns:repeat(2,minmax(0,380px));justify-content:center;gap:24px;margin-top:24px}
-#international .package-card {display:flex;flex-direction:column;transition:transform .25s,border-color .25s}
-#international .package-card:hover {transform:translateY(-5px);border-color:#62d5c4}
-#international .package-content {display:flex;flex-direction:column;flex:1;padding:22px}
-#international .package-duration {align-self:flex-start;background:#62d5c426;color:#62d5c4;border-radius:20px;padding:7px 12px;font-size:12px;font-weight:700;margin-bottom:12px}
-#international .package-content h4 {margin:12px 0;color:white;font-size:15px}
-#international .package-content ul {list-style:none;padding:0;margin:0 0 18px}
-#international .package-content li {color:#c5dfe1;font-size:14px;margin-bottom:9px}
-#international .package-content li::before {content:"✓";color:#62d5c4;margin-right:10px}
-#international .package-price {margin-top:auto;border-top:1px solid #ffffff26;padding-top:16px}
-#international .package-price strong {display:block;color:#62d5c4;font-size:29px}
-#international .package-book {display:block;text-align:center;background:#62d5c4;color:#071b25;font-weight:800}
-#international .package-book:hover {background:#ffd700}
-@media(max-width:650px){#international .package-grid {grid-template-columns:minmax(0,400px)}}
+html {
+    scroll-behavior: smooth;
+}
+
+body.international-page {
+    background: #f0f7ff;
+    color: #16365c;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#international {
+    background: linear-gradient(
+        135deg,
+        #f0f7ff,
+        #e0edff,
+        #f8fbff
+    );
+
+    min-height: 80vh;
+    padding-bottom: 70px;
+    color: #16365c;
+}
+
+#international [hidden],
+.ppow-header [hidden] {
+    display: none !important;
+}
+
+#international button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   HOMEPAGE HEADER
+========================================== */
+
+body.international-page > header.ppow-header {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 76px;
+    padding: 10px 2%;
+    gap: 16px;
+
+    background: #ffffff;
+
+    position: sticky;
+    top: 0;
+    z-index: 1500;
+
+    box-shadow: 0 3px 18px rgba(37, 99, 235, 0.08);
+}
+
+.ppow-header .nav-links a,
+.ppow-header .header-icon,
+.ppow-header .customer-avatar-btn {
+    transition: all 0.3s ease;
+}
+
+.ppow-header .nav-links a:hover,
+.ppow-header .header-icon:hover,
+.ppow-header .customer-avatar-btn:hover {
+    background: #facc15;
+    color: #16365c;
+    border-color: #facc15;
+}
+
+
+/* ==========================================
+   INTERNATIONAL SUB HERO
+========================================== */
+
+#international .intro {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 390px;
+
+    padding: 80px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background: #16365c;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+}
+
+
+/* ==========================================
+   SUB HERO BACKGROUND PICTURE
+========================================== */
+
+#international .intro-background {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+
+    z-index: 0;
+
+}
+
+
+/* ==========================================
+   SUB HERO DARK OVERLAY
+========================================== */
+
+#international .intro-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.30);
+
+    z-index: 1;
+
+    pointer-events: none;
+
+}
+
+
+/* ==========================================
+   SUB HERO CONTENT
+========================================== */
+
+#international .intro-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#international .intro .eyebrow {
+
+    color: #facc15;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 10px;
+
+    animation: internationalFadeUp 0.7s ease both;
+
+}
+
+#international .intro h1 {
+
+    font-size: clamp(35px, 5vw, 65px);
+
+    font-weight: 900;
+
+    line-height: 1.15;
+
+    margin: 15px 0;
+
+    color: white;
+
+    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.25);
+
+    animation: internationalFadeUp 0.8s ease both;
+
+}
+
+#international .intro h1 span {
+
+    color: #facc15;
+
+}
+
+#international .intro p {
+
+    max-width: 700px;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+
+    animation: internationalFadeUp 0.9s ease both;
+
+}
+
+
+/* ==========================================
+   EXPLORE TOUR PACKAGES BUTTON
+========================================== */
+
+#international .hero-button {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 14px 25px;
+
+    margin-top: 25px;
+
+    background: #facc15;
+
+    color: #16365c;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+
+    animation: internationalFadeUp 1s ease;
+
+}
+
+#international .hero-button:hover {
+
+    background: #ffffff;
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+}
+
+
+/* ==========================================
+   PACKAGE NAVIGATION
+========================================== */
+
+#international .package-navigation {
+
+    width: min(1200px, 94%);
+
+    margin: auto;
+
+    padding: 55px 15px 35px;
+
+    text-align: center;
+
+    scroll-margin-top: 100px;
+
+}
+
+#international .section-eyebrow {
+
+    color: #2563eb;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+#international .package-navigation h2 {
+
+    font-size: clamp(25px, 3vw, 36px);
+
+    margin: 13px 0;
+
+    color: #16365c;
+
+}
+
+#international .package-navigation p {
+
+    color: #526b89;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+}
+
+
+/* ==========================================
+   COUNTRY FILTER BUTTONS
+========================================== */
+
+#international .country-filters {
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 25px;
+
+}
+
+#international .country-filter {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 13px 24px;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 30px;
+
+    background: white;
+
+    color: #16365c;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.06);
+
+    transition: all 0.3s ease;
+
+}
+
+#international .country-filter:hover,
+#international .country-filter.active {
+
+    background: #facc15;
+
+    border-color: #facc15;
+
+    color: #16365c;
+
+    transform: translateY(-3px);
+
+}
+
+
+/* ==========================================
+   COUNTRY SECTIONS
+========================================== */
+
+#international .country-section {
+
+    width: min(1200px, 94%);
+
+    margin: 0 auto 60px;
+
+    scroll-margin-top: 100px;
+
+}
+
+
+/* ==========================================
+   COUNTRY BANNERS
+========================================== */
+
+#international .country-banner {
+
+    position: relative;
+
+    min-height: 260px;
+
+    padding: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background: #16365c;
+
+    isolation: isolate;
+
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.12);
+
+}
+
+
+/* ==========================================
+   VIETNAM AND JAPAN BANNER PICTURES
+========================================== */
+
+#international .banner-background {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    z-index: 0;
+
+    transition: transform 0.7s ease;
+
+}
+
+#international .country-banner:hover .banner-background {
+
+    transform: scale(1.04);
+
+}
+
+
+/* ==========================================
+   COUNTRY BANNER OVERLAY
+========================================== */
+
+#international .banner-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.60),
+        rgba(0, 0, 0, 0.08)
+    );
+
+    z-index: 1;
+
+    pointer-events: none;
+
+}
+
+
+/* ==========================================
+   COUNTRY BANNER CONTENT
+========================================== */
+
+#international .country-banner-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 550px;
+
+}
+
+#international .country-banner-content span {
+
+    color: #facc15;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+#international .country-banner-content h2 {
+
+    color: white;
+
+    font-size: clamp(38px, 5vw, 60px);
+
+    margin: 12px 0;
+
+    font-weight: 900;
+
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+
+}
+
+#international .country-banner-content p {
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+}
+
+
+/* ==========================================
+   PACKAGE SECTION HEADING
+========================================== */
+
+#international .section-heading {
+
+    text-align: center;
+
+    margin: 40px 0 25px;
+
+}
+
+#international .section-heading h2 {
+
+    font-size: clamp(24px, 3vw, 32px);
+
+    color: #16365c;
+
+    margin: 12px 0;
+
+}
+
+
+/* ==========================================
+   PACKAGE GRID
+========================================== */
+
+#international .package-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 390px));
+
+    justify-content: center;
+
+    align-items: stretch;
+
+    gap: 25px;
+
+}
+
+
+/* ==========================================
+   GLASSY TOUR PACKAGE CARDS
+========================================== */
+
+#international .package-card {
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    backdrop-filter: blur(15px);
+
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.08);
+
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+
+}
+
+#international .package-card:hover {
+
+    transform: translateY(-8px);
+
+    border-color: #facc15;
+
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
+
+}
+
+
+/* ==========================================
+   TOUR CARD PICTURES
+========================================== */
+
+#international .package-image {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 235px;
+
+    overflow: hidden;
+
+    background: #dbeafe;
+
+}
+
+#international .package-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    display: block;
+
+    transition: transform 0.6s ease;
+
+}
+
+#international .package-card:hover .package-image img {
+
+    transform: scale(1.08);
+
+}
+
+
+/* ==========================================
+   COUNTRY LABEL
+========================================== */
+
+#international .package-country {
+
+    position: absolute;
+
+    top: 15px;
+
+    left: 15px;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    color: #16365c;
+
+    padding: 8px 13px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    z-index: 2;
+
+}
+
+
+/* ==========================================
+   PACKAGE CONTENT
+========================================== */
+
+#international .package-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+
+    padding: 24px;
+
+}
+
+#international .package-duration {
+
+    align-self: flex-start;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    background: #dbeafe;
+
+    color: #1d4ed8;
+
+    padding: 8px 13px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-bottom: 15px;
+
+}
+
+#international .package-content h3 {
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    line-height: 1.4;
+
+    color: #16365c;
+
+    margin-bottom: 16px;
+
+}
+
+#international .package-content h4 {
+
+    color: #16365c;
+
+    font-size: 15px;
+
+    margin-bottom: 14px;
+
+}
+
+
+/* ==========================================
+   PACKAGE INCLUSIONS
+========================================== */
+
+#international .package-content ul {
+
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0 0 20px;
+
+}
+
+#international .package-content li {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #526b89;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-bottom: 10px;
+
+}
+
+#international .package-content li::before {
+
+    content: "✓";
+
+    color: #2563eb;
+
+    font-weight: 900;
+
+}
+
+
+/* ==========================================
+   PACKAGE PRICE
+========================================== */
+
+#international .package-price {
+
+    margin-top: auto;
+
+    border-top: 1px solid #dbeafe;
+
+    padding-top: 18px;
+
+}
+
+#international .package-price small {
+
+    color: #64748b;
+
+    font-size: 12px;
+
+}
+
+#international .package-price strong {
+
+    display: block;
+
+    font-size: 32px;
+
+    color: #2563eb;
+
+    font-weight: 900;
+
+    margin: 5px 0;
+
+}
+
+
+/* ==========================================
+   INQUIRE NOW BUTTON
+========================================== */
+
+#international .package-book {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 20px;
+
+    background: #2563eb;
+
+    color: white;
+
+    border: 1px solid transparent;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+
+}
+
+#international .package-book:hover {
+
+    background: #facc15;
+
+    border-color: #facc15;
+
+    color: #16365c;
+
+    box-shadow: 0 5px 18px rgba(250, 204, 21, 0.25);
+
+}
+
+#international .package-book i {
+
+    transition: transform 0.3s ease;
+
+}
+
+#international .package-book:hover i {
+
+    transform: translateX(5px);
+
+}
+
+
+/* ==========================================
+   PACKAGE NOTICE
+========================================== */
+
+#international .package-notice {
+
+    width: min(850px, 94%);
+
+    margin: 20px auto 0;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    background: rgba(255, 255, 255, 0.85);
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: 14px;
+
+}
+
+#international .package-notice i {
+
+    color: #2563eb;
+
+    font-size: 22px;
+
+}
+
+#international .package-notice p {
+
+    color: #526b89;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+}
+
+
+/* ==========================================
+   NO SEARCH RESULTS
+========================================== */
+
+#international .no-results {
+
+    width: min(700px, 94%);
+
+    margin: 20px auto;
+
+    padding: 40px 20px;
+
+    text-align: center;
+
+    background: white;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 20px;
+
+}
+
+#international .no-results i {
+
+    font-size: 35px;
+
+    color: #2563eb;
+
+}
+
+#international .no-results h3 {
+
+    margin: 15px 0;
+
+}
+
+#international .no-results p {
+
+    color: #526b89;
+
+}
+
+#international .no-results button {
+
+    margin-top: 20px;
+
+    padding: 12px 20px;
+
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+
+    transition: all 0.3s ease;
+
+}
+
+#international .no-results button:hover {
+
+    background: #facc15;
+
+    color: #16365c;
+
+}
+
+
+/* ==========================================
+   MISSING IMAGE FALLBACK
+========================================== */
+
+#international .image-missing {
+
+    visibility: hidden;
+
+}
+
+#international .package-image.missing-picture::before {
+
+    content: "Destination Image";
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #526b89;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+body.international-page > footer {
+
+    width: 100%;
+
+    padding: 40px 20px;
+
+    background: #e0edff;
+
+    color: #16365c;
+
+    text-align: center;
+
+    border-top: 1px solid #bfdbfe;
+
+}
+
+body.international-page footer .footer-brand {
+
+    color: #1d4ed8;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    margin-bottom: 10px;
+
+}
+
+body.international-page footer p {
+
+    font-size: 13px;
+
+    color: #526b89;
+
+    margin: 7px 0;
+
+}
+
+
+/* ==========================================
+   FADE UP ANIMATION
+========================================== */
+
+@keyframes internationalFadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(25px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+#international .country-section.reveal {
+
+    animation: internationalFadeUp 0.6s ease;
+
+}
+
+
+/* ==========================================
+   SCROLL REVEAL ANIMATION
+========================================== */
+
+#international .scroll-reveal {
+
+    opacity: 0;
+
+    transform: translateY(30px);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+
+}
+
+#international .scroll-reveal.visible {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+#international .package-card.scroll-reveal.visible:hover {
+
+    transform: translateY(-8px);
+
+}
+
+
+/* ==========================================
+   KEYBOARD ACCESSIBILITY
+========================================== */
+
+#international button:focus-visible,
+#international a:focus-visible {
+
+    outline: 3px solid #2563eb;
+
+    outline-offset: 4px;
+
+}
+
+
+/* ==========================================
+   RESPONSIVE TABLET
+========================================== */
+
+@media (max-width: 900px) {
+
+    #international .country-banner {
+
+        min-height: 220px;
+
+        padding: 30px;
+
+    }
+
+    #international .package-grid {
+
+        gap: 18px;
+
+    }
+
+    #international .package-image {
+
+        height: 210px;
+
+    }
+
+}
+
+
+/* ==========================================
+   RESPONSIVE MOBILE
+========================================== */
+
+@media (max-width: 650px) {
+
+    #international .intro {
+
+        min-height: 340px;
+
+        padding: 50px 20px;
+
+    }
+
+    #international .intro p {
+
+        font-size: 14px;
+
+    }
+
+    #international .package-grid {
+
+        grid-template-columns: minmax(0, 400px);
+
+    }
+
+    #international .country-banner {
+
+        min-height: 200px;
+
+        padding: 25px;
+
+    }
+
+    #international .country-filter {
+
+        padding: 10px 15px;
+
+        font-size: 12px;
+
+    }
+
+    #international .country-filters {
+
+        gap: 8px;
+
+    }
+
+    #international .package-content {
+
+        padding: 20px;
+
+    }
+
+    #international .package-content h3 {
+
+        font-size: 21px;
+
+    }
+
+    #international .package-navigation {
+
+        padding-top: 35px;
+
+    }
+
+    #international .package-notice {
+
+        align-items: flex-start;
+
+    }
+
+}
+
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+
+        scroll-behavior: auto;
+
+    }
+
+    #international *,
+    #international *::before,
+    #international *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
+
+    #international .scroll-reveal {
+
+        opacity: 1;
+
+        transform: none;
+
+    }
+
+}

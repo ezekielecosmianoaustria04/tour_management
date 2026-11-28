@@ -1,137 +1,1133 @@
-
 /* ==========================================
-   HEADER - TWO ROW LAYOUT
+   DISCOVER PALAWAN - COLOR VARIABLES
 ========================================== */
 
-body > header.navbar {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+body.discover-palawan-page {
+
+    --terrain-page: #f0f7ff;
+    --terrain-white: #ffffff;
+    --terrain-blue: #2563eb;
+    --terrain-dark-blue: #1d4ed8;
+    --terrain-light-blue: #dbeafe;
+    --terrain-navy: #16365c;
+    --terrain-muted: #526b89;
+    --terrain-yellow: #facc15;
+    --terrain-border: #cddff5;
+
+    --terrain-shadow:
+        0 10px 30px rgba(22, 54, 92, 0.10);
+
+    margin: 0;
+
+    background: var(--terrain-page);
+
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+/* ==========================================
+   GENERAL RESET
+========================================== */
+
+*,
+*::before,
+*::after {
+
+    box-sizing: border-box;
+
+}
+
+html {
+
+    scroll-behavior: smooth;
+
+    scroll-padding-top: 110px;
+
+}
+
+[hidden] {
+
+    display: none !important;
+
+}
+
+button,
+input {
+
+    font: inherit;
+
+}
+
+button {
+
+    cursor: pointer;
+
+}
+
+
+/* ==========================================
+   HEADER
+
+   HEADER DESIGN IS SHARED FROM tripplanner.css
+========================================== */
+
+.discover-palawan-page .ppow-header .nav-links a,
+.discover-palawan-page .ppow-header .header-icon,
+.discover-palawan-page .ppow-header .customer-avatar-btn {
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+
+}
+
+.discover-palawan-page .ppow-header .nav-links a:hover,
+.discover-palawan-page .ppow-header .header-icon:hover,
+.discover-palawan-page .ppow-header .customer-avatar-btn:hover {
+
+    background-color: #facc15 !important;
+
+    color: #16365c !important;
+
+    border-color: #facc15 !important;
+
+}
+
+
+/* ==========================================
+   MAIN BACKGROUND
+
+   CHANGE PAGE BACKGROUND HERE
+========================================== */
+
+#terrain-planner {
+
+    display: block;
 
     width: 100%;
-    min-height: auto;
-    padding: 12px 4%;
+
+    min-height: 80vh;
+
+    padding: 0 0 75px;
+
+    background: linear-gradient(
+        135deg,
+        #f0f7ff,
+        #e5f0ff,
+        #f0f7ff
+    );
+
+    color: var(--terrain-navy);
+
+    animation: terrainPageEntrance 0.8s ease both;
+
+}
+
+@keyframes terrainPageEntrance {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* ==========================================
+   HERO SECTION
+========================================== */
+
+#terrain-planner .terrain-hero {
+
+    position: relative;
+
+    width: 100%;
+
+    padding: 75px 20px 55px;
+
+    text-align: center;
+
+    background: linear-gradient(
+        180deg,
+        #dbeafe,
+        #f0f7ff
+    );
+
+}
+
+
+/* ==========================================
+   HERO LABEL
+========================================== */
+
+#terrain-planner .terrain-kicker {
+
+    display: inline-block;
+
+    color: var(--terrain-blue);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+}
+
+
+/* ==========================================
+   HERO TITLE
+========================================== */
+
+#terrain-planner .terrain-hero h1 {
+
+    margin: 18px 0;
+
+    color: var(--terrain-navy);
+
+    font-size: clamp(35px, 5vw, 62px);
+
+    font-weight: 900;
+
+    line-height: 1.15;
+
+    animation: terrainFadeUp 0.8s ease 0.1s both;
+
+}
+
+
+/* ==========================================
+   HERO DESCRIPTION
+========================================== */
+
+#terrain-planner .terrain-hero p {
+
+    max-width: 780px;
+
+    margin: 0 auto;
+
+    color: var(--terrain-muted);
+
+    font-size: 15px;
+
+    line-height: 1.9;
+
+    animation: terrainFadeUp 0.8s ease 0.25s both;
+
+}
+
+@keyframes terrainFadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(30px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/* ==========================================
+   MAP WORKSPACE
+========================================== */
+
+#terrain-planner .terrain-workspace {
+
+    display: block;
+
+    width: min(1350px, 92%);
+
+    margin: 0 auto;
+
+}
+
+
+/* ==========================================
+   GLASSY MAP PANEL
+========================================== */
+
+#terrain-planner .terrain-map-panel {
+
+    position: relative;
+
+    padding: 30px;
+
+    border: 1px solid var(--terrain-border);
+
+    border-radius: 25px;
+
+    background: rgba(255, 255, 255, 0.85);
+
+    backdrop-filter: blur(15px);
+
+    box-shadow: var(--terrain-shadow);
+
+    transition:
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+
+    animation: terrainFadeUp 0.9s ease 0.35s both;
+
+}
+
+#terrain-planner .terrain-map-panel:hover {
+
+    border-color: #93c5fd;
+
+    box-shadow:
+        0 15px 40px rgba(37, 99, 235, 0.15);
+
+}
+
+
+/* ==========================================
+   MAP PANEL TITLE
+========================================== */
+
+#terrain-planner .terrain-map-panel h2 {
+
+    margin: 12px 0 25px;
+
+    color: var(--terrain-navy);
+
+    font-size: clamp(23px, 3vw, 32px);
+
+    font-weight: 800;
+
+}
+
+
+/* ==========================================
+   DESTINATION SEARCH ROW
+========================================== */
+
+#terrain-planner .terrain-search-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin: 0 0 22px;
+
+}
+
+
+/* ==========================================
+   DESTINATION SEARCH INPUT
+========================================== */
+
+#terrain-planner #destinationSearch {
+
+    width: min(450px, 100%);
+
+    height: 48px;
+
+    padding: 0 18px;
+
+    border: 1px solid var(--terrain-border);
+
+    border-radius: 14px;
+
+    background: #f8fbff;
+
+    color: var(--terrain-navy);
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background-color 0.3s ease;
+
+}
+
+#terrain-planner #destinationSearch::placeholder {
+
+    color: #7890ad;
+
+}
+
+#terrain-planner #destinationSearch:hover {
+
+    border-color: var(--terrain-blue);
+
+}
+
+#terrain-planner #destinationSearch:focus {
+
+    background: white;
+
+    border-color: var(--terrain-blue);
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.12);
+
+}
+
+
+/* ==========================================
+   DESTINATION COUNTER
+========================================== */
+
+#terrain-planner #destinationCount {
+
+    color: var(--terrain-blue);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+/* ==========================================
+   INTERACTIVE TERRAIN MAP
+
+   CHANGE MAP HEIGHT HERE
+========================================== */
+
+#terrain-planner #philippinesTerrainMap {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+
+    height: 600px;
+
+    overflow: hidden;
+
+    border: 2px solid var(--terrain-light-blue);
+
+    border-radius: 18px;
+
+    background: #b7dcf7;
+
+    box-shadow:
+        0 5px 20px rgba(22, 54, 92, 0.08);
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+#terrain-planner #philippinesTerrainMap:hover {
+
+    border-color: var(--terrain-blue);
+
+}
+
+
+/* ==========================================
+   MAP ZOOM CONTROLS
+========================================== */
+
+#terrain-planner .leaflet-bar {
+
+    overflow: hidden;
+
+    border: 1px solid var(--terrain-border);
+
+    border-radius: 10px;
+
+    box-shadow: var(--terrain-shadow);
+
+}
+
+#terrain-planner .leaflet-bar a {
+
+    background: white;
+
+    color: var(--terrain-blue);
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+
+}
+
+#terrain-planner .leaflet-bar a:hover {
+
+    background: var(--terrain-yellow);
+
+    color: var(--terrain-navy);
+
+}
+
+
+/* ==========================================
+   MAP TOOLTIP
+========================================== */
+
+#terrain-planner .leaflet-tooltip {
+
+    padding: 8px 14px;
+
+    border: 1px solid var(--terrain-border);
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: var(--terrain-navy);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 5px 15px rgba(22, 54, 92, 0.15);
+
+}
+
+
+/* ==========================================
+   SELECTED DESTINATION
+========================================== */
+
+#terrain-planner .terrain-selection {
+
+    min-height: 24px;
+
+    margin: 22px 0 10px;
+
+    color: var(--terrain-blue);
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+/* ==========================================
+   DESTINATION BUTTON GRID
+========================================== */
+
+#terrain-planner .terrain-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
     gap: 12px;
 
-    background: #071b25;
+    margin-top: 18px;
+
 }
 
-/* FIRST ROW: LOGO AND COMPANY NAME */
 
-body > header.navbar .brand-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    gap: 8px;
-}
+/* ==========================================
+   DESTINATION BUTTONS
+========================================== */
 
-body > header.navbar .company-logo img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 50%;
-}
+#terrain-planner .terrain-buttons button {
 
-body > header.navbar .brand {
-    font-size: 14px;
-    font-weight: 900;
-    line-height: 1.3;
-    max-width: 330px;
-}
+    position: relative;
 
-/* SECOND ROW: SEARCH AND NAVIGATION */
-
-body > header.navbar .nav-links {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-
-    width: 100%;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-/* SEARCH BAR */
-
-body > header.navbar .home-search {
-    width: 350px;
     min-height: 48px;
-    flex-shrink: 0;
+
+    padding: 13px 10px;
+
+    border: 1px solid #93c5fd;
+
+    border-radius: 12px;
+
+    background: var(--terrain-light-blue);
+
+    color: var(--terrain-navy);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    white-space: normal;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
 }
 
-/* NAVIGATION BUTTONS */
 
-body > header.navbar .nav-links > button,
-body > header.navbar .nav-links > a {
-    font-size: 16px;
-    padding: 10px 11px;
-    white-space: nowrap;
+/* ==========================================
+   DESTINATION BUTTON YELLOW HOVER
+========================================== */
+
+#terrain-planner .terrain-buttons button:hover {
+
+    background: var(--terrain-yellow);
+
+    color: var(--terrain-navy);
+
+    border-color: var(--terrain-yellow);
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 8px 20px rgba(250, 204, 21, 0.35);
+
 }
 
-/* RESPONSIVE */
 
-@media (max-width: 768px) {
-    body > header.navbar .nav-links {
-        justify-content: flex-start;
+/* ==========================================
+   ACTIVE DESTINATION BUTTON
+========================================== */
+
+#terrain-planner .terrain-buttons button.active {
+
+    background: var(--terrain-yellow);
+
+    color: var(--terrain-navy);
+
+    border-color: var(--terrain-yellow);
+
+    box-shadow:
+        0 0 18px rgba(250, 204, 21, 0.45);
+
+}
+
+#terrain-planner .terrain-buttons button:active {
+
+    transform: scale(0.97);
+
+}
+
+#terrain-planner .terrain-buttons button[hidden] {
+
+    display: none;
+
+}
+
+
+/* ==========================================
+   MAP NOTE
+========================================== */
+
+#terrain-planner .terrain-note {
+
+    margin: 22px 0 0;
+
+    color: var(--terrain-muted);
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+}
+
+
+/* ==========================================
+   ATTRACTIONS SECTION
+========================================== */
+
+#terrain-planner .attractions-section {
+
+    width: min(1350px, 92%);
+
+    margin: 65px auto 0;
+
+    scroll-margin-top: 120px;
+
+}
+
+#terrain-planner .destination-attractions[hidden] {
+
+    display: none;
+
+}
+
+#terrain-planner .destination-attractions:not([hidden]) {
+
+    animation: attractionEntrance 0.7s ease both;
+
+}
+
+@keyframes attractionEntrance {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(35px);
+
     }
 
-    body > header.navbar .home-search {
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/* ==========================================
+   ATTRACTIONS HEADING
+========================================== */
+
+#terrain-planner .attractions-heading {
+
+    margin-bottom: 35px;
+
+    text-align: center;
+
+}
+
+#terrain-planner .attractions-heading h2 {
+
+    margin: 14px 0;
+
+    color: var(--terrain-navy);
+
+    font-size: clamp(26px, 3.3vw, 42px);
+
+    font-weight: 900;
+
+}
+
+#terrain-planner .attractions-heading p {
+
+    max-width: 750px;
+
+    margin: 0 auto;
+
+    color: var(--terrain-muted);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+}
+
+
+/* ==========================================
+   ATTRACTIONS GRID
+========================================== */
+
+#terrain-planner .attractions-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 25px;
+
+}
+
+
+/* ==========================================
+   ATTRACTION CARDS
+========================================== */
+
+#terrain-planner .attraction-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    min-width: 0;
+
+    border: 2px solid white;
+
+    border-radius: 20px;
+
+    background: var(--terrain-white);
+
+    box-shadow: var(--terrain-shadow);
+
+    transition:
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+
+}
+
+
+/* ==========================================
+   ATTRACTION CARD HOVER
+========================================== */
+
+#terrain-planner .attraction-card:hover {
+
+    transform: translateY(-8px);
+
+    border-color: var(--terrain-yellow);
+
+    box-shadow:
+        0 15px 35px rgba(37, 99, 235, 0.18);
+
+}
+
+
+/* ==========================================
+   ATTRACTION CARD IMAGE
+
+   CHANGE IMAGE HEIGHT HERE
+========================================== */
+
+#terrain-planner .attraction-card img {
+
+    display: block;
+
+    width: 100%;
+
+    height: 240px;
+
+    object-fit: cover;
+
+    background: var(--terrain-light-blue);
+
+    transition: transform 0.6s ease;
+
+}
+
+#terrain-planner .attraction-card:hover img {
+
+    transform: scale(1.05);
+
+}
+
+
+/* ==========================================
+   ATTRACTION CARD CONTENT
+========================================== */
+
+#terrain-planner .attraction-card-content {
+
+    position: relative;
+
+    padding: 24px;
+
+    background: white;
+
+}
+
+#terrain-planner .attraction-card h3 {
+
+    margin: 0 0 12px;
+
+    color: var(--terrain-navy);
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    line-height: 1.4;
+
+    transition: color 0.3s ease;
+
+}
+
+#terrain-planner .attraction-card:hover h3 {
+
+    color: var(--terrain-blue);
+
+}
+
+#terrain-planner .attraction-card p {
+
+    margin: 0;
+
+    color: var(--terrain-muted);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+}
+
+
+/* ==========================================
+   ATTRACTION CARD ENTRANCE ANIMATION
+========================================== */
+
+#terrain-planner
+.destination-attractions:not([hidden])
+.attraction-card {
+
+    animation: attractionCardEntrance 0.6s ease backwards;
+
+}
+
+#terrain-planner .attraction-card:nth-child(2) {
+
+    animation-delay: 0.1s !important;
+
+}
+
+#terrain-planner .attraction-card:nth-child(3) {
+
+    animation-delay: 0.2s !important;
+
+}
+
+#terrain-planner .attraction-card:nth-child(4) {
+
+    animation-delay: 0.3s !important;
+
+}
+
+@keyframes attractionCardEntrance {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(25px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+body.discover-palawan-page > footer {
+
+    width: 100%;
+
+    padding: 40px 6%;
+
+    border-top: 1px solid var(--terrain-border);
+
+    background: #e0edff;
+
+    color: var(--terrain-navy);
+
+    text-align: center;
+
+}
+
+.discover-palawan-page footer .footer-brand {
+
+    margin-bottom: 10px;
+
+    color: var(--terrain-navy);
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+}
+
+.discover-palawan-page footer p {
+
+    margin: 0 0 8px;
+
+    color: var(--terrain-muted);
+
+    font-size: 14px;
+
+}
+
+.discover-palawan-page footer .copyright {
+
+    margin-top: 18px;
+
+    font-size: 12px;
+
+}
+
+
+/* ==========================================
+   TABLET RESPONSIVE
+========================================== */
+
+@media (max-width: 1000px) {
+
+    #terrain-planner .terrain-buttons {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+    }
+
+    #terrain-planner #philippinesTerrainMap {
+
+        height: 520px;
+
+    }
+
+    #terrain-planner .attractions-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE RESPONSIVE
+========================================== */
+
+@media (max-width: 600px) {
+
+    #terrain-planner .terrain-hero {
+
+        padding: 50px 18px 35px;
+
+    }
+
+    #terrain-planner .terrain-hero h1 {
+
+        font-size: 38px;
+
+    }
+
+    #terrain-planner .terrain-hero p {
+
+        font-size: 14px;
+
+    }
+
+    #terrain-planner .terrain-map-panel {
+
+        padding: 15px;
+
+        border-radius: 18px;
+
+    }
+
+    #terrain-planner #philippinesTerrainMap {
+
+        height: 430px;
+
+        border-radius: 12px;
+
+    }
+
+    #terrain-planner .terrain-buttons {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 8px;
+
+    }
+
+    #terrain-planner .terrain-buttons button {
+
+        font-size: 12px;
+
+    }
+
+    #terrain-planner .terrain-search-row {
+
+        display: block;
+
+    }
+
+    #terrain-planner #destinationSearch {
+
         width: 100%;
+
     }
+
+    #terrain-planner #destinationCount {
+
+        display: block;
+
+        margin-top: 12px;
+
+    }
+
+    #terrain-planner .attractions-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    #terrain-planner .attraction-card img {
+
+        height: 220px;
+
+    }
+
+    #terrain-planner .attraction-card-content {
+
+        padding: 20px;
+
+    }
+
 }
 
 
+/* ==========================================
+   KEYBOARD ACCESSIBILITY
+========================================== */
+
+#terrain-planner button:focus-visible,
+#terrain-planner input:focus-visible {
+
+    outline: 3px solid var(--terrain-blue);
+
+    outline-offset: 3px;
+
+}
 
 
+/* ==========================================
+   REDUCED MOTION
+========================================== */
 
+@media (prefers-reduced-motion: reduce) {
 
+    html {
 
+        scroll-behavior: auto;
 
+    }
 
+    #terrain-planner,
+    #terrain-planner *,
+    #terrain-planner *::before,
+    #terrain-planner *::after {
 
-/* Terrain-only page: original navbar and footer remain styled by style.css */
-#terrain-planner{background:linear-gradient(135deg,#071b25,#0d3441);color:#fff;min-height:80vh;padding-bottom:75px}
-#terrain-planner *{box-sizing:border-box}
-#terrain-planner .terrain-hero{text-align:center;padding:68px 20px 40px}
-#terrain-planner .terrain-kicker{color:#62d5c4;font-size:12px;font-weight:800;letter-spacing:2px}
-#terrain-planner .terrain-hero h1{font-size:clamp(30px,4vw,52px);font-weight:900;margin:15px 0}
-#terrain-planner .terrain-hero p{max-width:750px;margin:auto;color:#c5e1e3;font-size:15px;line-height:1.8}
-#terrain-planner .terrain-workspace{width:min(1250px,94%);margin:auto;display:block}
-#terrain-planner .terrain-map-panel{border:1px solid rgba(255,255,255,.24);border-radius:23px;padding:28px;background:rgba(255,255,255,.08);box-shadow:0 20px 50px rgba(0,0,0,.17)}
-#terrain-planner .terrain-map-panel h2{font-size:27px;font-weight:800;margin:10px 0 22px;color:#fff}
-#terrain-planner .terrain-search-row{display:flex;align-items:center;gap:18px;margin:0 0 18px}
-#terrain-planner #destinationSearch{width:min(440px,100%);height:45px;border:1px solid #a3d7d3;border-radius:12px;padding:0 15px;background:#fff;color:#12333d;font-size:14px;outline:none}
-#terrain-planner #destinationSearch:focus{box-shadow:0 0 0 3px rgba(98,213,196,.22)}
-#terrain-planner #destinationCount{font-size:12px;color:#bde3e0}
-#terrain-planner #philippinesTerrainMap{height:600px;width:100%;border-radius:16px;background:#87ceeb;z-index:1}
-#terrain-planner .terrain-selection{margin:17px 0 4px;color:#bcebe4;font-size:14px;font-weight:600;min-height:22px}
-#terrain-planner .terrain-buttons{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:15px}
-#terrain-planner .terrain-buttons button{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(98,213,196,.75);border-radius:12px;padding:13px 7px;font-size:13px;font-weight:700;min-height:47px;white-space:normal;transition:background .2s,box-shadow .2s,color .2s}
-#terrain-planner .terrain-buttons button:hover,#terrain-planner .terrain-buttons button.active{background:#ffd700;color:#092b36;border-color:#ffd700;box-shadow:0 0 17px rgba(255,215,0,.4)}
-#terrain-planner .terrain-buttons button[hidden]{display:none}
-#terrain-planner .terrain-note{font-size:12px;color:#b6d5d9;line-height:1.6;margin:20px 0 0}
-@media(max-width:900px){#terrain-planner .terrain-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}#terrain-planner #philippinesTerrainMap{height:520px}}
-@media(max-width:600px){#terrain-planner .terrain-hero{padding:50px 18px 30px}#terrain-planner .terrain-map-panel{padding:16px}#terrain-planner #philippinesTerrainMap{height:430px}#terrain-planner .terrain-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}#terrain-planner .terrain-search-row{display:block}#terrain-planner #destinationCount{display:block;margin-top:10px}}
+        animation: none !important;
 
-/* ATTRACTIONS: scoped to Palawan page only; homepage navbar/footer unchanged */
-#terrain-planner .attractions-section{width:min(1250px,94%);margin:45px auto 0;scroll-margin-top:110px}
-#terrain-planner .attractions-section[hidden]{display:none}
-#terrain-planner .attractions-heading{text-align:center;margin-bottom:28px}
-#terrain-planner .attractions-heading h2{color:#fff;font-size:clamp(26px,3.3vw,38px);font-weight:900;margin:12px 0}
-#terrain-planner .attractions-heading p{color:#c2dce0;font-size:14px;line-height:1.7}
-#terrain-planner .attractions-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
-#terrain-planner .attraction-card{overflow:hidden;background:#102d38;border:1px solid rgba(98,213,196,.22);border-radius:17px;box-shadow:0 10px 30px rgba(0,0,0,.18);transition:transform .25s}
-#terrain-planner .attraction-card:hover{transform:translateY(-5px);border-color:#62d5c4}
-#terrain-planner .attraction-card img{width:100%;height:215px;display:block;object-fit:cover;background:#244c55}
-#terrain-planner .attraction-card-content{padding:21px}
-#terrain-planner .attraction-card h3{color:#fff;font-size:20px;font-weight:800;margin:0 0 12px}
-#terrain-planner .attraction-card p{color:#bfd4d7;font-size:14px;line-height:1.75;margin:0}
-@media(max-width:850px){#terrain-planner .attractions-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){#terrain-planner .attractions-grid{grid-template-columns:1fr}}
+        transition: none !important;
 
-/* Header layout is maintained in style.css; keep this file for map and attraction styles only. */
-#terrain-planner .destination-attractions[hidden] {display:none}
-#terrain-planner .destination-attractions {scroll-margin-top:150px}
+    }
+
+}
